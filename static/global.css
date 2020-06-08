@@ -34,3 +34,9 @@ code {
 		font-size: 16px;
 	}
 }
+
+:root{
+	--border-color: #BFBFBF;
+	--background-color: #F2F2F2;
+	--primary-color: #006D8F;
+ }
