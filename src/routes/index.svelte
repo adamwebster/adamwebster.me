@@ -1,12 +1,12 @@
 <script>
 	import Hero from "../components/Hero/Hero.svelte";
+	import LatestWork from "../components/LatestWork/LatestWork.svelte";
+	import LatestBlogPosts from "../components/LatestBlogPosts/LatestBlogPosts.svelte";
 </script>
-<style>
-</style>
 
 <svelte:head>
 	<title>Sapper project template</title>
 </svelte:head>
-
 <Hero />
-Welcome to my site
+<LatestWork />
+<LatestBlogPosts />
