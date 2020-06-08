@@ -1,5 +1,7 @@
 
-
+<script>
+    import Logo from '../Logo/Logo.svelte';
+</script>
 <header>
-    <img src="./logo.svg" width="40px" alt="Adam Webster | UI Designer and Front-end Developer" />
+    <Logo classNames="awm-header-logo" width="44px"/>
 </header>
