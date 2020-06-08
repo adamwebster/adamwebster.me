@@ -1,18 +1,13 @@
 <style>
   .awm-hero {
     background-image: url(/herobg.png);
-    height: 500px;
-    background-position: right -75px;
+    height: 400px;
+    background-position: calc(100% + 100px) -180px;
     background-repeat: no-repeat;
   }
-  .awm-hero-inner {
-    width: 1080px;
-    margin: 0 auto;
-  }
-
   .awm-hero-message {
     width: 440px;
-    top: 100px;
+    top: 80px;
     position: relative;
   }
 
@@ -36,15 +31,13 @@
 </style>
 
 <section id="Hero" class="awm-hero">
-  <div class="awm-hero-inner">
     <div class="awm-hero-message">
       <h1>Adam Webster</h1>
       <h3>Designer and Front-end Developer</h3>
       <p>
         I specialize in designing and coding responsive, accessible websites
-        using technologies such as Wordpress, React and Gatsby.
+        using technologies such as <strong>Wordpress, React</strong> and <strong>Svelte</strong>.
       </p>
       <p>  I also design logos, business card and other marketing materials.</p>
     </div>
-  </div>
 </section>
