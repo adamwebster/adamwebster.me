@@ -6,6 +6,7 @@ import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
+import svelteSVG from "rollup-plugin-svelte-svg";
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -18,6 +19,7 @@ export default {
 		input: config.client.input(),
 		output: config.client.output(),
 		plugins: [
+			svelteSVG(),
 			replace({
 				'process.browser': true,
 				'process.env.NODE_ENV': JSON.stringify(mode)
