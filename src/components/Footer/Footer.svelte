@@ -9,6 +9,12 @@
     padding: 5px;
     box-sizing: border-box;
   }
+
+    @media only screen and (max-width: 1080px) {
+    .awm-footer-inner {
+      width: 100%;
+    }
+  }
 </style>
 
 <footer class="awm-footer">

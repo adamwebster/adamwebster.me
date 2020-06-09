@@ -28,6 +28,20 @@
     padding: 0;
     line-height: 1;
   }
+
+    @media only screen and (max-width: 768px) {
+   .awm-hero { 
+    background-image: none;
+        min-height: 400px;
+
+  }
+   .awm-hero-message {
+     margin: 0 auto;
+     width: 100%;
+             top:20px;
+
+   }
+  }
 </style>
 
 <section id="Hero" class="awm-hero">
