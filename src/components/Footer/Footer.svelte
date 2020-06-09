@@ -11,8 +11,6 @@
   }
 </style>
 
-<header class="awm-footer">
-  <div class="awm-footer-inner">
-  &copy; 2020 Adam Webster
-  </div>
-</header>
+<footer class="awm-footer">
+  <div class="awm-footer-inner">&copy; 2020 Adam Webster</div>
+</footer>
