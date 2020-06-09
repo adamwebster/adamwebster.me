@@ -1,7 +1,6 @@
 <script>
   import Logo from "../Logo/Logo.svelte";
-    import MainNav from "../MainNav/MainNav.svelte";
-
+  import MainNav from "../MainNav/MainNav.svelte";
 </script>
 
 <style>
@@ -16,7 +15,13 @@
     display: flex;
     align-items: center;
     flex: 1 1;
-    height:50px;
+    height: 50px;
+  }
+
+  @media only screen and (max-width: 1080px) {
+    .awm-header-inner {
+      width: 100%;
+    }
   }
 </style>
 
