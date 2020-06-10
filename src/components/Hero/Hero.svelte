@@ -29,29 +29,34 @@
     line-height: 1;
   }
 
-    @media only screen and (max-width: 768px) {
-   .awm-hero { 
-    background-image: none;
-        min-height: 400px;
-
-  }
-   .awm-hero-message {
-     margin: 0 auto;
-     width: 100%;
-             top:20px;
-
-   }
+  @media only screen and (max-width: 768px) {
+    .awm-hero {
+      background-image: none;
+      max-height: 400px;
+      height: auto;
+      margin-bottom: 50px;
+      float: left;
+    }
+    .awm-hero-message {
+      margin: 0 auto;
+      width: 100%;
+      top: 20px;
+    }
   }
 </style>
 
 <section id="Hero" class="awm-hero">
-    <div class="awm-hero-message">
-      <h1>Adam Webster</h1>
-      <h3>Designer and Front-end Developer</h3>
-      <p>
-        I specialize in designing and coding responsive, accessible websites
-        using technologies such as <strong>Wordpress, React</strong> and <strong>Svelte</strong>.
-      </p>
-      <p>  I also design logos, business card and other marketing materials.</p>
-    </div>
+  <div class="awm-hero-message">
+    <h1>Adam Webster</h1>
+    <h3>Designer and Front-end Developer</h3>
+    <p>
+      I specialize in designing and coding responsive, accessible websites using
+      technologies such as
+      <strong>Wordpress, React</strong>
+      and
+      <strong>Svelte</strong>
+      .
+    </p>
+    <p>  I also design logos, business card and other marketing materials.</p>
+  </div>
 </section>

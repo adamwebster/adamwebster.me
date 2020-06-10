@@ -42,30 +42,29 @@
     padding: 20px;
   }
 
-   @media only screen and (max-width: 1080px) {
-   .awm-list-of-portfolio-items { 
-    grid-template-rows:repeat(2, calc(25vw - 20px));
-    grid-template-columns: repeat(3, calc(25vw - 20px));
+  @media only screen and (max-width: 1080px) {
+    .awm-list-of-portfolio-items {
+      grid-template-rows: repeat(2, calc(25vw - 20px));
+      grid-template-columns: repeat(3, calc(25vw - 20px));
+    }
   }
-  
-}
   @media only screen and (max-width: 768px) {
-   .awm-list-of-portfolio-items { 
-    grid-template-rows: 33vw 33vw;
-    grid-template-columns: 33vw 33vw;
+    .awm-list-of-portfolio-items {
+      grid-template-rows: 33vw 33vw;
+      grid-template-columns: 33vw 33vw;
+    }
   }
-  }
- @media only screen and (max-width: 600px) {
-   .awm-section-inner { 
-    flex-flow: column;
-  }
-     .awm-list-of-portfolio-items { 
-       margin-top: 20px;
-       margin-left: 0;
-       width: 100%;
-    grid-template-rows:repeat(2, calc(33vw - 20px));
-    grid-template-columns: repeat(3, calc(33vw - 20px));
-  }
+  @media only screen and (max-width: 600px) {
+    .awm-section-inner {
+      flex-flow: column;
+    }
+    .awm-list-of-portfolio-items {
+      margin-top: 20px;
+      margin-left: 0;
+      width: 100%;
+      grid-template-rows: repeat(2, calc(33vw - 20px));
+      grid-template-columns: repeat(3, calc(33vw - 20px));
+    }
   }
 </style>
 
