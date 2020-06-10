@@ -18,7 +18,6 @@
     display: flex;
     width: 100%;
     margin-bottom: 60px;
-    height: 400px;
     box-sizing: border-box;
     flex-flow: column;
   }
@@ -42,9 +41,10 @@
   }
 
   @media only screen and (max-width: 768px) {
-    .awm-list-of-posts {
-      grid-template-rows: 1fr 1fr;
-      grid-template-columns: 1fr;
+    .awm-list-of-posts,
+    .awm-section-wrapper {
+      
+     display: block;
     }
   }
   @media only screen and (max-width: 600px) {

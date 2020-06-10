@@ -28,6 +28,12 @@
   .date {
     font-size: 13px;
   }
+
+  @media only screen and (max-width: 768px) {
+    .awm-list-item {
+      margin-bottom: 20px;
+    }
+  }
 </style>
 
 <div class="awm-list-item">

@@ -1,6 +1,6 @@
 <style>
   .awm-hero {
-    background-image: url(/herobg.png);
+    /* background-image: url(/herobg.png); */
     height: 400px;
     background-position: calc(100% + 100px) -180px;
     background-repeat: no-repeat;
@@ -32,10 +32,8 @@
   @media only screen and (max-width: 768px) {
     .awm-hero {
       background-image: none;
-      max-height: 400px;
       height: auto;
       margin-bottom: 50px;
-      float: left;
     }
     .awm-hero-message {
       margin: 0 auto;
@@ -54,8 +52,7 @@
       technologies such as
       <strong>Wordpress, React</strong>
       and
-      <strong>Svelte</strong>
-      .
+      <strong>Svelte</strong>.
     </p>
     <p>  I also design logos, business card and other marketing materials.</p>
   </div>
