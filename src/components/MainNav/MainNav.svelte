@@ -4,7 +4,6 @@
 
 <style>
   nav {
-    flex: 1 1;
     display: flex;
     justify-content: flex-end;
   }
@@ -28,7 +27,6 @@
 
 <nav>
   <ul>
-    <li><a href="/">Home</a></li>
     <li><a href="/portflio">Portfolio</a></li>
     <li><a href="/blog">Blog</a></li>
     <li><a href="/contact">Contact</a></li>

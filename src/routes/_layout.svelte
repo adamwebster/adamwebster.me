@@ -22,4 +22,4 @@
 <div class="awm-page-body">
   <slot />
 </div>
-<!-- <Footer /> -->
+<Footer />
