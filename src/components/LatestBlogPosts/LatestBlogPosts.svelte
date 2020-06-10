@@ -40,6 +40,23 @@
     justify-content: center;
     padding: 20px;
   }
+
+  @media only screen and (max-width: 768px) {
+    .awm-list-of-posts {
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    .awm-list-of-posts {
+      margin-top: 20px;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .awm-section-inner {
+      flex-flow: column-reverse;
+    }
+  }
 </style>
 
 <section class="awm-section-wrapper" id="LatestBlogPosts">
