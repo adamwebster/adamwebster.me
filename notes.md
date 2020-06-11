@@ -1,0 +1,1 @@
+Initially tried this to create the blog https://www.mahmoudashraf.dev/blog/build-a-blog-with-svelte-and-markdown.  But ended up going with this https://gitlab.com/rdela/sapper-v3/-/tree/master/src/routes
