@@ -1,12 +1,22 @@
 import fs from 'fs';
 import path from 'path';
 import marked from 'marked';
+import glob from 'glob';
 
 export function getPosts () {
-	const slugs = fs.readdirSync('content/BlogPosts')
-		.filter(file => path.extname(file) === '.md')
-		.map(file => file.slice(0, -3));
+	// const slugs = fs.readdirSync('content')
+	// 	.filter(file => path.extname(file) === '.md')
+	// 	.map(file => file.slice(0, -3));
 
+	const slugs = glob("content/**/*.md", function (er, files) {
+		// files is an array of filenames.
+		// If the `nonull` option is set, and nothing
+		// was found, then files is ["**/*.js"]
+		// er is an error object or null.
+		const test = files.map(file => file.slice(0, -3));
+		console.log(test)
+		
+	  })
 	return slugs.map(getPost).sort((a, b) => {
 		return a.metadata.pubdate < b.metadata.pubdate ? 1 : -1;
 	});
