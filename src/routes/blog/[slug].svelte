@@ -15,7 +15,6 @@
 
 <script>
 	export let post;
-	console.log(post);
 </script>
 
 <style>
@@ -59,7 +58,9 @@
 </svelte:head>
 
 <h1>{post.metadata.title}</h1>
-
+{#if post.metadata.featuredImage}
+<h1>{post.metadata.featuredImage}</h1>
+{/if}
 <div class='content'>
 	{@html post.html}
 </div>
