@@ -23,6 +23,7 @@ export function getPost(slug) {
 	const date = new Date(`${metadata.pubdate} EDT`); // cheeky hack
 	metadata.dateString = date.toDateString();
 
+	console.log(metadata)
 	const html = marked(content);
 
 	return {
