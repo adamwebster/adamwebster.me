@@ -42,7 +42,7 @@
     src="https://drscdn.500px.org/photo/163833279/q%3D80_m%3D2000/v2?sig=3dca74cf8cd24a1adf31367f43dbcac9adfcff4eb3a9c1f25919dfa0aea39d0d" />
   <article class="awm-list-item-post-content">
     <h2>
-      <a href="blog/title-of-post">Title of the Post</a>
+      <a href="http://adamwebster.me">Title of the Post</a>
     </h2>
     <div class="date">02/02/2020</div>
     <p>
