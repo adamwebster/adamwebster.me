@@ -1,13 +1,12 @@
 <script context="module">
-import {PortfolioSettings} from '../../SiteSettings.js';
-
+  import { PortfolioSettings } from "../../SiteSettings.js";
+  import Button from "../../components/Button/Button.svelte";
   export function preload({ params, query }) {
     return this.fetch(`portfolio.json`)
       .then(r => r.json())
       .then(posts => {
-                const isLastPage = posts.length <= PortfolioSettings.postsPerPage * 1;
-
-        const pagedPosts  = posts.slice(0, PortfolioSettings.postsPerPage);
+        const isLastPage = posts.length <= PortfolioSettings.postsPerPage * 1;
+        const pagedPosts = posts.slice(0, PortfolioSettings.postsPerPage);
         return { isLastPage, posts: pagedPosts };
       });
   }
@@ -16,13 +15,78 @@ import {PortfolioSettings} from '../../SiteSettings.js';
 <script>
   export let posts;
   export let isLastPage;
-  console.log(posts)
 </script>
 
 <style>
-  ul {
-    margin: 0 0 1em 0;
-    line-height: 1.5;
+  #awm-portfolio {
+    margin-top: 30px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+  h1,
+  h2 {
+    text-transform: uppercase;
+    font-weight: 200;
+  }
+
+  .awm-portfolio-wrapper {
+    display: flex;
+    margin-top: 50px;
+  }
+
+  .awm-portfolio-category-list {
+    min-width: 200px;
+    margin-right: 30px;
+  }
+
+  .awm-portfolio-category-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .awm-portfolio-category-list ul li {
+    background-color: #ccc;
+    border: solid 1px #666;
+    color: #666;
+    margin: 10px 10px 10px 0px;
+    padding: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  .awm-portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 20px;
+  }
+
+  .awm-portfolio-featured-image-wrappper {
+    width: 100%;
+    height: 250px;
+    border-radius: 5px;
+    overflow: hidden;
+    border: solid 1px var(--border-color);
+  }
+
+  .awm-portfolio-featured-image-wrappper img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  .awm-portfolio-item-title {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+  }
+
+  .awm-portfolio-paging {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
   }
 </style>
 
@@ -30,22 +94,46 @@ import {PortfolioSettings} from '../../SiteSettings.js';
   <title>Portfolio</title>
 </svelte:head>
 
-<h1>Recent posts</h1>
-
-<ul>
-  {#each posts as post}
-    <!-- we're using the non-standard `rel=prefetch` attribute to
+<section id="awm-portfolio">
+  <h1>Portfolio</h1>
+  <div class="awm-portfolio-wrapper">
+    <div class="awm-portfolio-category-list">
+      <h2>Portfolio Categories</h2>
+      <ul>
+        <li>UX Design</li>
+        <li>UI Design</li>
+        <li>Graphic Design</li>
+      </ul>
+    </div>
+    <div class="awm-portfolio-grid">
+      {#each posts as post}
+        <!-- we're using the non-standard `rel=prefetch` attribute to
 				tell Sapper to load the data for the page as soon as
 				the user hovers over the link or taps it, instead of
 				waiting for the 'click' event -->
+        <div>
+          {#if post.featuredImage}
+            <div class="awm-portfolio-featured-image-wrappper">
+              <a rel="prefetch" href="portfolio/{post.category}/{post.slug}">
 
-    <li>
-      <a rel="prefetch" href="portfolio/{post.category}/{post.slug}">{post.title}</a>
-    </li>
-  {/each}
+                <img
+                  alt="{post.title} featured image"
+                  src={post.featuredImage} />
+              </a>
 
-</ul>
+            </div>
+          {/if}
+          <span class="awm-portfolio-item-title">{post.title}</span>
 
-{#if !isLastPage}
-<a href="/portfolio/page/2">Next Page</a>
-{/if}
+        </div>
+      {/each}
+    </div>
+  </div>
+</section>
+<div class="awm-portfolio-paging">
+  {#if !isLastPage}
+    <Button on:click={() => (window.location.href = '/portfolio/page/2')}>
+      Next Page
+    </Button>
+  {/if}
+</div>

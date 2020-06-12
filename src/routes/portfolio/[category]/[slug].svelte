@@ -2,7 +2,9 @@
   export async function preload({ params, query }) {
     // the `slug` parameter is available because
     // this file is called [slug].svelte
-    const res = await this.fetch(`portfolio/${params.category}/${params.slug}.json`);
+    const res = await this.fetch(
+      `portfolio/${params.category}/${params.slug}.json`
+    );
     const data = await res.json();
 
     if (res.status === 200) {
@@ -59,8 +61,7 @@
 
 <h1>{post.metadata.title}</h1>
 {#if post.metadata.featuredImage}
-  <img src="{post.metadata.featuredImage}" />
-
+  <img src={post.metadata.featuredImage} />
 {/if}
 <div class="content">
   {@html post.html}

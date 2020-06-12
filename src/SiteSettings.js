@@ -1,7 +1,7 @@
 export const BlogSettings = {
-    "postsPerPage": 10
-}
+  postsPerPage: 9,
+};
 
 export const PortfolioSettings = {
-    "postsPerPage": 10
-}
+  postsPerPage: 9,
+};
