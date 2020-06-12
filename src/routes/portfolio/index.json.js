@@ -10,7 +10,7 @@ export function get(req, res) {
       path: post.slug.postPath,
       category: post.slug.postCategory,
       postCategoryFormatted: post.slug.postCategoryFormatted,
-      image: post.metadata.image,
+      featuredImage: post.metadata.featuredImage,
     }));
 
     contents = JSON.stringify(posts);

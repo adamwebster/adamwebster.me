@@ -6,7 +6,7 @@
         const filteredPostByCategory = posts.filter(
           post => post.category === params.category
         );
-        return {categoryName: params.category, posts: filteredPostByCategory };
+        return { categoryName: params.category, posts: filteredPostByCategory };
       });
   }
 </script>
@@ -37,7 +37,7 @@
 				waiting for the 'click' event -->
 
     <li>
-      
+
       <a rel="prefetch" href="blog/{post.category}/{post.slug}">{post.title}</a>
     </li>
   {/each}
