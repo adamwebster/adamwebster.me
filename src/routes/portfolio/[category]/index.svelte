@@ -37,6 +37,7 @@
 				waiting for the 'click' event -->
 
     <li>
+      
       <a rel="prefetch" href="blog/{post.category}/{post.slug}">{post.title}</a>
     </li>
   {/each}

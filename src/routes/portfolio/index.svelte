@@ -16,6 +16,7 @@ import {PortfolioSettings} from '../../SiteSettings.js';
 <script>
   export let posts;
   export let isLastPage;
+  console.log(posts)
 </script>
 
 <style>
