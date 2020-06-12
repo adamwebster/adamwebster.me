@@ -1,8 +1,8 @@
 <script context="module">
-import {PortfolioSettings} from '../../SiteSettings.js';
+import {PortfolioSettings} from '../../../SiteSettings.js';
 
   export function preload({ params, query }) {
-    return this.fetch(`portfolio.json`)
+    return this.fetch(`../blog.json`)
       .then(r => r.json())
       .then(posts => {
                 const isLastPage = posts.length <= PortfolioSettings.postsPerPage * 1;
@@ -26,7 +26,7 @@ import {PortfolioSettings} from '../../SiteSettings.js';
 </style>
 
 <svelte:head>
-  <title>Portfolio</title>
+  <title>Blog</title>
 </svelte:head>
 
 <h1>Recent posts</h1>
@@ -39,12 +39,12 @@ import {PortfolioSettings} from '../../SiteSettings.js';
 				waiting for the 'click' event -->
 
     <li>
-      <a rel="prefetch" href="portfolio/{post.category}/{post.slug}">{post.title}</a>
+      <a rel="prefetch" href="blog/{post.category}/{post.slug}">{post.title}</a>
     </li>
   {/each}
 
 </ul>
 
 {#if !isLastPage}
-<a href="/portfolio/page/2">Next Page</a>
+<a href="/blog/page/2">Next Page</a>
 {/if}

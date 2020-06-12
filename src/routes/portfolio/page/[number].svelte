@@ -1,20 +1,19 @@
 <script context="module">
-import {PortfolioSettings} from '../../SiteSettings.js';
-
+import {PortfolioSettings} from '../../../SiteSettings.js';
   export function preload({ params, query }) {
-    return this.fetch(`portfolio.json`)
+    return this.fetch(`../portfolio.json`)
       .then(r => r.json())
       .then(posts => {
-                const isLastPage = posts.length <= PortfolioSettings.postsPerPage * 1;
-
-        const pagedPosts  = posts.slice(0, PortfolioSettings.postsPerPage);
-        return { isLastPage, posts: pagedPosts };
+        const isLastPage = posts.length <= PortfolioSettings.postsPerPage * params.number;
+        const pagedPosts  = posts.slice(PortfolioSettings.postsPerPage * (params.number - 1), PortfolioSettings.postsPerPage * (params.number - 1) + PortfolioSettings.postsPerPage);
+        return { isLastPage, posts: pagedPosts, pageNumber: parseInt(params.number) };
       });
   }
 </script>
 
 <script>
   export let posts;
+  export let pageNumber;
   export let isLastPage;
 </script>
 
@@ -26,11 +25,10 @@ import {PortfolioSettings} from '../../SiteSettings.js';
 </style>
 
 <svelte:head>
-  <title>Portfolio</title>
+  <title>Blog</title>
 </svelte:head>
 
-<h1>Recent posts</h1>
-
+<h1>Page {pageNumber}</h1>
 <ul>
   {#each posts as post}
     <!-- we're using the non-standard `rel=prefetch` attribute to
@@ -42,9 +40,10 @@ import {PortfolioSettings} from '../../SiteSettings.js';
       <a rel="prefetch" href="portfolio/{post.category}/{post.slug}">{post.title}</a>
     </li>
   {/each}
-
 </ul>
-
+{#if pageNumber > 1}
+<a href="/portfolio/page/{pageNumber - 1}">Previous Page</a>
+{/if}
 {#if !isLastPage}
-<a href="/portfolio/page/2">Next Page</a>
+<a href="/portfolio/page/{pageNumber + 1}">Next Page</a>
 {/if}
