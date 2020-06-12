@@ -3,12 +3,9 @@ import { getPost } from "../_posts.js";
 const lookup = new Map();
 
 export function get(req, res, next) {
-  console.log("test");
   const { slug, category } = req.params;
-  // console.log("2", slug, date);
   if (process.env.NODE_ENV !== "production" || !lookup.has(slug)) {
     const post = getPost({ postSlug: slug, postCategory: category });
-    console.log("post", slug, category);
     lookup.set(slug, JSON.stringify(post));
   }
 
