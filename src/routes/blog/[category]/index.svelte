@@ -1,21 +1,19 @@
 <script context="module">
-import {BlogSettings} from '../../SiteSettings.js';
-
   export function preload({ params, query }) {
     return this.fetch(`blog.json`)
       .then(r => r.json())
       .then(posts => {
-                const isLastPage = posts.length <= BlogSettings.postsPerPage * 1;
-
-        const pagedPosts  = posts.slice(0, BlogSettings.postsPerPage);
-        return { isLastPage, posts: pagedPosts };
+        const filteredPostByCategory = posts.filter(
+          post => post.category === params.category
+        );
+        return {categoryName: params.category, posts: filteredPostByCategory };
       });
   }
 </script>
 
 <script>
   export let posts;
-  export let isLastPage;
+  export let categoryName;
 </script>
 
 <style>
@@ -29,7 +27,7 @@ import {BlogSettings} from '../../SiteSettings.js';
   <title>Blog</title>
 </svelte:head>
 
-<h1>Recent posts</h1>
+<h1>{categoryName} posts</h1>
 
 <ul>
   {#each posts as post}
@@ -42,9 +40,4 @@ import {BlogSettings} from '../../SiteSettings.js';
       <a rel="prefetch" href="blog/{post.category}/{post.slug}">{post.title}</a>
     </li>
   {/each}
-
 </ul>
-
-{#if !isLastPage}
-<a href="/blog/page/2">Next Page</a>
-{/if}

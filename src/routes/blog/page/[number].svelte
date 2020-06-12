@@ -1,20 +1,19 @@
 <script context="module">
-import {BlogSettings} from '../../SiteSettings.js';
-
+import {BlogSettings} from '../../../SiteSettings.js';
   export function preload({ params, query }) {
-    return this.fetch(`blog.json`)
+    return this.fetch(`../blog.json`)
       .then(r => r.json())
       .then(posts => {
-                const isLastPage = posts.length <= BlogSettings.postsPerPage * 1;
-
-        const pagedPosts  = posts.slice(0, BlogSettings.postsPerPage);
-        return { isLastPage, posts: pagedPosts };
+        const isLastPage = posts.length <= BlogSettings.postsPerPage * params.number;
+        const pagedPosts  = posts.slice(BlogSettings.postsPerPage * (params.number - 1), BlogSettings.postsPerPage * (params.number - 1) + BlogSettings.postsPerPage);
+        return { isLastPage, posts: pagedPosts, pageNumber: parseInt(params.number) };
       });
   }
 </script>
 
 <script>
   export let posts;
+  export let pageNumber;
   export let isLastPage;
 </script>
 
@@ -29,8 +28,7 @@ import {BlogSettings} from '../../SiteSettings.js';
   <title>Blog</title>
 </svelte:head>
 
-<h1>Recent posts</h1>
-
+<h1>Page {pageNumber}</h1>
 <ul>
   {#each posts as post}
     <!-- we're using the non-standard `rel=prefetch` attribute to
@@ -42,9 +40,10 @@ import {BlogSettings} from '../../SiteSettings.js';
       <a rel="prefetch" href="blog/{post.category}/{post.slug}">{post.title}</a>
     </li>
   {/each}
-
 </ul>
-
+{#if pageNumber > 1}
+<a href="/blog/page/{pageNumber - 1}">Previous Page</a>
+{/if}
 {#if !isLastPage}
-<a href="/blog/page/2">Next Page</a>
+<a href="/blog/page/{pageNumber + 1}">Next Page</a>
 {/if}

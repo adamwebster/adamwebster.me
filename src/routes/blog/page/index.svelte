@@ -1,8 +1,8 @@
 <script context="module">
-import {BlogSettings} from '../../SiteSettings.js';
+import {BlogSettings} from '../../../SiteSettings.js';
 
   export function preload({ params, query }) {
-    return this.fetch(`blog.json`)
+    return this.fetch(`../blog.json`)
       .then(r => r.json())
       .then(posts => {
                 const isLastPage = posts.length <= BlogSettings.postsPerPage * 1;
