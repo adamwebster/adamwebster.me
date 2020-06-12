@@ -1,21 +1,24 @@
-import { getPosts } from './_posts.js';
+import { getPosts } from "./_posts.js";
 
 let contents;
 
 export function get(req, res) {
-	if (!contents || process.env.NODE_ENV !== 'production') {
-		const posts = getPosts().map(post => ({
-			title: post.metadata.title,
-			slug: post.slug,
-			image: post.metadata.image
-		}));
+  if (!contents || process.env.NODE_ENV !== "production") {
+    //  console.log(getPosts());
+    const posts = getPosts().map((post) => ({
+      title: post.metadata.title,
+      slug: post.slug.postSlug,
+      category: post.slug.postCategory,
+      postCategoryFormatted: post.slug.postCategoryFormatted,
+      image: post.metadata.image,
+    }));
 
-		contents = JSON.stringify(posts);
-	}
+    contents = JSON.stringify(posts);
+  }
 
-	res.writeHead(200, {
-		'Content-Type': 'application/json'
-	});
+  res.writeHead(200, {
+    "Content-Type": "application/json",
+  });
 
-	res.end(contents);
+  res.end(contents);
 }
