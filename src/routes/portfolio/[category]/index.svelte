@@ -18,7 +18,7 @@
 
 <style>
   ul {
-    margoin: 0 0 1em 0;
+    margin: 0 0 1em 0;
     line-height: 1.5;
   }
 </style>
