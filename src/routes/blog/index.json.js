@@ -4,10 +4,10 @@ let contents;
 
 export function get(req, res) {
   if (!contents || process.env.NODE_ENV !== "production") {
-    //  console.log(getPosts());
     const posts = getPosts().map((post) => ({
       title: post.metadata.title,
       slug: post.slug.postSlug,
+      path: post.slug.postPath,
       category: post.slug.postCategory,
       postCategoryFormatted: post.slug.postCategoryFormatted,
       image: post.metadata.image,

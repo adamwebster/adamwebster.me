@@ -11,26 +11,15 @@ export function getPosts() {
 
   const slugs = glob.sync("content/BlogPosts/**/*.md").map((file) => {
     var parts = file.split("/");
-    console.log(parts[2].toLowerCase().replace(/\s+/g, "-"));
+    const pathOfPost = file.split("/").slice(2).join("/").toLowerCase();
     return {
       postSlug: file.slice(0, -3).substring(file.lastIndexOf("/") + 1),
-      postPath: file.slice(0, -3).substr(0, file.lastIndexOf("/")),
+      postPath: pathOfPost.slice(0, -3).substr(0, pathOfPost.lastIndexOf("/")),
       postCategory: parts[2],
       postCategoryFormatted: parts[2].toLowerCase().replace(/\s+/g, "-"),
     };
   });
 
-  // const slugs = glob("content/**/*.md", function (er, files) {
-  // 	// files is an array of filenames.
-  // 	// If the `nonull` option is set, and nothing
-  // 	// was found, then files is ["**/*.js"]
-  // 	// er is an error object or null.
-  // 	const test = files.map(file => file.slice(0, -3));
-  // 	console.log(test)
-
-  //   })
-
-  // console.log(slugs);
   return slugs.map(getPost).sort((a, b) => {
     return a.metadata.pubdate < b.metadata.pubdate ? 1 : -1;
   });
@@ -39,7 +28,6 @@ export function getPosts() {
 export function getPost(slug) {
   const file = `content/BlogPosts/${slug.postCategory}/${slug.postSlug}.md`;
   if (!fs.existsSync(file)) return null;
-  // console.log(slug);
 
   const markdown = fs.readFileSync(file, "utf-8");
 
