@@ -59,7 +59,8 @@
 
 <h1>{post.metadata.title}</h1>
 {#if post.metadata.featuredImage}
-  <h1>{post.metadata.featuredImage}</h1>
+  <img src="{post.metadata.featuredImage}" />
+
 {/if}
 <div class="content">
   {@html post.html}
