@@ -1,6 +1,7 @@
 <script context="module">
   import { PortfolioSettings } from "../../../SiteSettings.js";
   import Button from "../../../components/Button/Button.svelte";
+  import CategoryList from "../../../components/CategoryList/CategoryList.svelte";
 
   export function preload({ params, query }) {
     return this.fetch(`../portfolio.json`)
@@ -34,12 +35,9 @@
   }
 
   h1 {
-    font-size: 40px;
-  }
-  h1,
-  h2 {
     text-transform: uppercase;
     font-weight: 200;
+    font-size: 40px;
   }
 
   .awm-portfolio-wrapper {
@@ -47,25 +45,6 @@
     margin-top: 50px;
   }
 
-  .awm-portfolio-category-list {
-    min-width: 200px;
-    margin-right: 30px;
-  }
-
-  .awm-portfolio-category-list ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .awm-portfolio-category-list ul li {
-    background-color: #ccc;
-    border: solid 1px #666;
-    color: #666;
-    margin: 10px 10px 10px 0px;
-    padding: 5px;
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
   .awm-portfolio-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -108,14 +87,8 @@
 <section id="awm-portfolio">
   <h1>Portfolio</h1>
   <div class="awm-portfolio-wrapper">
-    <div class="awm-portfolio-category-list">
-      <h2>Portfolio Categories</h2>
-      <ul>
-        <li>UX Design</li>
-        <li>UI Design</li>
-        <li>Graphic Design</li>
-      </ul>
-    </div>
+    <CategoryList categories={PortfolioSettings.categories} />
+
     <div class="awm-portfolio-grid">
       {#each posts as post}
         <!-- we're using the non-standard `rel=prefetch` attribute to
