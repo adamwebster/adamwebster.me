@@ -90,6 +90,7 @@
   }
 </style>
 
+,
 <svelte:head>
   <title>Portfolio</title>
 </svelte:head>
@@ -100,10 +101,15 @@
     <div class="awm-portfolio-category-list">
       <h2>Portfolio Categories</h2>
       <ul>
-        <li>UX Design</li>
-        <li>UI Design</li>
-        <li>Graphic Design</li>
+        {#each PortfolioSettings.categories as category}
+          <li
+            style="background-color: {category.bgColor}; color: {category.borderColor};
+            border:solid 1px ${category.borderColor}">
+            {category.name}
+          </li>
+        {/each}
       </ul>
+
     </div>
     <div class="awm-portfolio-grid">
       {#each posts as post}
