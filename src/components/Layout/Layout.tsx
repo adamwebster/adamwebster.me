@@ -1,6 +1,9 @@
 import React, { ReactNode } from "react";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { Header } from "../Header";
+import { Footer } from "../Footer";
+import { Colors } from "@adamwebster/fused-components";
+import { AWMColors } from "../../styles/Colors";
 
 interface Props {
   children: ReactNode;
@@ -8,12 +11,29 @@ interface Props {
 
 const GlobalStyle = createGlobalStyle`
   body{
-    background-color: #F2F2F2;    
+    background-color: ${Colors.light};    
     font: 14px/1.5 'Helvetica Neue', san-serif;
-    color: #5E5E5E;
+    color: ${Colors.dark};
     padding: 0;
     margin: 0;  
   }
+  a {
+	color: ${AWMColors.primaryColor};
+}
+h1, h2, h3, h4, h5, h6 {
+	margin: 0 0 0.5em 0;
+	font-weight: 400;
+	line-height: 1.2;
+}
+
+h1 {
+	font-size: 2em;
+}
+`;
+
+const StyledContent = styled.div`
+  width: 1080px;
+  margin: 0 auto;
 `;
 
 const Layout = ({ children }: Props) => {
@@ -21,7 +41,8 @@ const Layout = ({ children }: Props) => {
     <>
       <GlobalStyle />
       <Header />
-      {children}
+      <StyledContent>{children}</StyledContent>
+      <Footer />
     </>
   );
 };
