@@ -20,7 +20,7 @@
     "react-helmet": "^6.0.0"
   },
   "devDependencies": {
-    "@adamwebster/fused-components": "2.0.0-beta.9",
+    "@adamwebster/fused-components": "2.0.0-beta.14",
     "@types/styled-components": "^5.1.0",
     "babel-plugin-styled-components": "^1.10.7",
     "core-js": "^3.6.5",
