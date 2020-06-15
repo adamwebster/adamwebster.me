@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import Logo from "../../assets/svgs/logo.svg";
-import { Combobox } from "@adamwebster/fused-components";
+import { Combobox, Colors } from "@adamwebster/fused-components";
+import { Navigation } from "../Navigation";
 const StyledHeader = styled.header`
-  border-bottom: solid 1px #ccc;
+  border-bottom: solid 1px ${Colors.border};
   height: 50px;
   box-sizing: border-box;
 `;
@@ -42,10 +43,16 @@ const Header = () => {
         </a>
         <StyledSearchBox>
           <StyledSearchBoxWrapper>
-            <Combobox id="SearchInput" items={[]} />
+            <Combobox
+              aria-label="Search the site"
+              icon="search"
+              openOnClick={false}
+              id="SearchInput"
+              items={[]}
+            />
           </StyledSearchBoxWrapper>
         </StyledSearchBox>
-        {/* <MainNav /> */}
+        <Navigation />
       </StyledHeaderInner>
     </StyledHeader>
   );

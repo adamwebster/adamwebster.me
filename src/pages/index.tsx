@@ -1,10 +1,15 @@
 import React from "react";
 import { Layout } from "../components/Layout";
+import { Hero } from "../components/Hero";
+import { LatestPortfolioItems } from "../components/LatestPortfolioItems";
+import { LatestBlogPosts } from "../components/LatestBlogPosts";
 
 const Index = () => {
   return (
     <Layout>
-      <div>Test</div>
+      <Hero />
+      <LatestPortfolioItems />
+      <LatestBlogPosts />
     </Layout>
   );
 };
