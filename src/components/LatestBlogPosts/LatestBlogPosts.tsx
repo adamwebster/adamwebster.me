@@ -1,8 +1,8 @@
 import React from "react";
-import LatestBlogPost from "./LatestBlogPost";
-import { Button } from "@adamwebster/fused-components";
+import { graphql, StaticQuery } from "gatsby";
 import styled from "styled-components";
-import { AWMColors } from "../../styles/Colors";
+import { Button } from "@adamwebster/fused-components";
+import LatestBlogPost from "./LatestBlogPost";
 
 const StyledLatestBlogPostsSection = styled.section`
   display: flex;
@@ -57,25 +57,54 @@ const StyledListMore = styled.div`
 `;
 const LatestBlogPosts = () => {
   return (
-    <StyledLatestBlogPostsSection id="LatestBlogPosts">
-      <StyledLatestBlogPostsSectionInner>
-        <StyledLatestBlogItems>
-          <LatestBlogPost />
-          <LatestBlogPost />
-          <LatestBlogPost />
-        </StyledLatestBlogItems>
-        <div>
-          <h1>
-            Latest Blog
-            <br />
-            Posts
-          </h1>
-        </div>
-      </StyledLatestBlogPostsSectionInner>
-      <StyledListMore>
-        <Button primary>Read More</Button>{" "}
-      </StyledListMore>
-    </StyledLatestBlogPostsSection>
+    <StaticQuery
+      query={graphql`
+        query {
+          allMdx(
+            limit: 4
+            filter: { fields: { sourceInstanceName: { eq: "blog-post" } } }
+          ) {
+            edges {
+              node {
+                id
+                frontmatter {
+                  title
+                  path
+                  featuredImage
+                }
+                body
+                excerpt
+              }
+            }
+          }
+        }
+      `}
+      render={({ allMdx: { edges } }) => {
+        return (
+          <>
+            <StyledLatestBlogPostsSection id="LatestBlogPosts">
+              <StyledLatestBlogPostsSectionInner>
+                <StyledLatestBlogItems>
+                  {edges.map(({ node }) => {
+                    return <LatestBlogPost node={node} />;
+                  })}
+                </StyledLatestBlogItems>
+                <div>
+                  <h1>
+                    Latest Blog
+                    <br />
+                    Posts
+                  </h1>
+                </div>
+              </StyledLatestBlogPostsSectionInner>
+              <StyledListMore>
+                <Button primary>Read More</Button>{" "}
+              </StyledListMore>
+            </StyledLatestBlogPostsSection>
+          </>
+        );
+      }}
+    />
   );
 };
 

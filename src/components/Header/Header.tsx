@@ -58,7 +58,7 @@ const Header = () => {
           <StyledSearchBoxWrapper>
             <Combobox
               aria-label="Search the site"
-              icon="search"
+              inputIcon="search"
               openOnClick={false}
               id="SearchInput"
               items={[]}

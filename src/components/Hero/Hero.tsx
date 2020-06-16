@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { AWMColors } from "../../styles/Colors";
 import { Colors } from "@adamwebster/fused-components";
 
 const StyledHero = styled.section`
