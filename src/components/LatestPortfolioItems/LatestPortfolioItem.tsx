@@ -22,6 +22,30 @@ const StyledImageWrapper = styled.div`
       filter: grayscale(0.5);
     }
   }
+  @media only screen and (max-width: 1080px) {
+    width: calc(24vw - 20px);
+    height: calc(24vw - 20px);
+    img {
+      width: calc(24vw - 20px);
+      height: calc(24vw - 20px);
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    width: calc(33vw - 20px);
+    height: calc(33vw - 20px);
+    img {
+      width: calc(33vw - 20px);
+      height: calc(33vw - 20px);
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    width: calc(33vw - 20px);
+    height: calc(33vw - 20px);
+    img {
+      width: calc(33vw - 20px);
+      height: calc(33vw - 20px);
+    }
+  }
 `;
 
 interface Props {

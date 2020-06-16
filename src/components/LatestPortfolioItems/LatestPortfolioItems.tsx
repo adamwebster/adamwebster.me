@@ -24,6 +24,9 @@ const StyledLatestPortfolioSectionInner = styled.div`
     font-weight: 300;
     text-transform: uppercase;
   }
+  @media only screen and (max-width: 600px) {
+    flex-flow: column;
+  }
 `;
 
 const StyledLatestPortfolioItems = styled.div`
@@ -33,6 +36,21 @@ const StyledLatestPortfolioItems = styled.div`
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 20px;
+  @media only screen and (max-width: 1080px) {
+    grid-template-rows: repeat(2, calc(25vw - 20px));
+    grid-template-columns: repeat(3, calc(25vw - 20px));
+  }
+  @media only screen and (max-width: 768px) {
+    grid-template-rows: 33vw 33vw;
+    grid-template-columns: 33vw 33vw;
+  }
+  @media only screen and (max-width: 600px) {
+    margin-top: 20px;
+    margin-left: 0;
+    width: 100%;
+    grid-template-rows: repeat(2, calc(33vw - 20px));
+    grid-template-columns: repeat(3, calc(33vw - 20px));
+  }
 `;
 
 const StyledListMore = styled.div`
