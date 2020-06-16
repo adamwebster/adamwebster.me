@@ -2,7 +2,14 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { Card } from "@adamwebster/fused-components";
 import { SiteContext } from "../../state";
+import dayjs from "dayjs";
+import localeData from "dayjs/plugin/localeData";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+import duration from "dayjs/plugin/duration";
 
+dayjs.extend(localeData);
+dayjs.extend(advancedFormat);
+dayjs.extend(duration);
 const StyledLatestBlogPost = styled(Card)`
   img {
     object-fit: cover;
@@ -38,22 +45,27 @@ const LatestBlogPost = ({ node }: Props) => {
   const {
     globalState: { theme },
   } = useContext(SiteContext);
-  console.log(node);
   const {
-    frontmatter: { path, title },
+    frontmatter: {
+      path,
+      title,
+      date,
+      featuredImage: {
+        childImageSharp: {
+          fluid: { src },
+        },
+      },
+    },
     excerpt,
   } = node;
   return (
     <StyledLatestBlogPost theme={theme}>
-      <img
-        alt="img1"
-        src="https://drscdn.500px.org/photo/163833279/q%3D80_m%3D2000/v2?sig=3dca74cf8cd24a1adf31367f43dbcac9adfcff4eb3a9c1f25919dfa0aea39d0d"
-      />
+      <img alt="img1" src={src} />
       <StyledBlogPostContent>
         <h2>
           <a href={path}>{title}</a>
         </h2>
-        <StyledDate>02/02/2020</StyledDate>
+        <StyledDate>{dayjs(date).format("MMMM Do YYYY")}</StyledDate>
         <p>{excerpt}</p>
       </StyledBlogPostContent>{" "}
     </StyledLatestBlogPost>

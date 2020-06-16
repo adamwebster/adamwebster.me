@@ -69,8 +69,15 @@ const LatestBlogPosts = () => {
                 id
                 frontmatter {
                   title
+                  date
                   path
-                  featuredImage
+                  featuredImage {
+                    childImageSharp {
+                      fluid(maxWidth: 800) {
+                        ...GatsbyImageSharpFluid
+                      }
+                    }
+                  }
                 }
                 body
                 excerpt
