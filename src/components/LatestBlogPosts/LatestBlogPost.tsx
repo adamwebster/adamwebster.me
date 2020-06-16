@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { Colors, Card } from "@adamwebster/fused-components";
+import { Card } from "@adamwebster/fused-components";
 import { SiteContext } from "../../state";
 
 const StyledLatestBlogPost = styled(Card)`
@@ -31,9 +31,12 @@ const StyledDate = styled.div`
   font-size: 13px;
 `;
 
-const LatestBlogPost = () => {
+interface Props {
+  node: any;
+}
+const LatestBlogPost = ({ node }: Props) => {
   const { globalState } = useContext(SiteContext);
-
+  console.log(node);
   return (
     <StyledLatestBlogPost theme={globalState.theme}>
       <img
@@ -42,13 +45,10 @@ const LatestBlogPost = () => {
       />
       <StyledBlogPostContent>
         <h2>
-          <a href="http://adamwebster.me">Title of the Post</a>
+          <a href={node.frontmatter.path}>{node.frontmatter.title}</a>
         </h2>
         <StyledDate>02/02/2020</StyledDate>
-        <p>
-          This is some text of a blog post and would either be longer or shorter
-          then this...
-        </p>
+        <p>{node.excerpt}</p>
       </StyledBlogPostContent>{" "}
     </StyledLatestBlogPost>
   );
