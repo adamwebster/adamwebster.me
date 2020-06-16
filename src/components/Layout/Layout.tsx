@@ -34,6 +34,11 @@ h1 {
 const StyledContent = styled.div`
   width: 1080px;
   margin: 0 auto;
+  @media only screen and (max-width: 1080px) {
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
 `;
 
 const Layout = ({ children }: Props) => {

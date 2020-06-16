@@ -12,6 +12,9 @@ const StyledLatestBlogPostsSection = styled.section`
   flex-flow: column;
   border-bottom: solid 1px var(--border-color);
   padding-bottom: 30px;
+  @media only screen and (max-width: 768px) {
+    display: block;
+  }
 `;
 
 const StyledLatestBlogPostsSectionInner = styled.div`
@@ -24,6 +27,9 @@ const StyledLatestBlogPostsSectionInner = styled.div`
     font-weight: 300;
     text-transform: uppercase;
   }
+  @media only screen and (max-width: 600px) {
+    flex-flow: column-reverse;
+  }
 `;
 
 const StyledLatestBlogItems = styled.div`
@@ -33,6 +39,14 @@ const StyledLatestBlogItems = styled.div`
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 20px;
+  @media only screen and (max-width: 768px) {
+    display: block;
+  }
+  @media only screen and (max-width: 600px) {
+    margin-top: 20px;
+    margin-left: 0;
+    margin-right: 0;
+  }
 `;
 
 const StyledListMore = styled.div`
