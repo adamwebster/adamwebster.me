@@ -35,21 +35,26 @@ interface Props {
   node: any;
 }
 const LatestBlogPost = ({ node }: Props) => {
-  const { globalState } = useContext(SiteContext);
+  const {
+    globalState: { theme },
+  } = useContext(SiteContext);
   console.log(node);
-  const { frontmatter } = node;
+  const {
+    frontmatter: { path, title },
+    excerpt,
+  } = node;
   return (
-    <StyledLatestBlogPost theme={globalState.theme}>
+    <StyledLatestBlogPost theme={theme}>
       <img
         alt="img1"
         src="https://drscdn.500px.org/photo/163833279/q%3D80_m%3D2000/v2?sig=3dca74cf8cd24a1adf31367f43dbcac9adfcff4eb3a9c1f25919dfa0aea39d0d"
       />
       <StyledBlogPostContent>
         <h2>
-          <a href={frontmatter.path}>{frontmatter.title}</a>
+          <a href={path}>{title}</a>
         </h2>
         <StyledDate>02/02/2020</StyledDate>
-        <p>{node.excerpt}</p>
+        <p>{excerpt}</p>
       </StyledBlogPostContent>{" "}
     </StyledLatestBlogPost>
   );
