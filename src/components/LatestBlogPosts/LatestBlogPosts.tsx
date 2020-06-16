@@ -73,9 +73,7 @@ const LatestBlogPosts = () => {
         </div>
       </StyledLatestBlogPostsSectionInner>
       <StyledListMore>
-        <Button buttonColor={AWMColors.primaryColor} primary>
-          Read More
-        </Button>{" "}
+        <Button primary>Read More</Button>{" "}
       </StyledListMore>
     </StyledLatestBlogPostsSection>
   );
