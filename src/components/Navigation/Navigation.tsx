@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "gatsby";
 
 const StyledNavigation = styled.nav`
   display: flex;
@@ -26,13 +27,13 @@ const Navigation = () => {
     <StyledNavigation>
       <ul>
         <li>
-          <a href="/portfolio">Portfolio</a>
+          <Link to="/portfolio">Portfolio</Link>
         </li>
         <li>
-          <a href="/blog">Blog</a>
+          <Link to="/blog">Blog</Link>
         </li>
         <li>
-          <a href="/contact">Contact</a>
+          <Link to="/contact">Contact</Link>
         </li>
       </ul>
     </StyledNavigation>

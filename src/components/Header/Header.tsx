@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import Logo from "../../assets/svgs/logo.svg";
-import { Combobox, Colors } from "@adamwebster/fused-components";
+import { Combobox, Colors, Button } from "@adamwebster/fused-components";
 import { Navigation } from "../Navigation";
+import { Link } from "gatsby";
 
 const StyledHeader = styled.header`
   border-bottom: solid 1px ${Colors.border};
@@ -36,15 +37,18 @@ const LogoWrapper = styled.div`
   width: 40px;
 `;
 
-const Header = () => {
+interface Props {
+  setTheme?: () => void;
+}
+const Header = ({ setTheme }: Props) => {
   return (
     <StyledHeader>
       <StyledHeaderInner>
-        <a href="/">
+        <Link to="/">
           <LogoWrapper>
             <Logo />
           </LogoWrapper>
-        </a>
+        </Link>
         <StyledSearchBox>
           <StyledSearchBoxWrapper>
             <Combobox
@@ -57,6 +61,9 @@ const Header = () => {
           </StyledSearchBoxWrapper>
         </StyledSearchBox>
         <Navigation />
+        <Button primary onClick={() => setTheme && setTheme()}>
+          Switch Theme
+        </Button>
       </StyledHeaderInner>
     </StyledHeader>
   );
