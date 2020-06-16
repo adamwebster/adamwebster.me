@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { AWMColors } from "../../styles/Colors";
+import { Colors } from "@adamwebster/fused-components";
 
 const StyledHero = styled.section`
   height: 400px;
@@ -17,7 +18,7 @@ const StyledHero = styled.section`
     text-transform: uppercase;
     font-size: 28px;
     font-family: "HelveticaNeue-CondensedBold";
-    color: ${AWMColors.primaryColor};
+    color: ${Colors.primary};
     margin: 0;
     padding: 0;
     line-height: 1;

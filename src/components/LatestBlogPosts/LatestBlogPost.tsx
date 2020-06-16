@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { Colors } from "@adamwebster/fused-components";
+import { Colors, Card } from "@adamwebster/fused-components";
+import { SiteContext } from "../../state";
 
-const StyledLatestBlogPost = styled.div`
-  background-color: #fff;
-  border: solid 1px ${Colors.border};
-  border-radius: 5px;
+const StyledLatestBlogPost = styled(Card)`
   img {
     object-fit: cover;
     width: 100%;
@@ -34,8 +32,10 @@ const StyledDate = styled.div`
 `;
 
 const LatestBlogPost = () => {
+  const { globalState } = useContext(SiteContext);
+
   return (
-    <StyledLatestBlogPost>
+    <StyledLatestBlogPost theme={globalState.theme}>
       <img
         alt="img1"
         src="https://drscdn.500px.org/photo/163833279/q%3D80_m%3D2000/v2?sig=3dca74cf8cd24a1adf31367f43dbcac9adfcff4eb3a9c1f25919dfa0aea39d0d"

@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Logo from "../../assets/svgs/logo.svg";
 import { Combobox, Colors, Button } from "@adamwebster/fused-components";
 import { Navigation } from "../Navigation";
 import { Link } from "gatsby";
+import { SiteContext } from "../../state";
 
 const StyledHeader = styled.header`
-  border-bottom: solid 1px ${Colors.border};
+  border-bottom: solid 1px
+    ${({ theme }) => (theme === "dark" ? Colors.darkModeMedium : Colors.border)};
   height: 50px;
   box-sizing: border-box;
 `;
@@ -35,14 +37,17 @@ const StyledSearchBoxWrapper = styled.div`
 
 const LogoWrapper = styled.div`
   width: 40px;
+  color: ${Colors.primary};
 `;
 
-interface Props {
-  setTheme?: () => void;
-}
-const Header = ({ setTheme }: Props) => {
+const Header = () => {
+  const { globalState, dispatch } = useContext(SiteContext);
+  const setTheme = () => {
+    const themeToSet = globalState.theme === "dark" ? "light" : "dark";
+    dispatch({ type: "SET_THEME", payload: themeToSet });
+  };
   return (
-    <StyledHeader>
+    <StyledHeader theme={globalState.theme}>
       <StyledHeaderInner>
         <Link to="/">
           <LogoWrapper>
@@ -61,7 +66,7 @@ const Header = ({ setTheme }: Props) => {
           </StyledSearchBoxWrapper>
         </StyledSearchBox>
         <Navigation />
-        <Button primary onClick={() => setTheme && setTheme()}>
+        <Button primary onClick={() => setTheme()}>
           Switch Theme
         </Button>
       </StyledHeaderInner>
