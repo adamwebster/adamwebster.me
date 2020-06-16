@@ -1,8 +1,8 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { Header } from "../Header";
 import { Footer } from "../Footer";
-import { Colors } from "@adamwebster/fused-components";
+import { Colors, FCThemeProvider } from "@adamwebster/fused-components";
 import { AWMColors } from "../../styles/Colors";
 
 interface Props {
@@ -11,7 +11,8 @@ interface Props {
 
 const GlobalStyle = createGlobalStyle`
   body{
-    background-color: ${Colors.light};    
+    background-color:${props =>
+      props.theme === "dark" ? Colors.darkModeDarkest : Colors.light};    
     font: 14px/1.5 'Helvetica Neue', san-serif;
     color: ${Colors.dark};
     padding: 0;
@@ -42,12 +43,20 @@ const StyledContent = styled.div`
 `;
 
 const Layout = ({ children }: Props) => {
+  const [theme, setTheme] = useState("light");
+  const changeTheme = () => {
+    const themeToSet = theme === "dark" ? "light" : "dark";
+    setTheme(themeToSet);
+  };
+
   return (
     <>
-      <GlobalStyle />
-      <Header />
-      <StyledContent>{children}</StyledContent>
-      <Footer />
+      <FCThemeProvider value={{ theme }}>
+        <GlobalStyle theme={theme} />
+        <Header setTheme={() => changeTheme()} />
+        <StyledContent>{children}</StyledContent>
+        <Footer />
+      </FCThemeProvider>
     </>
   );
 };
