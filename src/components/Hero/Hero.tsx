@@ -22,12 +22,22 @@ const StyledHero = styled.section`
     padding: 0;
     line-height: 1;
   }
+  @media only screen and (max-width: 768px) {
+    background-image: none;
+    height: auto;
+    margin-bottom: 50px;
+  }
 `;
 
 const StyledHeroMessage = styled.div`
   width: 440px;
   top: 80px;
   position: relative;
+  @media only screen and (max-width: 768px) {
+    margin: 0 auto;
+    width: 100%;
+    top: 20px;
+  }
 `;
 
 const Hero = () => {

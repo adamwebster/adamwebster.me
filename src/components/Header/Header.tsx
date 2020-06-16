@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Logo from "../../assets/svgs/logo.svg";
 import { Combobox, Colors } from "@adamwebster/fused-components";
 import { Navigation } from "../Navigation";
+
 const StyledHeader = styled.header`
   border-bottom: solid 1px ${Colors.border};
   height: 50px;
@@ -16,6 +17,9 @@ const StyledHeaderInner = styled.div`
   align-items: center;
   flex: 1 1;
   height: 50px;
+  @media only screen and (max-width: 1080px) {
+    width: 100%;
+  }
 `;
 
 const StyledSearchBox = styled.div`

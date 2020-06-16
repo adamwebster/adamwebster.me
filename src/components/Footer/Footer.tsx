@@ -12,6 +12,9 @@ const StyledFooterInner = styled.div`
   font-size: 12px;
   padding: 5px;
   box-sizing: border-box;
+  @media only screen and (max-width: 1080px) {
+    width: 100%;
+  }
 `;
 const Footer = () => {
   return (
