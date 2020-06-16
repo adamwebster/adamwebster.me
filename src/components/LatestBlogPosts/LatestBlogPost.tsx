@@ -37,6 +37,7 @@ interface Props {
 const LatestBlogPost = ({ node }: Props) => {
   const { globalState } = useContext(SiteContext);
   console.log(node);
+  const { frontmatter } = node;
   return (
     <StyledLatestBlogPost theme={globalState.theme}>
       <img
@@ -45,7 +46,7 @@ const LatestBlogPost = ({ node }: Props) => {
       />
       <StyledBlogPostContent>
         <h2>
-          <a href={node.frontmatter.path}>{node.frontmatter.title}</a>
+          <a href={frontmatter.path}>{frontmatter.title}</a>
         </h2>
         <StyledDate>02/02/2020</StyledDate>
         <p>{node.excerpt}</p>
