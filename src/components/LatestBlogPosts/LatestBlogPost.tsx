@@ -60,7 +60,9 @@ const LatestBlogPost = ({ node }: Props) => {
   } = node;
   return (
     <StyledLatestBlogPost theme={theme}>
-      <img alt="img1" src={src} />
+      <a href={path}>
+        <img alt="img1" src={src} />
+      </a>
       <StyledBlogPostContent>
         <h2>
           <a href={path}>{title}</a>

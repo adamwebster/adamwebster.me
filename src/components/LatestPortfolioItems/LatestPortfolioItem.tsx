@@ -51,15 +51,28 @@ const StyledImageWrapper = styled.div`
 `;
 
 interface Props {
-  imageURL: string;
-  title?: string;
+  node: any;
 }
-const LatestPortfolioItem = ({ imageURL, title = "Post Title" }: Props) => {
+const LatestPortfolioItem = ({ node }: Props) => {
   const { globalState } = useContext(SiteContext);
+  const {
+    frontmatter: {
+      path,
+      title,
+      featuredImage: {
+        childImageSharp: {
+          fluid: { src },
+        },
+      },
+    },
+  } = node;
+  console.log(node);
   return (
     <StyledLatestPortfolioItem>
       <StyledImageWrapper theme={globalState.theme}>
-        <img alt={title} src={imageURL} />
+        <a href={path}>
+          <img alt={title} src={src} />
+        </a>
       </StyledImageWrapper>
       {title}
     </StyledLatestPortfolioItem>
