@@ -123,7 +123,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     })
 
     const portfolioPosts = result.data.allMdx.edges.filter(item => item.node.fields.sourceInstanceName === 'portfolio-item');
-    const portfolioPostsPerPage = 10;
+    const portfolioPostsPerPage = 9;
     const numPagesPort = Math.ceil(portfolioPosts.length / portfolioPostsPerPage)
     Array.from({ length: numPagesPort }).forEach((_, i) => {
         createPage({

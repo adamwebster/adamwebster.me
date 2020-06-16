@@ -105,7 +105,7 @@ const LatestBlogPosts = () => {
                 </div>
               </StyledLatestBlogPostsSectionInner>
               <StyledListMore>
-                <Button primary>Read More</Button>{" "}
+                <Button primary>Read More</Button>
               </StyledListMore>
             </StyledLatestBlogPostsSection>
           </>
