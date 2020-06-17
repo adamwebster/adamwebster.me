@@ -1,8 +1,8 @@
-import React from "react";
-import { graphql, StaticQuery } from "gatsby";
-import styled from "styled-components";
-import { Button } from "@adamwebster/fused-components";
-import LatestBlogPost from "./LatestBlogPost";
+import React from 'react';
+import { graphql, StaticQuery } from 'gatsby';
+import styled from 'styled-components';
+import { Button } from '@adamwebster/fused-components';
+import LatestBlogPost from './LatestBlogPost';
 
 const StyledLatestBlogPostsSection = styled.section`
   display: flex;
@@ -73,7 +73,7 @@ const LatestBlogPosts = () => {
                   path
                   featuredImage {
                     childImageSharp {
-                      fluid(maxWidth: 800) {
+                      fluid(maxWidth: 500) {
                         ...GatsbyImageSharpFluid
                       }
                     }

@@ -1,18 +1,20 @@
-import React, { ReactNode, useContext } from "react";
-import styled, { createGlobalStyle } from "styled-components";
+import React, { ReactNode, useContext } from 'react';
+import styled, { createGlobalStyle } from 'styled-components';
 
-import { Colors, FCThemeProvider } from "@adamwebster/fused-components";
-import { Header } from "../Header";
-import { Footer } from "../Footer";
-import { SiteContext } from "../../state";
+import { Colors, FCThemeProvider } from '@adamwebster/fused-components';
+import { Header } from '../Header';
+import { Footer } from '../Footer';
+import { SiteContext } from '../../state';
 
 const GlobalStyle = createGlobalStyle`
   body{
     background-color:${({ theme }) =>
-      theme === "dark" ? Colors.darkModeDarkest : Colors.light};    
-    font: 14px/1.5 'Helvetica Neue', san-serif;
+      theme === 'dark' ? Colors.darkModeDarkest : Colors.light};    
+    font-family:'Helvetica Neue', san-serif;
+    font-size: 100%;
+    line-height: 1.5;
     color: ${({ theme }) =>
-      theme === "dark" ? Colors.darkModeMedium : Colors.dark};
+      theme === 'dark' ? Colors.darkModeMedium : Colors.dark};
     padding: 0;
     margin: 0;  
   }
