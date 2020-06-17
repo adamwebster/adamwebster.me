@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { Colors } from "@adamwebster/fused-components";
 import { SiteContext } from "../../state";
+import { Link } from "gatsby";
 
 const StyledLatestPortfolioItem = styled.div`
   border-radius: 5px;
@@ -66,13 +67,12 @@ const LatestPortfolioItem = ({ node }: Props) => {
       },
     },
   } = node;
-  console.log(node);
   return (
     <StyledLatestPortfolioItem>
       <StyledImageWrapper theme={globalState.theme}>
-        <a href={path}>
+        <Link to={path}>
           <img alt={title} src={src} />
-        </a>
+        </Link>
       </StyledImageWrapper>
       {title}
     </StyledLatestPortfolioItem>
