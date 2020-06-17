@@ -1,13 +1,13 @@
 <script context="module">
-import {BlogSettings} from '../../SiteSettings.js';
+  import { BlogSettings } from '../../SiteSettings.js';
 
   export function preload({ params, query }) {
     return this.fetch(`blog.json`)
       .then(r => r.json())
       .then(posts => {
-                const isLastPage = posts.length <= BlogSettings.postsPerPage * 1;
+        const isLastPage = posts.length <= BlogSettings.postsPerPage * 1;
 
-        const pagedPosts  = posts.slice(0, BlogSettings.postsPerPage);
+        const pagedPosts = posts.slice(0, BlogSettings.postsPerPage);
         return { isLastPage, posts: pagedPosts };
       });
   }
@@ -40,11 +40,12 @@ import {BlogSettings} from '../../SiteSettings.js';
 
     <li>
       <a rel="prefetch" href="blog/{post.category}/{post.slug}">{post.title}</a>
+      gi
     </li>
   {/each}
 
 </ul>
 
 {#if !isLastPage}
-<a href="/blog/page/2">Next Page</a>
+  <a href="/blog/page/2">Next Page</a>
 {/if}
