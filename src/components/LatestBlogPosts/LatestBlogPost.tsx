@@ -1,22 +1,24 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { Card } from "@adamwebster/fused-components";
-import { SiteContext } from "../../state";
-import dayjs from "dayjs";
-import localeData from "dayjs/plugin/localeData";
-import advancedFormat from "dayjs/plugin/advancedFormat";
-import duration from "dayjs/plugin/duration";
-import { Link } from "gatsby";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { Card } from '@adamwebster/fused-components';
+import { SiteContext } from '../../state';
+import dayjs from 'dayjs';
+import localeData from 'dayjs/plugin/localeData';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+import duration from 'dayjs/plugin/duration';
+import { Link } from 'gatsby';
+import Img from 'gatsby-image';
 
 dayjs.extend(localeData);
 dayjs.extend(advancedFormat);
 dayjs.extend(duration);
+
+const StyledImg = styled(Img)`
+  object-fit: cover;
+  width: 100%;
+  height: 150px;
+`;
 const StyledLatestBlogPost = styled(Card)`
-  img {
-    object-fit: cover;
-    width: 100%;
-    height: 150px;
-  }
   @media only screen and (max-width: 768px) {
     margin-bottom: 20px;
   }
@@ -52,9 +54,7 @@ const LatestBlogPost = ({ node }: Props) => {
       title,
       date,
       featuredImage: {
-        childImageSharp: {
-          fluid: { src },
-        },
+        childImageSharp: { fluid },
       },
     },
     excerpt,
@@ -62,15 +62,16 @@ const LatestBlogPost = ({ node }: Props) => {
   return (
     <StyledLatestBlogPost theme={theme}>
       <Link to={path}>
-        <img alt="img1" src={src} />
-      </Link>{" "}
+        <StyledImg fluid={fluid} />
+        {/* <img alt="img1" src={src} /> */}
+      </Link>{' '}
       <StyledBlogPostContent>
         <h2>
           <Link to={path}>{title}</Link>
         </h2>
-        <StyledDate>{dayjs(date).format("MMMM Do YYYY")}</StyledDate>
+        <StyledDate>{dayjs(date).format('MMMM Do YYYY')}</StyledDate>
         <p>{excerpt}</p>
-      </StyledBlogPostContent>{" "}
+      </StyledBlogPostContent>{' '}
     </StyledLatestBlogPost>
   );
 };

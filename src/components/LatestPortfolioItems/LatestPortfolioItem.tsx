@@ -1,13 +1,20 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { Colors } from "@adamwebster/fused-components";
-import { SiteContext } from "../../state";
-import { Link } from "gatsby";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { Colors } from '@adamwebster/fused-components';
+import { SiteContext } from '../../state';
+import { Link } from 'gatsby';
+import Img from 'gatsby-image';
 
 const StyledLatestPortfolioItem = styled.div`
   border-radius: 5px;
   background-size: cover;
   text-align: center;
+`;
+
+const StyledImg = styled(Img)`
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 `;
 
 const StyledImageWrapper = styled.div`
@@ -16,7 +23,7 @@ const StyledImageWrapper = styled.div`
   border-radius: 5px;
   overflow: hidden;
   border: solid 1px
-    ${({ theme }) => (theme === "dark" ? Colors.darkModeMedium : Colors.border)};
+    ${({ theme }) => (theme === 'dark' ? Colors.darkModeMedium : Colors.border)};
   img {
     object-fit: cover;
     width: 100%;
@@ -61,9 +68,7 @@ const LatestPortfolioItem = ({ node }: Props) => {
       path,
       title,
       featuredImage: {
-        childImageSharp: {
-          fluid: { src },
-        },
+        childImageSharp: { fluid },
       },
     },
   } = node;
@@ -71,7 +76,7 @@ const LatestPortfolioItem = ({ node }: Props) => {
     <StyledLatestPortfolioItem>
       <StyledImageWrapper theme={globalState.theme}>
         <Link to={path}>
-          <img alt={title} src={src} />
+          <StyledImg fluid={fluid} />
         </Link>
       </StyledImageWrapper>
       {title}

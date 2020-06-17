@@ -147,7 +147,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
             })
             if (node.frontmatter.category) {
                 createPage({
-                    path: `/blog/category/${_.kebabCase(node.frontmatter.category)}/`,
+                    path: `/blog/${_.kebabCase(node.frontmatter.category)}/`,
                     component: categoryTemplate,
                     context: {
                         category: node.frontmatter.category
