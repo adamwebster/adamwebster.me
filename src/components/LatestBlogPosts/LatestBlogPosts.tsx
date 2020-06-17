@@ -93,7 +93,7 @@ const LatestBlogPosts = () => {
               <StyledLatestBlogPostsSectionInner>
                 <StyledLatestBlogItems>
                   {edges.map(({ node }: any) => {
-                    return <LatestBlogPost node={node} />;
+                    return <LatestBlogPost key={node.id} node={node} />;
                   })}
                 </StyledLatestBlogItems>
                 <div>

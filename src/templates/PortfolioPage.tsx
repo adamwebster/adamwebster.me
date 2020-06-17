@@ -1,9 +1,10 @@
-import React from "react";
-import { Layout } from "../components/Layout";
-import { Button } from "@adamwebster/fused-components";
-import { graphql } from "gatsby";
-import LatestPortfolioItem from "../components/LatestPortfolioItems/LatestPortfolioItem";
-import styled from "styled-components";
+import React from 'react';
+import { Layout } from '../components/Layout';
+import { graphql, Link } from 'gatsby';
+import LatestPortfolioItem from '../components/LatestPortfolioItems/LatestPortfolioItem';
+import styled from 'styled-components';
+import { PageHeader } from '../components/PageHeader';
+import { CategoryList } from '../components/CategoryList';
 
 const StyledPortfolioGrid = styled.div`
   display: grid;
@@ -21,6 +22,12 @@ const StyledPaging = styled.div`
     margin-right: 15px;
   }
 `;
+
+const StyledPortfolioWrapper = styled.div`
+  display: flex;
+  margin-top: 50px;
+`;
+
 interface Props {
   pageContext: any;
   data: any;
@@ -29,22 +36,33 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
   const {
     allMdx: { edges },
   } = data;
-  console.log(data);
+  const previousPageUrl =
+    pageContext.currentPage === 2
+      ? '/portfolio'
+      : '/portfolio/' + (pageContext.currentPage - 1);
   return (
     <Layout>
       <section id="awm-portfolio">
-        <h1>Portfolio</h1>
-        <StyledPortfolioGrid>
-          {edges.map(({ node }: any) => {
-            return <LatestPortfolioItem node={node} />;
-          })}
-        </StyledPortfolioGrid>
+        <PageHeader>Portfolio</PageHeader>
+        <StyledPortfolioWrapper>
+          <CategoryList />
+          <StyledPortfolioGrid>
+            {edges.map(({ node }: any) => {
+              return <LatestPortfolioItem key={node.id} node={node} />;
+            })}
+          </StyledPortfolioGrid>
+        </StyledPortfolioWrapper>
       </section>
-      {pageContext.numPages > 1 && (
+      {pageContext.numPagesPort > 1 && (
         <StyledPaging>
-          <Button>Previous Page</Button>
-
-          <Button>Next Page</Button>
+          {pageContext.currentPage > 1 && (
+            <Link to={previousPageUrl}>Previous Page</Link>
+          )}{' '}
+          {pageContext.currentPage !== pageContext.numPagesPort && (
+            <Link to={'/portfolio/' + (pageContext.currentPage + 1)}>
+              Next Page
+            </Link>
+          )}
         </StyledPaging>
       )}
     </Layout>

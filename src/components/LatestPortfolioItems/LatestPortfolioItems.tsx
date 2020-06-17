@@ -106,7 +106,7 @@ const LatestPortfolioItems = () => {
                 </div>
                 <StyledLatestPortfolioItems>
                   {edges.map(({ node }: any) => {
-                    return <LatestPortfolioItem node={node} />;
+                    return <LatestPortfolioItem key={node.id} node={node} />;
                   })}
                 </StyledLatestPortfolioItems>
               </StyledLatestPortfolioSectionInner>

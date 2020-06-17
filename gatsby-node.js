@@ -107,7 +107,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     }
 
     const posts = result.data.allMdx.edges.filter(item => item.node.fields.sourceInstanceName === 'blog-post');
-    const postsPerPage = 10;
+    const postsPerPage = 9;
     const numPages = Math.ceil(posts.length / postsPerPage)
     Array.from({ length: numPages }).forEach((_, i) => {
         createPage({

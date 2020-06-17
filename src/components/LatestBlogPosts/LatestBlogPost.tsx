@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import duration from "dayjs/plugin/duration";
+import { Link } from "gatsby";
 
 dayjs.extend(localeData);
 dayjs.extend(advancedFormat);
@@ -60,12 +61,12 @@ const LatestBlogPost = ({ node }: Props) => {
   } = node;
   return (
     <StyledLatestBlogPost theme={theme}>
-      <a href={path}>
+      <Link to={path}>
         <img alt="img1" src={src} />
-      </a>
+      </Link>{" "}
       <StyledBlogPostContent>
         <h2>
-          <a href={path}>{title}</a>
+          <Link to={path}>{title}</Link>
         </h2>
         <StyledDate>{dayjs(date).format("MMMM Do YYYY")}</StyledDate>
         <p>{excerpt}</p>
