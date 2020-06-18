@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;  
   }
   a {
-	color: ${Colors.primary};
+	color: #0067E6;
     }
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 0.5em 0;

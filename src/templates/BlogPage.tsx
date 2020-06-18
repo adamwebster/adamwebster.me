@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import LatestBlogPost from '../components/LatestBlogPosts/LatestBlogPost';
 import { CategoryList } from '../components/CategoryList';
 import { PageHeader } from '../components/PageHeader';
+import SEO from '../components/seo';
 
 const StyledBlogGrid = styled.div`
   display: grid;
@@ -76,10 +77,10 @@ const BlogPage = ({ pageContext, data }: Props) => {
       : '/blog/' + (pageContext.currentPage - 1);
   return (
     <Layout>
+      <SEO title="Blog | Adam Webster Designer and Front-end Developer"></SEO>
       <section id="awm-blog">
         <PageHeader>Blog</PageHeader>
         <StyledBlogWrapper>
-          <CategoryList />
           <StyledBlogGrid>
             {edges.map(({ node }: any) => {
               return <LatestBlogPost node={node} key={node.id} />;
@@ -117,6 +118,7 @@ export const pageQuery = graphql`
             title
             path
             date
+            category
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 800) {
