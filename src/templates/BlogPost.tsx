@@ -11,6 +11,10 @@ import _ from 'lodash';
 const StyledArticle = styled.article`
   width: 940px;
   margin: 0 auto;
+  grid-gap: 20px;
+  @media only screen and (max-width: 900px) {
+    width: 100%;
+  }
 `;
 
 const StyledImage = styled(Img)`
@@ -35,6 +39,7 @@ const PostTagline = styled.p`
 const PostHeader = styled.header`
   margin-bottom: 50px;
 `;
+
 const PostContent = styled.div`
   width: 90%;
   margin: 50px auto 50px auto;
@@ -44,6 +49,7 @@ const PostCategory = styled(Link)`
   text-decoration: none;
   font-weight: bold;
 `;
+
 interface Props {
   data: any;
 }

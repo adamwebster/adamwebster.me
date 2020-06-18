@@ -12,6 +12,21 @@ const StyledPortfolioGrid = styled.div`
   grid-template-rows: 1fr 1fr 1fr;
   grid-gap: 20px;
   width: 100%;
+  @media only screen and (max-width: 1080px) {
+    grid-template-rows: repeat(2, calc(25vw - 20px));
+    grid-template-columns: repeat(3, calc(25vw - 40px));
+  }
+  @media only screen and (max-width: 768px) {
+    grid-template-rows: repeat(4, calc(38vw - 20px));
+    grid-template-columns: repeat(3, calc(33vw - 20px));
+  }
+  @media only screen and (max-width: 600px) {
+    margin-top: 20px;
+    margin-left: 0;
+    width: 100%;
+    grid-template-rows: repeat(2, calc(42vw - 20px));
+    grid-template-columns: repeat(3, calc(33vw - 20px));
+  }
 `;
 
 const StyledPaging = styled.div`
@@ -27,6 +42,9 @@ const StyledPaging = styled.div`
 const StyledPortfolioWrapper = styled.div`
   display: flex;
   margin-top: 50px;
+  @media only screen and (max-width: 768px) {
+    flex-flow: column;
+  }
 `;
 
 interface Props {
