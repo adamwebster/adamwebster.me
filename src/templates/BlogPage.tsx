@@ -2,21 +2,18 @@ import React from 'react';
 import { Layout } from '../components/Layout';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
-import LatestBlogPost from '../components/LatestBlogPosts/LatestBlogPost';
-import { CategoryList } from '../components/CategoryList';
 import { PageHeader } from '../components/PageHeader';
 import SEO from '../components/seo';
+import Img from 'gatsby-image';
+import { CategoryTag } from '../components/CategoryTag';
+import { Colors } from '@adamwebster/fused-components';
 
 const StyledBlogGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-gap: 20px;
-  @media only screen and (max-width: 900px) {
-    grid-template-columns: 1fr 1fr;
 
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-  }
   @media only screen and (max-width: 768px) {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -25,6 +22,7 @@ const StyledBlogGrid = styled.div`
 
 const StyledPaging = styled.div`
   display: flex;
+
   align-items: center;
   justify-content: center;
   margin: 20px 0;
@@ -34,35 +32,42 @@ const StyledPaging = styled.div`
 `;
 
 const StyledBlogWrapper = styled.div`
-  display: flex;
-  margin-top: 50px;
+  max-width: 800px;
+  margin: 0 auto;
   @media only screen and (max-width: 768px) {
     flex-flow: column;
   }
 `;
 
-const StyledCategoryList = styled.div`
-  min-width: 200px;
-  margin-right: 30px;
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    li {
-      background-color: #ccc;
-      border: solid 1px #666;
-      color: #666;
-      margin: 10px 10px 10px 0px;
-      padding: 5px;
-      border-radius: 5px;
-      box-sizing: border-box;
-    }
-  }
-  h2 {
-    text-transform: uppercase;
-    font-weight: 200;
+const StyledImage = styled(Img)`
+  height: 300px;
+  border: solid 1px ${Colors.border};
+  margin-top: 40px;
+  margin-bottom: 40px;
+`;
+
+const PostTitle = styled.h1`
+  font-weight: bold;
+  margin-bottom: 0;
+  font-size: 40px;
+  a {
+    text-decoration: none;
   }
 `;
+
+const PostTagline = styled.p`
+  margin-top: 0;
+  font-weight: normal;
+  font-size: 16px;
+  color: #6e6e6e;
+  font-weight: 300;
+`;
+
+const PostContent = styled.div`
+  width: 90%;
+  margin: 50px auto 50px auto;
+`;
+
 interface Props {
   pageContext: any;
   data: any;
@@ -79,11 +84,32 @@ const BlogPage = ({ pageContext, data }: Props) => {
     <Layout>
       <SEO title="Blog | Adam Webster Designer and Front-end Developer"></SEO>
       <section id="awm-blog">
-        <PageHeader>Blog</PageHeader>
         <StyledBlogWrapper>
+          <PageHeader>Blog</PageHeader>
+
           <StyledBlogGrid>
             {edges.map(({ node }: any) => {
-              return <LatestBlogPost node={node} key={node.id} />;
+              return (
+                <article>
+                  <StyledImage
+                    fluid={node.frontmatter.featuredImage.childImageSharp.fluid}
+                  />
+
+                  <PostContent>
+                    <header>
+                      <CategoryTag>{node.frontmatter.category}</CategoryTag>
+                      <PostTitle>
+                        <Link to={node.frontmatter.path}>
+                          {node.frontmatter.title}
+                        </Link>
+                      </PostTitle>
+                      <PostTagline>{node.frontmatter.tagline}</PostTagline>
+                    </header>
+                    {node.excerpt}
+                  </PostContent>
+                </article>
+              );
+              // return <LatestBlogPost node={node} key={node.id} />;
             })}
           </StyledBlogGrid>
         </StyledBlogWrapper>
@@ -113,12 +139,14 @@ export const pageQuery = graphql`
       edges {
         node {
           id
-          excerpt(pruneLength: 80)
+          excerpt(pruneLength: 600)
+          body
           frontmatter {
             title
             path
             date
             category
+            tagline
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 800) {
