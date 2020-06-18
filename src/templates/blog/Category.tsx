@@ -11,8 +11,16 @@ const StyledBlogGrid = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-gap: 20px;
-`;
+  @media only screen and (max-width: 900px) {
+    grid-template-columns: 1fr 1fr;
 
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+  }
+  @media only screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+  }
+`;
 const StyledPaging = styled.div`
   display: flex;
   align-items: center;

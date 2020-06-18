@@ -3,7 +3,6 @@ import { Layout } from '../components/Layout';
 import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
-import Img from 'gatsby-image';
 import { PageHeader } from '../components/PageHeader';
 interface Props {
   data: any;
