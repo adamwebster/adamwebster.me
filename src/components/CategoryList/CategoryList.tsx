@@ -9,9 +9,9 @@ const StyledCategoryList = styled.div`
     padding: 0;
     margin: 0;
     li {
-      background-color: #ccc;
-      border: solid 1px #666;
-      color: #666;
+      background-color: #d5e3ff;
+      border: solid 1px #00266b;
+      color: #00266b;
       margin: 10px 10px 10px 0px;
       padding: 5px;
       border-radius: 5px;

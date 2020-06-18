@@ -1,9 +1,8 @@
-import React from "react";
-import { graphql, StaticQuery } from "gatsby";
+import React from 'react';
+import { graphql, StaticQuery, Link } from 'gatsby';
 
-import LatestPortfolioItem from "./LatestPortfolioItem";
-import { Button } from "@adamwebster/fused-components";
-import styled from "styled-components";
+import LatestPortfolioItem from './LatestPortfolioItem';
+import styled from 'styled-components';
 
 const StyledLatestPortfolioSection = styled.section`
   display: flex;
@@ -111,7 +110,7 @@ const LatestPortfolioItems = () => {
                 </StyledLatestPortfolioItems>
               </StyledLatestPortfolioSectionInner>
               <StyledListMore>
-                <Button primary>Read More</Button>
+                <Link to="/portfolio">Read More</Link>
               </StyledListMore>
             </StyledLatestPortfolioSection>
           </>

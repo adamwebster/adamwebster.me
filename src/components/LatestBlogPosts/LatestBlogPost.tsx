@@ -8,6 +8,7 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 import duration from 'dayjs/plugin/duration';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
+import { CategoryTag } from '../CategoryTag';
 
 dayjs.extend(localeData);
 dayjs.extend(advancedFormat);
@@ -18,13 +19,8 @@ const StyledImg = styled(Img)`
   width: 100%;
   height: 150px;
 `;
-const StyledLatestBlogPost = styled(Card)`
-  @media only screen and (max-width: 768px) {
-    margin-bottom: 20px;
-  }
-`;
 
-const StyledBlogPostContent = styled.article`
+const StyledBlogPostContent = styled.div`
   padding: 10px;
 
   h2 {
@@ -53,6 +49,7 @@ const LatestBlogPost = ({ node }: Props) => {
       path,
       title,
       date,
+      category,
       featuredImage: {
         childImageSharp: { fluid },
       },
@@ -60,19 +57,19 @@ const LatestBlogPost = ({ node }: Props) => {
     excerpt,
   } = node;
   return (
-    <StyledLatestBlogPost theme={theme}>
-      <Link to={path}>
+    <Card as="article">
+      <Link title={title} to={path}>
         <StyledImg fluid={fluid} />
-        {/* <img alt="img1" src={src} /> */}
-      </Link>{' '}
+      </Link>
       <StyledBlogPostContent>
+        <CategoryTag>{category}</CategoryTag>
         <h2>
           <Link to={path}>{title}</Link>
         </h2>
         <StyledDate>{dayjs(date).format('MMMM Do YYYY')}</StyledDate>
         <p>{excerpt}</p>
       </StyledBlogPostContent>{' '}
-    </StyledLatestBlogPost>
+    </Card>
   );
 };
 

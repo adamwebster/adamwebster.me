@@ -1,7 +1,6 @@
 import React from 'react';
-import { graphql, StaticQuery } from 'gatsby';
+import { graphql, StaticQuery, Link } from 'gatsby';
 import styled from 'styled-components';
-import { Button } from '@adamwebster/fused-components';
 import LatestBlogPost from './LatestBlogPost';
 
 const StyledLatestBlogPostsSection = styled.section`
@@ -13,7 +12,6 @@ const StyledLatestBlogPostsSection = styled.section`
   border-bottom: solid 1px var(--border-color);
   padding-bottom: 30px;
   @media only screen and (max-width: 768px) {
-    display: block;
   }
 `;
 
@@ -40,7 +38,7 @@ const StyledLatestBlogItems = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 20px;
   @media only screen and (max-width: 768px) {
-    display: block;
+    grid-template-columns: 1fr;
   }
   @media only screen and (max-width: 600px) {
     margin-top: 20px;
@@ -61,7 +59,7 @@ const LatestBlogPosts = () => {
       query={graphql`
         query {
           allMdx(
-            limit: 4
+            limit: 3
             filter: { fields: { sourceInstanceName: { eq: "blog-post" } } }
           ) {
             edges {
@@ -71,6 +69,7 @@ const LatestBlogPosts = () => {
                   title
                   date
                   path
+                  category
                   featuredImage {
                     childImageSharp {
                       fluid(maxWidth: 500) {
@@ -105,7 +104,7 @@ const LatestBlogPosts = () => {
                 </div>
               </StyledLatestBlogPostsSectionInner>
               <StyledListMore>
-                <Button primary>Read More</Button>
+                <Link to="/blog">Read More</Link>
               </StyledListMore>
             </StyledLatestBlogPostsSection>
           </>

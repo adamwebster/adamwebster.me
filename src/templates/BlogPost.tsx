@@ -7,6 +7,7 @@ import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { Colors } from '@adamwebster/fused-components';
 import _ from 'lodash';
+import SEO from '../components/seo';
 
 const StyledArticle = styled.article`
   width: 940px;
@@ -61,6 +62,10 @@ const BlogPost = ({ data }: Props) => {
   console.log(frontmatter);
   return (
     <Layout>
+      <SEO
+        title={`${frontmatter.title} | Adam Webster Designer and Front-end Developer`}
+      ></SEO>
+
       <StyledArticle>
         <MDXProvider components={{}}>
           <StyledImage

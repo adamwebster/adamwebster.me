@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@adamwebster/fused-components@2.0.0-beta.14":
-  version "2.0.0-beta.14"
-  resolved "https://registry.yarnpkg.com/@adamwebster/fused-components/-/fused-components-2.0.0-beta.14.tgz#fe21c0e218baeec7f06fb17b28a2f80b82d008f4"
-  integrity sha512-LMYiR1RISBBEYhd2ji/y68LjgspXfJqL39Q4RdLgsKQPvm+8Q6/7Zx4czeMAruHYsZrND5uM3QeCE+UafkW1Vg==
+"@adamwebster/fused-components@2.0.0-beta.15":
+  version "2.0.0-beta.15"
+  resolved "https://registry.yarnpkg.com/@adamwebster/fused-components/-/fused-components-2.0.0-beta.15.tgz#08e398267a6cd006eb1817e1c38abc344a9c16e6"
+  integrity sha512-aaSGHJUbBt1ySZslws2r4YU46S03wOgLJNjwUZjV6GwLWef61vx6GWVPeTzU70i8sYrMPFHHUUYySxlIjvZ1Rg==
   dependencies:
     "@popperjs/core" "^2.3.3"
     dayjs "^1.8.24"

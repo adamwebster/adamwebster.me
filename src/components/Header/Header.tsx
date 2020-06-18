@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import Logo from "../../assets/svgs/logo.svg";
-import { Combobox, Colors, Button } from "@adamwebster/fused-components";
-import { Navigation } from "../Navigation";
-import { Link } from "gatsby";
-import { SiteContext } from "../../state";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import Logo from '../../assets/svgs/logo.svg';
+import { Combobox, Colors, Button } from '@adamwebster/fused-components';
+import { Navigation } from '../Navigation';
+import { Link } from 'gatsby';
+import { SiteContext } from '../../state';
 
 const StyledHeader = styled.header`
   border-bottom: solid 1px
-    ${({ theme }) => (theme === "dark" ? Colors.darkModeMedium : Colors.border)};
+    ${({ theme }) => (theme === 'dark' ? Colors.darkModeMedium : Colors.border)};
   height: 50px;
   box-sizing: border-box;
 `;
@@ -43,13 +43,13 @@ const LogoWrapper = styled.div`
 const Header = () => {
   const { globalState, dispatch } = useContext(SiteContext);
   const setTheme = () => {
-    const themeToSet = globalState.theme === "dark" ? "light" : "dark";
-    dispatch({ type: "SET_THEME", payload: themeToSet });
+    const themeToSet = globalState.theme === 'dark' ? 'light' : 'dark';
+    dispatch({ type: 'SET_THEME', payload: themeToSet });
   };
   return (
     <StyledHeader theme={globalState.theme}>
       <StyledHeaderInner>
-        <Link to="/">
+        <Link title="Homepage" to="/">
           <LogoWrapper>
             <Logo />
           </LogoWrapper>
