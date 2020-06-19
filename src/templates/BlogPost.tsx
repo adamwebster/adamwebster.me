@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { Colors } from '@adamwebster/fused-components';
 import _ from 'lodash';
 import SEO from '../components/seo';
+import { CategoryTag } from '../components/CategoryTag';
 
 const StyledArticle = styled.article`
   width: 940px;
@@ -74,9 +75,9 @@ const BlogPost = ({ data }: Props) => {
 
           <PostContent>
             <PostHeader>
-              <PostCategory to={`/blog/${_.kebabCase(frontmatter.category)}`}>
+              <CategoryTag to={`/blog/${_.kebabCase(frontmatter.category)}`}>
                 {frontmatter.category}
-              </PostCategory>
+              </CategoryTag>
               <PostTitle>{frontmatter.title}</PostTitle>
               <PostTagline>{frontmatter.tagline}</PostTagline>
             </PostHeader>

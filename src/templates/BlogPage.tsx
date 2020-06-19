@@ -7,6 +7,7 @@ import SEO from '../components/seo';
 import Img from 'gatsby-image';
 import { CategoryTag } from '../components/CategoryTag';
 import { Colors } from '@adamwebster/fused-components';
+import { LinkButton } from '../components/LinkButton';
 
 const StyledBlogGrid = styled.div`
   display: grid;
@@ -117,10 +118,12 @@ const BlogPage = ({ pageContext, data }: Props) => {
       {pageContext.numPages > 1 && (
         <StyledPaging>
           {pageContext.currentPage > 1 && (
-            <Link to={previousPageUrl}>Previous Page</Link>
+            <LinkButton to={previousPageUrl}>Previous Page</LinkButton>
           )}{' '}
           {pageContext.currentPage !== pageContext.numPages && (
-            <Link to={'/blog/' + (pageContext.currentPage + 1)}>Next Page</Link>
+            <LinkButton to={'/blog/' + (pageContext.currentPage + 1)}>
+              Next Page
+            </LinkButton>
           )}
         </StyledPaging>
       )}

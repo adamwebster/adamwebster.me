@@ -57,6 +57,7 @@ const StyledHeroMessage = styled.div`
 
 const StyledImageWrapper = styled.div`
   width: 400px;
+  margin-top: 40px;
   @media only screen and (max-width: 600px) {
     width: 100%;
     text-align: center;

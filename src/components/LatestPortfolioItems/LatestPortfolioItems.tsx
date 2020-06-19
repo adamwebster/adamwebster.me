@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql, StaticQuery, Link } from 'gatsby';
-
+import { LinkButton } from '../LinkButton';
 import LatestPortfolioItem from './LatestPortfolioItem';
 import styled from 'styled-components';
 
@@ -110,7 +110,7 @@ const LatestPortfolioItems = () => {
                 </StyledLatestPortfolioItems>
               </StyledLatestPortfolioSectionInner>
               <StyledListMore>
-                <Link to="/portfolio">Read More</Link>
+                <LinkButton to="/portfolio">Read More</LinkButton>
               </StyledListMore>
             </StyledLatestPortfolioSection>
           </>
