@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Colors } from '@adamwebster/fused-components';
-import { SiteContext } from '../../state';
+import { useSelector } from 'react-redux';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 
@@ -62,7 +62,7 @@ interface Props {
   node: any;
 }
 const LatestPortfolioItem = ({ node }: Props) => {
-  const { globalState } = useContext(SiteContext);
+  const theme = useSelector((state: { theme: string }) => state.theme);
   const {
     frontmatter: {
       path,
@@ -74,7 +74,7 @@ const LatestPortfolioItem = ({ node }: Props) => {
   } = node;
   return (
     <StyledLatestPortfolioItem>
-      <StyledImageWrapper theme={globalState.theme}>
+      <StyledImageWrapper theme={theme}>
         <Link to={path}>
           <StyledImg fluid={fluid} />
         </Link>

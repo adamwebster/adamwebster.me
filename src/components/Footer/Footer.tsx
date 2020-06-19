@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { Colors } from "@adamwebster/fused-components";
-import { SiteContext } from "../../state";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { Colors } from '@adamwebster/fused-components';
+import { useSelector } from 'react-redux';
 
 const StyledFooter = styled.footer`
   border-top: solid 1px
-    ${({ theme }) => (theme === "dark" ? Colors.darkModeMedium : Colors.border)};
+    ${({ theme }) => (theme === 'dark' ? Colors.darkModeMedium : Colors.border)};
 `;
 
 const StyledFooterInner = styled.div`
@@ -19,9 +19,9 @@ const StyledFooterInner = styled.div`
   }
 `;
 const Footer = () => {
-  const { globalState } = useContext(SiteContext);
+  const theme = useSelector((state: { theme: string }) => state.theme);
   return (
-    <StyledFooter theme={globalState.theme}>
+    <StyledFooter theme={theme}>
       <StyledFooterInner>&copy; 2020 Adam Webster</StyledFooterInner>
     </StyledFooter>
   );

@@ -1,10 +1,19 @@
-import React from "react";
-import { Layout } from "../components/Layout";
+import React, { useEffect } from 'react';
+import { Layout } from '../components/Layout';
+import { useDispatch } from 'react-redux';
+import { setHeaderColor } from '../state/actions';
 
 const Contact = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    v;
+    dispatch(setHeaderColor('tomato'));
+  }, []);
+
   return (
     <Layout>
-      <span>Contact</span>
+      <span>Contact 22</span>
     </Layout>
   );
 };
