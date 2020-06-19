@@ -7,7 +7,6 @@ const Contact = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    v;
     dispatch(setHeaderColor('tomato'));
   }, []);
 
