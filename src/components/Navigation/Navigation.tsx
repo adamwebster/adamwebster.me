@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "gatsby";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'gatsby';
 
 const StyledNavigation = styled.nav`
   display: flex;
@@ -18,6 +18,7 @@ const StyledNavigation = styled.nav`
       }
       a {
         text-decoration: none;
+        color: #fff;
       }
     }
   }

@@ -9,7 +9,7 @@ import { CategoryList } from '../components/CategoryList';
 const StyledPortfolioGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
   grid-gap: 20px;
   width: 100%;
   @media only screen and (max-width: 1080px) {

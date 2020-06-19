@@ -1,16 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Logo from '../../assets/svgs/logo.svg';
 import { Combobox, Colors, Button } from '@adamwebster/fused-components';
 import { Navigation } from '../Navigation';
 import { Link } from 'gatsby';
-import { SiteContext } from '../../state';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTheme } from '../../state/actions';
 
-const StyledHeader = styled.header`
-  border-bottom: solid 1px
-    ${({ theme }) => (theme === 'dark' ? Colors.darkModeMedium : Colors.border)};
+interface SHProps {
+  headerColor?: string;
+}
+const StyledHeader = styled.header<SHProps>`
   height: 50px;
   box-sizing: border-box;
+  background-color: ${({ headerColor }) => headerColor};
 `;
 
 const StyledHeaderInner = styled.div`
@@ -37,17 +40,25 @@ const StyledSearchBoxWrapper = styled.div`
 
 const LogoWrapper = styled.div`
   width: 40px;
-  color: ${Colors.primary};
+  color: #fff;
+  padding-top: 5px;
 `;
 
 const Header = () => {
-  const { globalState, dispatch } = useContext(SiteContext);
-  const setTheme = () => {
-    const themeToSet = globalState.theme === 'dark' ? 'light' : 'dark';
-    dispatch({ type: 'SET_THEME', payload: themeToSet });
+  const dispatch = useDispatch();
+  const theme = useSelector(
+    (state: { SiteTheme: { theme: string } }) => state.SiteTheme.theme
+  );
+  const headerColor = useSelector(
+    (state: { HeaderColor: { headerColor: string } }) =>
+      state.HeaderColor.headerColor
+  );
+  const setThemeFunc = () => {
+    const themeToSet = theme === 'dark' ? 'light' : 'dark';
+    dispatch(setTheme(themeToSet));
   };
   return (
-    <StyledHeader theme={globalState.theme}>
+    <StyledHeader headerColor={headerColor} theme={'light'}>
       <StyledHeaderInner>
         <Link title="Homepage" to="/">
           <LogoWrapper>
@@ -66,7 +77,7 @@ const Header = () => {
           </StyledSearchBoxWrapper>
         </StyledSearchBox>
         <Navigation />
-        <Button primary onClick={() => setTheme()}>
+        <Button primary onClick={() => setThemeFunc()}>
           Switch Theme
         </Button>
       </StyledHeaderInner>

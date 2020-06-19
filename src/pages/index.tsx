@@ -7,9 +7,9 @@ import SEO from '../components/seo';
 
 const Index = () => {
   return (
-    <Layout>
+    <Layout hero={<Hero />}>
       <SEO title="Adam Webster Designer and Front-end Developer" />
-      <Hero />
+
       <LatestPortfolioItems />
       <LatestBlogPosts />
     </Layout>

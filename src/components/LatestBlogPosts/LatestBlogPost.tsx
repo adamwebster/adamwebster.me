@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Card } from '@adamwebster/fused-components';
-import { SiteContext } from '../../state';
+import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
@@ -41,9 +41,6 @@ interface Props {
   node: any;
 }
 const LatestBlogPost = ({ node }: Props) => {
-  const {
-    globalState: { theme },
-  } = useContext(SiteContext);
   const {
     frontmatter: {
       path,
