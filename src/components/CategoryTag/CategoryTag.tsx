@@ -1,14 +1,15 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-
-const StyledCategoryTag = styled.div`
+import { Link } from 'gatsby';
+const StyledCategoryTag = styled(Link)`
   padding: 5px 10px;
   border-radius: 5px;
   box-sizing: border-box;
   margin-bottom: 10px;
   font-size: 0.8em;
   width: fit-content;
-
+  text-decoration: none;
+  display: inline-block;
   &[data-content='Web Design' i] {
     background-color: #d5e3ff;
     border: solid 1px #00266b;
@@ -28,11 +29,14 @@ const StyledCategoryTag = styled.div`
 
 interface Props {
   children: ReactNode;
+  to: string;
 }
 
-const CategoryTag = ({ children }: Props) => {
+const CategoryTag = ({ children, ...rest }: Props) => {
   return (
-    <StyledCategoryTag data-content={children}>{children}</StyledCategoryTag>
+    <StyledCategoryTag data-content={children} {...rest}>
+      {children}
+    </StyledCategoryTag>
   );
 };
 

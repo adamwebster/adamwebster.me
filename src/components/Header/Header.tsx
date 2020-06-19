@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Logo from '../../assets/svgs/logo.svg';
-import { Combobox, Colors, Button } from '@adamwebster/fused-components';
+import { Button } from '@adamwebster/fused-components';
 import { Navigation } from '../Navigation';
-import { Link } from 'gatsby';
+import { Link, StaticQuery, graphql } from 'gatsby';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTheme } from '../../state/actions';
-
+import { Index } from 'elasticlunr';
+import { SearchBox } from '../SearchBox';
 interface SHProps {
   headerColor?: string;
 }
@@ -45,6 +46,8 @@ const LogoWrapper = styled.div`
 `;
 
 const Header = () => {
+  const [results, setResults] = useState([]);
+
   const dispatch = useDispatch();
   const theme = useSelector(
     (state: { SiteTheme: { theme: string } }) => state.SiteTheme.theme
@@ -57,6 +60,10 @@ const Header = () => {
     const themeToSet = theme === 'dark' ? 'light' : 'dark';
     dispatch(setTheme(themeToSet));
   };
+
+  const getOrCreateIndex = () => {
+    return Index.load(searchIndex);
+  };
   return (
     <StyledHeader headerColor={headerColor} theme={'light'}>
       <StyledHeaderInner>
@@ -67,12 +74,23 @@ const Header = () => {
         </Link>
         <StyledSearchBox>
           <StyledSearchBoxWrapper>
-            <Combobox
-              aria-label="Search the site"
-              inputIcon="search"
-              openOnClick={false}
-              id="SearchInput"
-              items={[]}
+            <StaticQuery
+              query={graphql`
+                query SearchIndexQuery {
+                  siteSearchIndex {
+                    index
+                  }
+                }
+              `}
+              render={data => {
+                const test = Index.load(data.siteSearchIndex.index);
+                console.log(test);
+                return (
+                  <>
+                    <SearchBox data={test} />
+                  </>
+                );
+              }}
             />
           </StyledSearchBoxWrapper>
         </StyledSearchBox>

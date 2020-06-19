@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, StaticQuery, Link } from 'gatsby';
 import styled from 'styled-components';
 import LatestBlogPost from './LatestBlogPost';
+import { LinkButton } from '../LinkButton';
 
 const StyledLatestBlogPostsSection = styled.section`
   display: flex;
@@ -9,7 +10,6 @@ const StyledLatestBlogPostsSection = styled.section`
   margin-bottom: 60px;
   box-sizing: border-box;
   flex-flow: column;
-  border-bottom: solid 1px var(--border-color);
   padding-bottom: 30px;
   @media only screen and (max-width: 768px) {
   }
@@ -53,6 +53,7 @@ const StyledListMore = styled.div`
   justify-content: center;
   padding: 20px;
 `;
+
 const LatestBlogPosts = () => {
   return (
     <StaticQuery
@@ -104,7 +105,7 @@ const LatestBlogPosts = () => {
                 </div>
               </StyledLatestBlogPostsSectionInner>
               <StyledListMore>
-                <Link to="/blog">Read More</Link>
+                <LinkButton to="/blog">Read More</LinkButton>
               </StyledListMore>
             </StyledLatestBlogPostsSection>
           </>
