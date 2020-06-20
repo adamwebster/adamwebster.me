@@ -62,6 +62,7 @@ const Header = () => {
   const setThemeFunc = () => {
     const themeToSet = theme === 'dark' ? 'light' : 'dark';
     dispatch(setTheme(themeToSet));
+    localStorage.setItem('theme', themeToSet);
   };
 
   return (

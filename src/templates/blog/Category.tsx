@@ -2,27 +2,26 @@ import React from 'react';
 import { Layout } from '../../components/Layout';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
-import LatestBlogPost from '../../components/LatestBlogPosts/LatestBlogPost';
+import { BlogArticle } from '../../components/BlogArticle';
 import { CategoryList } from '../../components/CategoryList';
 import { PageHeader } from '../../components/PageHeader';
-
+import SEO from '../../components/seo';
+import { LinkButton } from '../../components/LinkButton';
 const StyledBlogGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
   grid-gap: 20px;
-  @media only screen and (max-width: 900px) {
-    grid-template-columns: 1fr 1fr;
 
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-  }
   @media only screen and (max-width: 768px) {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
   }
 `;
+
 const StyledPaging = styled.div`
   display: flex;
+
   align-items: center;
   justify-content: center;
   margin: 20px 0;
@@ -32,8 +31,11 @@ const StyledPaging = styled.div`
 `;
 
 const StyledBlogWrapper = styled.div`
-  display: flex;
-  margin-top: 50px;
+  max-width: 800px;
+  margin: 0 auto;
+  @media only screen and (max-width: 768px) {
+    flex-flow: column;
+  }
 `;
 
 interface Props {
@@ -50,13 +52,15 @@ const BlogPage = ({ pageContext, data }: Props) => {
       : '/blog/' + (pageContext.currentPage - 1);
   return (
     <Layout>
+      <SEO title="Blog | Adam Webster Designer and Front-end Developer"></SEO>
       <section id="awm-blog">
-        <PageHeader>Blog</PageHeader>
         <StyledBlogWrapper>
-          <CategoryList />
+          <PageHeader>Blog</PageHeader>
+
           <StyledBlogGrid>
             {edges.map(({ node }: any) => {
-              return <LatestBlogPost node={node} key={node.id} />;
+              return <BlogArticle postData={node} />;
+              // return <LatestBlogPost node={node} key={node.id} />;
             })}
           </StyledBlogGrid>
         </StyledBlogWrapper>
@@ -64,10 +68,12 @@ const BlogPage = ({ pageContext, data }: Props) => {
       {pageContext.numPages > 1 && (
         <StyledPaging>
           {pageContext.currentPage > 1 && (
-            <Link to={previousPageUrl}>Previous Page</Link>
+            <LinkButton to={previousPageUrl}>Previous Page</LinkButton>
           )}{' '}
           {pageContext.currentPage !== pageContext.numPages && (
-            <Link to={'/blog/' + (pageContext.currentPage + 1)}>Next Page</Link>
+            <LinkButton to={'/blog/' + (pageContext.currentPage + 1)}>
+              Next Page
+            </LinkButton>
           )}
         </StyledPaging>
       )}
@@ -87,11 +93,13 @@ export const pageQuery = graphql`
       edges {
         node {
           id
-          excerpt(pruneLength: 80)
+          excerpt(pruneLength: 600)
           frontmatter {
             title
             path
             date
+            tagline
+            category
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 800) {

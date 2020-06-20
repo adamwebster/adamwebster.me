@@ -9,6 +9,7 @@ import { Colors } from '@adamwebster/fused-components';
 import _ from 'lodash';
 import SEO from '../components/seo';
 import { CategoryTag } from '../components/CategoryTag';
+import { useSelector } from 'react-redux';
 
 const StyledArticle = styled.article`
   width: 940px;
@@ -35,7 +36,8 @@ const PostTagline = styled.p`
   margin-top: 0;
   font-weight: normal;
   font-size: 16px;
-  color: ${Colors.mediumdark};
+  color: ${({ theme }) =>
+    theme === 'dark' ? Colors.darkModeMedium : Colors.mediumdark};
 `;
 
 const PostHeader = styled.header`
@@ -60,7 +62,9 @@ const BlogPost = ({ data }: Props) => {
   const {
     mdx: { frontmatter, body },
   } = data;
-  console.log(frontmatter);
+  const theme = useSelector(
+    (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
+  );
   return (
     <Layout>
       <SEO
@@ -79,7 +83,7 @@ const BlogPost = ({ data }: Props) => {
                 {frontmatter.category}
               </CategoryTag>
               <PostTitle>{frontmatter.title}</PostTitle>
-              <PostTagline>{frontmatter.tagline}</PostTagline>
+              <PostTagline theme={theme}>{frontmatter.tagline}</PostTagline>
             </PostHeader>
             <MDXRenderer>{body}</MDXRenderer>
           </PostContent>
