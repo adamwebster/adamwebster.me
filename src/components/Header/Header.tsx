@@ -54,19 +54,28 @@ const Header = () => {
     (state: { HeaderColor: { headerColor: string } }) =>
       state.HeaderColor.headerColor
   );
+
+  const hideLogo = useSelector(
+    (state: { HeaderColor: { hideLogo: boolean } }) =>
+      state.HeaderColor.hideLogo
+  );
   const setThemeFunc = () => {
     const themeToSet = theme === 'dark' ? 'light' : 'dark';
     dispatch(setTheme(themeToSet));
   };
 
+  console.log(hideLogo);
+
   return (
     <StyledHeader headerColor={headerColor} theme={'light'}>
       <StyledHeaderInner>
-        <Link title="Homepage" to="/">
-          <LogoWrapper>
-            <Logo />
-          </LogoWrapper>
-        </Link>
+        {!hideLogo && (
+          <Link title="Homepage" to="/">
+            <LogoWrapper>
+              <Logo />
+            </LogoWrapper>
+          </Link>
+        )}
         <StyledSearchBox>
           <StyledSearchBoxWrapper>
             <StaticQuery
