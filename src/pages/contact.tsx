@@ -1,22 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Layout } from '../components/Layout';
-import { useDispatch } from 'react-redux';
-import { setHeaderColor } from '../state/actions';
-import { Colors } from '@adamwebster/fused-components';
+import { PageHeader } from '../components/PageHeader';
 
 const Contact = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setHeaderColor('tomato'));
-    return () => {
-      dispatch(setHeaderColor(Colors.primary));
-    };
-  }, []);
-
   return (
     <Layout>
-      <span>Contact 22</span>
+      <PageHeader>Contact</PageHeader>
+      The best way to currently to get in contact with me is through twitter by
+      following me{' '}
+      <a href="https://twitter.com/adamwebster" target="_blank">
+        @adamwebster
+      </a>
+      .
     </Layout>
   );
 };

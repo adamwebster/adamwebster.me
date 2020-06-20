@@ -4,8 +4,11 @@ import { graphql, Link } from 'gatsby';
 import LatestPortfolioItem from '../components/LatestPortfolioItems/LatestPortfolioItem';
 import styled from 'styled-components';
 import { PageHeader } from '../components/PageHeader';
-import { CategoryList } from '../components/CategoryList';
+import { BlogCategoryList } from '../components/BlogCategoryList';
 
+const StyledCategoryList = styled.div`
+  width: 300px;
+`;
 const StyledPortfolioGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -64,7 +67,9 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
       <section id="awm-portfolio">
         <PageHeader>Portfolio</PageHeader>
         <StyledPortfolioWrapper>
-          <CategoryList />
+          <StyledCategoryList>
+            <BlogCategoryList />
+          </StyledCategoryList>
           <StyledPortfolioGrid>
             {edges.map(({ node }: any) => {
               return <LatestPortfolioItem key={node.id} node={node} />;

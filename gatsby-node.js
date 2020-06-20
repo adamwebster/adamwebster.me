@@ -77,6 +77,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const blogPostTemplate = path.resolve(`src/templates/BlogPost.tsx`);
   const portfolioItemTemplate = path.resolve(`src/templates/PortfolioPost.tsx`);
   const categoryTemplate = path.resolve(`src/templates/blog/Category.tsx`);
+  const portfolioCategoryTemplate = path.resolve(
+    `src/templates/portfolio/Category.tsx`
+  );
+
   // const tagTemplate = path.resolve(`src/pages/Blog/tag.js`)
 
   const result = await graphql(`
@@ -173,6 +177,15 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         component: portfolioItemTemplate,
         context: {}, // additional data can be passed via context
       });
+      if (node.frontmatter.category) {
+        createPage({
+          path: `/portfolio/${_.kebabCase(node.frontmatter.category)}/`,
+          component: portfolioCategoryTemplate,
+          context: {
+            category: node.frontmatter.category,
+          },
+        });
+      }
     }
   });
 };

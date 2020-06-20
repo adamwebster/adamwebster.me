@@ -5,6 +5,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
 import { PageHeader } from '../components/PageHeader';
 import { CategoryTag } from '../components/CategoryTag';
+import _ from 'lodash';
 interface Props {
   data: any;
 }
@@ -15,7 +16,9 @@ const PortfolioPost = ({ data }: Props) => {
   return (
     <Layout>
       <PageHeader>{frontmatter.title}</PageHeader>
-      <CategoryTag>{frontmatter.category}</CategoryTag>
+      <CategoryTag to={`/portfolio/${_.kebabCase(frontmatter.category)}`}>
+        {frontmatter.category}
+      </CategoryTag>
       <MDXProvider components={{}}>
         <MDXRenderer>{body}</MDXRenderer>
       </MDXProvider>

@@ -8,9 +8,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setTheme } from '../../state/actions';
 import { Index } from 'elasticlunr';
 import { SearchBox } from '../SearchBox';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 interface SHProps {
   headerColor?: string;
 }
+
+const StyledButton = styled(Button)`
+  color: #fff;
+  cursor: pointer;
+`;
 const StyledHeader = styled.header<SHProps>`
   height: 50px;
   box-sizing: border-box;
@@ -97,9 +104,9 @@ const Header = () => {
           </StyledSearchBoxWrapper>
         </StyledSearchBox>
         <Navigation />
-        <Button primary onClick={() => setThemeFunc()}>
-          Switch Theme
-        </Button>
+        <StyledButton as="a" onClick={() => setThemeFunc()}>
+          <FontAwesomeIcon icon={theme === 'dark' ? faSun : faMoon} />
+        </StyledButton>
       </StyledHeaderInner>
     </StyledHeader>
   );
