@@ -25,6 +25,12 @@ const StyledCategoryTag = styled(Link)`
     border: solid 1px #5900de;
     color: #5900de;
   }
+
+  &[data-content='Graphic Design' i] {
+    background-color: #e6d5ff;
+    border: solid 1px #5900de;
+    color: #5900de;
+  }
 `;
 
 interface Props {

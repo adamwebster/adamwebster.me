@@ -4,6 +4,7 @@ import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
 import { PageHeader } from '../components/PageHeader';
+import { CategoryTag } from '../components/CategoryTag';
 interface Props {
   data: any;
 }
@@ -14,6 +15,7 @@ const PortfolioPost = ({ data }: Props) => {
   return (
     <Layout>
       <PageHeader>{frontmatter.title}</PageHeader>
+      <CategoryTag>{frontmatter.category}</CategoryTag>
       <MDXProvider components={{}}>
         <MDXRenderer>{body}</MDXRenderer>
       </MDXProvider>
