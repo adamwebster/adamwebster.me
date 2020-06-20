@@ -1,14 +1,11 @@
 import React from 'react';
 import { Layout } from '../components/Layout';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { PageHeader } from '../components/PageHeader';
 import SEO from '../components/seo';
-import Img from 'gatsby-image';
-import { CategoryTag } from '../components/CategoryTag';
-import { Colors } from '@adamwebster/fused-components';
 import { LinkButton } from '../components/LinkButton';
-
+import { BlogArticle } from '../components/BlogArticle';
 const StyledBlogGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -40,35 +37,6 @@ const StyledBlogWrapper = styled.div`
   }
 `;
 
-const StyledImage = styled(Img)`
-  height: 300px;
-  border: solid 1px ${Colors.border};
-  margin-top: 40px;
-  margin-bottom: 40px;
-`;
-
-const PostTitle = styled.h1`
-  font-weight: bold;
-  margin-bottom: 0;
-  font-size: 40px;
-  a {
-    text-decoration: none;
-  }
-`;
-
-const PostTagline = styled.p`
-  margin-top: 0;
-  font-weight: normal;
-  font-size: 16px;
-  color: #6e6e6e;
-  font-weight: 300;
-`;
-
-const PostContent = styled.div`
-  width: 90%;
-  margin: 50px auto 50px auto;
-`;
-
 interface Props {
   pageContext: any;
   data: any;
@@ -81,6 +49,7 @@ const BlogPage = ({ pageContext, data }: Props) => {
     pageContext.currentPage === 2
       ? '/blog'
       : '/blog/' + (pageContext.currentPage - 1);
+
   return (
     <Layout>
       <SEO title="Blog | Adam Webster Designer and Front-end Developer"></SEO>
@@ -90,26 +59,7 @@ const BlogPage = ({ pageContext, data }: Props) => {
 
           <StyledBlogGrid>
             {edges.map(({ node }: any) => {
-              return (
-                <article>
-                  <StyledImage
-                    fluid={node.frontmatter.featuredImage.childImageSharp.fluid}
-                  />
-
-                  <PostContent>
-                    <header>
-                      <CategoryTag>{node.frontmatter.category}</CategoryTag>
-                      <PostTitle>
-                        <Link to={node.frontmatter.path}>
-                          {node.frontmatter.title}
-                        </Link>
-                      </PostTitle>
-                      <PostTagline>{node.frontmatter.tagline}</PostTagline>
-                    </header>
-                    {node.excerpt}
-                  </PostContent>
-                </article>
-              );
+              return <BlogArticle postData={node} />;
               // return <LatestBlogPost node={node} key={node.id} />;
             })}
           </StyledBlogGrid>

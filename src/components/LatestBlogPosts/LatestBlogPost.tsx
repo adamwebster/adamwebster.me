@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Card } from '@adamwebster/fused-components';
-import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
@@ -9,7 +8,7 @@ import duration from 'dayjs/plugin/duration';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import { CategoryTag } from '../CategoryTag';
-
+import _ from 'lodash';
 dayjs.extend(localeData);
 dayjs.extend(advancedFormat);
 dayjs.extend(duration);
@@ -53,13 +52,16 @@ const LatestBlogPost = ({ node }: Props) => {
     },
     excerpt,
   } = node;
+
   return (
     <Card as="article">
       <Link title={title} to={path}>
         <StyledImg fluid={fluid} />
       </Link>
       <StyledBlogPostContent>
-        <CategoryTag>{category}</CategoryTag>
+        <CategoryTag to={`/blog/${_.kebabCase(category)}`}>
+          {category}
+        </CategoryTag>
         <h2>
           <Link to={path}>{title}</Link>
         </h2>

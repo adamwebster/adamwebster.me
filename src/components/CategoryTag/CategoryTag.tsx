@@ -20,7 +20,7 @@ const StyledCategoryTag = styled(Link)`
     border: solid 1px #8f5100;
     color: #8f5100;
   }
-  &[data-content='Graphic Design' i] {
+  &[data-content='General' i] {
     background-color: #e6d5ff;
     border: solid 1px #5900de;
     color: #5900de;

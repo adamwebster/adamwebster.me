@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 100%;
     line-height: 1.5;
     color: ${({ theme }) =>
-      theme === 'dark' ? Colors.darkModeMedium : Colors.dark};
+      theme === 'dark' ? Colors.darkModeLight : Colors.dark};
     padding: 0;
     margin: 0;  
   }
