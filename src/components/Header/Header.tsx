@@ -22,6 +22,9 @@ const StyledHeader = styled.header<SHProps>`
   height: 50px;
   box-sizing: border-box;
   background-color: ${({ headerColor }) => headerColor};
+  @media only screen and (max-width: 600px) {
+    height: 100px;
+  }
 `;
 
 const StyledHeaderInner = styled.div`
@@ -39,17 +42,41 @@ const StyledHeaderInner = styled.div`
 const StyledSearchBox = styled.div`
   flex: 1 1;
   padding: 0 10px;
+  margin-left: 200px;
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+    margin-left: 0;
+    position: absolute;
+    top: 55px;
+    box-sizing: border-box;
+  }
 `;
 
 const StyledSearchBoxWrapper = styled.div`
-  max-width: 300px;
   margin: 0 auto;
+  @media only screen and (max-width: 600px) {
+    max-width: 100%;
+  }
 `;
 
 const LogoWrapper = styled.div`
   width: 40px;
   color: #fff;
   padding-top: 5px;
+`;
+
+const StyledNavigationWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  flex: 1 1;
+  width: 300px;
+  @media only screen and (max-width: 1080px) {
+    margin-right: 10px;
+  }
+  @media only screen and (max-width: 1080px) {
+    justify-content: flex-end;
+  }
 `;
 
 const Header = () => {
@@ -103,10 +130,12 @@ const Header = () => {
             />
           </StyledSearchBoxWrapper>
         </StyledSearchBox>
-        <Navigation />
-        <StyledButton as="a" onClick={() => setThemeFunc()}>
-          <FontAwesomeIcon icon={theme === 'dark' ? faSun : faMoon} />
-        </StyledButton>
+        <StyledNavigationWrapper>
+          <Navigation />
+          <StyledButton as="a" onClick={() => setThemeFunc()}>
+            <FontAwesomeIcon icon={theme === 'dark' ? faSun : faMoon} />
+          </StyledButton>
+        </StyledNavigationWrapper>
       </StyledHeaderInner>
     </StyledHeader>
   );
