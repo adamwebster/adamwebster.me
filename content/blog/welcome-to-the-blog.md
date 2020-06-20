@@ -5,7 +5,8 @@ title: 'Welcome to my Blog'
 tagline: Full of Adam's Random Thoughts
 featuredImage: images/default.jpg
 category: 'General'
-draft: true
+draft: false
+layout: full
 ---
 
 This is my blog. It is a spot for me to write about things that interest me including but not limited to design, front-end development, and technology.

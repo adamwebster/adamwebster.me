@@ -100,6 +100,7 @@ export const pageQuery = graphql`
             date
             category
             tagline
+            heroColor
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 800) {

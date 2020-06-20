@@ -13,10 +13,14 @@ dayjs.extend(localeData);
 dayjs.extend(advancedFormat);
 dayjs.extend(duration);
 
-const StyledImg = styled(Img)`
+interface SIProps {
+  bgColor: string;
+}
+const StyledImg = styled(Img)<SIProps>`
   object-fit: cover;
   width: 100%;
   height: 150px;
+  background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
 `;
 
 const StyledBlogPostContent = styled.div`
@@ -46,6 +50,7 @@ const LatestBlogPost = ({ node }: Props) => {
       title,
       date,
       category,
+      heroColor,
       featuredImage: {
         childImageSharp: { fluid },
       },
@@ -56,7 +61,7 @@ const LatestBlogPost = ({ node }: Props) => {
   return (
     <Card as="article">
       <Link title={title} to={path}>
-        <StyledImg fluid={fluid} />
+        <StyledImg bgColor={heroColor} fluid={fluid} />
       </Link>
       <StyledBlogPostContent>
         <CategoryTag to={`/blog/${_.kebabCase(category)}`}>

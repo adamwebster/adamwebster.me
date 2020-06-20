@@ -70,6 +70,7 @@ const LatestBlogPosts = () => {
                 frontmatter {
                   title
                   date
+                  heroColor
                   path
                   category
                   featuredImage {

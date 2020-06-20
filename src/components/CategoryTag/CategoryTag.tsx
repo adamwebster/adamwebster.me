@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
+import { Colors } from '@adamwebster/fused-components';
 const StyledCategoryTag = styled(Link)`
   padding: 5px 10px;
   border-radius: 5px;
@@ -30,6 +31,11 @@ const StyledCategoryTag = styled(Link)`
     background-color: #e6d5ff;
     border: solid 1px #5900de;
     color: #5900de;
+  }
+  &[data-content='Technology' i] {
+    background-color: #d7e9ff;
+    border: solid 1px #005ccc;
+    color: #005ccc;
   }
 `;
 

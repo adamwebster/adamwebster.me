@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-
 import { Colors, FCThemeProvider } from '@adamwebster/fused-components';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
@@ -19,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;  
   }
   a {
-    color: ${({ theme }) => (theme === 'dark' ? '#8bbdfb' : Colors.primary)};
+	color: ${({ theme }) => (theme === 'dark' ? '#4297FF' : Colors.primary)};
     }
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 0.5em 0;
@@ -32,12 +31,14 @@ h1 {
 }
 `;
 
-const StyledContent = styled.div`
-  width: 1080px;
+interface SCProps {
+  layout?: string;
+}
+const StyledContent = styled.div<SCProps>`
+  width: ${({ layout }) => (layout === 'full' ? '100vw' : '1080px')};
   margin: 0 auto;
   @media only screen and (max-width: 1080px) {
     width: 100%;
-    padding: 0 10px;
     box-sizing: border-box;
   }
 `;
@@ -45,9 +46,10 @@ const StyledContent = styled.div`
 interface Props {
   children: ReactNode;
   hero?: ReactNode;
+  layout?: string;
 }
 
-const Layout = ({ children, hero }: Props) => {
+const BlogPostLayout = ({ children, layout, hero }: Props) => {
   const theme = useSelector(
     (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
   );
@@ -57,11 +59,11 @@ const Layout = ({ children, hero }: Props) => {
         <GlobalStyle theme={theme} />
         <Header />
         {hero && hero}
-        <StyledContent>{children}</StyledContent>
+        <StyledContent layout={layout}>{children}</StyledContent>
         <Footer />
       </FCThemeProvider>
     </>
   );
 };
 
-export default Layout;
+export default BlogPostLayout;

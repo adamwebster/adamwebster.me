@@ -76,7 +76,7 @@ const LatestPortfolioItem = ({ node }: Props) => {
     <StyledLatestPortfolioItem>
       <StyledImageWrapper theme={theme}>
         <Link to={path}>
-          <StyledImg fluid={fluid} />
+          <StyledImg alt={title} fluid={fluid} />
         </Link>
       </StyledImageWrapper>
       {title}
