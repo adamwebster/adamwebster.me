@@ -48,23 +48,21 @@ const LogoWrapper = styled.div`
 const Header = () => {
   const dispatch = useDispatch();
   const theme = useSelector(
-    (state: { SiteTheme: { theme: string } }) => state.SiteTheme.theme
+    (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
   );
   const headerColor = useSelector(
-    (state: { HeaderColor: { headerColor: string } }) =>
-      state.HeaderColor.headerColor
+    (state: { SiteSettings: { headerColor: string } }) =>
+      state.SiteSettings.headerColor
   );
 
   const hideLogo = useSelector(
-    (state: { HeaderColor: { hideLogo: boolean } }) =>
-      state.HeaderColor.hideLogo
+    (state: { SiteSettings: { hideLogo: boolean } }) =>
+      state.SiteSettings.hideLogo
   );
   const setThemeFunc = () => {
     const themeToSet = theme === 'dark' ? 'light' : 'dark';
     dispatch(setTheme(themeToSet));
   };
-
-  console.log(hideLogo);
 
   return (
     <StyledHeader headerColor={headerColor} theme={'light'}>

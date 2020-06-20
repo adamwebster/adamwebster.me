@@ -1,14 +1,17 @@
-import { SET_HEADER_COLOR, SET_LOGO_HIDDEN } from '../actionTypes';
+import { SET_THEME, SET_HEADER_COLOR, SET_LOGO_HIDDEN } from '../actionTypes';
 import { Colors } from '@adamwebster/fused-components';
 
 const initialState = {
+  theme: 'light',
   headerColor: Colors.primary,
   hideLogo: false,
 };
 
 export default (state = initialState, action: { type: any; payload: any }) => {
-  console.log(action.payload);
   switch (action.type) {
+    case SET_THEME:
+      const { theme } = action.payload;
+      return { ...state, theme };
     case SET_HEADER_COLOR:
       const { headerColor } = action.payload;
       return { ...state, headerColor };

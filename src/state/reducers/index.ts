@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import SiteTheme from './DarkMode';
-import HeaderColor from './HeaderColor';
+import SiteSettings from './siteSettings';
 
-export default combineReducers({ SiteTheme, HeaderColor });
+export default combineReducers({ SiteSettings });
