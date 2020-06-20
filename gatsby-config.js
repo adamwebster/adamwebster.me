@@ -98,6 +98,7 @@ module.exports = {
             title: node => node.frontmatter.title,
             path: node => node.frontmatter.path,
             category: node => node.frontmatter.category,
+            date: node => node.frontmatter.date,
           },
         },
         // Optional filter to limit indexed nodes

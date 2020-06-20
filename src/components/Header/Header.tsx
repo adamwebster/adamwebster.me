@@ -46,8 +46,6 @@ const LogoWrapper = styled.div`
 `;
 
 const Header = () => {
-  const [results, setResults] = useState([]);
-
   const dispatch = useDispatch();
   const theme = useSelector(
     (state: { SiteTheme: { theme: string } }) => state.SiteTheme.theme
@@ -61,9 +59,6 @@ const Header = () => {
     dispatch(setTheme(themeToSet));
   };
 
-  const getOrCreateIndex = () => {
-    return Index.load(searchIndex);
-  };
   return (
     <StyledHeader headerColor={headerColor} theme={'light'}>
       <StyledHeaderInner>
@@ -83,11 +78,10 @@ const Header = () => {
                 }
               `}
               render={data => {
-                const test = Index.load(data.siteSearchIndex.index);
-                console.log(test);
+                const searchIndex = Index.load(data.siteSearchIndex.index);
                 return (
                   <>
-                    <SearchBox data={test} />
+                    <SearchBox data={searchIndex} />
                   </>
                 );
               }}

@@ -104,6 +104,7 @@ export const pageQuery = graphql`
             title
             path
             date
+            category
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 800) {
