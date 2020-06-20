@@ -7,7 +7,7 @@ const windowGlobal: any = typeof window !== 'undefined' && window;
 if (windowGlobal) {
   themeValue = localStorage.getItem('theme')
     ? localStorage.getItem('theme')
-    : 'dark';
+    : 'light';
 }
 const initialState = {
   theme: themeValue,

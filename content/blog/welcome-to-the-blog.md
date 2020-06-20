@@ -7,6 +7,7 @@ featuredImage: images/default.jpg
 category: 'General'
 draft: false
 layout: full
+heroColor: '#006EF5'
 ---
 
 This is my blog. It is a spot for me to write about things that interest me including but not limited to design, front-end development, and technology.
