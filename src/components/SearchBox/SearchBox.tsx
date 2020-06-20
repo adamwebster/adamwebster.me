@@ -21,6 +21,7 @@ const SearchBox = ({ data }: Props) => {
     //   item.title.includes(e.target.value)
     // );
 
+    console.log(results);
     setItems(results.slice(0, 5));
   };
   return (

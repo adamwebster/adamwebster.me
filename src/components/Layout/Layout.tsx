@@ -49,7 +49,7 @@ interface Props {
 
 const Layout = ({ children, hero }: Props) => {
   const theme = useSelector(
-    (state: { SiteTheme: { theme: string } }) => state.SiteTheme.theme
+    (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
   );
   return (
     <>
