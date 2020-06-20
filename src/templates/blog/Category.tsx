@@ -52,7 +52,9 @@ const BlogPage = ({ pageContext, data }: Props) => {
       : '/blog/' + (pageContext.currentPage - 1);
   return (
     <Layout>
-      <SEO title="Blog | Adam Webster Designer and Front-end Developer"></SEO>
+      <SEO
+        title={`${pageContext.category} | Blog | Adam Webster Designer and Front-end Developer`}
+      />
       <section id="awm-blog">
         <StyledBlogWrapper>
           <PageHeader>Blog</PageHeader>
@@ -99,6 +101,7 @@ export const pageQuery = graphql`
             path
             date
             tagline
+            heroColor
             category
             featuredImage {
               childImageSharp {

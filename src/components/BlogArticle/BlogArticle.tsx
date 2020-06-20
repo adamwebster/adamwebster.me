@@ -7,11 +7,15 @@ import { Colors } from '@adamwebster/fused-components';
 import { useSelector } from 'react-redux';
 import _ from 'lodash';
 
-const StyledImage = styled(Img)`
+interface SIProps {
+  bgColor: string;
+}
+const StyledImage = styled(Img)<SIProps>`
   height: 300px;
   border: solid 1px ${Colors.border};
   margin-top: 40px;
   margin-bottom: 40px;
+  background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
 `;
 
 const PostTitle = styled.h1`
@@ -28,7 +32,7 @@ const PostTagline = styled.p`
   font-weight: normal;
   font-size: 16px;
   color: ${({ theme }) =>
-    theme === 'dark' ? Colors.darkModeMedium : Colors.mediumdark};
+    theme === 'dark' ? Colors.darkModeLight : '#6E6E6E'};
 `;
 
 const PostContent = styled.div`
@@ -46,6 +50,7 @@ const BlogArticle = ({ postData }: Props) => {
   return (
     <article>
       <StyledImage
+        bgColor={postData.frontmatter.heroColor}
         fluid={postData.frontmatter.featuredImage.childImageSharp.fluid}
       />
 

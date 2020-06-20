@@ -1,29 +1,47 @@
-import React from 'react';
-import { Layout } from '../components/Layout';
+import React, { useEffect } from 'react';
+import { BlogPostLayout } from '../components/BlogPostLayout';
 import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
 import Img from 'gatsby-image';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Colors } from '@adamwebster/fused-components';
 import _ from 'lodash';
 import SEO from '../components/seo';
 import { CategoryTag } from '../components/CategoryTag';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { SetHeaderColor } from '../components/SetHeaderColor';
 
-const StyledArticle = styled.article`
-  width: 940px;
+interface SAProps {
+  layout?: string;
+}
+const StyledArticle = styled.article<SAProps>`
+  width: ${({ layout }) => (layout === 'full' ? '100vw' : '940px')};
   margin: 0 auto;
   grid-gap: 20px;
   @media only screen and (max-width: 900px) {
     width: 100%;
   }
+
+  @media only screen and (max-width: 1080px) {
+    ${({ layout }) =>
+      layout !== 'full' &&
+      css`
+        padding: 0 10px;
+        box-sizing: border-box;
+      `}
+  }
 `;
 
-const StyledImage = styled(Img)`
-  height: 300px;
-  border: solid 1px ${Colors.border};
-  margin-top: 40px;
+interface SIProps {
+  layout?: string;
+}
+const StyledImage = styled(Img)<SIProps>`
+  height: ${({ layout }) => (layout === 'full' ? '500px' : '300px')};
+  border: ${({ layout }) =>
+    layout === 'full' ? 'none' : `solid 1px ${Colors.border}`};
+  max-width: 100%;
+  margin: 0 auto;
 `;
 
 const PostTitle = styled.h1`
@@ -37,47 +55,80 @@ const PostTagline = styled.p`
   font-weight: normal;
   font-size: 16px;
   color: ${({ theme }) =>
-    theme === 'dark' ? Colors.darkModeMedium : Colors.mediumdark};
+    theme === 'dark' ? Colors.darkModeLight : '#6E6E6E'};
 `;
 
 const PostHeader = styled.header`
   margin-bottom: 50px;
 `;
 
-const PostContent = styled.div`
+interface PSProps {
+  layout?: string;
+}
+
+const PostContent = styled.div<PSProps>`
   width: 90%;
+  ${({ layout }) =>
+    layout === 'full'
+      ? css`
+          max-width: 700px;
+        `
+      : css`
+          max-width: 700px;
+        `};
+
   margin: 50px auto 50px auto;
+  @media only screen and (max-width: 1080px) {
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
 `;
 
-const PostCategory = styled(Link)`
-  text-decoration: none;
-  font-weight: bold;
-`;
+interface SIWProps {
+  bgColor: string;
+  layout: string;
+}
 
+const StyledImageWrapper = styled.div<SIWProps>`
+  width: 100%;
+  margin-top: ${({ layout }) => (layout === 'full' ? '0' : '40px')};
+
+  background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
+`;
 interface Props {
   data: any;
 }
 
 const BlogPost = ({ data }: Props) => {
+  const dispatch = useDispatch();
   const {
     mdx: { frontmatter, body },
   } = data;
   const theme = useSelector(
     (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
   );
+
   return (
-    <Layout>
+    <BlogPostLayout layout={frontmatter.layout}>
+      {frontmatter.heroColor && (
+        <SetHeaderColor color={frontmatter.heroColor} />
+      )}
       <SEO
         title={`${frontmatter.title} | Adam Webster Designer and Front-end Developer`}
       ></SEO>
 
-      <StyledArticle>
+      <StyledArticle layout={frontmatter.layout}>
         <MDXProvider components={{}}>
-          <StyledImage
-            fluid={frontmatter.featuredImage.childImageSharp.fluid}
-          />
-
-          <PostContent>
+          <StyledImageWrapper
+            layout={frontmatter.layout}
+            bgColor={frontmatter.heroColor}
+          >
+            <StyledImage
+              layout={frontmatter.layout}
+              fluid={frontmatter.featuredImage.childImageSharp.fluid}
+            />
+          </StyledImageWrapper>
+          <PostContent layout={frontmatter.layout}>
             <PostHeader>
               <CategoryTag to={`/blog/${_.kebabCase(frontmatter.category)}`}>
                 {frontmatter.category}
@@ -89,7 +140,7 @@ const BlogPost = ({ data }: Props) => {
           </PostContent>
         </MDXProvider>
       </StyledArticle>
-    </Layout>
+    </BlogPostLayout>
   );
 };
 
@@ -102,6 +153,8 @@ export const pageQuery = graphql`
         path
         title
         tags
+        heroColor
+        layout
         tagline
         featuredImage {
           childImageSharp {

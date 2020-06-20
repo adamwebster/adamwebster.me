@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { PageHeader } from '../../components/PageHeader';
 import LatestPortfolioItem from '../../components/LatestPortfolioItems/LatestPortfolioItem';
 import { BlogCategoryList } from '../../components/BlogCategoryList';
+import SEO from '../../components/seo';
 
 const StyledCategoryList = styled.div`
   width: 300px;
@@ -65,6 +66,9 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
       : '/portfolio/' + (pageContext.currentPage - 1);
   return (
     <Layout>
+      <SEO
+        title={`${pageContext.category} | Portfolio | Adam Webster Designer and Front-end Developer`}
+      />
       <section id="awm-portfolio">
         <PageHeader>Portfolio</PageHeader>
         <StyledPortfolioWrapper>

@@ -1,13 +1,13 @@
 import { SET_THEME, SET_HEADER_COLOR, SET_LOGO_HIDDEN } from '../actionTypes';
 import { Colors } from '@adamwebster/fused-components';
 
-let themeValue = 'light';
+let themeValue: string | null = 'light';
 const windowGlobal: any = typeof window !== 'undefined' && window;
 
 if (windowGlobal) {
   themeValue = localStorage.getItem('theme')
     ? localStorage.getItem('theme')
-    : 'light';
+    : 'dark';
 }
 const initialState = {
   theme: themeValue,

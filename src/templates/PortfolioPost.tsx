@@ -6,6 +6,7 @@ import { MDXProvider } from '@mdx-js/react';
 import { PageHeader } from '../components/PageHeader';
 import { CategoryTag } from '../components/CategoryTag';
 import _ from 'lodash';
+import SEO from '../components/seo';
 interface Props {
   data: any;
 }
@@ -15,6 +16,9 @@ const PortfolioPost = ({ data }: Props) => {
   } = data;
   return (
     <Layout>
+      <SEO
+        title={`${frontmatter.title} | Adam Webster Designer and Front-end Developer`}
+      />
       <PageHeader>{frontmatter.title}</PageHeader>
       <CategoryTag to={`/portfolio/${_.kebabCase(frontmatter.category)}`}>
         {frontmatter.category}
