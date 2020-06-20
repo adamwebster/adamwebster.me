@@ -40,7 +40,7 @@ const StyledImage = styled(Img)<SIProps>`
   height: ${({ layout }) => (layout === 'full' ? '500px' : '300px')};
   border: ${({ layout }) =>
     layout === 'full' ? 'none' : `solid 1px ${Colors.border}`};
-  max-width: 100%;
+  max-width: 800px;
   margin: 0 auto;
 `;
 
