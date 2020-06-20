@@ -176,3 +176,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     }
   });
 };
+
+// This fixes an issue when loading a package using npm/yarn link with two versions of react being loaded
+exports.onCreateWebpackConfig = ({ actions, getConfig, stage }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      alias: { react: require.resolve('react') },
+    },
+  });
+};
