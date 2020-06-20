@@ -66,6 +66,7 @@ const LatestPortfolioItems = () => {
       query={graphql`
         query {
           allMdx(
+            sort: { order: DESC, fields: frontmatter___date }
             limit: 6
             filter: { fields: { sourceInstanceName: { eq: "portfolio-item" } } }
           ) {

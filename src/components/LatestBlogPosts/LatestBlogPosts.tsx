@@ -61,6 +61,7 @@ const LatestBlogPosts = () => {
         query {
           allMdx(
             limit: 3
+            sort: { order: DESC, fields: frontmatter___date }
             filter: { fields: { sourceInstanceName: { eq: "blog-post" } } }
           ) {
             edges {
