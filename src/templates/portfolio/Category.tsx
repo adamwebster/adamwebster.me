@@ -2,26 +2,39 @@ import React from 'react';
 import { Layout } from '../../components/Layout';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
-import { BlogArticle } from '../../components/BlogArticle';
-import { CategoryList } from '../../components/CategoryList';
 import { PageHeader } from '../../components/PageHeader';
-import SEO from '../../components/seo';
-import { LinkButton } from '../../components/LinkButton';
-const StyledBlogGrid = styled.div`
+import LatestPortfolioItem from '../../components/LatestPortfolioItems/LatestPortfolioItem';
+import { BlogCategoryList } from '../../components/BlogCategoryList';
+
+const StyledCategoryList = styled.div`
+  width: 300px;
+`;
+
+const StyledPortfolioGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   grid-gap: 20px;
-
+  width: 100%;
+  @media only screen and (max-width: 1080px) {
+    grid-template-rows: repeat(2, calc(25vw - 20px));
+    grid-template-columns: repeat(3, calc(25vw - 40px));
+  }
   @media only screen and (max-width: 768px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(4, calc(38vw - 20px));
+    grid-template-columns: repeat(3, calc(33vw - 20px));
+  }
+  @media only screen and (max-width: 600px) {
+    margin-top: 20px;
+    margin-left: 0;
+    width: 100%;
+    grid-template-rows: repeat(2, calc(42vw - 20px));
+    grid-template-columns: repeat(3, calc(33vw - 20px));
   }
 `;
 
 const StyledPaging = styled.div`
   display: flex;
-
   align-items: center;
   justify-content: center;
   margin: 20px 0;
@@ -30,9 +43,9 @@ const StyledPaging = styled.div`
   }
 `;
 
-const StyledBlogWrapper = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
+const StyledPortfolioWrapper = styled.div`
+  display: flex;
+  margin-top: 50px;
   @media only screen and (max-width: 768px) {
     flex-flow: column;
   }
@@ -42,38 +55,38 @@ interface Props {
   pageContext: any;
   data: any;
 }
-const BlogPage = ({ pageContext, data }: Props) => {
+const PortfolioPage = ({ pageContext, data }: Props) => {
   const {
     allMdx: { edges },
   } = data;
   const previousPageUrl =
     pageContext.currentPage === 2
-      ? '/blog'
-      : '/blog/' + (pageContext.currentPage - 1);
+      ? '/portfolio'
+      : '/portfolio/' + (pageContext.currentPage - 1);
   return (
     <Layout>
-      <SEO title="Blog | Adam Webster Designer and Front-end Developer"></SEO>
-      <section id="awm-blog">
-        <StyledBlogWrapper>
-          <PageHeader>Blog</PageHeader>
-
-          <StyledBlogGrid>
+      <section id="awm-portfolio">
+        <PageHeader>Portfolio</PageHeader>
+        <StyledPortfolioWrapper>
+          <StyledCategoryList>
+            <BlogCategoryList />
+          </StyledCategoryList>
+          <StyledPortfolioGrid>
             {edges.map(({ node }: any) => {
-              return <BlogArticle postData={node} />;
-              // return <LatestBlogPost node={node} key={node.id} />;
+              return <LatestPortfolioItem key={node.id} node={node} />;
             })}
-          </StyledBlogGrid>
-        </StyledBlogWrapper>
+          </StyledPortfolioGrid>
+        </StyledPortfolioWrapper>
       </section>
-      {pageContext.numPages > 1 && (
+      {pageContext.numPagesPort > 1 && (
         <StyledPaging>
           {pageContext.currentPage > 1 && (
-            <LinkButton to={previousPageUrl}>Previous Page</LinkButton>
+            <Link to={previousPageUrl}>Previous Page</Link>
           )}{' '}
-          {pageContext.currentPage !== pageContext.numPages && (
-            <LinkButton to={'/blog/' + (pageContext.currentPage + 1)}>
+          {pageContext.currentPage !== pageContext.numPagesPort && (
+            <Link to={'/portfolio/' + (pageContext.currentPage + 1)}>
               Next Page
-            </LinkButton>
+            </Link>
           )}
         </StyledPaging>
       )}
@@ -93,12 +106,11 @@ export const pageQuery = graphql`
       edges {
         node {
           id
-          excerpt(pruneLength: 600)
+          excerpt(pruneLength: 80)
           frontmatter {
             title
             path
             date
-            tagline
             category
             featuredImage {
               childImageSharp {
@@ -116,4 +128,4 @@ export const pageQuery = graphql`
   }
 `;
 
-export default BlogPage;
+export default PortfolioPage;
