@@ -44,12 +44,10 @@ const StyledHeroMessage = styled.div`
   top: 80px;
   color: #fff;
   position: relative;
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 600px) {
     margin: 0 auto;
     width: 100%;
     top: 20px;
-  }
-  @media only screen and (max-width: 600px) {
     text-align: center;
     margin-bottom: 40px;
   }
