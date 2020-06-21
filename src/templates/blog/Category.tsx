@@ -52,9 +52,7 @@ const BlogPage = ({ pageContext, data }: Props) => {
       : '/blog/' + (pageContext.currentPage - 1);
   return (
     <Layout>
-      <SEO
-        title={`${pageContext.category} | Blog | Adam Webster Designer and Front-end Developer`}
-      />
+      <SEO title={`${pageContext.category} | Blog`} />
       <section id="awm-blog">
         <StyledBlogWrapper>
           <PageHeader>Blog</PageHeader>

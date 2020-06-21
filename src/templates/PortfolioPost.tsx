@@ -16,9 +16,7 @@ const PortfolioPost = ({ data }: Props) => {
   } = data;
   return (
     <Layout>
-      <SEO
-        title={`${frontmatter.title} | Adam Webster Designer and Front-end Developer`}
-      />
+      <SEO title={`${frontmatter.title} | Portfolio`} />
       <PageHeader>{frontmatter.title}</PageHeader>
       <CategoryTag to={`/portfolio/${_.kebabCase(frontmatter.category)}`}>
         {frontmatter.category}
