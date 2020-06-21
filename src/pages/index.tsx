@@ -5,14 +5,17 @@ import { LatestPortfolioItems } from '../components/LatestPortfolioItems';
 import { LatestBlogPosts } from '../components/LatestBlogPosts';
 import SEO from '../components/seo';
 import { useDispatch } from 'react-redux';
-import { SetLogoHidden } from '../state/actions';
+import { SetLogoHidden, setHasHero } from '../state/actions';
 
 const Index = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(SetLogoHidden(true));
+    dispatch(setHasHero(true));
+
     return () => {
       dispatch(SetLogoHidden(false));
+      dispatch(setHasHero(false));
     };
   }, []);
   return (

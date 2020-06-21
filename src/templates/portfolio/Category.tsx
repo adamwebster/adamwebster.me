@@ -9,6 +9,13 @@ import SEO from '../../components/seo';
 
 const StyledCategoryList = styled.div`
   width: 300px;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+
+    a {
+      margin-right: 10px;
+    }
+  }
 `;
 
 const StyledPortfolioGrid = styled.div`

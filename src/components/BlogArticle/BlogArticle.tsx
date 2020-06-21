@@ -29,6 +29,7 @@ const PostTitle = styled.h1`
 
 const PostTagline = styled.p`
   margin-top: 0;
+  text-transform: uppercase;
   font-weight: normal;
   font-size: 16px;
   color: ${({ theme }) =>
@@ -49,10 +50,12 @@ const BlogArticle = ({ postData }: Props) => {
   );
   return (
     <article>
-      <StyledImage
-        bgColor={postData.frontmatter.heroColor}
-        fluid={postData.frontmatter.featuredImage.childImageSharp.fluid}
-      />
+      <Link to={postData.frontmatter.path}>
+        <StyledImage
+          bgColor={postData.frontmatter.heroColor}
+          fluid={postData.frontmatter.featuredImage.childImageSharp.fluid}
+        />
+      </Link>
 
       <PostContent>
         <header>

@@ -8,12 +8,14 @@ const Contact = () => {
     <Layout>
       <SEO title="Contact | Adam Webster and Front-end Developer" />
       <PageHeader>Contact</PageHeader>
-      The best way to currently to get in contact with me is through twitter by
-      following me{' '}
-      <a href="https://twitter.com/adamwebster" target="_blank">
-        @adamwebster
-      </a>
-      .
+      <p>
+        The best way to currently to get in contact with me is through twitter
+        by following me{' '}
+        <a href="https://twitter.com/adamwebster" target="_blank">
+          @adamwebster
+        </a>
+        .
+      </p>
     </Layout>
   );
 };

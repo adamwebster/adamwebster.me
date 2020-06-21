@@ -37,19 +37,26 @@ const StyledLatestPortfolioItems = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 20px;
   @media only screen and (max-width: 1080px) {
-    grid-template-rows: repeat(2, calc(25vw - 20px));
+    grid-template-rows: repeat(2, calc(30vw - 20px));
     grid-template-columns: repeat(3, calc(25vw - 20px));
   }
   @media only screen and (max-width: 768px) {
-    grid-template-rows: 33vw 33vw;
+    grid-template-rows: repeat(3, calc(40vw - 20px));
     grid-template-columns: 33vw 33vw;
   }
   @media only screen and (max-width: 600px) {
     margin-top: 20px;
     margin-left: 0;
     width: 100%;
-    grid-template-rows: repeat(2, calc(33vw - 20px));
+    grid-template-rows: repeat(2, calc(40vw - 20px));
     grid-template-columns: repeat(3, calc(33vw - 20px));
+  }
+  @media only screen and (max-width: 400px) {
+    margin-top: 20px;
+    margin-left: 0;
+    width: 100%;
+    grid-template-rows: repeat(3, calc(70vw - 20px));
+    grid-template-columns: repeat(2, calc(50vw - 20px));
   }
 `;
 
@@ -111,7 +118,7 @@ const LatestPortfolioItems = () => {
                 </StyledLatestPortfolioItems>
               </StyledLatestPortfolioSectionInner>
               <StyledListMore>
-                <LinkButton to="/portfolio">Read More</LinkButton>
+                <LinkButton to="/portfolio">See More</LinkButton>
               </StyledListMore>
             </StyledLatestPortfolioSection>
           </>

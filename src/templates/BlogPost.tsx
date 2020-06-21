@@ -11,6 +11,7 @@ import SEO from '../components/seo';
 import { CategoryTag } from '../components/CategoryTag';
 import { useSelector, useDispatch } from 'react-redux';
 import { SetHeaderColor } from '../components/SetHeaderColor';
+import { setHasHero } from '../state/actions';
 
 interface SAProps {
   layout?: string;
@@ -52,6 +53,7 @@ const PostTitle = styled.h1`
 
 const PostTagline = styled.p`
   margin-top: 0;
+  text-transform: uppercase;
   font-weight: normal;
   font-size: 16px;
   color: ${({ theme }) =>
@@ -108,6 +110,14 @@ const BlogPost = ({ data }: Props) => {
     (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
   );
 
+  useEffect(() => {
+    if (frontmatter.layout === 'full') {
+      dispatch(setHasHero(true));
+    }
+    return () => {
+      dispatch(setHasHero(false));
+    };
+  }, []);
   return (
     <BlogPostLayout layout={frontmatter.layout}>
       {frontmatter.heroColor && (

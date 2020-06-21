@@ -1,4 +1,9 @@
-import { SET_THEME, SET_HEADER_COLOR, SET_LOGO_HIDDEN } from '../actionTypes';
+import {
+  SET_THEME,
+  SET_HEADER_COLOR,
+  SET_LOGO_HIDDEN,
+  SET_HAS_HERO,
+} from '../actionTypes';
 import { Colors } from '@adamwebster/fused-components';
 
 let themeValue: string | null = 'light';
@@ -13,6 +18,7 @@ const initialState = {
   theme: themeValue,
   headerColor: Colors.primary,
   hideLogo: false,
+  hasHero: true,
 };
 
 export default (state = initialState, action: { type: any; payload: any }) => {
@@ -26,6 +32,9 @@ export default (state = initialState, action: { type: any; payload: any }) => {
     case SET_LOGO_HIDDEN:
       const { hideLogo } = action.payload;
       return { ...state, hideLogo };
+    case SET_HAS_HERO:
+      const { hasHero } = action.payload;
+      return { ...state, hasHero };
     default:
       return state;
   }
