@@ -20,8 +20,6 @@ const SearchBox = ({ data }: Props) => {
     // const test1 = dataReturned.filter(item =>
     //   item.title.includes(e.target.value)
     // );
-
-    console.log(results);
     setItems(results.slice(0, 5));
   };
   return (
@@ -34,7 +32,11 @@ const SearchBox = ({ data }: Props) => {
       keyToSearch="title"
       onChange={e => searchData(e)}
       onItemClick={index => {
-        if (items[index]) window.location.href = items[index].path;
+        if (items[index]) {
+          if (typeof window !== 'undefined') {
+            window.location.href = items[index].path;
+          }
+        }
       }}
       itemFormatter={(index: any) => {
         return (

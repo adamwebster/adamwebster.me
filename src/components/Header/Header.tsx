@@ -119,7 +119,6 @@ const Header = () => {
     localStorage.setItem('theme', themeToSet);
   };
 
-  console.log(hasHero);
   return (
     <StyledHeader headerColor={headerColor} theme={'light'}>
       <StyledHeaderInner>
