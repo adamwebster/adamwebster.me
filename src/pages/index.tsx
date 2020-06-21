@@ -20,7 +20,7 @@ const Index = () => {
   }, []);
   return (
     <Layout hero={<Hero />}>
-      <SEO title="Adam Webster Designer and Front-end Developer" />
+      <SEO title={'Welcome'} />
 
       <LatestPortfolioItems />
       <LatestBlogPosts />

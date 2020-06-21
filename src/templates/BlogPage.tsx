@@ -52,7 +52,7 @@ const BlogPage = ({ pageContext, data }: Props) => {
 
   return (
     <Layout>
-      <SEO title="Blog | Adam Webster Designer and Front-end Developer"></SEO>
+      <SEO title="Blog"></SEO>
       <section id="awm-blog">
         <StyledBlogWrapper>
           <PageHeader>Blog</PageHeader>
