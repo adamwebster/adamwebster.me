@@ -12,6 +12,10 @@ import { CategoryTag } from '../components/CategoryTag';
 import { useSelector, useDispatch } from 'react-redux';
 import { SetHeaderColor } from '../components/SetHeaderColor';
 import { setHasHero } from '../state/actions';
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+
+dayjs.extend(advancedFormat);
 
 interface SAProps {
   layout?: string;
@@ -143,6 +147,7 @@ const BlogPost = ({ data }: Props) => {
               </CategoryTag>
               <PostTitle>{frontmatter.title}</PostTitle>
               <PostTagline theme={theme}>{frontmatter.tagline}</PostTagline>
+              {dayjs(frontmatter.date).format('MMMM Do YYYY')}
             </PostHeader>
             <MDXRenderer>{body}</MDXRenderer>
           </PostContent>
