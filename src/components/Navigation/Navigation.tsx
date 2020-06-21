@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { lighten, saturate, darken } from 'polished';
 
 interface SNProps {
-  activePage: string;
+  activePage?: () => string;
   headerColor: string;
 }
 const StyledNavigation = styled.nav<SNProps>`
@@ -46,7 +46,12 @@ const Navigation = () => {
   return (
     <StyledNavigation
       headerColor={headerColor}
-      activePage={window.location.href.split('/')[3]}
+      activePage={(): string => {
+        if (typeof window !== 'undefined') {
+          return window.location.href.split('/')[3];
+        }
+        return '';
+      }}
     >
       <ul>
         <li data-content="portfolio">
