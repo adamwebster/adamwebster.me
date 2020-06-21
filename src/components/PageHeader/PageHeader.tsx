@@ -6,6 +6,7 @@ const StyledPageHeader = styled.h1`
   font-weight: 300;
   font-size: 32px;
   margin-top: 30px;
+  margin-bottom: 0;
 `;
 interface Props {
   children: ReactNode;

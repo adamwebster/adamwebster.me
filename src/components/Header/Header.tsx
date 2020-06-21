@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
+import styled, { css } from 'styled-components';
 import Logo from '../../assets/svgs/logo.svg';
-import { Button } from '@adamwebster/fused-components';
+import { Button, Colors } from '@adamwebster/fused-components';
 import { Navigation } from '../Navigation';
 import { Link, StaticQuery, graphql } from 'gatsby';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +17,7 @@ interface SHProps {
 const StyledButton = styled(Button)`
   color: #fff;
   cursor: pointer;
+  padding: 12px 0;
 `;
 const StyledHeader = styled.header<SHProps>`
   height: 50px;
@@ -39,7 +40,11 @@ const StyledHeaderInner = styled.div`
   }
 `;
 
-const StyledSearchBox = styled.div`
+interface SSBProps {
+  hasHero: boolean;
+}
+
+const StyledSearchBox = styled.div<SSBProps>`
   flex: 1 1;
   padding: 0 10px;
   margin-left: 200px;
@@ -47,8 +52,16 @@ const StyledSearchBox = styled.div`
     width: 100%;
     margin-left: 0;
     position: absolute;
-    top: 55px;
+    top: 50px;
     box-sizing: border-box;
+    ${({ hasHero }) =>
+      !hasHero &&
+      css`
+        background-color: ${({ theme }) =>
+          theme === 'dark' ? Colors.darkModeDarker : Colors.medium};
+      `}
+
+    padding: 10px;
   }
 `;
 
@@ -71,6 +84,8 @@ const StyledNavigationWrapper = styled.div`
 
   flex: 1 1;
   width: 300px;
+  height: 100%;
+
   @media only screen and (max-width: 1080px) {
     margin-right: 10px;
   }
@@ -93,12 +108,18 @@ const Header = () => {
     (state: { SiteSettings: { hideLogo: boolean } }) =>
       state.SiteSettings.hideLogo
   );
+
+  const hasHero = useSelector(
+    (state: { SiteSettings: { hasHero: boolean } }) =>
+      state.SiteSettings.hasHero
+  );
   const setThemeFunc = () => {
     const themeToSet = theme === 'dark' ? 'light' : 'dark';
     dispatch(setTheme(themeToSet));
     localStorage.setItem('theme', themeToSet);
   };
 
+  console.log(hasHero);
   return (
     <StyledHeader headerColor={headerColor} theme={'light'}>
       <StyledHeaderInner>
@@ -109,7 +130,7 @@ const Header = () => {
             </LogoWrapper>
           </Link>
         )}
-        <StyledSearchBox>
+        <StyledSearchBox hasHero={hasHero} theme={theme}>
           <StyledSearchBoxWrapper>
             <StaticQuery
               query={graphql`

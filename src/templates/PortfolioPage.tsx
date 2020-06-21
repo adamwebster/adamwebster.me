@@ -9,6 +9,13 @@ import SEO from '../components/seo';
 
 const StyledCategoryList = styled.div`
   width: 300px;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+
+    a {
+      margin-right: 10px;
+    }
+  }
 `;
 const StyledPortfolioGrid = styled.div`
   display: grid;
@@ -30,6 +37,13 @@ const StyledPortfolioGrid = styled.div`
     width: 100%;
     grid-template-rows: repeat(2, calc(42vw - 20px));
     grid-template-columns: repeat(3, calc(33vw - 20px));
+  }
+  @media only screen and (max-width: 340px) {
+    margin-top: 20px;
+    margin-left: 0;
+    width: 100%;
+    grid-template-rows: repeat(3, calc(70vw - 20px));
+    grid-template-columns: repeat(2, calc(50vw - 20px));
   }
 `;
 

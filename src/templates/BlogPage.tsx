@@ -59,7 +59,7 @@ const BlogPage = ({ pageContext, data }: Props) => {
 
           <StyledBlogGrid>
             {edges.map(({ node }: any) => {
-              return <BlogArticle postData={node} />;
+              return <BlogArticle key={node.id} postData={node} />;
               // return <LatestBlogPost node={node} key={node.id} />;
             })}
           </StyledBlogGrid>
@@ -85,7 +85,10 @@ export const pageQuery = graphql`
   query($skip: Int!, $limit: Int!) {
     allMdx(
       sort: { order: DESC, fields: frontmatter___date }
-      filter: { fields: { sourceInstanceName: { eq: "blog-post" } } }
+      filter: {
+        frontmatter: { draft: { eq: false } }
+        fields: { sourceInstanceName: { eq: "blog-post" } }
+      }
       limit: $limit
       skip: $skip
     ) {

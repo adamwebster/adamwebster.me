@@ -33,7 +33,9 @@ const SearchBox = ({ data }: Props) => {
       items={items}
       keyToSearch="title"
       onChange={e => searchData(e)}
-      onItemClick={index => (window.location.href = items[index].path)}
+      onItemClick={index => {
+        if (items[index]) window.location.href = items[index].path;
+      }}
       itemFormatter={(index: any) => {
         return (
           <div key={items[index] && items[index].id}>
