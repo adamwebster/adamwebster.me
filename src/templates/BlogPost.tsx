@@ -123,9 +123,7 @@ const BlogPost = ({ data }: Props) => {
       {frontmatter.heroColor && (
         <SetHeaderColor color={frontmatter.heroColor} />
       )}
-      <SEO
-        title={`${frontmatter.title} | Adam Webster Designer and Front-end Developer`}
-      ></SEO>
+      <SEO title={`${frontmatter.title} | Blog`}></SEO>
 
       <StyledArticle layout={frontmatter.layout}>
         <MDXProvider components={{}}>
