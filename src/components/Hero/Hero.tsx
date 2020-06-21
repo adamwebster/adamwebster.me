@@ -76,7 +76,6 @@ const Hero = () => {
         }
       `}
       render={data => {
-        console.log(data);
         return (
           <StyledHero id="Hero">
             <StyledHeroInner>
