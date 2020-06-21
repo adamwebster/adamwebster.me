@@ -79,7 +79,7 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
       : '/portfolio/' + (pageContext.currentPage - 1);
   return (
     <Layout>
-      <SEO title="Portfolio | Adam Webster Designer and Front-end Developer" />
+      <SEO title="Portfolio" />
       <section id="awm-portfolio">
         <PageHeader>Portfolio</PageHeader>
         <StyledPortfolioWrapper>
