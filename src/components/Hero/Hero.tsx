@@ -21,13 +21,13 @@ const StyledHero = styled.section`
     font-size: 40px;
     line-height: 1;
     margin: 0;
-    font-family: 'HelveticaNeue-CondensedBold';
+    font-family: 'HelveticaNeue-CondensedBold', sans-serif;
     text-transform: uppercase;
   }
   h3 {
     text-transform: uppercase;
     font-size: 28px;
-    font-family: 'HelveticaNeue-CondensedBold';
+    font-family: 'HelveticaNeue-CondensedBold', sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1;
