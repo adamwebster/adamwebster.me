@@ -56,7 +56,7 @@ const StyledImageWrapper = styled.div`
       height: calc(33vw - 20px);
     }
   }
-  @media only screen and (max-width: 340px) {
+  @media only screen and (max-width: 400px) {
     width: calc(50vw - 20px);
     height: calc(50vw - 20px);
     img {

@@ -6,7 +6,10 @@ import { CategoryTag } from '../CategoryTag';
 import { Colors } from '@adamwebster/fused-components';
 import { useSelector } from 'react-redux';
 import _ from 'lodash';
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
 
+dayjs.extend(advancedFormat);
 interface SIProps {
   bgColor: string;
 }
@@ -39,6 +42,9 @@ const PostTagline = styled.p`
 const PostContent = styled.div`
   width: 90%;
   margin: 50px auto 50px auto;
+  header {
+    margin-bottom: 40px;
+  }
 `;
 
 interface Props {
@@ -72,6 +78,7 @@ const BlogArticle = ({ postData }: Props) => {
           <PostTagline theme={theme}>
             {postData.frontmatter.tagline}
           </PostTagline>
+          {dayjs(postData.frontmatter.date).format('MMMM Do YYYY')}
         </header>
         {postData.excerpt}
       </PostContent>
