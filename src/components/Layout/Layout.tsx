@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
   body{
     background-color:${({ theme }) =>
       theme === 'dark' ? Colors.darkModeDarkest : Colors.light};    
-    font-family:'Helvetica Neue', san-serif;
+    font-family:'Helvetica Neue', sans-serif;
     font-size: 100%;
     line-height: 1.5;
     color: ${({ theme }) =>
