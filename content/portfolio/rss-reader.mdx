@@ -6,8 +6,22 @@ category: 'Front-end Development'
 featuredImage: 'images/RSSReader.png'
 draft: false
 ---
+import SectionHeader from '../../src/components/SectionHeader/SectionHeader';
 
-![Image of the login card](images/RSSReader.png)
+<SectionHeader>Project Information</SectionHeader>
 
 **Technologies Used**: React, Javascript, HTML, CSS<br />
-**Demo:** https://examples.adamwebster.me/rss
+**Demo:** https://examples.adamwebster.me/rss <br/>
+**GitHub Repo**: https://github.com/adamwebster/react-tests/tree/master/src/pages/RSSReader
+<!---
+<SectionHeader> Description </SectionHeader>
+
+I read a lot of RSS feeds and wanted to try and created a web version of an **RSS Reader** using **React** and the context API.
+
+<SectionHeader>How it Works</SectionHeader>
+
+When the application first load it loads the feed that is set in the local state using **useState()**. To load the feed JSON I am using the service https://api.rss2json.com/. From the JSON that is returned from that service I receive the feed name, image, and a list of feed items which I store in the state of the component again using **useState** which are then used in the UI of the application.
+
+To change the feed that is loaded the user would click on the hamburger menu which cases the list of RSS items to be moved to the right.  This is done with CSS transform transition animations. From that menu they would choose a new feed to read which would then send an update to the context that says it is loading and a loading screen will display until the feed is loaded.
+
+-->

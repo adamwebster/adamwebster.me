@@ -14,6 +14,7 @@ import { SetHeaderColor } from '../components/SetHeaderColor';
 import { setHasHero } from '../state/actions';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
+import { AWMVariables } from '../styles/StyledVariables';
 
 dayjs.extend(advancedFormat);
 
@@ -47,6 +48,12 @@ const StyledImage = styled(Img)<SIProps>`
     layout === 'full' ? 'none' : `solid 1px ${Colors.border}`};
   max-width: 800px;
   margin: 0 auto;
+  border-radius: ${AWMVariables.borderRadius};
+  ${({ layout }) =>
+    layout !== 'full' &&
+    css`
+      box-shadow: 0 0 5px #aaa;
+    `}
 `;
 
 const PostTitle = styled.h1`
