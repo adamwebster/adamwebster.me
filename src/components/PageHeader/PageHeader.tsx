@@ -14,8 +14,8 @@ const StyledPageHeader = styled.h1`
 interface Props {
   children: ReactNode;
 }
-const PageHeader = ({ children }: Props) => {
-  return <StyledPageHeader>{children}</StyledPageHeader>;
+const PageHeader = ({ children, ...rest }: Props) => {
+  return <StyledPageHeader {...rest}>{children}</StyledPageHeader>;
 };
 
 export default PageHeader;

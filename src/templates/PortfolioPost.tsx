@@ -17,7 +17,7 @@ interface StyledImageWrapperProps {
 }
 const StyledImageWrapper = styled.div<StyledImageWrapperProps>`
   width: ${({ imageWidth }) => imageWidth};
-  margin: 0 auto;
+  margin: 30px auto;
   border: solid 1px ${Colors.border};
   border-radius: ${AWMVariables.borderRadius};
   overflow: hidden;
@@ -27,6 +27,10 @@ const StyledImageWrapper = styled.div<StyledImageWrapperProps>`
 const StyledPortfolioContent = styled.div`
   max-width: 700px;
   margin: 40px auto;
+`;
+
+const StyledPageHeader = styled(PageHeader)`
+  margin-bottom: 20px;
 `;
 
 interface Props {
@@ -40,7 +44,7 @@ const PortfolioPost = ({ data }: Props) => {
   return (
     <Layout>
       <SEO title={`${frontmatter.title} | Portfolio`} />
-      <PageHeader>{frontmatter.title}</PageHeader>
+      <StyledPageHeader>{frontmatter.title}</StyledPageHeader>
       <CategoryTag to={`/portfolio/${_.kebabCase(frontmatter.category)}`}>
         {frontmatter.category}
       </CategoryTag>
