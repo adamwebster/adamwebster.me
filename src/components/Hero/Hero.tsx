@@ -10,6 +10,7 @@ const StyledHeroInner = styled.div`
   display: flex;
   @media only screen and (max-width: 600px) {
     flex-flow: column;
+    padding-top: 100px;
   }
 `;
 const StyledHero = styled.section`

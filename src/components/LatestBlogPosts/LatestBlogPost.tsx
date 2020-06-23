@@ -9,9 +9,16 @@ import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import { CategoryTag } from '../CategoryTag';
 import _ from 'lodash';
+import { AWMVariables } from '../../styles/StyledVariables';
 dayjs.extend(localeData);
 dayjs.extend(advancedFormat);
 dayjs.extend(duration);
+
+const StyledCard = styled(Card)`
+  overflow: hidden;
+  border-radius: ${AWMVariables.borderRadius};
+  box-shadow: 0 0 5px #aaa;
+`;
 
 interface SIProps {
   bgColor: string;
@@ -59,7 +66,7 @@ const LatestBlogPost = ({ node }: Props) => {
   } = node;
 
   return (
-    <Card as="article">
+    <StyledCard forwardedAs="article">
       <Link title={title} to={path}>
         <StyledImg bgColor={heroColor} fluid={fluid} />
       </Link>
@@ -73,7 +80,7 @@ const LatestBlogPost = ({ node }: Props) => {
         <StyledDate>{dayjs(date).format('MMMM Do YYYY')}</StyledDate>
         <p>{excerpt}</p>
       </StyledBlogPostContent>{' '}
-    </Card>
+    </StyledCard>
   );
 };
 

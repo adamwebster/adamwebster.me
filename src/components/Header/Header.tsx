@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import Logo from '../../assets/svgs/logo.svg';
 import { Button, Colors } from '@adamwebster/fused-components';
@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 interface SHProps {
   headerColor?: string;
+  scrollY?: number;
 }
 
 const StyledButton = styled(Button)`
@@ -21,8 +22,21 @@ const StyledButton = styled(Button)`
 `;
 const StyledHeader = styled.header<SHProps>`
   height: 50px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+  ${({ scrollY }) =>
+    scrollY &&
+    scrollY > 10 &&
+    css`
+      transition: background-color 0.5s ease 0s;
+    `}
+
+  backdrop-filter: blur(10px);
   box-sizing: border-box;
-  background-color: ${({ headerColor }) => headerColor};
+  background-color: ${({ headerColor }) =>
+    scrollY > 50 ? headerColor + '99' : headerColor};
   @media only screen and (max-width: 600px) {
     height: 100px;
   }
@@ -52,7 +66,7 @@ const StyledSearchBox = styled.div<SSBProps>`
     width: 100%;
     margin-left: 0;
     position: absolute;
-    top: 50px;
+    top: 47px;
     box-sizing: border-box;
     ${({ hasHero }) =>
       !hasHero &&
@@ -60,7 +74,6 @@ const StyledSearchBox = styled.div<SSBProps>`
         background-color: ${({ theme }) =>
           theme === 'dark' ? Colors.darkModeDarker : Colors.medium};
       `}
-
     padding: 10px;
   }
 `;
@@ -81,7 +94,6 @@ const LogoWrapper = styled.div`
 const StyledNavigationWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-
   flex: 1 1;
   width: 300px;
   height: 100%;
@@ -96,6 +108,8 @@ const StyledNavigationWrapper = styled.div`
 
 const Header = () => {
   const dispatch = useDispatch();
+  const [scrollY, setScrollY] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
   const theme = useSelector(
     (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
   );
@@ -119,8 +133,20 @@ const Header = () => {
     localStorage.setItem('theme', themeToSet);
   };
 
+  const setScroll = () => {
+    setScrollY(window.scrollY);
+  };
+  useEffect(() => {
+    setIsMounted(true);
+    if (!isMounted) {
+      window.addEventListener('scroll', () => setScroll());
+    }
+    return () => {
+      window.removeEventListener('scroll', () => setScroll());
+    };
+  }, []);
   return (
-    <StyledHeader headerColor={headerColor} theme={'light'}>
+    <StyledHeader scrollY={scrollY} headerColor={headerColor} theme={'light'}>
       <StyledHeaderInner>
         {!hideLogo && (
           <Link title="Homepage" to="/">

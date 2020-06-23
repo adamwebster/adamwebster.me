@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { Combobox } from '@adamwebster/fused-components';
 import styled from 'styled-components';
+import { AWMVariables } from '../../styles/StyledVariables';
+
+const StyledCombobox = styled(Combobox)`
+  border-radius: ${AWMVariables.borderRadius};
+`;
 
 const SearchCategory = styled.div`
   font-size: 12px;
@@ -23,7 +28,7 @@ const SearchBox = ({ data }: Props) => {
     setItems(results.slice(0, 5));
   };
   return (
-    <Combobox
+    <StyledCombobox
       aria-label="Search the site"
       inputIcon="search"
       openOnClick={false}
@@ -31,7 +36,8 @@ const SearchBox = ({ data }: Props) => {
       items={items}
       keyToSearch="title"
       onChange={e => searchData(e)}
-      onItemClick={index => {
+      menuBorderRadius={AWMVariables.borderRadius}
+      onItemClick={(index: number) => {
         if (items[index]) {
           if (typeof window !== 'undefined') {
             window.location.href = items[index].path;

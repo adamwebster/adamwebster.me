@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { AWMVariables } from '../../styles/StyledVariables';
 const StyledCategoryList = styled.div`
   min-width: 200px;
   margin-right: 30px;
@@ -14,7 +14,7 @@ const StyledCategoryList = styled.div`
       color: #00266b;
       margin: 10px 10px 10px 0px;
       padding: 5px;
-      border-radius: 5px;
+      border-radius: ${AWMVariables.borderRadius};
       box-sizing: border-box;
     }
   }
