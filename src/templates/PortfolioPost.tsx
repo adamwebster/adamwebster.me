@@ -6,10 +6,37 @@ import { MDXProvider } from '@mdx-js/react';
 import { PageHeader } from '../components/PageHeader';
 import { CategoryTag } from '../components/CategoryTag';
 import _ from 'lodash';
+import Img from 'gatsby-image';
 import SEO from '../components/seo';
+import styled from 'styled-components';
+import { AWMColors, AWMVariables } from '../styles/StyledVariables';
+import { Colors } from '@adamwebster/fused-components';
+
+interface StyledImageWrapperProps {
+  imageWidth: string;
+}
+const StyledImageWrapper = styled.div<StyledImageWrapperProps>`
+  width: ${({ imageWidth }) => imageWidth};
+  margin: 30px auto;
+  border: solid 1px ${Colors.border};
+  border-radius: ${AWMVariables.borderRadius};
+  overflow: hidden;
+  box-shadow: 0 0 5px #aaa;
+`;
+
+const StyledPortfolioContent = styled.div`
+  max-width: 700px;
+  margin: 40px auto;
+`;
+
+const StyledPageHeader = styled(PageHeader)`
+  margin-bottom: 20px;
+`;
+
 interface Props {
   data: any;
 }
+
 const PortfolioPost = ({ data }: Props) => {
   const {
     mdx: { frontmatter, body },
@@ -17,13 +44,24 @@ const PortfolioPost = ({ data }: Props) => {
   return (
     <Layout>
       <SEO title={`${frontmatter.title} | Portfolio`} />
-      <PageHeader>{frontmatter.title}</PageHeader>
+      <StyledPageHeader>{frontmatter.title}</StyledPageHeader>
       <CategoryTag to={`/portfolio/${_.kebabCase(frontmatter.category)}`}>
         {frontmatter.category}
       </CategoryTag>
-      <MDXProvider components={{}}>
-        <MDXRenderer>{body}</MDXRenderer>
-      </MDXProvider>
+      <StyledImageWrapper
+        imageWidth={
+          frontmatter.featuredImageWidth
+            ? frontmatter.featuredImageWidth
+            : '100%'
+        }
+      >
+        <Img fluid={frontmatter.featuredImage.childImageSharp.fluid} />
+      </StyledImageWrapper>
+      <StyledPortfolioContent>
+        <MDXProvider components={{}}>
+          <MDXRenderer>{body}</MDXRenderer>
+        </MDXProvider>
+      </StyledPortfolioContent>
     </Layout>
   );
 };
@@ -37,6 +75,7 @@ export const pageQuery = graphql`
         path
         title
         tags
+        featuredImageWidth
         featuredImage {
           childImageSharp {
             fluid(maxWidth: 800) {
