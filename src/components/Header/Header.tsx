@@ -33,7 +33,7 @@ const StyledHeader = styled.header<SHProps>`
       transition: background-color 0.5s ease 0s;
     `}
 
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(10px);
   box-sizing: border-box;
   background-color: ${({ headerColor }) =>
     scrollY > 50 ? headerColor + '99' : headerColor};
@@ -74,7 +74,6 @@ const StyledSearchBox = styled.div<SSBProps>`
         background-color: ${({ theme }) =>
           theme === 'dark' ? Colors.darkModeDarker : Colors.medium};
       `}
-
     padding: 10px;
   }
 `;
@@ -95,7 +94,6 @@ const LogoWrapper = styled.div`
 const StyledNavigationWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-
   flex: 1 1;
   width: 300px;
   height: 100%;
@@ -111,6 +109,7 @@ const StyledNavigationWrapper = styled.div`
 const Header = () => {
   const dispatch = useDispatch();
   const [scrollY, setScrollY] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
   const theme = useSelector(
     (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
   );
@@ -133,12 +132,17 @@ const Header = () => {
     dispatch(setTheme(themeToSet));
     localStorage.setItem('theme', themeToSet);
   };
+
+  const setScroll = () => {
+    setScrollY(window.scrollY);
+  };
   useEffect(() => {
-    document.addEventListener('scroll', () => {
-      setScrollY(window.scrollY);
-    });
+    setIsMounted(true);
+    if (!isMounted) {
+      window.addEventListener('scroll', () => setScroll());
+    }
     return () => {
-      document.removeEventListener('scroll', () => {});
+      window.removeEventListener('scroll', () => setScroll());
     };
   }, []);
   return (

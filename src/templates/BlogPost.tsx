@@ -52,7 +52,11 @@ const StyledImage = styled(Img)<SIProps>`
   ${({ layout }) =>
     layout !== 'full' &&
     css`
+      margin-top: 80px;
       box-shadow: 0 0 5px #aaa;
+      @media only screen and (max-width: 600px) {
+        margin-top: 120px;
+      }
     `}
 `;
 
