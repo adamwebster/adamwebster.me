@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
+import { AWMVariables } from '../../styles/StyledVariables';
 
 dayjs.extend(advancedFormat);
 interface SIProps {
@@ -18,6 +19,7 @@ const StyledImage = styled(Img)<SIProps>`
   border: solid 1px ${Colors.border};
   margin-top: 40px;
   margin-bottom: 40px;
+  border-radius: ${AWMVariables.borderRadius};
   background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
 `;
 

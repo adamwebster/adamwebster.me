@@ -4,9 +4,9 @@ import { Colors } from '@adamwebster/fused-components';
 import { useSelector } from 'react-redux';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
+import { AWMVariables } from '../../styles/StyledVariables';
 
 const StyledLatestPortfolioItem = styled.div`
-  border-radius: 5px;
   background-size: cover;
   text-align: center;
 `;
@@ -20,7 +20,7 @@ const StyledImg = styled(Img)`
 const StyledImageWrapper = styled.div`
   width: 100%;
   height: 250px;
-  border-radius: 5px;
+  border-radius: ${AWMVariables.borderRadius};
   overflow: hidden;
   border: solid 1px
     ${({ theme }) => (theme === 'dark' ? Colors.darkModeMedium : Colors.border)};

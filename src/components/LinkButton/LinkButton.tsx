@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { Colors } from '@adamwebster/fused-components';
 import { darken } from 'polished';
+import { AWMVariables } from '../../styles/StyledVariables';
 const StyledLink = styled(Link)`
   color: #fff;
   background-color: ${Colors.primary};
-  border-radius: 5px;
-  padding: 5px 10px;
+  border-radius: ${AWMVariables.borderRadius};
+  padding: 5px 25px;
   box-sizing: border-box;
   text-align: center;
   text-decoration: none;

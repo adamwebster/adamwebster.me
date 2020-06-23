@@ -194,7 +194,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 exports.onCreateWebpackConfig = ({ actions, getConfig, stage }) => {
   actions.setWebpackConfig({
     resolve: {
-      alias: { react: require.resolve('react') },
+      alias: { react: require.resolve('react'), 'styled-components': require.resolve('styled-components') },
     },
   });
 };
