@@ -24,6 +24,10 @@ const StyledButton = styled(Button)`
   border-radius: ${AWMVariables.borderRadius};
   padding: 0 25px;
 `;
+
+const StyledFormWrapper = styled.div`
+  max-width: 700px;
+`;
 const ContactForm = () => {
   const toast = useToast();
   const nameInputRef: RefObject<HTMLInputElement> = useRef(
@@ -105,7 +109,7 @@ const ContactForm = () => {
   };
 
   return (
-    <>
+    <StyledFormWrapper>
       <form
         name="contact"
         onSubmit={e => handleSubmit(e)}
@@ -193,7 +197,7 @@ const ContactForm = () => {
           Send
         </StyledButton>
       </form>
-    </>
+    </StyledFormWrapper>
   );
 };
 

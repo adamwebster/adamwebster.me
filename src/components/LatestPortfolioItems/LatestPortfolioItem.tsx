@@ -24,6 +24,9 @@ const StyledImageWrapper = styled.div`
   overflow: hidden;
   border: solid 1px
     ${({ theme }) => (theme === 'dark' ? Colors.darkModeMedium : Colors.border)};
+  transition: all 0.2s ease 0s;
+  box-shadow: 0 0 5px #aaa;
+  margin-bottom: 10px;
   img {
     object-fit: cover;
     width: 100%;
@@ -34,7 +37,7 @@ const StyledImageWrapper = styled.div`
   }
   @media only screen and (max-width: 1080px) {
     width: calc(24vw - 20px);
-    height: calc(24vw - 20px);
+    height: calc(24vw - 40px);
     img {
       width: calc(24vw - 20px);
       height: calc(24vw - 20px);
@@ -66,6 +69,14 @@ const StyledImageWrapper = styled.div`
   }
 `;
 
+const StyledLink = styled(Link)`
+  &:hover,
+  &:focus {
+    ${StyledImageWrapper} {
+      transform: scale(1.05);
+    }
+  }
+`;
 interface Props {
   node: any;
 }
@@ -82,12 +93,14 @@ const LatestPortfolioItem = ({ node }: Props) => {
   } = node;
   return (
     <StyledLatestPortfolioItem>
-      <StyledImageWrapper theme={theme}>
-        <Link to={path}>
+      <StyledLink to={path}>
+        <StyledImageWrapper theme={theme}>
           <StyledImg alt={title} fluid={fluid} />
-        </Link>
-      </StyledImageWrapper>
-      {title}
+        </StyledImageWrapper>
+      </StyledLink>
+      <Link tabIndex={-1} to={path}>
+        {title}
+      </Link>
     </StyledLatestPortfolioItem>
   );
 };
