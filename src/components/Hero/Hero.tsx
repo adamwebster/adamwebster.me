@@ -10,6 +10,9 @@ const StyledHeroInner = styled.div`
   display: flex;
   padding-top: 50px;
   margin-bottom: 20px;
+  @media only screen and (max-width: 768px) {
+    padding-bottom: 40px;
+  }
   @media only screen and (max-width: 600px) {
     flex-flow: column;
     padding-top: 100px;
@@ -38,21 +41,19 @@ const StyledHero = styled.section`
   @media only screen and (max-width: 768px) {
     background-image: none;
     height: auto;
-    margin-bottom: 50px;
   }
 `;
 
 const StyledHeroMessage = styled.div`
   width: 440px;
-  top: 80px;
+  padding-top: 80px;
   color: #fff;
   position: relative;
   @media only screen and (max-width: 600px) {
     margin: 0 auto;
     width: 100%;
-    top: 20px;
+    padding-top: 20px;
     text-align: center;
-    margin-bottom: 40px;
   }
 `;
 
