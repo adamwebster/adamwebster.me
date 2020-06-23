@@ -1,7 +1,11 @@
 import React, { ReactNode } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
-import { Colors, FCThemeProvider } from '@adamwebster/fused-components';
+import {
+  Colors,
+  FCThemeProvider,
+  ToastProvider,
+} from '@adamwebster/fused-components';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
 import { useSelector } from 'react-redux';
@@ -54,11 +58,13 @@ const Layout = ({ children, hero }: Props) => {
   return (
     <>
       <FCThemeProvider value={{ theme }}>
-        <GlobalStyle theme={theme} />
-        <Header />
-        {hero && hero}
-        <StyledContent>{children}</StyledContent>
-        <Footer />
+        <ToastProvider>
+          <GlobalStyle theme={theme} />
+          <Header />
+          {hero && hero}
+          <StyledContent>{children}</StyledContent>
+          <Footer />
+        </ToastProvider>
       </FCThemeProvider>
     </>
   );
