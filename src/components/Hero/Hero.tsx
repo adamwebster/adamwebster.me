@@ -8,6 +8,8 @@ const StyledHeroInner = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   display: flex;
+  padding-top: 50px;
+  margin-bottom: 20px;
   @media only screen and (max-width: 600px) {
     flex-flow: column;
     padding-top: 100px;
