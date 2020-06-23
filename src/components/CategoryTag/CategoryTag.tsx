@@ -1,10 +1,10 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
-import { Colors } from '@adamwebster/fused-components';
+import { AWMVariables } from '../../styles/StyledVariables';
 const StyledCategoryTag = styled(Link)`
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: ${AWMVariables.borderRadius};
   box-sizing: border-box;
   margin-bottom: 10px;
   font-size: 0.8em;
