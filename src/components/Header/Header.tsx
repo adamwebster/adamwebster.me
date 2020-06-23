@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import Logo from '../../assets/svgs/logo.svg';
 import { Button, Colors } from '@adamwebster/fused-components';
@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 interface SHProps {
   headerColor?: string;
+  scrollY?: number;
 }
 
 const StyledButton = styled(Button)`
@@ -21,8 +22,21 @@ const StyledButton = styled(Button)`
 `;
 const StyledHeader = styled.header<SHProps>`
   height: 50px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+  ${({ scrollY }) =>
+    scrollY &&
+    scrollY > 10 &&
+    css`
+      transition: background-color 0.5s ease 0s;
+    `}
+
+  backdrop-filter: blur(5px);
   box-sizing: border-box;
-  background-color: ${({ headerColor }) => headerColor};
+  background-color: ${({ headerColor }) =>
+    scrollY > 50 ? headerColor + '99' : headerColor};
   @media only screen and (max-width: 600px) {
     height: 100px;
   }
@@ -52,7 +66,7 @@ const StyledSearchBox = styled.div<SSBProps>`
     width: 100%;
     margin-left: 0;
     position: absolute;
-    top: 50px;
+    top: 47px;
     box-sizing: border-box;
     ${({ hasHero }) =>
       !hasHero &&
@@ -96,6 +110,7 @@ const StyledNavigationWrapper = styled.div`
 
 const Header = () => {
   const dispatch = useDispatch();
+  const [scrollY, setScrollY] = useState(0);
   const theme = useSelector(
     (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
   );
@@ -118,9 +133,16 @@ const Header = () => {
     dispatch(setTheme(themeToSet));
     localStorage.setItem('theme', themeToSet);
   };
-
+  useEffect(() => {
+    document.addEventListener('scroll', () => {
+      setScrollY(window.scrollY);
+    });
+    return () => {
+      document.removeEventListener('scroll', () => {});
+    };
+  }, []);
   return (
-    <StyledHeader headerColor={headerColor} theme={'light'}>
+    <StyledHeader scrollY={scrollY} headerColor={headerColor} theme={'light'}>
       <StyledHeaderInner>
         {!hideLogo && (
           <Link title="Homepage" to="/">

@@ -1,9 +1,8 @@
 import React from 'react';
 import { Layout } from '../../components/Layout';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { BlogArticle } from '../../components/BlogArticle';
-import { CategoryList } from '../../components/CategoryList';
 import { PageHeader } from '../../components/PageHeader';
 import SEO from '../../components/seo';
 import { LinkButton } from '../../components/LinkButton';
@@ -15,7 +14,7 @@ const StyledBlogGrid = styled.div`
 
   @media only screen and (max-width: 768px) {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
   }
 `;
 

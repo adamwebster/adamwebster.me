@@ -14,13 +14,12 @@ const StyledBlogGrid = styled.div`
 
   @media only screen and (max-width: 768px) {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
   }
 `;
 
 const StyledPaging = styled.div`
   display: flex;
-
   align-items: center;
   justify-content: center;
   margin: 20px 0;
