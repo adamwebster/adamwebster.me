@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { useSelector } from 'react-redux';
-import { lighten, saturate, darken } from 'polished';
+import { darken } from 'polished';
 
 interface SNProps {
   activePage?: () => string;
@@ -34,6 +34,10 @@ const StyledNavigation = styled.nav<SNProps>`
       a {
         text-decoration: none;
         color: #fff;
+        &:focus{
+          outline: dotted 1px #fff;
+          outline-offset: 5px;
+        }
       }
     }
   }
