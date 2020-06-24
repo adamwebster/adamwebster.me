@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 interface SHProps {
   headerColor?: string;
-  scrollY?: number;
+  scrollY: number;
 }
 
 const StyledButton = styled(Button)`
@@ -35,7 +35,7 @@ const StyledHeader = styled.header<SHProps>`
 
   backdrop-filter: blur(10px);
   box-sizing: border-box;
-  background-color: ${({ headerColor }) =>
+  background-color: ${({ scrollY, headerColor }) =>
     scrollY > 50 ? headerColor + '99' : headerColor};
   @media only screen and (max-width: 600px) {
     height: 100px;
@@ -109,7 +109,6 @@ const StyledNavigationWrapper = styled.div`
 const Header = () => {
   const dispatch = useDispatch();
   const [scrollY, setScrollY] = useState(0);
-  const [isMounted, setIsMounted] = useState(false);
   const theme = useSelector(
     (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
   );
@@ -134,15 +133,18 @@ const Header = () => {
   };
 
   const setScroll = () => {
-    setScrollY(window.scrollY);
+    if (typeof window !== 'undefined') {
+      setScrollY(window.scrollY);
+    }
   };
   useEffect(() => {
-    setIsMounted(true);
-    if (!isMounted) {
+    if (typeof window !== 'undefined') {
       window.addEventListener('scroll', () => setScroll());
     }
     return () => {
-      window.removeEventListener('scroll', () => setScroll());
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('scroll', () => setScroll());
+      }
     };
   }, []);
   return (

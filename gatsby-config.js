@@ -3,6 +3,7 @@ module.exports = {
     title: `Adam Webster Designer and Front-end Developer`,
     description: `Adam Webster's Portfolio Page`,
     author: `@adamwebster`,
+    image: `src/assets/images/aw-icon.png`,
   },
   plugins: [
     `gatsby-plugin-styled-components`,

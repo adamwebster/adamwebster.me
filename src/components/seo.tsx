@@ -8,6 +8,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
+import AWMImage from '../assets/images/default.jpg';
 
 interface Props {
   description?: string;
@@ -31,7 +32,7 @@ function SEO({ description = '', lang = 'en', meta = [], title }: Props) {
   );
 
   const metaDescription = description || site.siteMetadata.description;
-
+  const ogImage = AWMImage;
   return (
     <Helmet
       htmlAttributes={{
@@ -69,6 +70,18 @@ function SEO({ description = '', lang = 'en', meta = [], title }: Props) {
         {
           name: `twitter:title`,
           content: title,
+        },
+        {
+          property: `og:image`,
+          content: AWMImage,
+        },
+        {
+          property: `og:image:width`,
+          content: '2000',
+        },
+        {
+          property: `og:image:height`,
+          content: '2000',
         },
         {
           name: `twitter:description`,
