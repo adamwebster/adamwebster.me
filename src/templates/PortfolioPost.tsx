@@ -9,7 +9,7 @@ import _ from 'lodash';
 import Img from 'gatsby-image';
 import SEO from '../components/seo';
 import styled from 'styled-components';
-import { AWMColors, AWMVariables } from '../styles/StyledVariables';
+import { AWMVariables } from '../styles/StyledVariables';
 import { Colors } from '@adamwebster/fused-components';
 
 interface StyledImageWrapperProps {
@@ -17,16 +17,26 @@ interface StyledImageWrapperProps {
 }
 const StyledImageWrapper = styled.div<StyledImageWrapperProps>`
   width: ${({ imageWidth }) => imageWidth};
-  margin: 30px auto;
+  margin: 80px auto;
   border: solid 1px ${Colors.border};
   border-radius: ${AWMVariables.borderRadius};
   overflow: hidden;
   box-shadow: 0 0 5px #aaa;
 `;
 
+const StyledCategoryTag = styled(CategoryTag)`
+  margin-bottom: 20px;
+`;
+
 const StyledPortfolioContent = styled.div`
   max-width: 700px;
-  margin: 40px auto;
+  margin: 0 auto;
+  img {
+    border: solid 1px ${Colors.border};
+    border-radius: ${AWMVariables.borderRadius};
+    box-shadow: 0 0 5px #aaa !important;
+    display: block;
+  }
 `;
 
 const StyledPageHeader = styled(PageHeader)`
@@ -44,10 +54,7 @@ const PortfolioPost = ({ data }: Props) => {
   return (
     <Layout>
       <SEO title={`${frontmatter.title} | Portfolio`} />
-      <StyledPageHeader>{frontmatter.title}</StyledPageHeader>
-      <CategoryTag to={`/portfolio/${_.kebabCase(frontmatter.category)}`}>
-        {frontmatter.category}
-      </CategoryTag>
+
       <StyledImageWrapper
         imageWidth={
           frontmatter.featuredImageWidth
@@ -58,6 +65,12 @@ const PortfolioPost = ({ data }: Props) => {
         <Img fluid={frontmatter.featuredImage.childImageSharp.fluid} />
       </StyledImageWrapper>
       <StyledPortfolioContent>
+        <StyledPageHeader>{frontmatter.title}</StyledPageHeader>
+        <StyledCategoryTag
+          to={`/portfolio/${_.kebabCase(frontmatter.category)}`}
+        >
+          {frontmatter.category}
+        </StyledCategoryTag>
         <MDXProvider components={{}}>
           <MDXRenderer>{body}</MDXRenderer>
         </MDXProvider>

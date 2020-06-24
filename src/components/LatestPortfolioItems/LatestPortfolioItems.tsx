@@ -118,7 +118,9 @@ const LatestPortfolioItems = () => {
                 </StyledLatestPortfolioItems>
               </StyledLatestPortfolioSectionInner>
               <StyledListMore>
-                <LinkButton to="/portfolio">See More</LinkButton>
+                <LinkButton to="/portfolio">
+                  See More From The Portfolio
+                </LinkButton>
               </StyledListMore>
             </StyledLatestPortfolioSection>
           </>
