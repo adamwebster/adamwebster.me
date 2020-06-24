@@ -72,7 +72,7 @@ function SEO({ description = '', lang = 'en', meta = [], title }: Props) {
         {
           name: `twitter:title`,
           content: title
-            ? `%s | ${site.siteMetadata.title}`
+            ? `${title} | ${site.siteMetadata.title}`
             : site.siteMetadata.title,
         },
         {
