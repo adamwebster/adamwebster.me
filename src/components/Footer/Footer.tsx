@@ -6,7 +6,7 @@ const StyledFooter = styled.footer``;
 
 const StyledFooterInner = styled.div`
   width: 1080px;
-  margin: 50px auto 20px auto;
+  margin: 50px auto 60px auto;
   font-size: 12px;
   padding: 5px;
   box-sizing: border-box;

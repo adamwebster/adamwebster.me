@@ -66,7 +66,6 @@ const ContactForm = () => {
   const handleSubmit = (e: any) => {
     let valid = true;
     e.preventDefault();
-    console.log(nameInputRef, messageInputRef, emailInputRef);
     if (!nameInputRef?.current?.value) {
       setNameValidation({
         ...nameValidation,
