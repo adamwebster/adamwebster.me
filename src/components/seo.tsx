@@ -49,7 +49,9 @@ function SEO({ description = '', lang = 'en', meta = [], title }: Props) {
         },
         {
           property: `og:title`,
-          content: title,
+          content: title
+            ? `${title} | ${site.siteMetadata.title}`
+            : site.siteMetadata.title,
         },
         {
           property: `og:description`,
