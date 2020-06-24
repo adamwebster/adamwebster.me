@@ -48,7 +48,7 @@ const StyledLatestPortfolioItems = styled.div`
     margin-top: 20px;
     margin-left: 0;
     width: 100%;
-    grid-template-rows: repeat(2, calc(40vw - 20px));
+    grid-template-rows: repeat(2, calc(50vw - 20px));
     grid-template-columns: repeat(3, calc(33vw - 20px));
   }
   @media only screen and (max-width: 400px) {
