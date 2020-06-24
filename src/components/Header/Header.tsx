@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import Logo from '../../assets/svgs/logo.svg';
 import { Button, Colors } from '@adamwebster/fused-components';
@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 interface SHProps {
   headerColor?: string;
-  scrollY: number;
 }
 
 const StyledButton = styled(Button)`
@@ -26,17 +25,8 @@ const StyledHeader = styled.header<SHProps>`
   width: 100%;
   top: 0;
   z-index: 1;
-  ${({ scrollY }) =>
-    scrollY &&
-    scrollY > 10 &&
-    css`
-      transition: background-color 0.5s ease 0s;
-    `}
-
-  backdrop-filter: blur(10px);
   box-sizing: border-box;
-  background-color: ${({ scrollY, headerColor }) =>
-    scrollY > 50 ? headerColor + '99' : headerColor};
+  background-color: ${({ headerColor }) => headerColor};
   @media only screen and (max-width: 600px) {
     height: 100px;
   }
@@ -108,7 +98,6 @@ const StyledNavigationWrapper = styled.div`
 
 const Header = () => {
   const dispatch = useDispatch();
-  const [scrollY, setScrollY] = useState(0);
   const theme = useSelector(
     (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
   );
@@ -132,23 +121,8 @@ const Header = () => {
     localStorage.setItem('theme', themeToSet);
   };
 
-  const setScroll = () => {
-    if (typeof window !== 'undefined') {
-      setScrollY(window.scrollY);
-    }
-  };
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('scroll', () => setScroll());
-    }
-    return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('scroll', () => setScroll());
-      }
-    };
-  }, []);
   return (
-    <StyledHeader scrollY={scrollY} headerColor={headerColor} theme={'light'}>
+    <StyledHeader headerColor={headerColor} theme={'light'}>
       <StyledHeaderInner>
         {!hideLogo && (
           <Link title="Homepage" to="/">

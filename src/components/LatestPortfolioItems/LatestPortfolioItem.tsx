@@ -93,7 +93,7 @@ const LatestPortfolioItem = ({ node }: Props) => {
   } = node;
   return (
     <StyledLatestPortfolioItem>
-      <StyledLink to={path}>
+      <StyledLink title={title} to={path}>
         <StyledImageWrapper theme={theme}>
           <StyledImg alt={title} fluid={fluid} />
         </StyledImageWrapper>
