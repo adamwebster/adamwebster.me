@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const StyledLatestPortfolioSection = styled.section`
   display: flex;
   width: 100%;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   box-sizing: border-box;
   flex-flow: column;
   border-bottom: solid 1px var(--border-color);

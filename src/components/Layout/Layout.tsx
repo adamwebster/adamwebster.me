@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;  
   }
   a {
-    color: ${({ theme }) => (theme === 'dark' ? '#8bbdfb' : Colors.primary)};
+    color: ${({ theme }) => (theme === 'dark' ? '#8bbdfb' : '#0067E6')};
     }
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 0.5em 0;
@@ -33,6 +33,12 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
 	font-size: 2em;
+}
+
+figcaption{
+  text-align: center;
+  font-style: italic;
+  font-weight: 300;
 }
 `;
 

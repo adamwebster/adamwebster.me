@@ -3,6 +3,8 @@ import { Layout } from '../components/Layout';
 import { Hero } from '../components/Hero';
 import { LatestPortfolioItems } from '../components/LatestPortfolioItems';
 import { LatestBlogPosts } from '../components/LatestBlogPosts';
+import { SkillsGrid } from '../components/SkillsGrid';
+
 import SEO from '../components/seo';
 import { useDispatch } from 'react-redux';
 import { SetLogoHidden, setHasHero } from '../state/actions';
@@ -23,6 +25,7 @@ const Index = () => {
       <SEO />
 
       <LatestPortfolioItems />
+      <SkillsGrid />
       <LatestBlogPosts />
     </Layout>
   );
