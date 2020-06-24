@@ -69,11 +69,13 @@ function SEO({ description = '', lang = 'en', meta = [], title }: Props) {
         },
         {
           name: `twitter:title`,
-          content: title,
+          content: title
+            ? `%s | ${site.siteMetadata.title}`
+            : site.siteMetadata.title,
         },
         {
           property: `og:image`,
-          content: AWMImage,
+          content: `https://adamwebster.me/` + AWMImage,
         },
         {
           property: `og:image:width`,
