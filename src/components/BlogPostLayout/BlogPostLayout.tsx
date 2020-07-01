@@ -5,7 +5,10 @@ import { Header } from '../Header';
 import { Footer } from '../Footer';
 import { useSelector } from 'react-redux';
 
-const GlobalStyle = createGlobalStyle`
+interface GSProps {
+  headerColor: string;
+}
+const GlobalStyle = createGlobalStyle<GSProps>`
   body{
     background-color:${({ theme }) =>
       theme === 'dark' ? Colors.darkModeDarkest : Colors.light};    
@@ -22,12 +25,17 @@ const GlobalStyle = createGlobalStyle`
     }
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 0.5em 0;
-	font-weight: 400;
-	line-height: 1.2;
+	line-height: 1;
+  border-left: solid 5px ${({ headerColor }) => headerColor};
+  padding-left: 10px;
 }
+
 
 h1 {
 	font-size: 2em;
+}
+p{
+  margin: 25px 0;
 }
 `;
 
@@ -53,10 +61,15 @@ const BlogPostLayout = ({ children, layout, hero }: Props) => {
   const theme = useSelector(
     (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
   );
+
+  const headerColor = useSelector(
+    (state: { SiteSettings: { headerColor: string } }) =>
+      state.SiteSettings.headerColor
+  );
   return (
     <>
       <FCThemeProvider value={{ theme }}>
-        <GlobalStyle theme={theme} />
+        <GlobalStyle headerColor={headerColor} theme={theme} />
         <Header />
         {hero && hero}
         <StyledContent layout={layout}>{children}</StyledContent>

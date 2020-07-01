@@ -15,8 +15,15 @@ interface Props {
   lang?: string;
   meta?: any;
   title?: string;
+  ogImage?: any;
 }
-function SEO({ description = '', lang = 'en', meta = [], title }: Props) {
+function SEO({
+  description = '',
+  lang = 'en',
+  meta = [],
+  title,
+  ogImage = AWMImage,
+}: Props) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -32,7 +39,6 @@ function SEO({ description = '', lang = 'en', meta = [], title }: Props) {
   );
 
   const metaDescription = description || site.siteMetadata.description;
-  const ogImage = AWMImage;
   return (
     <Helmet
       htmlAttributes={{
@@ -77,7 +83,7 @@ function SEO({ description = '', lang = 'en', meta = [], title }: Props) {
         },
         {
           property: `og:image`,
-          content: `https://adamwebster.me/` + AWMImage,
+          content: 'https://adamwebster.me' + ogImage,
         },
         {
           property: `og:image:width`,
