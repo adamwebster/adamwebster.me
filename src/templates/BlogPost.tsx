@@ -8,6 +8,8 @@ import styled, { css } from 'styled-components';
 import { Colors } from '@adamwebster/fused-components';
 import _ from 'lodash';
 import SEO from '../components/seo';
+import { CodeHighlight } from '../components/CodeHighlight';
+
 import { CategoryTag } from '../components/CategoryTag';
 import { useSelector, useDispatch } from 'react-redux';
 import { SetHeaderColor } from '../components/SetHeaderColor';
@@ -165,7 +167,7 @@ const BlogPost = ({ data }: Props) => {
       ></SEO>
 
       <StyledArticle layout={frontmatter.layout}>
-        <MDXProvider components={{}}>
+        <MDXProvider components={{ code: CodeHighlight }}>
           <StyledImageWrapper
             layout={frontmatter.layout}
             bgColor={frontmatter.heroColor}
