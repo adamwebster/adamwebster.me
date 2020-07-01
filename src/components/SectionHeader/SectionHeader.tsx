@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
-const SectionHeaderStyled = styled.h3`
+const SectionHeaderStyled = styled.h2`
   text-transform: uppercase;
-  font-weight: 300;
+  margin-top: 50px;
   font-size: 24px;
 `;
 interface Props {

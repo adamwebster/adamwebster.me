@@ -15,7 +15,16 @@ import { setHasHero } from '../state/actions';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { AWMVariables } from '../styles/StyledVariables';
-
+import {
+  TwitterShareButton,
+  RedditIcon,
+  FacebookIcon,
+  FacebookShareButton,
+  TwitterIcon,
+  RedditShareButton,
+  LinkedinShareButton,
+  LinkedinIcon,
+} from 'react-share';
 dayjs.extend(advancedFormat);
 
 interface SAProps {
@@ -64,6 +73,8 @@ const PostTitle = styled.h1`
   font-weight: bold;
   margin-bottom: 0;
   font-size: 40px;
+  border-left: none;
+  padding-left: 0;
 `;
 
 const PostTagline = styled.p`
@@ -112,6 +123,15 @@ const StyledImageWrapper = styled.div<SIWProps>`
 
   background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
 `;
+
+const StyledShareRow = styled.div`
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 32px);
+  button {
+    cursor: pointer !important;
+  }
+`;
 interface Props {
   data: any;
 }
@@ -133,12 +153,16 @@ const BlogPost = ({ data }: Props) => {
       dispatch(setHasHero(false));
     };
   }, []);
+
   return (
     <BlogPostLayout layout={frontmatter.layout}>
       {frontmatter.heroColor && (
         <SetHeaderColor color={frontmatter.heroColor} />
       )}
-      <SEO title={`${frontmatter.title} | Blog`}></SEO>
+      <SEO
+        title={`${frontmatter.title} | Blog`}
+        ogImage={frontmatter.featuredImage.childImageSharp.fluid.src}
+      ></SEO>
 
       <StyledArticle layout={frontmatter.layout}>
         <MDXProvider components={{}}>
@@ -156,6 +180,32 @@ const BlogPost = ({ data }: Props) => {
               <CategoryTag to={`/blog/${_.kebabCase(frontmatter.category)}`}>
                 {frontmatter.category}
               </CategoryTag>
+              <StyledShareRow>
+                <FacebookShareButton
+                  title="Share on Facebook"
+                  url={`https://adamwebster.me${frontmatter.path}`}
+                >
+                  <FacebookIcon borderRadius={15} size={26} />
+                </FacebookShareButton>
+                <TwitterShareButton
+                  title="Share on Twitter"
+                  url={`https://adamwebster.me${frontmatter.path}`}
+                >
+                  <TwitterIcon borderRadius={15} size={26} />
+                </TwitterShareButton>
+                <RedditShareButton
+                  title="Share on Reddit"
+                  url={`https://adamwebster.me${frontmatter.path}`}
+                >
+                  <RedditIcon borderRadius={15} size={26} />
+                </RedditShareButton>
+                <LinkedinShareButton
+                  title="Share on Linkedin"
+                  url={`https://adamwebster.me${frontmatter.path}`}
+                >
+                  <LinkedinIcon borderRadius={15} size={26} />
+                </LinkedinShareButton>
+              </StyledShareRow>
               <PostTitle>{frontmatter.title}</PostTitle>
               <PostTagline theme={theme}>{frontmatter.tagline}</PostTagline>
               {dayjs(frontmatter.date).format('MMMM Do YYYY')}
