@@ -37,6 +37,11 @@ h1 {
 p{
   margin: 25px 0;
 }
+pre[class*='language-'] {
+  overflow: scroll;
+  display: block;
+
+}
 `;
 
 interface SCProps {
