@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { Colors, FCThemeProvider } from '@adamwebster/fused-components';
+import { Colors } from '@adamwebster/fused-components';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
 import { useSelector } from 'react-redux';
@@ -68,13 +68,11 @@ const BlogPostLayout = ({ children, layout, hero }: Props) => {
   );
   return (
     <>
-      <FCThemeProvider value={{ theme }}>
-        <GlobalStyle headerColor={headerColor} theme={theme} />
-        <Header />
-        {hero && hero}
-        <StyledContent layout={layout}>{children}</StyledContent>
-        <Footer />
-      </FCThemeProvider>
+      <GlobalStyle headerColor={headerColor} theme={theme} />
+      <Header />
+      {hero && hero}
+      <StyledContent layout={layout}>{children}</StyledContent>
+      <Footer />
     </>
   );
 };
