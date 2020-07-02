@@ -1,17 +1,8 @@
 import React, { createContext, ReactElement } from 'react';
 import { Colors } from '@adamwebster/fused-components';
 
-let themeValue: string = 'light';
-const windowGlobal: any = typeof window !== 'undefined' && window;
-
-if (windowGlobal) {
-  themeValue = localStorage.getItem('theme')
-    ? (localStorage.getItem('theme') as string)
-    : 'light';
-}
-
 const initialState = {
-  theme: themeValue,
+  darkMode: false,
   headerColor: Colors.primary,
   hideLogo: false,
   hasHero: true,
@@ -26,10 +17,10 @@ export const SiteContextConsumer = SiteContext.Consumer;
 const reducer = (state: any, action: { payload: any; type: any }) => {
   const { payload, type } = action;
   switch (type) {
-    case 'SET_THEME':
+    case 'SET_DARK_MODE':
       return {
         ...state,
-        theme: payload,
+        darkMode: payload,
       };
     case 'SET_HEADER_COLOR':
       return {

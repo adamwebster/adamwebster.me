@@ -64,9 +64,11 @@ const Layout = ({ children, hero }: Props) => {
 
   return (
     <>
-      <FCThemeProvider value={{ theme: globalState.theme }}>
+      <FCThemeProvider
+        value={{ theme: globalState.darkMode ? 'dark' : 'light' }}
+      >
         <ToastProvider>
-          <GlobalStyle theme={globalState.theme} />
+          <GlobalStyle theme={globalState.darkMode ? 'dark' : 'light'} />
           <Header />
           {hero && hero}
           <StyledContent>{children}</StyledContent>
