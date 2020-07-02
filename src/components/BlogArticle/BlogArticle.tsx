@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { CategoryTag } from '../CategoryTag';
 import { Colors } from '@adamwebster/fused-components';
-import { useSelector } from 'react-redux';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { AWMVariables } from '../../styles/StyledVariables';
+import { SiteContext } from '../../state';
 
 dayjs.extend(advancedFormat);
 interface SIProps {
@@ -54,9 +54,8 @@ interface Props {
   postData: any;
 }
 const BlogArticle = ({ postData }: Props) => {
-  const theme = useSelector(
-    (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
-  );
+  const { globalState } = useContext(SiteContext);
+  const { theme } = globalState;
   return (
     <article>
       <Link to={postData.frontmatter.path}>

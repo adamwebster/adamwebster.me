@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { Colors } from '@adamwebster/fused-components';
+import { Colors, FCThemeProvider } from '@adamwebster/fused-components';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
-import { useSelector } from 'react-redux';
+import { SiteContext } from '../../state';
 
 interface GSProps {
   headerColor: string;
@@ -63,21 +63,19 @@ interface Props {
 }
 
 const BlogPostLayout = ({ children, layout, hero }: Props) => {
-  const theme = useSelector(
-    (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
-  );
-
-  const headerColor = useSelector(
-    (state: { SiteSettings: { headerColor: string } }) =>
-      state.SiteSettings.headerColor
-  );
+  const { globalState } = useContext(SiteContext);
   return (
     <>
-      <GlobalStyle headerColor={headerColor} theme={theme} />
-      <Header />
-      {hero && hero}
-      <StyledContent layout={layout}>{children}</StyledContent>
-      <Footer />
+      <FCThemeProvider value={{ theme: globalState.theme }}>
+        <GlobalStyle
+          headerColor={globalState.headerColor}
+          theme={globalState.theme}
+        />
+        <Header />
+        {hero && hero}
+        <StyledContent layout={layout}>{children}</StyledContent>
+        <Footer />
+      </FCThemeProvider>
     </>
   );
 };
