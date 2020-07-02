@@ -81,7 +81,8 @@ const StyledButton = styled.button<SBProps>`
     font-size: 1rem;
     height: 36px;
     cursor: pointer;
-    
+    transition: all 0.2s ease;
+
     &:hover:not([disabled]) {
         background-color: ${darken(0.1, '#a8d3ea')};
     }
@@ -159,7 +160,8 @@ const StyledButton = styled.button<SBProps>`
     font-size: 1rem;
     height: 36px;
     cursor: pointer;
-    
+    transition: all 0.2s ease;
+
     &:hover:not([disabled]) {
         background-color: ${darken(0.1, '#a8d3ea')};
     }
@@ -214,6 +216,8 @@ const Button = ({
     );
 };
 
+export default Button;
+
 ```
 
 We added the Font Awesome icon of faSpinner and set it to spin so that the icon spins in the button.
@@ -248,6 +252,7 @@ const StyledButton = styled.button<SBProps>`
     font-size: 1rem;
     height: 36px;
     cursor: pointer;
+    transition: all 0.2s ease;
     
     &:hover:not([disabled]) {
         background-color: ${darken(0.1, '#a8d3ea')};
@@ -321,6 +326,8 @@ let icon = faSpinner;
     );
 };
 
+export default Button;
+
 ```
 
 If you now pass the completed property to the component it should look like the button below. 
@@ -364,6 +371,7 @@ const StyledButton = styled.button<SBProps>`
     font-size: 1rem;
     height: 36px;
     cursor: pointer;
+    transition: all 0.2s ease;
     
     &:hover:not([disabled]) {
         background-color: ${darken(0.1, '#a8d3ea')};
@@ -454,6 +462,8 @@ let icon = faSpinner;
     );
 };
 
+export default Button;
+
 ```
 
 At this point if you use the following code in one of your react pages then it will display as the button bellow.
@@ -464,9 +474,69 @@ At this point if you use the following code in one of your react pages then it w
 
 <Button failed>Button</Button>
 
+That is all of the interactions taken  care of so the only thing left to show is how to user it another page.
 
 ## Using it
 
-Below is example of how to use it on a react page.
+Below is example of how to use it on a react page. It this example I am just setting a timeOut to show how it would look it its different states.  In an actually application this would be defined by how long it takes for the action of the button to complete besides the how long the success or fail is shown for for that you could still use a timeOut function.
+
+```jsx render=true 
+
+import React, { useState } from 'react';
+import Button from '../pathtobutton/Button.tsx'
+
+export const ButtonTest = () => {
+  const [loading, setLoading] = useState(false);
+  const [loadingFailed, setLoadingFailed] = useState(false);
+
+  const [completed, setCompleted] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  const handleClick = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setCompleted(true);
+    }, 1000);
+    setTimeout(() => {
+      setCompleted(false);
+    }, 1500);
+  };
+
+  const handleClickFail = () => {
+    setLoadingFailed(true);
+    setTimeout(() => {
+      setLoadingFailed(false);
+      setFailed(true);
+    }, 1000);
+    setTimeout(() => {
+      setFailed(false);
+    }, 1500);
+  };
+  return (
+    <>
+      <Button
+        isLoading={loading}
+        completed={completed}
+        onClick={() => handleClick()}
+      >
+        Button
+      </Button>
+
+      <p>Fail Example</p>
+
+      <Button
+        isLoading={loadingFailed}
+        failed={failed}
+        onClick={() => handleClickFail()}
+      >
+        I will fail
+      </Button>
+    </>
+  );
+};
+
+export default Button;
+```
 
 <ButtonTest />

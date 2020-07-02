@@ -55,7 +55,7 @@ interface Props {
 }
 const BlogArticle = ({ postData }: Props) => {
   const { globalState } = useContext(SiteContext);
-  const { theme } = globalState;
+  const { darkMode } = globalState;
   return (
     <article>
       <Link to={postData.frontmatter.path}>
@@ -77,7 +77,7 @@ const BlogArticle = ({ postData }: Props) => {
               {postData.frontmatter.title}
             </Link>
           </PostTitle>
-          <PostTagline theme={theme}>
+          <PostTagline theme={darkMode ? 'dark' : 'light'}>
             {postData.frontmatter.tagline}
           </PostTagline>
           {dayjs(postData.frontmatter.date).format('MMMM Do YYYY')}

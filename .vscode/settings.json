@@ -4,5 +4,9 @@
     "editor.formatOnSave": false,
     "editor.wordWrap": "wordWrapColumn",
     "editor.wordWrapColumn": 80
+  },
+  "search.exclude": {
+    "**/.cache": true,
+    "**/public": true
   }
 }
