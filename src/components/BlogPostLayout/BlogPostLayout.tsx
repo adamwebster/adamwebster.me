@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { ReactNode, useContext, useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { Colors, FCThemeProvider } from '@adamwebster/fused-components';
 import { Header } from '../Header';
@@ -63,7 +63,22 @@ interface Props {
 }
 
 const BlogPostLayout = ({ children, layout, hero }: Props) => {
-  const { globalState } = useContext(SiteContext);
+  const { globalState, dispatch } = useContext(SiteContext);
+
+  useEffect(() => {
+    if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+      if (!globalState.darkModeSet)
+        dispatch({ type: 'SET_DARK_MODE', payload: true });
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      const toSet = e.matches ? true : false;
+      dispatch({ type: 'SET_DARK_MODE', payload: toSet });
+    });
+  }, []);
+
   return (
     <>
       <FCThemeProvider

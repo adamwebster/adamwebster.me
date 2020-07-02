@@ -6,6 +6,7 @@ const initialState = {
   headerColor: Colors.primary,
   hideLogo: false,
   hasHero: true,
+  darkModeSet: false,
 };
 
 export const SiteContext = createContext({
@@ -36,6 +37,11 @@ const reducer = (state: any, action: { payload: any; type: any }) => {
       return {
         ...state,
         hasHero: payload,
+      };
+    case 'SET_DARK_MODE_SET':
+      return {
+        ...state,
+        darkModeSet: payload,
       };
     default:
       return state;
