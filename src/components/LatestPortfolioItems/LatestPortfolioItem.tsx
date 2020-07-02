@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Colors } from '@adamwebster/fused-components';
-import { useSelector } from 'react-redux';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import { AWMVariables } from '../../styles/StyledVariables';
+import { SiteContext } from '../../state';
 
 const StyledLatestPortfolioItem = styled.div`
   background-size: cover;
@@ -81,7 +81,7 @@ interface Props {
   node: any;
 }
 const LatestPortfolioItem = ({ node }: Props) => {
-  const theme = useSelector((state: { theme: string }) => state.theme);
+  const { globalState } = useContext(SiteContext);
   const {
     frontmatter: {
       path,
@@ -94,7 +94,7 @@ const LatestPortfolioItem = ({ node }: Props) => {
   return (
     <StyledLatestPortfolioItem>
       <StyledLink title={title} to={path}>
-        <StyledImageWrapper theme={theme}>
+        <StyledImageWrapper theme={globalState.theme}>
           <StyledImg alt={title} fluid={fluid} />
         </StyledImageWrapper>
       </StyledLink>

@@ -1,14 +1,14 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useContext, useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 import {
   Colors,
-  FCThemeProvider,
   ToastProvider,
+  FCThemeProvider,
 } from '@adamwebster/fused-components';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
-import { useSelector } from 'react-redux';
+import { SiteContext } from '../../state';
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -60,14 +60,13 @@ interface Props {
 }
 
 const Layout = ({ children, hero }: Props) => {
-  const theme = useSelector(
-    (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
-  );
+  const { globalState } = useContext(SiteContext);
+
   return (
     <>
-      <FCThemeProvider value={{ theme }}>
+      <FCThemeProvider value={{ theme: globalState.theme }}>
         <ToastProvider>
-          <GlobalStyle theme={theme} />
+          <GlobalStyle theme={globalState.theme} />
           <Header />
           {hero && hero}
           <StyledContent>{children}</StyledContent>

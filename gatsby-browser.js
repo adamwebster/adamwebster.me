@@ -6,4 +6,18 @@
 
 // You can delete this file if you're not using it
 
-export { default as wrapRootElement } from './src/state/reduxWrapper';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import { SiteContextProvider, SiteContext } from './src/state';
+
+import React, { useContext } from 'react';
+import FCThemeWrapper from './src/state/FCThemeWrapper';
+config.autoAddCss = false;
+
+export const wrapRootElement = ({ element }) => {
+  return (
+    <SiteContextProvider>
+      <FCThemeWrapper>{element}</FCThemeWrapper>
+    </SiteContextProvider>
+  );
+};

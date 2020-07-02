@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { BlogPostLayout } from '../components/BlogPostLayout';
 import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
@@ -11,9 +11,7 @@ import SEO from '../components/seo';
 import { CodeHighlight } from '../components/CodeHighlight';
 
 import { CategoryTag } from '../components/CategoryTag';
-import { useSelector, useDispatch } from 'react-redux';
 import { SetHeaderColor } from '../components/SetHeaderColor';
-import { setHasHero } from '../state/actions';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { AWMVariables } from '../styles/StyledVariables';
@@ -27,6 +25,7 @@ import {
   LinkedinShareButton,
   LinkedinIcon,
 } from 'react-share';
+import { SiteContext } from '../state';
 dayjs.extend(advancedFormat);
 
 interface SAProps {
@@ -139,20 +138,18 @@ interface Props {
 }
 
 const BlogPost = ({ data }: Props) => {
-  const dispatch = useDispatch();
+  const { dispatch, globalState } = useContext(SiteContext);
+
   const {
     mdx: { frontmatter, body },
   } = data;
-  const theme = useSelector(
-    (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
-  );
 
   useEffect(() => {
     if (frontmatter.layout === 'full') {
-      dispatch(setHasHero(true));
+      dispatch({ type: 'SET_HAS_HERO', payload: true });
     }
     return () => {
-      dispatch(setHasHero(false));
+      dispatch({ type: 'SET_HAS_HERO', payload: false });
     };
   }, []);
 
@@ -209,7 +206,9 @@ const BlogPost = ({ data }: Props) => {
                 </LinkedinShareButton>
               </StyledShareRow>
               <PostTitle>{frontmatter.title}</PostTitle>
-              <PostTagline theme={theme}>{frontmatter.tagline}</PostTagline>
+              <PostTagline theme={globalState.theme}>
+                {frontmatter.tagline}
+              </PostTagline>
               {dayjs(frontmatter.date).format('MMMM Do YYYY')}
             </PostHeader>
             <MDXRenderer>{body}</MDXRenderer>
