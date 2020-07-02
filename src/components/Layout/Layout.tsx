@@ -40,6 +40,8 @@ figcaption{
   font-style: italic;
   font-weight: 300;
 }
+
+
 `;
 
 const StyledContent = styled.div`
