@@ -66,10 +66,12 @@ const BlogPostLayout = ({ children, layout, hero }: Props) => {
   const { globalState } = useContext(SiteContext);
   return (
     <>
-      <FCThemeProvider value={{ theme: globalState.theme }}>
+      <FCThemeProvider
+        value={{ theme: globalState.darkMode ? 'dark' : 'light' }}
+      >
         <GlobalStyle
           headerColor={globalState.headerColor}
-          theme={globalState.theme}
+          theme={globalState.darkMode ? 'dark' : 'light'}
         />
         <Header />
         {hero && hero}

@@ -99,10 +99,10 @@ const Header = () => {
   const { dispatch, globalState } = useContext(SiteContext);
 
   const setThemeFunc = () => {
-    const themeToSet = globalState.theme === 'dark' ? 'light' : 'dark';
-    dispatch({ type: 'SET_THEME', payload: themeToSet });
+    // const themeToSet = globalState.theme === 'dark' ? 'light' : 'dark';
+    dispatch({ type: 'SET_DARK_MODE', payload: !globalState.darkMode });
 
-    localStorage.setItem('theme', themeToSet);
+    // localStorage.setItem('theme', themeToSet);
   };
 
   return (
@@ -117,7 +117,7 @@ const Header = () => {
         )}
         <StyledSearchBox
           hasHero={globalState.hasHero}
-          theme={globalState.theme}
+          theme={globalState.darkMode ? 'dark' : 'light'}
         >
           <StyledSearchBoxWrapper>
             <StaticQuery
@@ -142,9 +142,7 @@ const Header = () => {
         <StyledNavigationWrapper>
           <Navigation />
           <StyledButton as="a" onClick={() => setThemeFunc()}>
-            <FontAwesomeIcon
-              icon={globalState.theme === 'dark' ? faSun : faMoon}
-            />
+            <FontAwesomeIcon icon={globalState.darkMode ? faSun : faMoon} />
           </StyledButton>
         </StyledNavigationWrapper>
       </StyledHeaderInner>
