@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Combobox } from '@adamwebster/fused-components';
 import styled from 'styled-components';
+import { navigate } from 'gatsby';
 import { AWMVariables } from '../../styles/StyledVariables';
 
 const StyledCombobox = styled(Combobox)`
@@ -40,7 +41,7 @@ const SearchBox = ({ data }: Props) => {
       onItemClick={(index: number) => {
         if (items[index]) {
           if (typeof window !== 'undefined') {
-            window.location.href = items[index].path;
+            navigate(items[index].path);
           }
         }
       }}
