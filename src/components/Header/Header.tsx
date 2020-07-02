@@ -101,7 +101,7 @@ const Header = () => {
   const setThemeFunc = () => {
     // const themeToSet = globalState.theme === 'dark' ? 'light' : 'dark';
     dispatch({ type: 'SET_DARK_MODE', payload: !globalState.darkMode });
-
+    dispatch({ type: 'SET_DARK_MODE_SET', payload: true });
     // localStorage.setItem('theme', themeToSet);
   };
 
