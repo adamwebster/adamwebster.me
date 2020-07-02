@@ -206,7 +206,7 @@ const BlogPost = ({ data }: Props) => {
                 </LinkedinShareButton>
               </StyledShareRow>
               <PostTitle>{frontmatter.title}</PostTitle>
-              <PostTagline theme={globalState.theme}>
+              <PostTagline theme={globalState.darkMode ? 'dark' : 'light'}>
                 {frontmatter.tagline}
               </PostTagline>
               {dayjs(frontmatter.date).format('MMMM Do YYYY')}
