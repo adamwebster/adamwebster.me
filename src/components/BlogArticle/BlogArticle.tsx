@@ -21,7 +21,6 @@ const StyledImage = styled(Img)<SIProps>`
   margin-bottom: 40px;
   border-radius: ${AWMVariables.borderRadius};
   background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
-  box-shadow: 0 0 5px #aaa;
 `;
 
 const PostTitle = styled.h1`

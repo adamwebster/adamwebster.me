@@ -63,7 +63,6 @@ const StyledImage = styled(Img)<SIProps>`
     layout !== 'full' &&
     css`
       margin-top: 80px;
-      box-shadow: 0 0 5px #aaa;
       @media only screen and (max-width: 600px) {
         margin-top: 120px;
       }
@@ -206,8 +205,9 @@ const BlogPost = ({ data }: Props) => {
                   <LinkedinIcon borderRadius={15} size={26} />
                 </LinkedinShareButton>
               </StyledShareRow>
-              <BuyMeACoffee style={{ marginBottom: 30 + 'px' }} />
-
+              {frontmatter.showCoffeeButton != false && (
+                <BuyMeACoffee style={{ marginBottom: 30 + 'px' }} />
+              )}
               <PostTitle>{frontmatter.title}</PostTitle>
               <PostTagline theme={globalState.darkMode ? 'dark' : 'light'}>
                 {frontmatter.tagline}
@@ -234,6 +234,7 @@ export const pageQuery = graphql`
         heroColor
         layout
         tagline
+        showCoffeeButton
         featuredImage {
           childImageSharp {
             fluid(maxWidth: 800) {

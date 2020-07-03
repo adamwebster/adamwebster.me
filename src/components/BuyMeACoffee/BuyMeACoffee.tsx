@@ -26,7 +26,6 @@ const StyledBMCButton = styled.a`
     height: 20 !important;
     width: 21px !important;
     margin-bottom: 1px !important;
-    box-shadow: none !important;
     border: none !important;
     vertical-align: middle !important;
   }
