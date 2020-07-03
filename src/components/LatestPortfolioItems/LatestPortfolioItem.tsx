@@ -94,7 +94,7 @@ const LatestPortfolioItem = ({ node }: Props) => {
   return (
     <StyledLatestPortfolioItem>
       <StyledLink title={title} to={path}>
-        <StyledImageWrapper theme={globalState.theme}>
+        <StyledImageWrapper theme={globalState.darkMode ? 'dark' : 'light'}>
           <StyledImg alt={title} fluid={fluid} />
         </StyledImageWrapper>
       </StyledLink>
