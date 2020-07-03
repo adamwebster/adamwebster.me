@@ -98,7 +98,9 @@ const StyledNavigationWrapper = styled.div`
 const Header = () => {
   const { dispatch, globalState } = useContext(SiteContext);
 
-  const setThemeFunc = () => {
+  const setThemeFunc = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
     // const themeToSet = globalState.theme === 'dark' ? 'light' : 'dark';
     dispatch({ type: 'SET_DARK_MODE', payload: !globalState.darkMode });
     dispatch({ type: 'SET_DARK_MODE_SET', payload: true });
@@ -141,7 +143,7 @@ const Header = () => {
         </StyledSearchBox>
         <StyledNavigationWrapper>
           <Navigation />
-          <StyledButton as="a" onClick={() => setThemeFunc()}>
+          <StyledButton as="a" onClick={(e: any) => setThemeFunc(e)}>
             <FontAwesomeIcon icon={globalState.darkMode ? faSun : faMoon} />
           </StyledButton>
         </StyledNavigationWrapper>

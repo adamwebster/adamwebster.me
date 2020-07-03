@@ -4,6 +4,8 @@ import { AWMVariables } from '../../styles/StyledVariables';
 import { SiteContext } from '../../state';
 import { Colors } from '@adamwebster/fused-components';
 import { LinkButtonStandard } from '../LinkButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const StyledBuyMeACoffeeWidget = styled.div`
   display: flex;
@@ -44,16 +46,24 @@ const BuyMeACoffeeWidget = ({ ...rest }) => {
           />
         </StyledImageWrapper>
         <div>
-          <h3>Buy me a hot chocolate</h3>
+          <h3 style={{ textTransform: 'uppercase' }}>Buy me a hot chocolate</h3>
           <p>
             Usually people would ask to buy them a coffee to help support their
-            site and content they provide but I do not drink coffee so instead I
-            will ask for you to buy me a hot chocolate.
+            site and content they provide, but I do not drink coffee so instead
+            I will ask for you to buy me a hot chocolate.
           </p>
           <p>
-            All of my content on my blog is offered ad free and I aim to keep it
-            that way. Buying me a hot chocolate will help me to keep producing
-            and improving on the content I provide.
+            All of the content on my blog is offered ad free, buying me a hot
+            chocolate will make sure that is stays that way.
+          </p>
+
+          <p>
+            Thanks,
+            <br />
+            Adam Webster{' '}
+            <a href="https://twitter.com/adamwebster" target="_blank">
+              <FontAwesomeIcon icon={faTwitter} />
+            </a>
           </p>
           <LinkButtonStandard
             style={{ textTransform: 'uppercase' }}

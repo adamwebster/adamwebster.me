@@ -25,7 +25,6 @@ const StyledImageWrapper = styled.div`
   border: solid 1px
     ${({ theme }) => (theme === 'dark' ? Colors.darkModeMedium : Colors.border)};
   transition: all 0.2s ease 0s;
-  box-shadow: 0 0 5px #aaa;
   margin-bottom: 10px;
   img {
     object-fit: cover;

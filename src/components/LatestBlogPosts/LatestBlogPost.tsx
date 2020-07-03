@@ -17,7 +17,6 @@ dayjs.extend(duration);
 const StyledCard = styled(Card)`
   overflow: hidden;
   border-radius: ${AWMVariables.borderRadius};
-  box-shadow: 0 0 5px #aaa;
 `;
 
 interface SIProps {

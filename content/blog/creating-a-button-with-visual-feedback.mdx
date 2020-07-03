@@ -10,16 +10,17 @@ featuredImage: images/visual-feedback-button.jpg
 tags: [UX Design, Users, Visual Feedback, How-to]
 layout: full
 heroColor: '#083059'
+showCoffeeButton: false
 ---
 import { CodeHighlight } from '../../src/components/CodeHighlight';
 import { Link } from 'gatsby';
 import { Button, ButtonTest } from './DemoComponents/FeedbackButton';
 
-# Creating a button that gives user visual feedback
+<BuyMeACoffeeWidget />
 
-If you have not <Link to="/blog/post/importance-of-visual-feedback">read my article about the importance and how to give users visual feedback</Link> that is a good place to start to learn about why giving users visually feedback is important. 
+If you have not read my article about the  <Link to="/blog/post/importance-of-visual-feedback">importance and how to give users visual feedback</Link> that is a good place to start to learn about why giving users visually feedback is important. 
 
-I am going to show you how to create a button that gives visual feedback to a user using **React**. 
+This post is going to show you how to create a button component that gives visual feedback to a user using **React**. 
 
 ## Packages we will be using
 
@@ -65,9 +66,36 @@ At this point when this button component is imported into another component it w
 
 ## Adding styles to the button 
 
-Next the basic styles are added to the component using Styled Components.
+The following styles for the button are added to the  `StyledButton` *constant*. There are also styles for the button for it's hovered and disabled.
 
-The styles for the button are added to the  `StyledButton` styled component. There are also styles for the button for it's hovered and disabled states.
+```tsx render=true
+border-radius: 25px;
+border: none;
+font-size: 1rem;
+height: 36px;
+cursor: pointer;
+transition: all 0.2s ease;
+
+&:hover:not([disabled]) {
+  background-color: ${darken(0.1, '#a8d3ea')};
+}
+
+&[disabled] {
+  background-color: #d9d9d9;
+  color: #404040;
+  cursor: not-allowed;
+}
+
+${({ completed, failed, isLoading }) =>
+  !completed &&
+  !failed &&
+  !isLoading &&
+css`
+  background-color: #a8d3ea;
+  color: #004970;
+  padding: 0 40px;
+`}
+```
 
 The following properties are also added to the component.
 
@@ -135,10 +163,9 @@ const Button = ({
 export default Button;
 ```
 
-At this point you should have a button that looks like the one below. If you put the button to be disabled it will look like the second button.
+At this point you should have a button that looks like the one below. If you add a disabled attribute to code it will look like the second button.
 
-Go ahead and give it a press.
-
+Go ahead and give the first button a press.
 
 <Button onClick={() => alert('Hey you clicked me')}>Button</Button>
 
@@ -148,22 +175,23 @@ Go ahead and give it a press.
 <Button onClick={() => alert('Hey you clicked me')}>Button</Button>
 <Button style={{marginLeft : 10 + 'px'}}  disabled onClick={() => alert('Hey you pressed me')}>Button</Button>
 ```
-The next step will adding a loading state to the button.
 
 ## Adding a loading state to the button
 
-Next add the styles following styles to the `Styled Button` constant.
+The next step is to add a loading state to the button.  The loading states lets the user know that something is happening after they click the button.  In the case of this button it is a spinning icon.
+
+First add the following styles to the `Styled Button` *constant*. These styles  change the width of the button when it is the loading state. 
 
 ```tsx render=true
 ${({ isLoading }) =>
-      isLoading &&
-      css`
-          width: 36px;
-      `
-  }
+  isLoading &&
+  css`
+      width: 36px;
+  `
+}
   ```
 
-Then pass the **isLoading** property to the disabled attribute of the button so the button will be disabled when it is loading to prevent secondary clicks.
+Then pass the **isLoading** property to the **disabled** attribute of the button so it will be disabled when it is loading to prevent secondary clicks.
 
 ```tsx render=true
 <StyledButton
@@ -174,9 +202,23 @@ Then pass the **isLoading** property to the disabled attribute of the button so 
   {children}
 </StyledButton>
 ```
-The **isLoading** property is also sent to the the StyledButton component so that we can change the styles when the button is in its loading state.
+The **isLoading** property is also passed to the the `StyledButton` component so that we can change the styles when the button is in its loading state.
 
-For the icon we importing **FontAwesomeIcon** from the `'@fortawesome/react-fontawesome'` package and using the **faSpinner** icon from the `'@fortawesome/free-solid-svg-icons'` package. To make the icon spin add the property of spin to the **FontAwesomeIcon** component.
+For the loading icon, import the `FontAwesomeIcon` component from the `'@fortawesome/react-fontawesome'` package and the `faSpinner` icon from the `'@fortawesome/free-solid-svg-icons'` package. To make the icon spin add the property of spin to the `FontAwesomeIcon` component.
+
+The icon is only shown when the **isLoading** property is set to true. To do this use a ternary operator to check if the **isLoading** property is true and if it is show the icon or else show the children of the button component.
+
+```tsx render=true
+<StyledButton
+    isLoading={isLoading}
+    disabled={isLoading}
+    {...rest}
+  >
+    {isLoading ? <FontAwesomeIcon spin icon={faSpinner} /> : children}
+</StyledButton>
+```
+
+The full component code should now look like the example below.
 
 ```tsx render=true
 import React, { ReactNode } from 'react';
@@ -192,34 +234,39 @@ interface SBProps {
 }
 
 const StyledButton = styled.button<SBProps>`
-    border-radius: 25px;
-    border: none;
-    font-size: 1rem;
-    height: 36px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  border-radius: 25px;
+  border: none;
+  font-size: 1rem;
+  height: 36px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 
-    &:hover:not([disabled]) {
-        background-color: ${darken(0.1, '#a8d3ea')};
-    }
+  &:hover:not([disabled]) {
+      background-color: ${darken(0.1, '#a8d3ea')};
+  }
 
-    &[disabled] {
-        background-color: #d9d9d9;
-        color: #404040;
-        cursor: not-allowed;
-    }
+  &[disabled] {
+      background-color: #d9d9d9;
+      color: #404040;
+      cursor: not-allowed;
+  }
 
-    ${({ completed, failed, isLoading }) =>
-        !completed &&
-        !failed &&
-        !isLoading &&
+
+  ${({ completed, failed, isLoading }) =>
+      !completed &&
+      !failed &&
+      !isLoading &&
+      css`
+          background-color: #a8d3ea;
+          color: #004970;
+          padding: 0 40px;
+      `}
+
+  ${({ isLoading }) =>
+        isLoading &&
         css`
-            background-color: #a8d3ea;
-            color: #004970;
-            padding: 0 40px;
-        `}
-
-   
+            width: 36px;
+      `}
 `;
 
 interface Props {
@@ -253,17 +300,74 @@ export default Button;
 
 Now if you pass the **isLoading** property to the component you should see the button below.
 
+<Button isLoading>Button</Button>
+
 ```tsx render=true
 <Button isLoading>Button</Button>
 ```
 
-<Button isLoading>Button</Button>
-
-The spinner lets the user knows that something is happening after the pressed the button.
-
 ## Added a completed state to the button
 
-To add a completed state to the button 
+The next step is to add a completed state for the button.  This lets users now that the action they took succeeded.
+
+
+First add the following styles to the `Styled Button` *constant*.
+
+```tsx render=true
+${({ completed }) =>
+  completed &&
+  css`
+  &[disabled] {
+      background-color: #4de783;
+      color: #08571f;
+      width: 36px;
+  }
+`}
+  ```
+
+Then pass the **completed** property to the **disabled** attribute of the button so it will be disabled when it is completed to prevent accidental secondary clicks.
+
+```tsx render=true
+<StyledButton
+  isLoading={isLoading}
+  completed={completed}
+  disabled={isLoading | completed}
+  {...rest}
+>
+  {children}
+</StyledButton>
+```
+The **completed** property is also passed to the the `StyledButton` component so that we can change the styles when the button is in its completed state.
+
+For the completed icon, import the `faCheck` icon from the `'@fortawesome/free-solid-svg-icons'` package. 
+
+The `faCheck` icon is only shown when the **completed** property is set to true. To do this define a *let* called **icon** and set it to be `faSpinner` by default. Then check to see if the components **competed** property is true and if it is set the **icon** to be `faCheck`.
+
+The **icon** *let* is passed to the icon property of the `FontAwesomeIcon` component.
+
+```tsx render=true
+let icon = faSpinner;
+  if (completed) {
+    icon = faCheck;
+
+  }
+  return ( 
+    <StyledButton
+      isLoading={isLoading}
+      completed={completed}
+      disabled={isLoading || completed}
+      {...rest}
+    >
+        {isLoading || completed ? (
+            <FontAwesomeIcon spin={isLoading ? true : false} icon={icon} />
+        ) : (
+            children
+        )}
+    </StyledButton>
+    );
+```
+
+The component code should now look like the example below.
 
 ```tsx render=true
 import React, { ReactNode } from 'react';
@@ -344,6 +448,7 @@ let icon = faSpinner;
   return ( 
     <StyledButton
       isLoading={isLoading}
+      completed={completed}
       disabled={isLoading || completed}
       {...rest}
     >
@@ -360,38 +465,87 @@ export default Button;
 
 ```
 
-If you now pass the completed property to the component it should look like the button below. 
+If you now pass the **completed** property to the component it should look like the button below. 
 
 At this point if you use the following code in one of your react pages then it will display as the button bellow.
+
+<Button completed>Button</Button>
 
 ```tsx render=true
 <Button completed>Button</Button>
 ```
 
-<Button completed>Button</Button>
-
- At this point the button is still disabled as to prevent additional clicks.
-
  ## Adding a failed state to the Button
  
- The next step would be to add a failed state to the button this is done by making use of a failed property.
+The final step is to add a failed state for the button.  This lets users know that the action they took failed.
 
- The first step would be to import the faTimes icon from `@fortawesome/free-solid-svg-icons`. 
+First add the following styles to the `Styled Button` *constant*.
 
- Then you would add an additional if statement to check if the button should be in its failed state, which will set `icon` to be `faTimes`. 
+```tsx render=true
+${({ failed }) =>
+  failed &&
+  css`
+  &[disabled] {
+      background-color: #ff5959;
+      color: #5b0006;
+      width: 36px;
+  }
+`}
+  ```
 
-The button should still be disabled when it has failed so we add the `failed` property to the disabled attribute of the `<StyledButton>` component.
+Then pass the **failed** property to the **disabled** attribute of the button so it will be disabled when it is fails to prevent accidental secondary clicks.
 
-You will also need to add the styles for the failed state of the button to styles of `<StyledButton>`.
+```tsx render=true
+<StyledButton
+  isLoading={isLoading}
+  completed={completed}
+  failed={failed}
+  disabled={isLoading | completed | failed}
+  {...rest}
+>
+  {children}
+</StyledButton>
+```
+The **failed** property is also passed to the the `StyledButton` component so that we can change the styles when the button is in its failed state.
 
-You will also need to check if the button has failed when we check if we should show the icon or not.
+For the failed icon, import the `faTimes`` icon from the `'@fortawesome/free-solid-svg-icons'` package. 
+
+The `faTimes` icon is only shown when the **failed** property is set to true. To do this add an additional if statement after the statement that changes the icon if the competed state is true that checks if the **failed** property is true which then sets the icon to be `faTimes`.
+
+
+```tsx render=true
+let icon = faSpinner;
+  if (completed) {
+    icon = faCheck;
+  }
+  if(failed) {
+    icon = faTimes;
+  }
+  return ( 
+    <StyledButton
+      isLoading={isLoading}
+      completed={completed}
+      disabled={isLoading || completed}
+      {...rest}
+    >
+        {isLoading || completed ? (
+            <FontAwesomeIcon spin={isLoading ? true : false} icon={icon} />
+        ) : (
+            children
+        )}
+    </StyledButton>
+    );
+```
+
+
+The completed component code should now look like the example below.
+
 
 ```tsx render=true
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import faTimes here
 import { faSpinner, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 interface SBProps {
@@ -443,8 +597,7 @@ const StyledButton = styled.button<SBProps>`
             width: 36px;
         }
     `}
-  
-    // Add this
+
     ${({ failed }) =>
         failed &&
         css`
@@ -474,14 +627,14 @@ let icon = faSpinner;
   if (completed) {
     icon = faCheck;
   }
-  // Add this
   if(failed) {
     icon = faTimes;
   }
   return ( 
     <StyledButton
       isLoading={isLoading}
-      // Add failed here
+      competed={competed}
+      failed={failed}
       disabled={isLoading || completed || failed}
       {...rest}
     >
@@ -499,19 +652,20 @@ export default Button;
 
 ```
 
-At this point if you use the following code in one of your react pages then it will display as the button bellow.
+At this point if you use the following code in one of your React pages then it will display as the button bellow.
+
+<Button failed>Button</Button>
+
 
 ```tsx render=true
 <Button failed>Button</Button>
 ```
 
-<Button failed>Button</Button>
-
-That is all of the interactions taken  care of so the only thing left to show is how to user it another page.
+That is all of the interactions taken care of so the only thing left to show is how to user it a page or another component.
 
 ## Using it
 
-Below is example of how to use it on a react page. It this example I am just setting a timeOut to show how it would look it its different states.  In an actually application this would be defined by how long it takes for the action of the button to complete besides the how long the success or fail is shown for for that you could still use a timeOut function.
+Below is example of how to use it on a react page. It this example I am just setting a timeout to show how it would look it its different states.  In an actually application this would be defined by how long it takes for the action of the button to complete. You could still use a timeout function for how long the success or fail states are shown to the user before switching back to the standard button.
 
 ```tsx render=true 
 
@@ -572,6 +726,9 @@ export const ButtonTest = () => {
 export default Button;
 ```
 
+Here are the final buttons rendered.  One shows the how it would look if the action succeeded and the other if it failed.
+
 <ButtonTest />
 
-<BuyMeACoffeeWidget />
+If you have any questions please feel free to follow me on [Twitter (@adamwebster)](http://twitter.com/adamwebster) and message me.
+

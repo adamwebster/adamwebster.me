@@ -9,6 +9,7 @@ import {
 import { Header } from '../Header';
 import { Footer } from '../Footer';
 import { SiteContext } from '../../state';
+import { BuyMeACoffeeWidget } from '../BuyMeACoffee';
 
 const GlobalStyle = createGlobalStyle`
   body{

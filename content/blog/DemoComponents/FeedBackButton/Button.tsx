@@ -84,9 +84,9 @@ const Button = ({ children, isLoading, completed, failed, ...rest }: Props) => {
   }
   return (
     <StyledButton
-      failed={failed}
-      completed={completed}
       isLoading={isLoading}
+      completed={completed}
+      failed={failed}
       disabled={isLoading || completed || failed}
       {...rest}
     >
@@ -137,7 +137,9 @@ export const ButtonTest = () => {
         Button
       </Button>
 
-      <p>Fail Example</p>
+      <p>
+        <strong>Fail Example</strong>
+      </p>
 
       <Button
         isLoading={loadingFailed}
