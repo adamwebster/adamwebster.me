@@ -9,7 +9,7 @@ import { Colors } from '@adamwebster/fused-components';
 import _ from 'lodash';
 import SEO from '../components/seo';
 import { CodeHighlight } from '../components/CodeHighlight';
-
+import { BuyMeACoffee } from '../components/BuyMeACoffee';
 import { CategoryTag } from '../components/CategoryTag';
 import { SetHeaderColor } from '../components/SetHeaderColor';
 import dayjs from 'dayjs';
@@ -83,6 +83,7 @@ const PostTagline = styled.p`
   text-transform: uppercase;
   font-weight: normal;
   font-size: 16px;
+  margin-bottom: 10px;
   color: ${({ theme }) =>
     theme === 'dark' ? Colors.darkModeLight : '#6E6E6E'};
 `;
@@ -205,6 +206,8 @@ const BlogPost = ({ data }: Props) => {
                   <LinkedinIcon borderRadius={15} size={26} />
                 </LinkedinShareButton>
               </StyledShareRow>
+              <BuyMeACoffee style={{ marginBottom: 30 + 'px' }} />
+
               <PostTitle>{frontmatter.title}</PostTitle>
               <PostTagline theme={globalState.darkMode ? 'dark' : 'light'}>
                 {frontmatter.tagline}
