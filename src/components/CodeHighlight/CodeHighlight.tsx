@@ -20,7 +20,7 @@ const StyledShowCode = styled.div`
   font-family: 'Helvetica Neue', sans-serif;
 `;
 export default ({ children, className }: Props) => {
-  const [showCode, setShowCode] = useState(false);
+  const [showCode, setShowCode] = useState(true);
   const language = className.replace(/language-/, '');
   return (
     <>

@@ -35,8 +35,8 @@ I am going to show you how to create a button that gives visual feedback to a us
 
 ##  Creating the basic component 
 
-The code below will create a basic button that allows you to pass any text as a child of the component.
- 
+The code below creates a functional component that returns a button element that will be styled using **Styled Components**. It also passes the child of the component to be the text of the button.
+
 ```tsx render=true
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
@@ -53,16 +53,28 @@ interface Props {
   children: ReactNode;
 }
 
-const Button = ({ children, {...rest} }: Props) => {
+const Button = ({ children, ...rest }: Props) => {
   return <StyledButton {...rest}>{children}</StyledButton>;
 };
 
 export default Button;
 ```
-At this point you will have a simple button that is not styled.
+
+At this point when this button component is imported into another component it will display as a standard button.
+
+
 ## Adding styles to the button 
 
-Next we will be adding the basic styles to the component using Styled Components.
+Next the basic styles are added to the component using Styled Components.
+
+The styles for the button are added to the  `StyledButton` styled component. There are also styles for the button for it's hovered and disabled states.
+
+The following properties are also added to the component.
+
+* **isLoading** - This property is used to put the button into its loading state,
+* **completed** - This property is used to put the button into its completed state.
+* **failed** - This property is used to put the button into its failed state.
+
 ```tsx render=true
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
@@ -72,7 +84,6 @@ interface SBProps {
   isLoading?: boolean;
   completed?: boolean;
   failed?: boolean;
-  disabled?: boolean;
 }
 
 const StyledButton = styled.button<SBProps>`
@@ -106,7 +117,6 @@ const StyledButton = styled.button<SBProps>`
 
 interface Props {
   children: ReactNode;
-  disabled?: boolean;
   isLoading?: boolean;
   completed?: boolean;
   failed?: boolean;
@@ -114,34 +124,59 @@ interface Props {
 
 const Button = ({
   children,
-  disabled,
   isLoading,
   completed,
   failed,
   ...rest
 }: Props) => {
-  return <StyledButton disabled={disabled} {...rest}>{children}</StyledButton>;
+  return <StyledButton {...rest}>{children}</StyledButton>;
 };
 
 export default Button;
 ```
 
-At this point you should have a button that looks like the one below.  Go ahead and give it a press.
+At this point you should have a button that looks like the one below. If you put the button to be disabled it will look like the second button.
+
+Go ahead and give it a press.
+
+
+<Button onClick={() => alert('Hey you clicked me')}>Button</Button>
+
+<Button style={{marginLeft : 10 + 'px'}} disabled onClick={() => alert('Hey you pressed me')}>Button</Button>
 
 ```tsx render=true
 <Button onClick={() => alert('Hey you clicked me')}>Button</Button>
+<Button style={{marginLeft : 10 + 'px'}}  disabled onClick={() => alert('Hey you pressed me')}>Button</Button>
 ```
-<Button onClick={() => alert('Hey you clicked me')}>Button</Button>
-
-Next we will be adding a loading state to the button.
+The next step will adding a loading state to the button.
 
 ## Adding a loading state to the button
 
-To add the loading state to the button we make use of the isLoading property to add a loading icon and hide the text.
+Next add the styles following styles to the `Styled Button` constant.
 
-We also pass the isLoading property to the disabled attribute of the button so the button will be disabled when it is loading to prevent secondary clicks.
+```tsx render=true
+${({ isLoading }) =>
+      isLoading &&
+      css`
+          width: 36px;
+      `
+  }
+  ```
 
-The isLoading property is also sent to the the StyledButton component so that we can change the styles when the button is in its loading state.
+Then pass the **isLoading** property to the disabled attribute of the button so the button will be disabled when it is loading to prevent secondary clicks.
+
+```tsx render=true
+<StyledButton
+  isLoading={isLoading}
+  disabled={isLoading}
+  {...rest}
+>
+  {children}
+</StyledButton>
+```
+The **isLoading** property is also sent to the the StyledButton component so that we can change the styles when the button is in its loading state.
+
+For the icon we importing **FontAwesomeIcon** from the `'@fortawesome/react-fontawesome'` package and using the **faSpinner** icon from the `'@fortawesome/free-solid-svg-icons'` package. To make the icon spin add the property of spin to the **FontAwesomeIcon** component.
 
 ```tsx render=true
 import React, { ReactNode } from 'react';
@@ -154,7 +189,6 @@ interface SBProps {
   isLoading?: boolean;
   completed?: boolean;
   failed?: boolean;
-  disabled?: boolean;
 }
 
 const StyledButton = styled.button<SBProps>`
@@ -185,16 +219,11 @@ const StyledButton = styled.button<SBProps>`
             padding: 0 40px;
         `}
 
-     ${({ isLoading }) =>
-        isLoading &&
-        css`
-            width: 36px;
-        `}
+   
 `;
 
 interface Props {
   children: ReactNode;
-  disabled?: boolean;
   isLoading?: boolean;
   completed?: boolean;
   failed?: boolean;
@@ -202,7 +231,6 @@ interface Props {
 
 const Button = ({
   children,
-  disabled,
   isLoading,
   completed,
   failed,
@@ -211,7 +239,7 @@ const Button = ({
   return ( 
     <StyledButton
       isLoading={isLoading}
-      disabled={isLoading || disabled}
+      disabled={isLoading}
       {...rest}
     >
       {isLoading ? <FontAwesomeIcon spin icon={faSpinner} /> : children}
@@ -222,8 +250,6 @@ const Button = ({
 export default Button;
 
 ```
-
-We added the Font Awesome icon of faSpinner and set it to spin so that the icon spins in the button.
 
 Now if you pass the **isLoading** property to the component you should see the button below.
 
@@ -237,7 +263,7 @@ The spinner lets the user knows that something is happening after the pressed th
 
 ## Added a completed state to the button
 
-To add an completed state we will be making used of the completed property of the button.
+To add a completed state to the button 
 
 ```tsx render=true
 import React, { ReactNode } from 'react';
@@ -250,7 +276,6 @@ interface SBProps {
   isLoading?: boolean;
   completed?: boolean;
   failed?: boolean;
-  disabled?: boolean;
 }
 
 const StyledButton = styled.button<SBProps>`
@@ -300,7 +325,6 @@ const StyledButton = styled.button<SBProps>`
 
 interface Props {
   children: ReactNode;
-  disabled?: boolean;
   isLoading?: boolean;
   completed?: boolean;
   failed?: boolean;
@@ -308,7 +332,6 @@ interface Props {
 
 const Button = ({
   children,
-  disabled,
   isLoading,
   completed,
   failed,
@@ -321,7 +344,7 @@ let icon = faSpinner;
   return ( 
     <StyledButton
       isLoading={isLoading}
-      disabled={isLoading || completed || disabled}
+      disabled={isLoading || completed}
       {...rest}
     >
         {isLoading || completed ? (
@@ -375,7 +398,6 @@ interface SBProps {
   isLoading?: boolean;
   completed?: boolean;
   failed?: boolean;
-  disabled?: boolean;
 }
 
 const StyledButton = styled.button<SBProps>`
@@ -436,7 +458,6 @@ const StyledButton = styled.button<SBProps>`
 
 interface Props {
   children: ReactNode;
-  disabled?: boolean;
   isLoading?: boolean;
   completed?: boolean;
   failed?: boolean;
@@ -444,7 +465,6 @@ interface Props {
 
 const Button = ({
   children,
-  disabled,
   isLoading,
   completed,
   failed,
@@ -462,7 +482,7 @@ let icon = faSpinner;
     <StyledButton
       isLoading={isLoading}
       // Add failed here
-      disabled={isLoading || completed || failed || disabled}
+      disabled={isLoading || completed || failed}
       {...rest}
     >
         // Add failed here
@@ -553,3 +573,5 @@ export default Button;
 ```
 
 <ButtonTest />
+
+<BuyMeACoffeeWidget />

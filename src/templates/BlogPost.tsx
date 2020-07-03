@@ -9,7 +9,7 @@ import { Colors } from '@adamwebster/fused-components';
 import _ from 'lodash';
 import SEO from '../components/seo';
 import { CodeHighlight } from '../components/CodeHighlight';
-import { BuyMeACoffee } from '../components/BuyMeACoffee';
+import { BuyMeACoffee, BuyMeACoffeeWidget } from '../components/BuyMeACoffee';
 import { CategoryTag } from '../components/CategoryTag';
 import { SetHeaderColor } from '../components/SetHeaderColor';
 import dayjs from 'dayjs';
@@ -165,7 +165,7 @@ const BlogPost = ({ data }: Props) => {
       ></SEO>
 
       <StyledArticle layout={frontmatter.layout}>
-        <MDXProvider components={{ code: CodeHighlight }}>
+        <MDXProvider components={{ code: CodeHighlight, BuyMeACoffeeWidget }}>
           <StyledImageWrapper
             layout={frontmatter.layout}
             bgColor={frontmatter.heroColor}
