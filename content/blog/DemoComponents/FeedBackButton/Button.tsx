@@ -74,14 +74,7 @@ interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   failed?: boolean;
 }
 
-const Button = ({
-  children,
-  disabled,
-  isLoading,
-  completed,
-  failed,
-  ...rest
-}: Props) => {
+const Button = ({ children, isLoading, completed, failed, ...rest }: Props) => {
   let icon = faSpinner;
   if (completed) {
     icon = faCheck;
@@ -94,7 +87,7 @@ const Button = ({
       failed={failed}
       completed={completed}
       isLoading={isLoading}
-      disabled={isLoading || completed || failed || disabled}
+      disabled={isLoading || completed || failed}
       {...rest}
     >
       {isLoading || completed || failed ? (

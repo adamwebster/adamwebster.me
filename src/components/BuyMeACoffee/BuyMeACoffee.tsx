@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import { AWMVariables, AWMColors } from '../../styles/StyledVariables';
 
 const StyledBMCButton = styled.a`
   padding: 7px 15px 7px 10px !important;
   line-height: 21px !important;
+  text-transform: uppercase;
   height: 34px !important;
   text-decoration: none !important;
   display: inline-flex !important;
   color: #ffffff !important;
-  background-color: #5f7fff !important;
-  border-radius: 5px !important;
+  background-color: ${AWMColors.primaryColor};
+  border-radius: ${AWMVariables.borderRadius};
   border: 1px solid transparent !important;
   padding: 7px 15px 7px 10px !important;
   font-size: 16px !important;

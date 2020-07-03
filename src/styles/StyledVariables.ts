@@ -1,5 +1,5 @@
 export const AWMColors = {
-  primaryColor: '#006D8F',
+  primaryColor: '#006EF5',
 };
 
 export const AWMVariables = {
