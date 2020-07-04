@@ -42,6 +42,12 @@ pre[class*='language-'] {
   display: block;
 
 }
+
+figcaption{
+  text-align: center;
+  font-style: italic;
+  font-weight: 300;
+}
 `;
 
 interface SCProps {

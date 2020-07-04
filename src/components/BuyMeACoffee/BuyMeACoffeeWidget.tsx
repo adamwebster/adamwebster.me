@@ -54,7 +54,7 @@ const BuyMeACoffeeWidget = ({ ...rest }) => {
           </p>
           <p>
             All of the content on my blog is offered ad free, buying me a hot
-            chocolate will make sure that is stays that way.
+            chocolate will make sure that it stays that way.
           </p>
 
           <p>
