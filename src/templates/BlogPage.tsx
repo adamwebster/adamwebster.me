@@ -84,10 +84,7 @@ export const pageQuery = graphql`
   query($skip: Int!, $limit: Int!) {
     allMdx(
       sort: { order: DESC, fields: frontmatter___date }
-      filter: {
-        frontmatter: { draft: { eq: false } }
-        fields: { sourceInstanceName: { eq: "blog-post" } }
-      }
+      filter: { fields: { sourceInstanceName: { eq: "blog-post" } } }
       limit: $limit
       skip: $skip
     ) {

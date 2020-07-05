@@ -5,7 +5,6 @@ title: 'Welcome to my Blog'
 tagline: Full of Adam's Random Thoughts
 featuredImage: images/default.jpg
 category: 'General'
-draft: false
 layout: full
 heroColor: '#006EF5'
 ---

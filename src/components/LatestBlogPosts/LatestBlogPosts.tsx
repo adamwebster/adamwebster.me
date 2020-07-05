@@ -62,10 +62,7 @@ const LatestBlogPosts = () => {
           allMdx(
             limit: 3
             sort: { order: DESC, fields: frontmatter___date }
-            filter: {
-              frontmatter: { draft: { eq: false } }
-              fields: { sourceInstanceName: { eq: "blog-post" } }
-            }
+            filter: { fields: { sourceInstanceName: { eq: "blog-post" } } }
           ) {
             edges {
               node {
