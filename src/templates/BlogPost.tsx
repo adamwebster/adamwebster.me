@@ -26,6 +26,8 @@ import {
   LinkedinIcon,
 } from 'react-share';
 import { SiteContext } from '../state';
+import { SectionHeader } from '../components/SectionHeader';
+import { ExternalLink } from '../components/ExternalLink';
 dayjs.extend(advancedFormat);
 
 interface SAProps {
@@ -120,7 +122,15 @@ interface SIWProps {
 
 const StyledImageWrapper = styled.div<SIWProps>`
   width: 100%;
-  margin-top: ${({ layout }) => (layout === 'full' ? '0' : '40px')};
+  margin-top: ${({ layout }) => (layout === 'full' ? '50px' : '40px')};
+
+  @media only screen and (max-width: 600px) {
+    ${({ layout }) =>
+      layout === 'full' &&
+      css`
+        margin-top: 100px;
+      `}
+  }
 
   background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
 `;
@@ -154,7 +164,14 @@ const BlogPost = ({ data }: Props) => {
   }, []);
 
   return (
-    <BlogPostLayout layout={frontmatter.layout}>
+    <BlogPostLayout
+      defaultHeaderBorderColor={
+        frontmatter.defaultHeaderBorderColor
+          ? frontmatter.defaultHeaderBorderColor
+          : ''
+      }
+      layout={frontmatter.layout}
+    >
       {frontmatter.heroColor && (
         <SetHeaderColor color={frontmatter.heroColor} />
       )}
@@ -162,12 +179,22 @@ const BlogPost = ({ data }: Props) => {
         title={`${frontmatter.title} | Blog`}
         ogImage={frontmatter.featuredImage.childImageSharp.fluid.src}
       ></SEO>
-
       <StyledArticle layout={frontmatter.layout}>
-        <MDXProvider components={{ code: CodeHighlight, BuyMeACoffeeWidget }}>
+        <MDXProvider
+          components={{
+            code: CodeHighlight,
+            BuyMeACoffeeWidget,
+            SectionHeader,
+            ExternalLink,
+          }}
+        >
           <StyledImageWrapper
             layout={frontmatter.layout}
-            bgColor={frontmatter.heroColor}
+            bgColor={
+              frontmatter.layout === 'full'
+                ? frontmatter.heroColor
+                : 'transparent'
+            }
           >
             <StyledImage
               layout={frontmatter.layout}
@@ -232,6 +259,7 @@ export const pageQuery = graphql`
         title
         tags
         heroColor
+        defaultHeaderBorderColor
         layout
         tagline
         showCoffeeButton
