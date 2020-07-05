@@ -7,6 +7,7 @@ import { SiteContext } from '../../state';
 
 interface GSProps {
   headerColor: string;
+  defaultHeaderBorderColor?: string;
 }
 const GlobalStyle = createGlobalStyle<GSProps>`
   body{
@@ -26,7 +27,8 @@ const GlobalStyle = createGlobalStyle<GSProps>`
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 0.5em 0;
 	line-height: 1;
-  border-left: solid 5px ${({ headerColor }) => headerColor};
+  border-left: solid 5px ${({ headerColor, defaultHeaderBorderColor }) =>
+    defaultHeaderBorderColor ? Colors.primary : headerColor};
   padding-left: 10px;
 }
 
@@ -66,9 +68,15 @@ interface Props {
   children: ReactNode;
   hero?: ReactNode;
   layout?: string;
+  defaultHeaderBorderColor?: string;
 }
 
-const BlogPostLayout = ({ children, layout, hero }: Props) => {
+const BlogPostLayout = ({
+  children,
+  layout,
+  hero,
+  defaultHeaderBorderColor,
+}: Props) => {
   const { globalState, dispatch } = useContext(SiteContext);
 
   useEffect(() => {
@@ -91,6 +99,7 @@ const BlogPostLayout = ({ children, layout, hero }: Props) => {
         value={{ theme: globalState.darkMode ? 'dark' : 'light' }}
       >
         <GlobalStyle
+          defaultHeaderBorderColor={defaultHeaderBorderColor}
           headerColor={globalState.headerColor}
           theme={globalState.darkMode ? 'dark' : 'light'}
         />
