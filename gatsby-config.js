@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Adam Webster Designer and Front-end Developer`,
-    description: `Adam Webster's Portfolio Page`,
+    description: `I specialize in designing and coding responsive, accessible websites using technologies such as Wordpress, React and Svelte. I also design logos, business card and other marketing materials.`,
     author: `@adamwebster`,
     image: `src/assets/images/aw-icon.png`,
   },
