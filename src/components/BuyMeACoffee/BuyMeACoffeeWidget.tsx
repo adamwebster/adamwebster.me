@@ -63,7 +63,12 @@ const BuyMeACoffeeWidget = ({ ...rest }) => {
             Thanks,
             <br />
             Adam Webster{' '}
-            <a href="https://twitter.com/adamwebster" target="_blank">
+            <a
+              href="https://twitter.com/adamwebster"
+              title="Follow Adam on Twitter"
+              target="_blank"
+              rel="noopener"
+            >
               <FontAwesomeIcon icon={faTwitter} />
             </a>
           </p>
@@ -71,6 +76,7 @@ const BuyMeACoffeeWidget = ({ ...rest }) => {
             style={{ textTransform: 'uppercase' }}
             href="https://www.buymeacoffee.com/adamwebster"
             target="_blank"
+            rel="noopener"
           >
             Buy me a hot chocolate
           </LinkButtonStandard>

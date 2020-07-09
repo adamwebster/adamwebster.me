@@ -23,11 +23,21 @@ const Footer = () => {
     <StyledFooter>
       <StyledFooterInner>
         &copy; 2020 Adam Webster
-        <a rel="noopener" href="http://twitter.com/adamwebster" target="_blank">
+        <a
+          rel="noopener"
+          title="Follow Adam on Twitter"
+          href="http://twitter.com/adamwebster"
+          target="_blank"
+        >
           <FontAwesomeIcon title="Adam's twiter" icon={faTwitter} />
         </a>
-        <a rel="noopener" href="https://github.com/adamwebster" target="_blank">
-          <FontAwesomeIcon title="Adam's Github" icon={faGithub} />
+        <a
+          rel="noopener"
+          title="Adam's Github"
+          href="https://github.com/adamwebster"
+          target="_blank"
+        >
+          <FontAwesomeIcon icon={faGithub} />
         </a>
       </StyledFooterInner>
     </StyledFooter>

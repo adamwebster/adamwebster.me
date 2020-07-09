@@ -45,6 +45,7 @@ const BuyMeACoffee = ({ ...rest }) => {
       <StyledBMCButton
         className="bmc-button"
         target="_blank"
+        rel="noopener"
         href="https://www.buymeacoffee.com/adamwebster"
         {...rest}
       >

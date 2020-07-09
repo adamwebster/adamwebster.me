@@ -9,6 +9,7 @@ const StyledFloatingImage = styled.div<Props>`
   float: ${({ float }) => float};
   overflow: hidden;
   margin-bottom: 15px;
+  margin-top: 15px;
   ${({ float }) =>
     float === 'right'
       ? css`
@@ -33,7 +34,7 @@ const FloatingImage = ({
   width = '50%',
   height = 'auto',
   imageFilename = 'default.jpg',
-  caption,
+  caption = '',
 }: Props) => {
   const ImageQuery = useStaticQuery(graphql`
     query {
@@ -59,7 +60,7 @@ const FloatingImage = ({
   return (
     <StyledFloatingImage float={float} width={width} height={height}>
       <figure>
-        <Img fluid={image[0].node.fluid} />
+        <Img alt={caption} fluid={image[0].node.fluid} />
         {caption && <figcaption>{caption}</figcaption>}
       </figure>
     </StyledFloatingImage>
