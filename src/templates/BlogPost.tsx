@@ -113,6 +113,11 @@ const PostContent = styled.div<PSProps>`
     padding: 0 10px;
     box-sizing: border-box;
   }
+  img {
+    border: solid 1px ${Colors.border};
+    border-radius: ${AWMVariables.borderRadius};
+    display: block;
+  }
 `;
 
 interface SIWProps {
