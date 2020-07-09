@@ -28,6 +28,8 @@ const StyledImageWrapper = styled.div`
   align-items: flex-start;
   img {
     width: 100%;
+    border-radius: none !important;
+    border: none !important;
   }
 `;
 const BuyMeACoffeeWidget = ({ ...rest }) => {
