@@ -10,6 +10,8 @@ import _ from 'lodash';
 import SEO from '../components/seo';
 import { CodeHighlight } from '../components/CodeHighlight';
 import { BuyMeACoffee, BuyMeACoffeeWidget } from '../components/BuyMeACoffee';
+import { FloatingImage } from '../components/FloatingImage';
+
 import { CategoryTag } from '../components/CategoryTag';
 import { SetHeaderColor } from '../components/SetHeaderColor';
 import dayjs from 'dayjs';
@@ -191,6 +193,7 @@ const BlogPost = ({ data }: Props) => {
             BuyMeACoffeeWidget,
             SectionHeader,
             ExternalLink,
+            FloatingImage,
           }}
         >
           <StyledImageWrapper
