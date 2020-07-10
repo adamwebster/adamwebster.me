@@ -2,13 +2,15 @@ import React, { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
+import { AWMVariables } from '../../styles/StyledVariables';
+import { Colors } from '@adamwebster/fused-components';
 
 const StyledFloatingImage = styled.div<Props>`
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   float: ${({ float }) => float};
-  overflow: hidden;
   margin-bottom: 15px;
+  border-radius: ${AWMVariables.borderRadius};
   margin-top: 15px;
   ${({ float }) =>
     float === 'right'
@@ -20,6 +22,12 @@ const StyledFloatingImage = styled.div<Props>`
         `}
   p,figure {
     margin: 0;
+  }
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
   }
 `;
 interface Props {

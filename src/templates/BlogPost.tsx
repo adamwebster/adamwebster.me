@@ -115,10 +115,13 @@ const PostContent = styled.div<PSProps>`
     padding: 0 10px;
     box-sizing: border-box;
   }
-  img {
+  .gatsby-resp-image-wrapper,
+  .gatsby-image-wrapper {
     border: solid 1px ${Colors.border};
     border-radius: ${AWMVariables.borderRadius};
     display: block;
+    overflow: hidden;
+    box-sizing: border-box;
   }
 `;
 
