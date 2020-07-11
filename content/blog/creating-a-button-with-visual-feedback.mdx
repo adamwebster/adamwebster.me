@@ -185,6 +185,7 @@ First add the following styles to the `Styled Button` *constant*. These styles  
 ${({ isLoading }) =>
   isLoading &&
   css`
+      padding: 0;
       width: 36px;
   `
 }
@@ -264,6 +265,7 @@ const StyledButton = styled.button<SBProps>`
   ${({ isLoading }) =>
         isLoading &&
         css`
+            padding:0;
             width: 36px;
       `}
 `;
@@ -317,6 +319,7 @@ ${({ completed }) =>
   completed &&
   css`
   &[disabled] {
+      padding:0;
       background-color: #4de783;
       color: #08571f;
       width: 36px;
@@ -412,6 +415,7 @@ const StyledButton = styled.button<SBProps>`
      ${({ isLoading }) =>
         isLoading &&
         css`
+            padding:0;
             width: 36px;
         `}
 
@@ -419,6 +423,7 @@ const StyledButton = styled.button<SBProps>`
         completed &&
         css`
         &[disabled] {
+            padding:0;
             background-color: #4de783;
             color: #08571f;
             width: 36px;
@@ -485,6 +490,7 @@ ${({ failed }) =>
   failed &&
   css`
   &[disabled] {
+      padding:0;
       background-color: #ff5959;
       color: #5b0006;
       width: 36px;
@@ -584,6 +590,7 @@ const StyledButton = styled.button<SBProps>`
      ${({ isLoading }) =>
         isLoading &&
         css`
+            padding:0;
             width: 36px;
         `}
 
@@ -591,6 +598,7 @@ const StyledButton = styled.button<SBProps>`
         completed &&
         css`
         &[disabled] {
+            padding:0;
             background-color: #4de783;
             color: #08571f;
             width: 36px;
@@ -601,6 +609,7 @@ const StyledButton = styled.button<SBProps>`
         failed &&
         css`
         &[disabled] {
+            padding:0;
             background-color: #ff5959;
             color: #5b0006;
             width: 36px;

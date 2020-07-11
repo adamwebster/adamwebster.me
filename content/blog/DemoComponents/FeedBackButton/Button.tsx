@@ -43,11 +43,13 @@ const StyledButton = styled.button<SBProps>`
     isLoading &&
     css`
       width: 36px;
+      padding: 0;
     `}
 
   ${({ completed }) =>
     completed &&
     css`
+      padding: 0;
       &[disabled] {
         background-color: #4de783;
         color: #08571f;
@@ -58,6 +60,7 @@ const StyledButton = styled.button<SBProps>`
   ${({ failed }) =>
     failed &&
     css`
+      padding: 0;
       &[disabled] {
         background-color: #ff5959;
         color: #5b0006;
