@@ -5,7 +5,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
 import Img from 'gatsby-image';
 import styled, { css } from 'styled-components';
-import { Colors } from '@adamwebster/fused-components';
+import { Colors, Button } from '@adamwebster/fused-components';
 import _ from 'lodash';
 import SEO from '../components/seo';
 import { CodeHighlight } from '../components/CodeHighlight';
@@ -30,6 +30,7 @@ import {
 import { SiteContext } from '../state';
 import { SectionHeader } from '../components/SectionHeader';
 import { ExternalLink } from '../components/ExternalLink';
+import { LinkButton } from '../components/LinkButton';
 dayjs.extend(advancedFormat);
 
 interface SAProps {
@@ -192,6 +193,8 @@ const BlogPost = ({ data }: Props) => {
       <StyledArticle layout={frontmatter.layout}>
         <MDXProvider
           components={{
+            Button,
+            LinkButton,
             code: CodeHighlight,
             BuyMeACoffeeWidget,
             SectionHeader,
