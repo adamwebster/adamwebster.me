@@ -53,6 +53,14 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `page`,
+        path: `${__dirname}/content/pages`,
+        ignore: process.env.NODE_ENV === `production` && [`**/draft-*`],
+      },
+    },
+    {
       resolve: 'gatsby-plugin-react-svg',
       options: {
         rule: {
