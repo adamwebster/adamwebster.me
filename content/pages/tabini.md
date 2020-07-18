@@ -7,13 +7,7 @@ path: '/tabini'
 
 ![](/images/tabini.jpg)
 
-<Button onClick={() => window.location.href="https://gatsbytheme.adamwebster.me/tabini"} primary style={{display: 'block', borderRadius: '30px', margin: '0 auto 30px auto', fontSize: '18px' }}>View Demo</Button>
-
-
-
-<Button  onClick={() => window.location.href="https://www.buymeacoffee.com/adamwebster"} style={{height:'80px', borderRadius: '30px', textTransform: 'uppercase', display:'block', padding:'0 30px', margin: '0 auto 30px auto', fontSize:'34px'}} primary>Buy Now for only <strike>$79</strike> $59</Button>
-
-
+<BuyMeACoffee />
 
 ## Features
 
@@ -396,6 +390,3 @@ The theme also supports **MDX** so you can import your own custom components in 
 ## Help
 
 If you would like some help want to report an issue follow [@adamwebster](https://twitter.com/adamwebster) and send him a message and he will get back to you ASAP.
-
-
-<Button  onClick={() => window.location.href="https://www.buymeacoffee.com/adamwebster"} style={{height:'80px', borderRadius: '30px', textTransform: 'uppercase', display:'block', padding:'0 30px', margin: '0 auto 30px auto', fontSize:'34px'}} primary>Buy Now for only <strike>$79</strike> $59</Button>
