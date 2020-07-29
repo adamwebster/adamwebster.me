@@ -34,6 +34,8 @@ path: '/tabini'
 
 ## Installation
 
+Install to your gatsby site by running `npm install @adamwebster/tabini` or `yarn add @adamwebter/tabini`.
+
 After installing the theme by adding a reference to it in your `package.json` file add the following line to you plugins of you `gatsby-config.js`.
 
 ```js
