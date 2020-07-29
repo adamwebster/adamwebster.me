@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
-import { useSelector } from 'react-redux';
 import { darken } from 'polished';
+import { SiteContext } from '../../state';
 
 interface SNProps {
   activePage?: () => string;
@@ -43,13 +43,10 @@ const StyledNavigation = styled.nav<SNProps>`
   }
 `;
 const Navigation = () => {
-  const headerColor = useSelector(
-    (state: { SiteSettings: { headerColor: string } }) =>
-      state.SiteSettings.headerColor
-  );
+  const { globalState } = useContext(SiteContext);
   return (
     <StyledNavigation
-      headerColor={headerColor}
+      headerColor={globalState.headerColor}
       activePage={(): string => {
         if (typeof window !== 'undefined') {
           return window.location.href.split('/')[3];

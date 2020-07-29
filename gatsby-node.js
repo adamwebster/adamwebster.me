@@ -77,6 +77,8 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const blogPostTemplate = path.resolve(`src/templates/BlogPost.tsx`);
   const portfolioItemTemplate = path.resolve(`src/templates/PortfolioPost.tsx`);
   const categoryTemplate = path.resolve(`src/templates/blog/Category.tsx`);
+  const pageTemplate = path.resolve(`src/templates/PageTemplate.tsx`);
+
   const portfolioCategoryTemplate = path.resolve(
     `src/templates/portfolio/Category.tsx`
   );
@@ -187,6 +189,14 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         });
       }
     }
+
+    if (node.fields.sourceInstanceName === 'page') {
+      createPage({
+        path: node.frontmatter.path,
+        component: pageTemplate,
+        context: {}, // additional data can be passed via context
+      });
+    }
   });
 };
 
@@ -194,7 +204,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 exports.onCreateWebpackConfig = ({ actions, getConfig, stage }) => {
   actions.setWebpackConfig({
     resolve: {
-      alias: { react: require.resolve('react'), 'styled-components': require.resolve('styled-components') },
+      alias: {
+        react: require.resolve('react'),
+        'styled-components': require.resolve('styled-components'),
+      },
     },
   });
 };

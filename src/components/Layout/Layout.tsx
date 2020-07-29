@@ -1,14 +1,15 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useContext, useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 import {
   Colors,
-  FCThemeProvider,
   ToastProvider,
+  FCThemeProvider,
 } from '@adamwebster/fused-components';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
-import { useSelector } from 'react-redux';
+import { SiteContext } from '../../state';
+import { BuyMeACoffeeWidget } from '../BuyMeACoffee';
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -60,14 +61,28 @@ interface Props {
 }
 
 const Layout = ({ children, hero }: Props) => {
-  const theme = useSelector(
-    (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
-  );
+  const { globalState, dispatch } = useContext(SiteContext);
+
+  useEffect(() => {
+    if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+      if (!globalState.darkModeSet)
+        dispatch({ type: 'SET_DARK_MODE', payload: true });
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      const toSet = e.matches ? true : false;
+      dispatch({ type: 'SET_DARK_MODE', payload: toSet });
+    });
+  }, []);
   return (
     <>
-      <FCThemeProvider value={{ theme }}>
+      <FCThemeProvider
+        value={{ theme: globalState.darkMode ? 'dark' : 'light' }}
+      >
         <ToastProvider>
-          <GlobalStyle theme={theme} />
+          <GlobalStyle theme={globalState.darkMode ? 'dark' : 'light'} />
           <Header />
           {hero && hero}
           <StyledContent>{children}</StyledContent>

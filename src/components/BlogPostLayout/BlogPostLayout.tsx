@@ -1,12 +1,13 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useContext, useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { Colors } from '@adamwebster/fused-components';
+import { Colors, FCThemeProvider } from '@adamwebster/fused-components';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
-import { useSelector } from 'react-redux';
+import { SiteContext } from '../../state';
 
 interface GSProps {
   headerColor: string;
+  defaultHeaderBorderColor?: string;
 }
 const GlobalStyle = createGlobalStyle<GSProps>`
   body{
@@ -26,7 +27,8 @@ const GlobalStyle = createGlobalStyle<GSProps>`
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 0.5em 0;
 	line-height: 1;
-  border-left: solid 5px ${({ headerColor }) => headerColor};
+  border-left: solid 5px ${({ headerColor, defaultHeaderBorderColor }) =>
+    defaultHeaderBorderColor ? Colors.primary : headerColor};
   padding-left: 10px;
 }
 
@@ -41,6 +43,12 @@ pre[class*='language-'] {
   overflow: scroll;
   display: block;
 
+}
+
+figcaption{
+  text-align: center;
+  font-style: italic;
+  font-weight: 300;
 }
 `;
 
@@ -60,24 +68,46 @@ interface Props {
   children: ReactNode;
   hero?: ReactNode;
   layout?: string;
+  defaultHeaderBorderColor?: string;
 }
 
-const BlogPostLayout = ({ children, layout, hero }: Props) => {
-  const theme = useSelector(
-    (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
-  );
+const BlogPostLayout = ({
+  children,
+  layout,
+  hero,
+  defaultHeaderBorderColor,
+}: Props) => {
+  const { globalState, dispatch } = useContext(SiteContext);
 
-  const headerColor = useSelector(
-    (state: { SiteSettings: { headerColor: string } }) =>
-      state.SiteSettings.headerColor
-  );
+  useEffect(() => {
+    if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+      if (!globalState.darkModeSet)
+        dispatch({ type: 'SET_DARK_MODE', payload: true });
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      const toSet = e.matches ? true : false;
+      dispatch({ type: 'SET_DARK_MODE', payload: toSet });
+    });
+  }, []);
+
   return (
     <>
-      <GlobalStyle headerColor={headerColor} theme={theme} />
-      <Header />
-      {hero && hero}
-      <StyledContent layout={layout}>{children}</StyledContent>
-      <Footer />
+      <FCThemeProvider
+        value={{ theme: globalState.darkMode ? 'dark' : 'light' }}
+      >
+        <GlobalStyle
+          defaultHeaderBorderColor={defaultHeaderBorderColor}
+          headerColor={globalState.headerColor}
+          theme={globalState.darkMode ? 'dark' : 'light'}
+        />
+        <Header />
+        {hero && hero}
+        <StyledContent layout={layout}>{children}</StyledContent>
+        <Footer />
+      </FCThemeProvider>
     </>
   );
 };

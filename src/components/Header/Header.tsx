@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
 import Logo from '../../assets/svgs/logo.svg';
 import { Button, Colors } from '@adamwebster/fused-components';
 import { Navigation } from '../Navigation';
 import { Link, StaticQuery, graphql } from 'gatsby';
-import { useDispatch, useSelector } from 'react-redux';
-import { setTheme } from '../../state/actions';
 import { Index } from 'elasticlunr';
 import { SearchBox } from '../SearchBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { SiteContext } from '../../state';
 interface SHProps {
   headerColor?: string;
 }
@@ -97,41 +96,31 @@ const StyledNavigationWrapper = styled.div`
 `;
 
 const Header = () => {
-  const dispatch = useDispatch();
-  const theme = useSelector(
-    (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
-  );
-  const headerColor = useSelector(
-    (state: { SiteSettings: { headerColor: string } }) =>
-      state.SiteSettings.headerColor
-  );
+  const { dispatch, globalState } = useContext(SiteContext);
 
-  const hideLogo = useSelector(
-    (state: { SiteSettings: { hideLogo: boolean } }) =>
-      state.SiteSettings.hideLogo
-  );
-
-  const hasHero = useSelector(
-    (state: { SiteSettings: { hasHero: boolean } }) =>
-      state.SiteSettings.hasHero
-  );
-  const setThemeFunc = () => {
-    const themeToSet = theme === 'dark' ? 'light' : 'dark';
-    dispatch(setTheme(themeToSet));
-    localStorage.setItem('theme', themeToSet);
+  const setThemeFunc = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // const themeToSet = globalState.theme === 'dark' ? 'light' : 'dark';
+    dispatch({ type: 'SET_DARK_MODE', payload: !globalState.darkMode });
+    dispatch({ type: 'SET_DARK_MODE_SET', payload: true });
+    // localStorage.setItem('theme', themeToSet);
   };
 
   return (
-    <StyledHeader headerColor={headerColor} theme={'light'}>
+    <StyledHeader headerColor={globalState.headerColor} theme={'light'}>
       <StyledHeaderInner>
-        {!hideLogo && (
+        {!globalState.hideLogo && (
           <Link title="Homepage" to="/">
             <LogoWrapper>
               <Logo />
             </LogoWrapper>
           </Link>
         )}
-        <StyledSearchBox hasHero={hasHero} theme={theme}>
+        <StyledSearchBox
+          hasHero={globalState.hasHero}
+          theme={globalState.darkMode ? 'dark' : 'light'}
+        >
           <StyledSearchBoxWrapper>
             <StaticQuery
               query={graphql`
@@ -154,8 +143,8 @@ const Header = () => {
         </StyledSearchBox>
         <StyledNavigationWrapper>
           <Navigation />
-          <StyledButton as="a" onClick={() => setThemeFunc()}>
-            <FontAwesomeIcon icon={theme === 'dark' ? faSun : faMoon} />
+          <StyledButton as="a" onClick={(e: any) => setThemeFunc(e)}>
+            <FontAwesomeIcon icon={globalState.darkMode ? faSun : faMoon} />
           </StyledButton>
         </StyledNavigationWrapper>
       </StyledHeaderInner>
