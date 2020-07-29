@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { BlogPostLayout } from '../components/BlogPostLayout';
 import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
 import Img from 'gatsby-image';
 import styled, { css } from 'styled-components';
-import { Colors } from '@adamwebster/fused-components';
+import { Colors, Button } from '@adamwebster/fused-components';
 import _ from 'lodash';
 import SEO from '../components/seo';
 import { CodeHighlight } from '../components/CodeHighlight';
+import { BuyMeACoffee, BuyMeACoffeeWidget } from '../components/BuyMeACoffee';
+import { FloatingImage } from '../components/FloatingImage';
 
 import { CategoryTag } from '../components/CategoryTag';
-import { useSelector, useDispatch } from 'react-redux';
 import { SetHeaderColor } from '../components/SetHeaderColor';
-import { setHasHero } from '../state/actions';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { AWMVariables } from '../styles/StyledVariables';
@@ -27,6 +27,10 @@ import {
   LinkedinShareButton,
   LinkedinIcon,
 } from 'react-share';
+import { SiteContext } from '../state';
+import { SectionHeader } from '../components/SectionHeader';
+import { ExternalLink } from '../components/ExternalLink';
+import { LinkButton } from '../components/LinkButton';
 dayjs.extend(advancedFormat);
 
 interface SAProps {
@@ -64,7 +68,6 @@ const StyledImage = styled(Img)<SIProps>`
     layout !== 'full' &&
     css`
       margin-top: 80px;
-      box-shadow: 0 0 5px #aaa;
       @media only screen and (max-width: 600px) {
         margin-top: 120px;
       }
@@ -84,6 +87,7 @@ const PostTagline = styled.p`
   text-transform: uppercase;
   font-weight: normal;
   font-size: 16px;
+  margin-bottom: 10px;
   color: ${({ theme }) =>
     theme === 'dark' ? Colors.darkModeLight : '#6E6E6E'};
 `;
@@ -112,6 +116,14 @@ const PostContent = styled.div<PSProps>`
     padding: 0 10px;
     box-sizing: border-box;
   }
+  .gatsby-resp-image-wrapper,
+  .gatsby-image-wrapper {
+    border: solid 1px ${Colors.border};
+    border-radius: ${AWMVariables.borderRadius};
+    display: block;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
 `;
 
 interface SIWProps {
@@ -121,7 +133,15 @@ interface SIWProps {
 
 const StyledImageWrapper = styled.div<SIWProps>`
   width: 100%;
-  margin-top: ${({ layout }) => (layout === 'full' ? '0' : '40px')};
+  margin-top: ${({ layout }) => (layout === 'full' ? '50px' : '40px')};
+
+  @media only screen and (max-width: 600px) {
+    ${({ layout }) =>
+      layout === 'full' &&
+      css`
+        margin-top: 100px;
+      `}
+  }
 
   background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
 `;
@@ -139,25 +159,30 @@ interface Props {
 }
 
 const BlogPost = ({ data }: Props) => {
-  const dispatch = useDispatch();
+  const { dispatch, globalState } = useContext(SiteContext);
+
   const {
     mdx: { frontmatter, body },
   } = data;
-  const theme = useSelector(
-    (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
-  );
 
   useEffect(() => {
     if (frontmatter.layout === 'full') {
-      dispatch(setHasHero(true));
+      dispatch({ type: 'SET_HAS_HERO', payload: true });
     }
     return () => {
-      dispatch(setHasHero(false));
+      dispatch({ type: 'SET_HAS_HERO', payload: false });
     };
   }, []);
 
   return (
-    <BlogPostLayout layout={frontmatter.layout}>
+    <BlogPostLayout
+      defaultHeaderBorderColor={
+        frontmatter.defaultHeaderBorderColor
+          ? frontmatter.defaultHeaderBorderColor
+          : ''
+      }
+      layout={frontmatter.layout}
+    >
       {frontmatter.heroColor && (
         <SetHeaderColor color={frontmatter.heroColor} />
       )}
@@ -165,12 +190,25 @@ const BlogPost = ({ data }: Props) => {
         title={`${frontmatter.title} | Blog`}
         ogImage={frontmatter.featuredImage.childImageSharp.fluid.src}
       ></SEO>
-
       <StyledArticle layout={frontmatter.layout}>
-        <MDXProvider components={{ code: CodeHighlight }}>
+        <MDXProvider
+          components={{
+            Button,
+            LinkButton,
+            code: CodeHighlight,
+            BuyMeACoffeeWidget,
+            SectionHeader,
+            ExternalLink,
+            FloatingImage,
+          }}
+        >
           <StyledImageWrapper
             layout={frontmatter.layout}
-            bgColor={frontmatter.heroColor}
+            bgColor={
+              frontmatter.layout === 'full'
+                ? frontmatter.heroColor
+                : 'transparent'
+            }
           >
             <StyledImage
               layout={frontmatter.layout}
@@ -208,8 +246,13 @@ const BlogPost = ({ data }: Props) => {
                   <LinkedinIcon borderRadius={15} size={26} />
                 </LinkedinShareButton>
               </StyledShareRow>
+              {frontmatter.showCoffeeButton != false && (
+                <BuyMeACoffee style={{ marginBottom: 30 + 'px' }} />
+              )}
               <PostTitle>{frontmatter.title}</PostTitle>
-              <PostTagline theme={theme}>{frontmatter.tagline}</PostTagline>
+              <PostTagline theme={globalState.darkMode ? 'dark' : 'light'}>
+                {frontmatter.tagline}
+              </PostTagline>
               {dayjs(frontmatter.date).format('MMMM Do YYYY')}
             </PostHeader>
             <MDXRenderer>{body}</MDXRenderer>
@@ -230,8 +273,10 @@ export const pageQuery = graphql`
         title
         tags
         heroColor
+        defaultHeaderBorderColor
         layout
         tagline
+        showCoffeeButton
         featuredImage {
           childImageSharp {
             fluid(maxWidth: 800) {

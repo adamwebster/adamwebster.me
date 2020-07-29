@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { CategoryTag } from '../CategoryTag';
 import { Colors } from '@adamwebster/fused-components';
-import { useSelector } from 'react-redux';
 import _ from 'lodash';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { AWMVariables } from '../../styles/StyledVariables';
+import { SiteContext } from '../../state';
 
 dayjs.extend(advancedFormat);
 interface SIProps {
@@ -21,7 +21,6 @@ const StyledImage = styled(Img)<SIProps>`
   margin-bottom: 40px;
   border-radius: ${AWMVariables.borderRadius};
   background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
-  box-shadow: 0 0 5px #aaa;
 `;
 
 const PostTitle = styled.h1`
@@ -54,9 +53,8 @@ interface Props {
   postData: any;
 }
 const BlogArticle = ({ postData }: Props) => {
-  const theme = useSelector(
-    (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
-  );
+  const { globalState } = useContext(SiteContext);
+  const { darkMode } = globalState;
   return (
     <article>
       <Link to={postData.frontmatter.path}>
@@ -78,7 +76,7 @@ const BlogArticle = ({ postData }: Props) => {
               {postData.frontmatter.title}
             </Link>
           </PostTitle>
-          <PostTagline theme={theme}>
+          <PostTagline theme={darkMode ? 'dark' : 'light'}>
             {postData.frontmatter.tagline}
           </PostTagline>
           {dayjs(postData.frontmatter.date).format('MMMM Do YYYY')}

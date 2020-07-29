@@ -85,7 +85,7 @@ export const pageQuery = graphql`
     allMdx(
       sort: { order: DESC, fields: frontmatter___date }
       filter: {
-        frontmatter: { draft: { eq: false }, category: { eq: $category } }
+        frontmatter: { category: { eq: $category } }
         fields: { sourceInstanceName: { eq: "blog-post" } }
       }
     ) {

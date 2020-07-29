@@ -1,19 +1,12 @@
-import React, { ReactNode } from 'react';
-import { useSelector } from 'react-redux';
-import { FCThemeProvider } from '@adamwebster/fused-components';
+import React, { ReactNode, useContext } from 'react';
+import { SiteContext } from '.';
 
 interface Props {
   children: ReactNode;
 }
 const FCThemeWrapper = ({ children }: Props) => {
-  const theme = useSelector(
-    (state: { SiteSettings: { theme: string } }) => state.SiteSettings.theme
-  );
-  return (
-    <FCThemeProvider value={{ theme }}>
-      <>{children}</>
-    </FCThemeProvider>
-  );
+  const { globalState } = useContext(SiteContext);
+  return <>{children}</>;
 };
 
 export default FCThemeWrapper;

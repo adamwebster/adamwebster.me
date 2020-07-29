@@ -21,7 +21,6 @@ const StyledImageWrapper = styled.div<StyledImageWrapperProps>`
   border: solid 1px ${Colors.border};
   border-radius: ${AWMVariables.borderRadius};
   overflow: hidden;
-  box-shadow: 0 0 5px #aaa;
 `;
 
 const StyledCategoryTag = styled(CategoryTag)`
@@ -34,7 +33,6 @@ const StyledPortfolioContent = styled.div`
   img {
     border: solid 1px ${Colors.border};
     border-radius: ${AWMVariables.borderRadius};
-    box-shadow: 0 0 5px #aaa !important;
     display: block;
   }
 `;

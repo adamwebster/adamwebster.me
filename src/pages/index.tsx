@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Layout } from '../components/Layout';
 import { Hero } from '../components/Hero';
 import { LatestPortfolioItems } from '../components/LatestPortfolioItems';
@@ -6,18 +6,18 @@ import { LatestBlogPosts } from '../components/LatestBlogPosts';
 import { SkillsGrid } from '../components/SkillsGrid';
 
 import SEO from '../components/seo';
-import { useDispatch } from 'react-redux';
-import { SetLogoHidden, setHasHero } from '../state/actions';
+
+import { SiteContext } from '../state';
 
 const Index = () => {
-  const dispatch = useDispatch();
+  const { dispatch } = useContext(SiteContext);
   useEffect(() => {
-    dispatch(SetLogoHidden(true));
-    dispatch(setHasHero(true));
+    dispatch({ type: 'SET_LOGO_HIDDEN', payload: true });
+    dispatch({ type: 'SET_HAS_HERO', payload: true });
 
     return () => {
-      dispatch(SetLogoHidden(false));
-      dispatch(setHasHero(false));
+      dispatch({ type: 'SET_LOGO_HIDDEN', payload: false });
+      dispatch({ type: 'SET_HAS_HERO', payload: false });
     };
   }, []);
   return (

@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Adam Webster Designer and Front-end Developer`,
-    description: `Adam Webster's Portfolio Page`,
+    description: `I specialize in designing and coding responsive, accessible websites using technologies such as Wordpress, React and Svelte. I also design logos, business card and other marketing materials.`,
     author: `@adamwebster`,
     image: `src/assets/images/aw-icon.png`,
   },
@@ -41,6 +41,7 @@ module.exports = {
       options: {
         name: `blog-post`,
         path: `${__dirname}/content/blog`,
+        ignore: process.env.NODE_ENV === `production` && [`**/draft-*`],
       },
     },
     {
@@ -48,6 +49,15 @@ module.exports = {
       options: {
         name: `portfolio-item`,
         path: `${__dirname}/content/portfolio`,
+        ignore: process.env.NODE_ENV === `production` && [`**/draft-*`],
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `page`,
+        path: `${__dirname}/content/pages`,
+        ignore: process.env.NODE_ENV === `production` && [`**/draft-*`],
       },
     },
     {
@@ -68,6 +78,7 @@ module.exports = {
             options: {
               maxWidth: 1200,
               linkImagesToOriginal: false,
+              backgroundColor: `none`,
             },
           },
         ],
@@ -82,6 +93,7 @@ module.exports = {
             options: {
               maxWidth: 1200,
               linkImagesToOriginal: false,
+              backgroundColor: `none`,
             },
           },
         ],

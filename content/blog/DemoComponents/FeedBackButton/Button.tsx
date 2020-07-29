@@ -43,11 +43,13 @@ const StyledButton = styled.button<SBProps>`
     isLoading &&
     css`
       width: 36px;
+      padding: 0;
     `}
 
   ${({ completed }) =>
     completed &&
     css`
+      padding: 0;
       &[disabled] {
         background-color: #4de783;
         color: #08571f;
@@ -58,6 +60,7 @@ const StyledButton = styled.button<SBProps>`
   ${({ failed }) =>
     failed &&
     css`
+      padding: 0;
       &[disabled] {
         background-color: #ff5959;
         color: #5b0006;
@@ -74,14 +77,7 @@ interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   failed?: boolean;
 }
 
-const Button = ({
-  children,
-  disabled,
-  isLoading,
-  completed,
-  failed,
-  ...rest
-}: Props) => {
+const Button = ({ children, isLoading, completed, failed, ...rest }: Props) => {
   let icon = faSpinner;
   if (completed) {
     icon = faCheck;
@@ -91,10 +87,10 @@ const Button = ({
   }
   return (
     <StyledButton
-      failed={failed}
-      completed={completed}
       isLoading={isLoading}
-      disabled={isLoading || completed || failed || disabled}
+      completed={completed}
+      failed={failed}
+      disabled={isLoading || completed || failed}
       {...rest}
     >
       {isLoading || completed || failed ? (
@@ -144,7 +140,9 @@ export const ButtonTest = () => {
         Button
       </Button>
 
-      <p>Fail Example</p>
+      <p>
+        <strong>Fail Example</strong>
+      </p>
 
       <Button
         isLoading={loadingFailed}

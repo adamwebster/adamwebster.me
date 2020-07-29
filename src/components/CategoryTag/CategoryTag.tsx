@@ -63,6 +63,15 @@ const StyledCategoryTag = styled(Link)`
       background-color: ${darken(0.1, '#ffdbdb')};
     }
   }
+
+  &[data-content='UI Design' i] {
+    background-color: #d3f6ca;
+    border: solid 1px #3c5038;
+    color: #3c5038;
+    &:hover {
+      background-color: ${darken(0.1, '#d3f6ca')};
+    }
+  }
   &:hover {
     transform: scale(1.05);
   }
