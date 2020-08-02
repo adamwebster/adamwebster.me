@@ -14,6 +14,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   display: inline-block;
   transition: all 0.2s ease 0s;
+  text-transform: uppercase;
   &:hover {
     background-color: ${darken(0.1, Colors.primary)};
     transform: scale(1.05);
