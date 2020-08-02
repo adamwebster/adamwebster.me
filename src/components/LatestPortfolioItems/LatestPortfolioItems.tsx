@@ -4,67 +4,20 @@ import { LinkButton } from '../LinkButton';
 import LatestPortfolioItem from './LatestPortfolioItem';
 import styled from 'styled-components';
 
-const StyledLatestPortfolioSection = styled.section`
-  display: flex;
-  width: 100%;
-  margin-bottom: 30px;
-  box-sizing: border-box;
-  flex-flow: column;
-  border-bottom: solid 1px var(--border-color);
-  padding-bottom: 30px;
-`;
-
-const StyledLatestPortfolioSectionInner = styled.div`
-  flex-flow: row;
-  display: flex;
-  h1 {
-    font-size: 40px;
-    line-height: 1;
-    margin: 0;
-    font-weight: 300;
-    text-transform: uppercase;
-  }
-  @media only screen and (max-width: 600px) {
-    flex-flow: column;
-  }
-`;
-
-const StyledLatestPortfolioItems = styled.div`
-  margin-left: 30px;
-  flex: 1 1;
+const StyledLatestPortfolioSection = styled.div``;
+const StyledLatestPortfolioSectionRowOne = styled.section`
   display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 20px;
-  @media only screen and (max-width: 1080px) {
-    grid-template-rows: repeat(2, calc(30vw - 20px));
-    grid-template-columns: repeat(3, calc(25vw - 20px));
-  }
-  @media only screen and (max-width: 768px) {
-    grid-template-rows: repeat(3, calc(40vw - 20px));
-    grid-template-columns: 33vw 33vw;
-  }
-  @media only screen and (max-width: 600px) {
-    margin-top: 20px;
-    margin-left: 0;
-    width: 100%;
-    grid-template-rows: repeat(2, calc(50vw - 20px));
-    grid-template-columns: repeat(3, calc(33vw - 20px));
-  }
-  @media only screen and (max-width: 400px) {
-    margin-top: 20px;
-    margin-left: 0;
-    width: 100%;
-    grid-template-rows: repeat(3, calc(70vw - 20px));
-    grid-template-columns: repeat(2, calc(50vw - 20px));
-  }
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 400px;
+  margin-bottom: 30px;
+  gap: 30px;
 `;
 
-const StyledListMore = styled.div`
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  padding: 20px;
+const StyledLatestPortfolioSectionRowTwo = styled.section`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 300px;
+  gap: 30px;
 `;
 
 const LatestPortfolioItems = () => {
@@ -74,7 +27,7 @@ const LatestPortfolioItems = () => {
         query {
           allMdx(
             sort: { order: DESC, fields: frontmatter___date }
-            limit: 6
+            limit: 5
             filter: { fields: { sourceInstanceName: { eq: "portfolio-item" } } }
           ) {
             edges {
@@ -103,25 +56,16 @@ const LatestPortfolioItems = () => {
         return (
           <>
             <StyledLatestPortfolioSection id="LatestWork">
-              <StyledLatestPortfolioSectionInner>
-                <div>
-                  <h1>
-                    My Latest
-                    <br />
-                    Work
-                  </h1>
-                </div>
-                <StyledLatestPortfolioItems>
-                  {edges.map(({ node }: any) => {
-                    return <LatestPortfolioItem key={node.id} node={node} />;
-                  })}
-                </StyledLatestPortfolioItems>
-              </StyledLatestPortfolioSectionInner>
-              <StyledListMore>
-                <LinkButton to="/portfolio">
-                  See More From The Portfolio
-                </LinkButton>
-              </StyledListMore>
+              <StyledLatestPortfolioSectionRowOne>
+                {edges.slice(0, 2).map(({ node }: any) => {
+                  return <LatestPortfolioItem key={node.id} node={node} />;
+                })}
+              </StyledLatestPortfolioSectionRowOne>
+              <StyledLatestPortfolioSectionRowTwo>
+                {edges.slice(2, 5).map(({ node }: any) => {
+                  return <LatestPortfolioItem key={node.id} node={node} />;
+                })}
+              </StyledLatestPortfolioSectionRowTwo>
             </StyledLatestPortfolioSection>
           </>
         );

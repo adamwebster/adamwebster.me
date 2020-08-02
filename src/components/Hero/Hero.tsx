@@ -3,23 +3,23 @@ import { graphql, StaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { Colors } from '@adamwebster/fused-components';
+import { LatestPortfolioItems } from '../LatestPortfolioItems';
+import { LinkButton } from '../LinkButton';
 
 const StyledHeroInner = styled.div`
-  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 1160px;
   margin: 0 auto;
-  display: flex;
-  padding-top: 50px;
-  margin-bottom: 20px;
+  gap: 30px;
+  padding: 80px 10px 50px 10px;
+  align-items: center;
   @media only screen and (max-width: 768px) {
-    padding-bottom: 40px;
-  }
-  @media only screen and (max-width: 600px) {
-    flex-flow: column;
-    padding-top: 100px;
+    grid-template-columns: 1fr;
+    padding: 120px 10px 80px 10px;
   }
 `;
 const StyledHero = styled.section`
-  min-height: 400px;
   width: 100%;
   background-color: ${Colors.primary};
   margin-bottom: 40px;
@@ -45,11 +45,8 @@ const StyledHero = styled.section`
 `;
 
 const StyledHeroMessage = styled.div`
-  width: 440px;
-  padding-top: 80px;
   color: #fff;
-  position: relative;
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 768px) {
     margin: 0 auto;
     width: 100%;
     padding-top: 20px;
@@ -64,6 +61,12 @@ const StyledImageWrapper = styled.div`
     width: 100%;
     text-align: center;
   }
+`;
+
+const StyledLinkButton = styled(LinkButton)`
+  border: solid 1px #fff;
+  background-color: transparent;
+  color: #fff;
 `;
 const Hero = () => {
   return (
@@ -83,9 +86,9 @@ const Hero = () => {
         return (
           <StyledHero id="Hero">
             <StyledHeroInner>
-              <StyledImageWrapper>
-                <Img fluid={data.fileName.childImageSharp.fluid} />
-              </StyledImageWrapper>
+              <div>
+                <LatestPortfolioItems />
+              </div>
               <StyledHeroMessage>
                 <h1>Adam Webster</h1>
                 <h3>Designer and Front-end Developer</h3>
@@ -98,6 +101,9 @@ const Hero = () => {
                   I also design logos, business card and other marketing
                   materials.
                 </p>
+                <StyledLinkButton to="/portfolio">
+                  See More of My Work
+                </StyledLinkButton>
               </StyledHeroMessage>
             </StyledHeroInner>
           </StyledHero>
