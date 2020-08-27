@@ -1,23 +1,24 @@
 import React from 'react';
 import { graphql, StaticQuery, Link } from 'gatsby';
-import { LinkButton } from '../LinkButton';
 import LatestPortfolioItem from './LatestPortfolioItem';
 import styled from 'styled-components';
+import { SectionHeader } from '../SectionHeader';
 
-const StyledLatestPortfolioSection = styled.div``;
-const StyledLatestPortfolioSectionRowOne = styled.section`
+const StyledLatestPortfolioSection = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 400px;
-  margin-bottom: 30px;
-  gap: 30px;
+  gap: 20px;
+  grid-template-areas:
+    'grid1 grid1 grid2 grid3'
+    'grid1 grid1 grid4 grid5';
+  min-height: 400px;
+  width: 100%;
 `;
 
-const StyledLatestPortfolioSectionRowTwo = styled.section`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 300px;
-  gap: 30px;
+interface SLPIProps {
+  templateArea: any;
+}
+const StyledLatestPortfolioItemTest = styled(LatestPortfolioItem)<SLPIProps>`
+  grid-area: ${({ templateArea }) => templateArea};
 `;
 
 const LatestPortfolioItems = () => {
@@ -55,17 +56,17 @@ const LatestPortfolioItems = () => {
       render={({ allMdx: { edges } }) => {
         return (
           <>
+            <SectionHeader>Latest Portfolio Items</SectionHeader>
             <StyledLatestPortfolioSection id="LatestWork">
-              <StyledLatestPortfolioSectionRowOne>
-                {edges.slice(0, 2).map(({ node }: any) => {
-                  return <LatestPortfolioItem key={node.id} node={node} />;
-                })}
-              </StyledLatestPortfolioSectionRowOne>
-              <StyledLatestPortfolioSectionRowTwo>
-                {edges.slice(2, 5).map(({ node }: any) => {
-                  return <LatestPortfolioItem key={node.id} node={node} />;
-                })}
-              </StyledLatestPortfolioSectionRowTwo>
+              {edges.map(({ node }: any, index: any) => {
+                return (
+                  <StyledLatestPortfolioItemTest
+                    templateArea={'grid' + (index + 1)}
+                    key={node.id}
+                    node={node}
+                  />
+                );
+              })}
             </StyledLatestPortfolioSection>
           </>
         );
