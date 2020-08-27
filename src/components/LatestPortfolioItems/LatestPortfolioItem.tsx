@@ -10,7 +10,7 @@ const StyledLatestPortfolioItem = styled.div``;
 
 const StyledImg = styled(Img)`
   height: 100%;
-  border-radius: 5px;
+  border: solid 1px ${Colors.border};
   &:hover {
     filter: brightness(0.5);
   }
@@ -20,8 +20,8 @@ const StyledLink = styled(Link)``;
 interface Props {
   node: any;
 }
-const LatestPortfolioItem = ({ node }: Props) => {
-  const { globalState } = useContext(SiteContext);
+const LatestPortfolioItem = ({ node, ...rest }: Props) => {
+  const { e } = useContext(SiteContext);
   const {
     frontmatter: {
       path,
@@ -32,7 +32,7 @@ const LatestPortfolioItem = ({ node }: Props) => {
     },
   } = node;
   return (
-    <StyledLatestPortfolioItem>
+    <StyledLatestPortfolioItem {...rest}>
       <StyledLink title={title} to={path}>
         <StyledImg alt={title} fluid={fluid} />
       </StyledLink>
