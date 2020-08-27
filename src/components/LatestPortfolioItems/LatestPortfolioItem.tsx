@@ -21,7 +21,7 @@ interface Props {
   node: any;
 }
 const LatestPortfolioItem = ({ node, ...rest }: Props) => {
-  const { e } = useContext(SiteContext);
+  const { globalState } = useContext(SiteContext);
   const {
     frontmatter: {
       path,
