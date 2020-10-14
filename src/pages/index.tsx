@@ -23,7 +23,6 @@ const Index = () => {
   return (
     <Layout hero={<Hero />}>
       <SEO />
-
       <LatestPortfolioItems />
       <SkillsGrid />
       <LatestBlogPosts />
