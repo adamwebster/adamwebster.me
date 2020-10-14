@@ -1,10 +1,4 @@
-import React, {
-  MutableRefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 interface StyledSwitchProps {
@@ -17,7 +11,7 @@ const StyledSwitch = styled.div<StyledSwitchProps>`
   padding: 2px;
   box-sizing: border-box;
   position: relative;
-  background-color: ${({ active }) => (active ? '#006EF5' : '#dadada')};
+  background-color: ${({ active }) => (active ? '#006EF5' : '#919191')};
 `;
 
 interface SSTProps {
@@ -35,26 +29,41 @@ const StyledSwitchToggle = styled.div<SSTProps>`
 
 interface Props {
   onChange: (e) => void;
+  checked: boolean;
 }
-const Switch = ({ onChange }: Props) => {
-  const [active, setActive] = useState(false);
-  let checkBoxRef = useRef<HTMLInputElement>(null);
+const Switch = ({ onChange, checked, ...rest }: Props) => {
+  const [active, setActive] = useState(checked);
   const toggleActive = () => {
     setActive(!active);
   };
 
+  const handleKeyDown = e => {
+    console.log(e.keyCode);
+    // When the space key is pressed
+    if (e.keyCode === 32) {
+      setActive(!active);
+    }
+  };
+
   useEffect(() => {
     if (onChange) {
-      onChange(checkBoxRef.current.checked);
+      onChange(active);
     }
   }, [active]);
 
   return (
     <>
-      <StyledSwitch onClick={() => toggleActive()} active={active}>
+      <StyledSwitch
+        aria-checked={active}
+        onClick={() => toggleActive()}
+        active={active}
+        tabIndex={0}
+        role="checkbox"
+        onKeyDown={e => handleKeyDown(e)}
+        {...rest}
+      >
         <StyledSwitchToggle active={active} />
       </StyledSwitch>
-      <input ref={checkBoxRef} type="checkbox" checked={active} />
     </>
   );
 };

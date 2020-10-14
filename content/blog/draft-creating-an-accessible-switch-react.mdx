@@ -1,22 +1,18 @@
 ---
 title: 'Creating a Accessible Switch Component with React'
-tagline: 'Why you should use them'
-date: '2020-07-04'
+date: '2020-10-15'
 featured: true
 draft: true
 path: '/blog/post/creating-a-accessible-switch-react'
-category: 'Web Design'
-featuredImage: images/lighticons.png
+category: 'Front-end Development'
+featuredImage: images/switch-component.jpg
 tags: ['icons', 'icon pack']
 layout: full
-heroColor: '#57008a'
+heroColor: '#001D3C'
 ---
 
 import { Switch } from './DemoComponents/AccessibleSwitch';
 
+Creating a accessible switch component with React, TypeScript and Styled Components.
 
-Creating a accessible switch component with React.
-
-<Switch onChange={(e) => console.log(e)} />
-
-<Switch />
+<Switch aria-label="Turn on the switch" onChange={(e) => console.log(e)} />
