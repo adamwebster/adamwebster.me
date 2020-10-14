@@ -13,6 +13,69 @@ heroColor: '#001D3C'
 
 import { Switch } from './DemoComponents/AccessibleSwitch';
 
-Creating a accessible switch component with React, TypeScript and Styled Components.
+
+
+Accessibility on the web is a very something that should be thought about from the design process to the development and testing process. 
+
+In this tutorial I am going to show you how to create an accessible switch component that has  keyboard and screen reader support.
+
+The technologies that will be used in this tutorial are **React, Typescript** and **Styled Components**.
 
 <Switch aria-label="Turn on the switch" onChange={(e) => console.log(e)} />
+
+## Creating the basic component
+
+The first step is to import the dependencies that we will require for the component which are React, and Styled-Components to begin with.  We will also be creating a simple test component.
+
+```tsx render true
+import React from 'react';
+import styled from 'styled-components';
+
+const Switch = () => {
+    return (
+        <>Test</>
+    )
+}
+export default Switch;
+```
+
+This component can be imported into your app using  `import Switch from '../path_to_file';`.
+
+After this is done we can create the jsx for the component and create the styled components needed to render it.
+
+```tsx render true
+import React from 'react';
+import styled from 'styled-components';
+
+const StyledSwitch = styled.div`
+  width: 44px;
+  height: 22px;
+  border-radius: 25px;
+  padding: 2px;
+  box-sizing: border-box;
+  position: relative;
+  background-color: #919191;
+`;
+
+const StyledSwitchToggle = styled.div`
+  background-color: #fff;
+  width: 18px;
+  height: 18px;
+  border-radius: 50px;
+  position: absolute;
+  transition: all 0.2s ease-in-out;
+  left: 2px;
+`;
+
+const Switch = () => {
+    return (
+       <StyledSwitch>
+        <StyledSwitchToggle />
+      </StyledSwitch>
+    )
+}
+
+export default Switch;
+```
+
+At this point the switch should be in the off position and non functional.  In the next step we will be adding a property called active that allows you to set the switch to be in the on position.
