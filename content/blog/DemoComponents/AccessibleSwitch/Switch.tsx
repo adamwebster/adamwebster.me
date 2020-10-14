@@ -1,44 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
-interface StyledSwitchProps {
-  active: boolean;
+interface StyledProps {
+  checked: boolean;
 }
-const StyledSwitch = styled.div<StyledSwitchProps>`
+
+const StyledSwitch = styled.div<StyledProps>`
   width: 44px;
   height: 22px;
   border-radius: 25px;
   padding: 2px;
   box-sizing: border-box;
   position: relative;
-  background-color: ${({ active }) => (active ? '#006EF5' : '#919191')};
+  background-color: #919191;
+  background-color: ${({ checked }) => (checked ? '#006EF5' : '#919191')};
 `;
 
-interface SSTProps {
-  active: boolean;
-}
-const StyledSwitchToggle = styled.div<SSTProps>`
+const StyledSwitchToggle = styled.div<StyledProps>`
   background-color: #fff;
   width: 18px;
   height: 18px;
   border-radius: 50px;
   position: absolute;
   transition: all 0.2s ease-in-out;
-  left: ${({ active }) => (active ? '24px' : '2px')};
+  left: ${({ checked }) => (checked ? '24px' : '2px')};
 `;
 
 interface Props {
-  onChange: (e) => void;
   checked: boolean;
+  onChange: (e) => void;
 }
-const Switch = ({ onChange, checked, ...rest }: Props) => {
+
+const Switch = ({ checked, onChange, ...rest }: Props) => {
   const [active, setActive] = useState(checked);
+
   const toggleActive = () => {
     setActive(!active);
   };
 
   const handleKeyDown = e => {
-    console.log(e.keyCode);
     // When the space key is pressed
     if (e.keyCode === 32) {
       setActive(!active);
@@ -52,19 +52,17 @@ const Switch = ({ onChange, checked, ...rest }: Props) => {
   }, [active]);
 
   return (
-    <>
-      <StyledSwitch
-        aria-checked={active}
-        onClick={() => toggleActive()}
-        active={active}
-        tabIndex={0}
-        role="checkbox"
-        onKeyDown={e => handleKeyDown(e)}
-        {...rest}
-      >
-        <StyledSwitchToggle active={active} />
-      </StyledSwitch>
-    </>
+    <StyledSwitch
+      role="switch"
+      aria-checked={active}
+      tabIndex={0}
+      onClick={() => toggleActive()}
+      onKeyDown={e => handleKeyDown(e)}
+      checked={active}
+      {...rest}
+    >
+      <StyledSwitchToggle checked={active} />
+    </StyledSwitch>
   );
 };
 
