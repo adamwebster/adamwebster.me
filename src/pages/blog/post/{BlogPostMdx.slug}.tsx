@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { BlogPostLayout } from '../components/BlogPostLayout';
+import { BlogPostLayout } from '../../../components/BlogPostLayout';
 import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
@@ -7,16 +7,19 @@ import Img from 'gatsby-image';
 import styled, { css } from 'styled-components';
 import { Colors, Button } from '@adamwebster/fused-components';
 import _ from 'lodash';
-import SEO from '../components/seo';
-import { CodeHighlight } from '../components/CodeHighlight';
-import { BuyMeACoffee, BuyMeACoffeeWidget } from '../components/BuyMeACoffee';
-import { FloatingImage } from '../components/FloatingImage';
+import SEO from '../../../components/seo';
+import { CodeHighlight } from '../../../components/CodeHighlight';
+import {
+  BuyMeACoffee,
+  BuyMeACoffeeWidget,
+} from '../../../components/BuyMeACoffee';
+import { FloatingImage } from '../../../components/FloatingImage';
 
-import { CategoryTag } from '../components/CategoryTag';
-import { SetHeaderColor } from '../components/SetHeaderColor';
+import { CategoryTag } from '../../../components/CategoryTag';
+import { SetHeaderColor } from '../../../components/SetHeaderColor';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
-import { AWMVariables } from '../styles/StyledVariables';
+import { AWMVariables } from '../../../styles/StyledVariables';
 import {
   TwitterShareButton,
   RedditIcon,
@@ -27,10 +30,10 @@ import {
   LinkedinShareButton,
   LinkedinIcon,
 } from 'react-share';
-import { SiteContext } from '../state';
-import { SectionHeader } from '../components/SectionHeader';
-import { ExternalLink } from '../components/ExternalLink';
-import { LinkButton } from '../components/LinkButton';
+import { SiteContext } from '../../../state';
+import { SectionHeader } from '../../../components/SectionHeader';
+import { ExternalLink } from '../../../components/ExternalLink';
+import { LinkButton } from '../../../components/LinkButton';
 dayjs.extend(advancedFormat);
 
 interface SAProps {
@@ -160,13 +163,25 @@ interface Props {
 
 const BlogPost = ({ data }: Props) => {
   const { dispatch, globalState } = useContext(SiteContext);
-
+  console.log(data);
   const {
-    mdx: { frontmatter, body },
+    blogPostMdx: {
+      layout,
+      defaultHeaderBorderColor,
+      heroColor,
+      title,
+      featuredImage,
+      category,
+      showCoffeeButton,
+      path,
+      tagline,
+      date,
+      body,
+    },
   } = data;
 
   useEffect(() => {
-    if (frontmatter.layout === 'full') {
+    if (layout === 'full') {
       dispatch({ type: 'SET_HAS_HERO', payload: true });
     }
     return () => {
@@ -177,20 +192,16 @@ const BlogPost = ({ data }: Props) => {
   return (
     <BlogPostLayout
       defaultHeaderBorderColor={
-        frontmatter.defaultHeaderBorderColor
-          ? frontmatter.defaultHeaderBorderColor
-          : ''
+        defaultHeaderBorderColor ? defaultHeaderBorderColor : ''
       }
-      layout={frontmatter.layout}
+      layout={layout}
     >
-      {frontmatter.heroColor && (
-        <SetHeaderColor color={frontmatter.heroColor} />
-      )}
+      {heroColor && <SetHeaderColor color={heroColor} />}
       <SEO
-        title={`${frontmatter.title} | Blog`}
-        ogImage={frontmatter.featuredImage.childImageSharp.fluid.src}
+        title={`${title} | Blog`}
+        ogImage={featuredImage.childImageSharp.fluid.src}
       ></SEO>
-      <StyledArticle layout={frontmatter.layout}>
+      <StyledArticle layout={layout}>
         <MDXProvider
           components={{
             Button,
@@ -203,57 +214,53 @@ const BlogPost = ({ data }: Props) => {
           }}
         >
           <StyledImageWrapper
-            layout={frontmatter.layout}
-            bgColor={
-              frontmatter.layout === 'full'
-                ? frontmatter.heroColor
-                : 'transparent'
-            }
+            layout={layout}
+            bgColor={layout === 'full' ? heroColor : 'transparent'}
           >
             <StyledImage
-              layout={frontmatter.layout}
-              fluid={frontmatter.featuredImage.childImageSharp.fluid}
+              layout={layout}
+              fluid={featuredImage.childImageSharp.fluid}
             />
           </StyledImageWrapper>
-          <PostContent layout={frontmatter.layout}>
+          <PostContent layout={layout}>
             <PostHeader>
-              <CategoryTag to={`/blog/${_.kebabCase(frontmatter.category)}`}>
-                {frontmatter.category}
+              <CategoryTag to={`/blog/${_.kebabCase(category)}`}>
+                {category}
               </CategoryTag>
               <StyledShareRow>
                 <FacebookShareButton
                   title="Share on Facebook"
-                  url={`https://adamwebster.me${frontmatter.path}`}
+                  url={`https://adamwebster.me${path}`}
                 >
                   <FacebookIcon borderRadius={15} size={26} />
                 </FacebookShareButton>
                 <TwitterShareButton
                   title="Share on Twitter"
-                  url={`https://adamwebster.me${frontmatter.path}`}
+                  url={`https://adamwebster.me${path}`}
                 >
                   <TwitterIcon borderRadius={15} size={26} />
                 </TwitterShareButton>
                 <RedditShareButton
                   title="Share on Reddit"
-                  url={`https://adamwebster.me${frontmatter.path}`}
+                  url={`https://adamwebster.me${path}`}
                 >
                   <RedditIcon borderRadius={15} size={26} />
                 </RedditShareButton>
                 <LinkedinShareButton
                   title="Share on Linkedin"
-                  url={`https://adamwebster.me${frontmatter.path}`}
+                  url={`https://adamwebster.me${path}`}
                 >
                   <LinkedinIcon borderRadius={15} size={26} />
                 </LinkedinShareButton>
               </StyledShareRow>
-              {frontmatter.showCoffeeButton != false && (
+              {showCoffeeButton != false && (
                 <BuyMeACoffee style={{ marginBottom: 30 + 'px' }} />
               )}
-              <PostTitle>{frontmatter.title}</PostTitle>
+              <PostTitle>{title}</PostTitle>
               <PostTagline theme={globalState.darkMode ? 'dark' : 'light'}>
-                {frontmatter.tagline}
+                {tagline}
               </PostTagline>
-              {dayjs(frontmatter.date).format('MMMM Do YYYY')}
+              {dayjs(date).format('MMMM Do YYYY')}
             </PostHeader>
             <MDXRenderer>{body}</MDXRenderer>
           </PostContent>
@@ -264,28 +271,25 @@ const BlogPost = ({ data }: Props) => {
 };
 
 export const pageQuery = graphql`
-  query($path: String!) {
-    mdx(frontmatter: { path: { eq: $path } }) {
+  query($id: String!) {
+    blogPostMdx(id: { eq: $id }) {
       body
-      frontmatter {
-        date
-        path
-        title
-        tags
-        heroColor
-        defaultHeaderBorderColor
-        layout
-        tagline
-        showCoffeeButton
-        featuredImage {
-          childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
-            }
+      date
+      path
+      title
+      featuredImage {
+        childImageSharp {
+          fluid(maxWidth: 800) {
+            ...GatsbyImageSharpFluid
           }
         }
-        category
       }
+      category
+      layout
+      defaultHeaderBorderColor
+      heroColor
+      showCoffeeButton
+      tagline
     }
   }
 `;

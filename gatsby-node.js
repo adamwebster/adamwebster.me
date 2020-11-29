@@ -1,76 +1,8 @@
 const path = require(`path`);
 const _ = require('lodash');
 
-// exports.sourceNodes = ({ actions, schema }) => {
-//     const { createTypes } = actions
-
-//     // Creates a default value for tags so that it can not be added to the frontmatter
-//     const typeDefs = [
-//         "type MarkdownRemark implements Node { frontmatter: Frontmatter }",
-//         schema.buildObjectType({
-//             name: "Frontmatter",
-//             fields: {
-//                 tags: {
-//                     type: "[String!]",
-//                     resolve(source, args, context, info) {
-//                         // For a more generic solution, we could pick the field value from
-//                         // `source[info.fieldName]`
-//                         const { tags } = source
-//                         if (source.tags == null || (Array.isArray(tags) && !tags.length)) {
-//                             return null
-//                         }
-//                         return tags
-//                     },
-//                 },
-//             },
-//         }),
-//     ]
-
-//     const typeDefsMdx = [
-//         "type Mdx implements Node { frontmatter: Frontmatter }",
-//         schema.buildObjectType({
-//             name: "Frontmatter",
-//             fields: {
-//                 tags: {
-//                     type: "[String!]",
-//                     resolve(source, args, context, info) {
-//                         // For a more generic solution, we could pick the field value from
-//                         // `source[info.fieldName]`
-//                         const { tags } = source
-//                         if (source.tags == null || (Array.isArray(tags) && !tags.length)) {
-//                             return null
-//                         }
-//                         return tags
-//                     },
-//                 },
-//             },
-//         }),
-//     ]
-//     createTypes(typeDefs)
-//     createTypes(typeDefsMdx)
-
-// }
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions;
-
-  if (node.internal.type === 'MarkdownRemark') {
-    const fileNode = getNode(node.parent);
-    createNodeField({
-      node,
-      name: 'sourceInstanceName',
-      value: fileNode.sourceInstanceName,
-    });
-  }
-
-  if (node.internal.type === 'Mdx') {
-    const fileNode = getNode(node.parent);
-    createNodeField({
-      node,
-      name: 'sourceInstanceName',
-      value: fileNode.sourceInstanceName,
-    });
-  }
-};
+exports.onCreateNode = require('./src/init/onCreateNode');
+exports.createResolvers = require('./src/init/createResolvers');
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions;
@@ -85,34 +17,35 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   // const tagTemplate = path.resolve(`src/pages/Blog/tag.js`)
 
-  const result = await graphql(`
+  const resultArticles = await graphql(`
     {
-      allMdx(sort: { order: DESC, fields: [frontmatter___date] }, limit: 1000) {
-        edges {
-          node {
-            frontmatter {
-              path
-              category
-              tags
-            }
-            fields {
-              sourceInstanceName
-            }
-          }
+      allBlogPost(sort: { order: DESC, fields: date }, limit: 1000) {
+        nodes {
+          path
+          category
+        }
+      }
+    }
+  `);
+
+  const resultsPortfolio = await graphql(`
+    {
+      allPortfolioItem(sort: { order: DESC, fields: date }, limit: 1000) {
+        nodes {
+          path
+          category
         }
       }
     }
   `);
   // Handle errors
-  if (result.errors) {
+  if (resultArticles.errors) {
     reporter.panicOnBuild(`Error while running GraphQL query.`);
     return;
   }
 
-  const posts = result.data.allMdx.edges.filter(
-    item => item.node.fields.sourceInstanceName === 'blog-post'
-  );
-  const postsPerPage = 12;
+  const posts = resultArticles.data.allBlogPost.nodes;
+  const postsPerPage = 10;
   const numPages = Math.ceil(posts.length / postsPerPage);
   Array.from({ length: numPages }).forEach((_, i) => {
     createPage({
@@ -127,9 +60,19 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
   });
 
-  const portfolioPosts = result.data.allMdx.edges.filter(
-    item => item.node.fields.sourceInstanceName === 'portfolio-item'
-  );
+  posts.map(node => {
+    if (node.category) {
+      createPage({
+        path: `/blog/${_.kebabCase(node.category)}/`,
+        component: categoryTemplate,
+        context: {
+          category: node.category,
+        },
+      });
+    }
+  });
+
+  const portfolioPosts = resultsPortfolio.data.allPortfolioItem.nodes;
   const portfolioPostsPerPage = 9;
   const numPagesPort = Math.ceil(portfolioPosts.length / portfolioPostsPerPage);
   Array.from({ length: numPagesPort }).forEach((_, i) => {
@@ -145,56 +88,14 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
   });
 
-  result.data.allMdx.edges.forEach(({ node }) => {
-    if (node.fields.sourceInstanceName === 'blog-post') {
+  portfolioPosts.map(node => {
+    if (node.category) {
       createPage({
-        path: node.frontmatter.path,
-        component: blogPostTemplate,
-        context: {}, // additional data can be passed via context
-      });
-      if (node.frontmatter.category) {
-        createPage({
-          path: `/blog/${_.kebabCase(node.frontmatter.category)}/`,
-          component: categoryTemplate,
-          context: {
-            category: node.frontmatter.category,
-          },
-        });
-      }
-      // if (node.frontmatter.tags) {
-      //     node.frontmatter.tags.forEach(tag => {
-      //         createPage({
-      //             path: `/blog/tag/${_.kebabCase(tag)}/`,
-      //             component: tagTemplate,
-      //             context: {
-      //                 tag: tag,
-      //             },
-      //         })
-      //     })
-      // }
-    }
-    if (node.fields.sourceInstanceName === 'portfolio-item') {
-      createPage({
-        path: node.frontmatter.path,
-        component: portfolioItemTemplate,
-        context: {}, // additional data can be passed via context
-      });
-      if (node.frontmatter.category) {
-        createPage({
-          path: `/portfolio/${_.kebabCase(node.frontmatter.category)}/`,
-          component: portfolioCategoryTemplate,
-          context: {
-            category: node.frontmatter.category,
-          },
-        });
-      }
-    }
-
-    if (node.fields.sourceInstanceName === 'page') {
-      createPage({
-        path: node.frontmatter.path,
-        component: pageTemplate,
-        context: {}, // additional data can be passed via context
+        path: `/portfolio/${_.kebabCase(node.category)}/`,
+        component: portfolioCategoryTemplate,
+        context: {
+          category: node.category,
+        },
       });
     }
   });

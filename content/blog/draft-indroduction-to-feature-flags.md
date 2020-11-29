@@ -4,7 +4,7 @@ tagline: 'Why you should use them'
 date: '2020-07-04'
 featured: true
 draft: true
-path: '/blog/post/introduction-to-feature-flags'
+slug: 'introduction-to-feature-flags'
 category: 'Web Design'
 featuredImage: images/lighticons.png
 tags: ['icons', 'icon pack']

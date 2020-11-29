@@ -22,13 +22,12 @@ interface Props {
 }
 const LatestPortfolioItem = ({ node, ...rest }: Props) => {
   const { globalState } = useContext(SiteContext);
+  console.log(node);
   const {
-    frontmatter: {
-      path,
-      title,
-      featuredImage: {
-        childImageSharp: { fluid },
-      },
+    path,
+    title,
+    featuredImage: {
+      childImageSharp: { fluid },
     },
   } = node;
   return (

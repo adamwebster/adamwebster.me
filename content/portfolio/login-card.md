@@ -1,5 +1,5 @@
 ---
-path: '/portfolio/post/login-card'
+slug: 'login-card'
 date: '2020-01-08'
 title: 'Login Card'
 category: 'Front-end Development'

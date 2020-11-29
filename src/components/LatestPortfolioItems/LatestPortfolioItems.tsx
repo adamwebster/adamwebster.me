@@ -26,39 +26,29 @@ const LatestPortfolioItems = () => {
     <StaticQuery
       query={graphql`
         query {
-          allMdx(
-            sort: { order: DESC, fields: frontmatter___date }
-            limit: 5
-            filter: { fields: { sourceInstanceName: { eq: "portfolio-item" } } }
-          ) {
-            edges {
-              node {
-                id
-                frontmatter {
-                  title
-                  date
-                  path
-                  featuredImage {
-                    childImageSharp {
-                      fluid(maxWidth: 800) {
-                        ...GatsbyImageSharpFluid
-                      }
-                    }
+          allPortfolioItem(sort: { order: DESC, fields: date }, limit: 5) {
+            nodes {
+              id
+              title
+              date
+              path
+              featuredImage {
+                childImageSharp {
+                  fluid(maxWidth: 800) {
+                    ...GatsbyImageSharpFluid
                   }
                 }
-                body
-                excerpt
               }
             }
           }
         }
       `}
-      render={({ allMdx: { edges } }) => {
+      render={({ allPortfolioItem: { nodes } }) => {
         return (
           <>
             <SectionHeader>Latest Portfolio Items</SectionHeader>
             <StyledLatestPortfolioSection id="LatestWork">
-              {edges.map(({ node }: any, index: any) => {
+              {nodes.map((node: any, index: any) => {
                 return (
                   <StyledLatestPortfolioItemTest
                     templateArea={'grid' + (index + 1)}

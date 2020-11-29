@@ -59,42 +59,33 @@ const LatestBlogPosts = () => {
     <StaticQuery
       query={graphql`
         query {
-          allMdx(
-            limit: 3
-            sort: { order: DESC, fields: frontmatter___date }
-            filter: { fields: { sourceInstanceName: { eq: "blog-post" } } }
-          ) {
-            edges {
-              node {
-                id
-                frontmatter {
-                  title
-                  date
-                  heroColor
-                  path
-                  category
-                  featuredImage {
-                    childImageSharp {
-                      fluid(maxWidth: 500) {
-                        ...GatsbyImageSharpFluid
-                      }
-                    }
+          allBlogPostMdx(limit: 3, sort: { order: DESC, fields: date }) {
+            nodes {
+              id
+              title
+              date
+              category
+              path
+              featuredImage {
+                childImageSharp {
+                  fluid(maxWidth: 500) {
+                    ...GatsbyImageSharpFluid
                   }
                 }
-                body
-                excerpt
               }
+              body
+              excerpt
             }
           }
         }
       `}
-      render={({ allMdx: { edges } }) => {
+      render={({ allBlogPostMdx: { nodes } }) => {
         return (
           <>
             <StyledLatestBlogPostsSection id="LatestBlogPosts">
               <StyledLatestBlogPostsSectionInner>
                 <StyledLatestBlogItems>
-                  {edges.map(({ node }: any) => {
+                  {nodes.map((node: any) => {
                     return <LatestBlogPost key={node.id} node={node} />;
                   })}
                 </StyledLatestBlogItems>

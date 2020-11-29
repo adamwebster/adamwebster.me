@@ -3,7 +3,7 @@ title: My Thoughts on macOS Big Sur's New Design
 tagline: Apple Rethinks the UI for it's Macs
 date: '2020-07-09'
 featured: true
-path: '/blog/thoughts-on-macos-bigsurs-new-design'
+slug: 'thoughts-on-macos-bigsurs-new-design'
 category: 'UI Design'
 featuredImage: images/mac-big-sur.jpg
 tags: ['Apple', 'macOS', 'Big Sur']

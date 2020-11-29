@@ -1,5 +1,5 @@
 ---
-path: '/portfolio/post/spotify-playlist'
+slug: 'spotify-playlist'
 date: '2020-01-09'
 title: 'Spotify Playlist Editor'
 category: 'Front-end Development'

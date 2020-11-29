@@ -1,5 +1,5 @@
 ---
-path: '/portfolio/post/computer-mouse'
+slug: 'computer-mouse'
 date: '2020-01-07'
 title: 'Apple Magic Mouse Vector'
 featuredImage: 'images/aw4.jpg'

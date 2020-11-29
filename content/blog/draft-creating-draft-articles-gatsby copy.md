@@ -3,7 +3,7 @@ title: Creating Draft Articles in Gatsby
 tagline: Including the Method I Use
 date: '2020-07-05'
 featured: true
-path: '/blog/post/creating-draft-articles-gatsby'
+slug: 'creating-draft-articles-gatsby'
 category: 'Front-end development'
 featuredImage: images/gatsby.jpg
 tags: ['Gatsby', 'React', 'Javascript']
