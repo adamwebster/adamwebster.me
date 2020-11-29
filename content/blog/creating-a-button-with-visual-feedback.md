@@ -3,7 +3,7 @@ title: Creating a Button in React with Visual Feedback
 tagline: 'With a loading, completed and error state'
 date: '2020-07-07'
 featured: true
-path: '/blog/post/creating-a-button-with-visual-feedback'
+slug: 'creating-a-button-with-visual-feedback'
 category: 'Front-end Development'
 featuredImage: images/visual-feedback-button.jpg
 tags: [UX Design, Users, Visual Feedback, How-to]

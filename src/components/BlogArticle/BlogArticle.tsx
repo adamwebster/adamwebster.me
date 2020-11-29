@@ -57,29 +57,25 @@ const BlogArticle = ({ postData }: Props) => {
   const { darkMode } = globalState;
   return (
     <article>
-      <Link to={postData.frontmatter.path}>
+      <Link to={postData.path}>
         <StyledImage
-          bgColor={postData.frontmatter.heroColor}
-          fluid={postData.frontmatter.featuredImage.childImageSharp.fluid}
+          bgColor={postData.heroColor}
+          fluid={postData.featuredImage.childImageSharp.fluid}
         />
       </Link>
 
       <PostContent>
         <header>
-          <CategoryTag
-            to={`/blog/${_.kebabCase(postData.frontmatter.category)}`}
-          >
-            {postData.frontmatter.category}
+          <CategoryTag to={`/blog/${_.kebabCase(postData.category)}`}>
+            {postData.category}
           </CategoryTag>
           <PostTitle>
-            <Link to={postData.frontmatter.path}>
-              {postData.frontmatter.title}
-            </Link>
+            <Link to={postData.path}>{postData.title}</Link>
           </PostTitle>
           <PostTagline theme={darkMode ? 'dark' : 'light'}>
-            {postData.frontmatter.tagline}
+            {postData.tagline}
           </PostTagline>
-          {dayjs(postData.frontmatter.date).format('MMMM Do YYYY')}
+          {dayjs(postData.date).format('MMMM Do YYYY')}
         </header>
         {postData.excerpt}
       </PostContent>

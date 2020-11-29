@@ -1,5 +1,5 @@
 ---
-path: '/portfolio/post/northern-caravan-logo'
+slug: 'northern-caravan-logo'
 date: '2020-06-24'
 title: 'Northern Caravan Logo'
 featuredImage: 'images/NorthernCaravan.jpg'

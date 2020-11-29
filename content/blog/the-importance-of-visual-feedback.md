@@ -3,7 +3,7 @@ title: The Importance of Visual Feedback
 tagline: 'Let your users know something happened'
 date: '2020-07-01'
 featured: true
-path: '/blog/post/importance-of-visual-feedback'
+slug: 'importance-of-visual-feedback'
 category: 'UX Design'
 featuredImage: images/visual-feedback.jpg
 tags: [UX Design, Users, Feedback, Front-end Development]

@@ -72,7 +72,7 @@ interface Props {
 }
 const PortfolioPage = ({ pageContext, data }: Props) => {
   const {
-    allMdx: { edges },
+    allPortfolioItem: { nodes },
   } = data;
   const previousPageUrl =
     pageContext.currentPage === 2
@@ -88,7 +88,7 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
             <BlogCategoryList />
           </StyledCategoryList>
           <StyledPortfolioGrid>
-            {edges.map(({ node }: any) => {
+            {nodes.map((node: any) => {
               return <LatestPortfolioItem key={node.id} node={node} />;
             })}
           </StyledPortfolioGrid>
@@ -112,33 +112,25 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
 
 export const pageQuery = graphql`
   query($category: String) {
-    allMdx(
-      sort: { order: DESC, fields: frontmatter___date }
-      filter: {
-        frontmatter: { draft: { eq: false }, category: { eq: $category } }
-        fields: { sourceInstanceName: { eq: "portfolio-item" } }
-      }
+    allPortfolioItem(
+      sort: { order: DESC, fields: date }
+      filter: { draft: { eq: false }, category: { eq: $category } }
     ) {
-      edges {
-        node {
-          id
-          excerpt(pruneLength: 80)
-          frontmatter {
-            title
-            path
-            date
-            category
-            featuredImage {
-              childImageSharp {
-                fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
+      nodes {
+        id
+        excerpt
+        title
+        path
+        date
+        category
+        featuredImage {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
             }
-            category
-            tags
           }
         }
+        category
       }
     }
   }
