@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { Layout } from '../components/Layout';
 import { Hero } from '../components/Hero';
-import { LatestPortfolioItems } from '../components/LatestPortfolioItems';
 import { LatestBlogPosts } from '../components/LatestBlogPosts';
 import { SkillsGrid } from '../components/SkillsGrid';
 
@@ -24,8 +23,8 @@ const Index = () => {
     <Layout hero={<Hero />}>
       <SEO />
       <LatestPortfolioItems />
-      <SkillsGrid />
       <LatestBlogPosts />
+      <SkillsGrid />
     </Layout>
   );
 };

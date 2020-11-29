@@ -1,27 +1,19 @@
 import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
-import Img from 'gatsby-image';
 import styled from 'styled-components';
-import { Colors } from '@adamwebster/fused-components';
+import { LatestPortfolioItems } from '../LatestPortfolioItems';
+import { LinkButton } from '../LinkButton';
 
 const StyledHeroInner = styled.div`
-  max-width: 1000px;
+  max-width: 1160px;
   margin: 0 auto;
-  display: flex;
-  padding-top: 50px;
-  margin-bottom: 20px;
+  padding: 80px 10px 50px 10px;
   @media only screen and (max-width: 768px) {
-    padding-bottom: 40px;
-  }
-  @media only screen and (max-width: 600px) {
-    flex-flow: column;
-    padding-top: 100px;
+    padding: 120px 10px 80px 10px;
   }
 `;
 const StyledHero = styled.section`
-  min-height: 400px;
   width: 100%;
-  background-color: ${Colors.primary};
   margin-bottom: 40px;
   h1 {
     font-size: 40px;
@@ -44,26 +36,8 @@ const StyledHero = styled.section`
   }
 `;
 
-const StyledHeroMessage = styled.div`
-  width: 440px;
-  padding-top: 80px;
-  color: #fff;
-  position: relative;
-  @media only screen and (max-width: 600px) {
-    margin: 0 auto;
-    width: 100%;
-    padding-top: 20px;
-    text-align: center;
-  }
-`;
-
-const StyledImageWrapper = styled.div`
-  width: 400px;
-  margin-top: 40px;
-  @media only screen and (max-width: 600px) {
-    width: 100%;
-    text-align: center;
-  }
+const StyledLinkButton = styled(LinkButton)`
+  margin-top: 30px;
 `;
 const Hero = () => {
   return (
@@ -83,22 +57,12 @@ const Hero = () => {
         return (
           <StyledHero id="Hero">
             <StyledHeroInner>
-              <StyledImageWrapper>
-                <Img fluid={data.fileName.childImageSharp.fluid} />
-              </StyledImageWrapper>
-              <StyledHeroMessage>
-                <h1>Adam Webster</h1>
-                <h3>Designer and Front-end Developer</h3>
-                <p>
-                  I specialize in designing and coding responsive, accessible
-                  websites using technologies such as{' '}
-                  <strong>Wordpress, React</strong> and <strong>Svelte</strong>.
-                </p>
-                <p>
-                  I also design logos, business card and other marketing
-                  materials.
-                </p>
-              </StyledHeroMessage>
+              <div>
+                <LatestPortfolioItems />
+              </div>
+              <StyledLinkButton to="/portfolio">
+                See More of My Work
+              </StyledLinkButton>
             </StyledHeroInner>
           </StyledHero>
         );
