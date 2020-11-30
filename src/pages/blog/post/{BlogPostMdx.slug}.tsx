@@ -163,7 +163,6 @@ interface Props {
 
 const BlogPost = ({ data }: Props) => {
   const { dispatch, globalState } = useContext(SiteContext);
-  console.log(data);
   const {
     blogPostMdx: {
       layout,
