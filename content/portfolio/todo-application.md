@@ -1,5 +1,5 @@
 ---
-path: '/portfolio/post/todo-application'
+slug: 'todo-application'
 date: '2020-01-09'
 title: 'To-do Application'
 category: 'Front-end Development'

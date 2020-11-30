@@ -58,13 +58,9 @@ const FloatingImage = ({
       }
     }
   `);
-  console.log(imageFilename);
-
   const image = ImageQuery.allImageSharp.edges.filter(
     (img: any) => img.node.fluid.originalName === imageFilename
   );
-  console.log(image);
-
   return (
     <StyledFloatingImage float={float} width={width} height={height}>
       <figure>

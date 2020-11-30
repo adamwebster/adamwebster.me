@@ -46,7 +46,7 @@ figcaption{
 `;
 
 const StyledContent = styled.div`
-  width: 1080px;
+  width: 1160px;
   margin: 0 auto;
   @media only screen and (max-width: 1080px) {
     width: 100%;

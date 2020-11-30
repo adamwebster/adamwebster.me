@@ -40,10 +40,12 @@ interface Props {
   pageContext: any;
   data: any;
 }
-const BlogPage = ({ pageContext, data }: Props) => {
+
+const Blog = ({ pageContext, data }: Props) => {
   const {
-    allMdx: { edges },
+    allBlogPost: { nodes },
   } = data;
+
   const previousPageUrl =
     pageContext.currentPage === 2
       ? '/blog'
@@ -57,7 +59,7 @@ const BlogPage = ({ pageContext, data }: Props) => {
           <PageHeader>Blog</PageHeader>
 
           <StyledBlogGrid>
-            {edges.map(({ node }: any) => {
+            {nodes.map((node: any) => {
               return <BlogArticle key={node.id} postData={node} />;
               // return <LatestBlogPost node={node} key={node.id} />;
             })}
@@ -82,38 +84,31 @@ const BlogPage = ({ pageContext, data }: Props) => {
 
 export const pageQuery = graphql`
   query($skip: Int!, $limit: Int!) {
-    allMdx(
-      sort: { order: DESC, fields: frontmatter___date }
-      filter: { fields: { sourceInstanceName: { eq: "blog-post" } } }
+    allBlogPost(
+      sort: { order: DESC, fields: date }
       limit: $limit
       skip: $skip
     ) {
-      edges {
-        node {
-          id
-          excerpt(pruneLength: 600)
-          body
-          frontmatter {
-            title
-            path
-            date
-            category
-            tagline
-            heroColor
-            featuredImage {
-              childImageSharp {
-                fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
+      nodes {
+        id
+        excerpt
+        title
+        path
+        date
+        category
+        tagline
+        heroColor
+        featuredImage {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
             }
-            category
-            tags
           }
         }
+        category
       }
     }
   }
 `;
 
-export default BlogPage;
+export default Blog;

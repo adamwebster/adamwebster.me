@@ -1,15 +1,15 @@
 import React from 'react';
-import { Layout } from '../components/Layout';
+import { Layout } from '../../../components/Layout';
 import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
-import { PageHeader } from '../components/PageHeader';
-import { CategoryTag } from '../components/CategoryTag';
+import { PageHeader } from '../../../components/PageHeader';
+import { CategoryTag } from '../../../components/CategoryTag';
 import _ from 'lodash';
 import Img from 'gatsby-image';
-import SEO from '../components/seo';
+import SEO from '../../../components/seo';
 import styled from 'styled-components';
-import { AWMVariables } from '../styles/StyledVariables';
+import { AWMVariables } from '../../../styles/StyledVariables';
 import { Colors } from '@adamwebster/fused-components';
 
 interface StyledImageWrapperProps {
@@ -47,27 +47,27 @@ interface Props {
 
 const PortfolioPost = ({ data }: Props) => {
   const {
-    mdx: { frontmatter, body },
+    portfolioItemMdx: {
+      title,
+      featuredImageWidth,
+      featuredImage,
+      category,
+      body,
+    },
   } = data;
   return (
     <Layout>
-      <SEO title={`${frontmatter.title} | Portfolio`} />
+      <SEO title={`${title} | Portfolio`} />
 
       <StyledImageWrapper
-        imageWidth={
-          frontmatter.featuredImageWidth
-            ? frontmatter.featuredImageWidth
-            : '100%'
-        }
+        imageWidth={featuredImageWidth ? featuredImageWidth : '100%'}
       >
-        <Img fluid={frontmatter.featuredImage.childImageSharp.fluid} />
+        <Img fluid={featuredImage.childImageSharp.fluid} />
       </StyledImageWrapper>
       <StyledPortfolioContent>
-        <StyledPageHeader>{frontmatter.title}</StyledPageHeader>
-        <StyledCategoryTag
-          to={`/portfolio/${_.kebabCase(frontmatter.category)}`}
-        >
-          {frontmatter.category}
+        <StyledPageHeader>{title}</StyledPageHeader>
+        <StyledCategoryTag to={`/portfolio/${_.kebabCase(category)}`}>
+          {category}
         </StyledCategoryTag>
         <MDXProvider components={{}}>
           <MDXRenderer>{body}</MDXRenderer>
@@ -78,24 +78,21 @@ const PortfolioPost = ({ data }: Props) => {
 };
 
 export const pageQuery = graphql`
-  query($path: String!) {
-    mdx(frontmatter: { path: { eq: $path } }) {
+  query($id: String!) {
+    portfolioItemMdx(id: { eq: $id }) {
       body
-      frontmatter {
-        date
-        path
-        title
-        tags
-        featuredImageWidth
-        featuredImage {
-          childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
-            }
+      date
+      path
+      title
+      featuredImageWidth
+      featuredImage {
+        childImageSharp {
+          fluid(maxWidth: 800) {
+            ...GatsbyImageSharpFluid
           }
         }
-        category
       }
+      category
     }
   }
 `;

@@ -3,7 +3,7 @@ title: Light Icon Pack
 tagline: '32 Icons in SVG Format'
 date: '2020-07-04'
 featured: true
-path: '/blog/post/light-icon-pack'
+slug: 'light-icon-pack'
 category: 'Web Design'
 featuredImage: images/lighticons.png
 tags: ['icons', 'icon pack']

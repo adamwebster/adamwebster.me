@@ -1,5 +1,5 @@
 ---
-path: '/portfolio/post/pricing-table'
+slug: 'pricing-table'
 date: '2020-01-08'
 title: 'Pricing Table'
 category: 'Front-end Development'
