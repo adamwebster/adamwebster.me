@@ -5,6 +5,7 @@ const SectionHeaderStyled = styled.h2`
   text-transform: uppercase;
   margin-top: 50px;
   font-size: 24px;
+  margin-bottom: 20px;
 `;
 interface Props {
   children: ReactNode;

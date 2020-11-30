@@ -14,25 +14,26 @@ interface SHProps {
 }
 
 const StyledButton = styled(Button)`
-  color: #fff;
+  color: ${Colors.primary};
   cursor: pointer;
   padding: 12px 0;
 `;
 const StyledHeader = styled.header<SHProps>`
-  height: 50px;
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1;
+  padding: 10px 0;
   box-sizing: border-box;
-  background-color: ${({ headerColor }) => headerColor};
+  background-color: ${({ theme }) =>
+    theme === 'dark' ? Colors.darkModeDarkest : Colors.light};
   @media only screen and (max-width: 600px) {
     height: 100px;
   }
 `;
 
 const StyledHeaderInner = styled.div`
-  width: 1080px;
+  width: 1160px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -74,9 +75,12 @@ const StyledSearchBoxWrapper = styled.div`
   }
 `;
 
-const LogoWrapper = styled.div`
+interface LWProps {
+  headerColor: string;
+}
+
+const LogoWrapper = styled.div<LWProps>`
   width: 40px;
-  color: #fff;
   padding-top: 5px;
 `;
 
@@ -108,39 +112,13 @@ const Header = () => {
   };
 
   return (
-    <StyledHeader headerColor={globalState.headerColor} theme={'light'}>
+    <StyledHeader theme={globalState.darkMode ? 'dark' : 'light'}>
       <StyledHeaderInner>
-        {!globalState.hideLogo && (
-          <Link title="Homepage" to="/">
-            <LogoWrapper>
-              <Logo />
-            </LogoWrapper>
-          </Link>
-        )}
-        <StyledSearchBox
-          hasHero={globalState.hasHero}
-          theme={globalState.darkMode ? 'dark' : 'light'}
-        >
-          <StyledSearchBoxWrapper>
-            <StaticQuery
-              query={graphql`
-                query SearchIndexQuery {
-                  siteSearchIndex {
-                    index
-                  }
-                }
-              `}
-              render={data => {
-                const searchIndex = Index.load(data.siteSearchIndex.index);
-                return (
-                  <>
-                    <SearchBox data={searchIndex} />
-                  </>
-                );
-              }}
-            />
-          </StyledSearchBoxWrapper>
-        </StyledSearchBox>
+        <Link title="Homepage" to="/">
+          <LogoWrapper headerColor={globalState.headerColor}>
+            <Logo />
+          </LogoWrapper>
+        </Link>
         <StyledNavigationWrapper>
           <Navigation />
           <StyledButton as="a" onClick={(e: any) => setThemeFunc(e)}>

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
-import { darken } from 'polished';
 import { SiteContext } from '../../state';
+import { Colors } from '@adamwebster/fused-components';
 
 interface SNProps {
   activePage?: () => string;
@@ -11,30 +11,28 @@ interface SNProps {
 const StyledNavigation = styled.nav<SNProps>`
   display: flex;
   justify-content: flex-end;
-  height: 100%;
 
   ul {
-    display: inline-flex;
+    display: flex;
     list-style: none;
     margin: 0;
-    padding: 0;
-    height: 100%;
-
+    padding: 8px 0 0 0;
     li {
-      height: 100%;
       box-sizing: border-box;
-      padding: 10px;
+      padding: 4px 16px;
+      display: flex;
+      height: 40px;
 
-      &[data-content=${({ activePage }) => activePage} i]{
-        background-color: ${({ headerColor }) => darken(0.1, headerColor)};
-      }
       &:last-child {
         margin-right: 10px;
       }
       a {
         text-decoration: none;
-        color: #fff;
-        &:focus{
+        color: inherit;
+        &[aria-current='page'] {
+          border-bottom: solid 4px ${Colors.primary};
+        }
+        &:focus {
           outline: dotted 1px #fff;
           outline-offset: 5px;
         }
@@ -55,13 +53,16 @@ const Navigation = () => {
       }}
     >
       <ul>
-        <li data-content="portfolio">
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
           <Link to="/portfolio">Portfolio</Link>
         </li>
-        <li data-content="blog">
+        <li>
           <Link to="/blog">Blog</Link>
         </li>
-        <li data-content="contact">
+        <li>
           <Link to="/contact">Contact</Link>
         </li>
       </ul>

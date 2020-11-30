@@ -3,7 +3,7 @@ title: Creating a Search Box in Gatsby
 tagline: Allowing your content to be searched
 date: '2020-07-05'
 featured: true
-path: '/blog/post/creating-a-search-box-gatsby'
+slug: 'creating-a-search-box-gatsby'
 category: 'Front-end development'
 featuredImage: images/gatsby.jpg
 tags: ['Gatsby', 'React', 'Javascript']

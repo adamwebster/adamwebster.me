@@ -1,5 +1,5 @@
 ---
-path: '/blog/post/welcome-to-the-blog'
+slug: 'welcome-to-the-blog'
 date: '2020-01-08'
 title: 'Welcome to my Blog'
 tagline: Full of Adam's Random Thoughts
