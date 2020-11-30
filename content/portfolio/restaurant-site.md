@@ -1,5 +1,5 @@
 ---
-path: '/portfolio/post/restaurant-site'
+slug: 'restaurant-site'
 date: '2020-06-26'
 title: 'Restaurant Website'
 featuredImage: 'images/RestaurantSite-HomePage.jpg'

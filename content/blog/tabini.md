@@ -3,7 +3,7 @@ title: Tabini Theme
 tagline: A theme for Gatsby with MDX and Contentful support
 date: '2020-07-17'
 featured: true
-path: '/blog/post/tabini-theme-for-gatsby'
+slug: 'tabini-theme-for-gatsby'
 category: 'Front-end development'
 featuredImage: images/tabini.jpg
 tags: ['Gatsby', 'React', 'Javascript', 'Theme', 'Store']

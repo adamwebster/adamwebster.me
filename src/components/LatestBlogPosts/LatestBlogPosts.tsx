@@ -3,6 +3,7 @@ import { graphql, StaticQuery, Link } from 'gatsby';
 import styled from 'styled-components';
 import LatestBlogPost from './LatestBlogPost';
 import { LinkButton } from '../LinkButton';
+import { SectionHeader } from '../SectionHeader';
 
 const StyledLatestBlogPostsSection = styled.section`
   display: flex;
@@ -31,12 +32,11 @@ const StyledLatestBlogPostsSectionInner = styled.div`
 `;
 
 const StyledLatestBlogItems = styled.div`
-  margin-right: 30px;
   flex: 1 1;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 20px;
+  grid-gap: 16px;
   @media only screen and (max-width: 768px) {
     grid-template-columns: 1fr;
   }
@@ -59,52 +59,36 @@ const LatestBlogPosts = () => {
     <StaticQuery
       query={graphql`
         query {
-          allMdx(
-            limit: 3
-            sort: { order: DESC, fields: frontmatter___date }
-            filter: { fields: { sourceInstanceName: { eq: "blog-post" } } }
-          ) {
-            edges {
-              node {
-                id
-                frontmatter {
-                  title
-                  date
-                  heroColor
-                  path
-                  category
-                  featuredImage {
-                    childImageSharp {
-                      fluid(maxWidth: 500) {
-                        ...GatsbyImageSharpFluid
-                      }
-                    }
+          allBlogPost(limit: 3, sort: { order: DESC, fields: date }) {
+            nodes {
+              id
+              title
+              date
+              category
+              path
+              featuredImage {
+                childImageSharp {
+                  fluid(maxWidth: 500) {
+                    ...GatsbyImageSharpFluid
                   }
                 }
-                body
-                excerpt
               }
+              excerpt
             }
           }
         }
       `}
-      render={({ allMdx: { edges } }) => {
+      render={({ allBlogPost: { nodes } }) => {
         return (
           <>
+            <SectionHeader>Latest Blog Posts</SectionHeader>
             <StyledLatestBlogPostsSection id="LatestBlogPosts">
               <StyledLatestBlogPostsSectionInner>
                 <StyledLatestBlogItems>
-                  {edges.map(({ node }: any) => {
+                  {nodes.map((node: any) => {
                     return <LatestBlogPost key={node.id} node={node} />;
                   })}
                 </StyledLatestBlogItems>
-                <div>
-                  <h1>
-                    Latest Blog
-                    <br />
-                    Posts
-                  </h1>
-                </div>
               </StyledLatestBlogPostsSectionInner>
               <StyledListMore>
                 <LinkButton to="/blog">Read More Blog Posts</LinkButton>

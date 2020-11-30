@@ -20,7 +20,7 @@ const StyledCategoryList = styled.div`
 const StyledPortfolioGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-gap: 20px;
   width: 100%;
   @media only screen and (max-width: 1080px) {
@@ -71,7 +71,7 @@ interface Props {
 }
 const PortfolioPage = ({ pageContext, data }: Props) => {
   const {
-    allMdx: { edges },
+    allPortfolioItem: { nodes },
   } = data;
   const previousPageUrl =
     pageContext.currentPage === 2
@@ -87,7 +87,7 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
             <BlogCategoryList />
           </StyledCategoryList>
           <StyledPortfolioGrid>
-            {edges.map(({ node }: any) => {
+            {nodes.map((node: any) => {
               return <LatestPortfolioItem key={node.id} node={node} />;
             })}
           </StyledPortfolioGrid>
@@ -111,32 +111,26 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
 
 export const pageQuery = graphql`
   query($skip: Int!, $limit: Int!) {
-    allMdx(
-      sort: { order: DESC, fields: frontmatter___date }
-      filter: { fields: { sourceInstanceName: { eq: "portfolio-item" } } }
+    allPortfolioItem(
+      sort: { order: DESC, fields: date }
       limit: $limit
       skip: $skip
     ) {
-      edges {
-        node {
-          id
-          excerpt(pruneLength: 80)
-          frontmatter {
-            title
-            path
-            date
-            category
-            featuredImage {
-              childImageSharp {
-                fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
+      nodes {
+        id
+        excerpt
+        title
+        path
+        date
+        category
+        featuredImage {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
             }
-            category
-            tags
           }
         }
+        category
       }
     }
   }
