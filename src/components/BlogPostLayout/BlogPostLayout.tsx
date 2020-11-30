@@ -4,6 +4,7 @@ import { Colors, FCThemeProvider } from '@adamwebster/fused-components';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
 import { SiteContext } from '../../state';
+import { darken, lighten } from 'polished';
 
 interface GSProps {
   headerColor: string;
@@ -49,6 +50,11 @@ figcaption{
   text-align: center;
   font-style: italic;
   font-weight: 300;
+}
+code{
+  background-color: ${lighten(0.3, 'tomato')};
+  color: ${darken(0.3, 'tomato')};
+  padding: 4px;
 }
 `;
 
