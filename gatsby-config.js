@@ -41,7 +41,7 @@ module.exports = {
       options: {
         name: `blog-post`,
         path: `${__dirname}/content/blog`,
-        ignore: process.env.NODE_ENV === `production` && [`**/draft-*`],
+        ignore: process.env.NODE_ENV === `production` ? [`**/draft-*`] : [],
       },
     },
     {
@@ -49,7 +49,7 @@ module.exports = {
       options: {
         name: `portfolio-item`,
         path: `${__dirname}/content/portfolio`,
-        ignore: process.env.NODE_ENV === `production` && [`**/draft-*`],
+        ignore: process.env.NODE_ENV === `production` ? [`**/draft-*`] : [],
       },
     },
     {
@@ -57,7 +57,7 @@ module.exports = {
       options: {
         name: `page`,
         path: `${__dirname}/content/pages`,
-        ignore: process.env.NODE_ENV === `production` && [`**/draft-*`],
+        ignore: process.env.NODE_ENV === `production` ? [`**/draft-*`] : [],
       },
     },
     {

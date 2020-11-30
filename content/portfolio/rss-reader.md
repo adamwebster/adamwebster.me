@@ -1,5 +1,5 @@
 ---
-path: '/portfolio/post/rss-reader'
+slug: 'rss-reader'
 date: '2020-01-09'
 title: 'RSS Reader'
 category: 'Front-end Development'

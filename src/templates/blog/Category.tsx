@@ -43,7 +43,7 @@ interface Props {
 }
 const BlogPage = ({ pageContext, data }: Props) => {
   const {
-    allMdx: { edges },
+    allBlogPost: { nodes },
   } = data;
   const previousPageUrl =
     pageContext.currentPage === 2
@@ -57,7 +57,7 @@ const BlogPage = ({ pageContext, data }: Props) => {
           <PageHeader>Blog</PageHeader>
 
           <StyledBlogGrid>
-            {edges.map(({ node }: any) => {
+            {nodes.map((node: any) => {
               return <BlogArticle postData={node} />;
               // return <LatestBlogPost node={node} key={node.id} />;
             })}
@@ -82,35 +82,27 @@ const BlogPage = ({ pageContext, data }: Props) => {
 
 export const pageQuery = graphql`
   query($category: String) {
-    allMdx(
-      sort: { order: DESC, fields: frontmatter___date }
-      filter: {
-        frontmatter: { category: { eq: $category } }
-        fields: { sourceInstanceName: { eq: "blog-post" } }
-      }
+    allBlogPost(
+      sort: { order: DESC, fields: date }
+      filter: { category: { eq: $category } }
     ) {
-      edges {
-        node {
-          id
-          excerpt(pruneLength: 600)
-          frontmatter {
-            title
-            path
-            date
-            tagline
-            heroColor
-            category
-            featuredImage {
-              childImageSharp {
-                fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
+      nodes {
+        id
+        excerpt
+        title
+        path
+        date
+        category
+        tagline
+        heroColor
+        featuredImage {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
             }
-            category
-            tags
           }
         }
+        category
       }
     }
   }

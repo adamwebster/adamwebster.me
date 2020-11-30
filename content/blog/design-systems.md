@@ -3,7 +3,7 @@ title: Design Systems
 tagline: 'Designing a system to help unify you designs'
 date: '2020-03-01'
 featured: true
-path: '/blog/post/design-systems'
+slug: 'design-systems'
 category: 'Front-end Development'
 featuredImage: images/designsystem.jpg
 tags: [React, Javascript]

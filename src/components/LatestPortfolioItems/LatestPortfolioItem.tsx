@@ -10,7 +10,7 @@ const StyledLatestPortfolioItem = styled.div``;
 
 const StyledImg = styled(Img)`
   height: 100%;
-  border: solid 1px ${Colors.border};
+  border-radius: 10px;
   &:hover {
     filter: brightness(0.5);
   }
@@ -23,12 +23,10 @@ interface Props {
 const LatestPortfolioItem = ({ node, ...rest }: Props) => {
   const { globalState } = useContext(SiteContext);
   const {
-    frontmatter: {
-      path,
-      title,
-      featuredImage: {
-        childImageSharp: { fluid },
-      },
+    path,
+    title,
+    featuredImage: {
+      childImageSharp: { fluid },
     },
   } = node;
   return (

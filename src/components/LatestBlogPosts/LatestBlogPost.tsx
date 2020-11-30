@@ -51,15 +51,12 @@ interface Props {
 }
 const LatestBlogPost = ({ node }: Props) => {
   const {
-    frontmatter: {
-      path,
-      title,
-      date,
-      category,
-      heroColor,
-      featuredImage: {
-        childImageSharp: { fluid },
-      },
+    path,
+    title,
+    date,
+    category,
+    featuredImage: {
+      childImageSharp: { fluid },
     },
     excerpt,
   } = node;
@@ -67,7 +64,7 @@ const LatestBlogPost = ({ node }: Props) => {
   return (
     <StyledCard forwardedAs="article">
       <Link title={title} to={path}>
-        <StyledImg bgColor={heroColor} fluid={fluid} />
+        <StyledImg fluid={fluid} />
       </Link>
       <StyledBlogPostContent>
         <CategoryTag to={`/blog/${_.kebabCase(category)}`}>
