@@ -22,8 +22,8 @@ const Index = () => {
   return (
     <Layout hero={<Hero />}>
       <SEO />
-      <LatestBlogPosts />
       <SkillsGrid />
+      <LatestBlogPosts />
     </Layout>
   );
 };
