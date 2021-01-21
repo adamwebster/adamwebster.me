@@ -3,6 +3,10 @@ import styled, { css } from 'styled-components';
 import { StyledFullWidthWrapper } from '../../styles';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@adamwebster/fused-components';
+import GatsbyImage from 'gatsby-image';
+import { navigate } from 'gatsby';
+import ReactMarkdown from 'react-markdown';
+
 function isEven(n: number) {
   return n % 2 == 0;
 }
@@ -19,10 +23,16 @@ const StyledProjectItem = styled.div<StyledProjectItemInterface>`
   margin: 0 auto;
   z-index: 1;
   position: relative;
+  align-items: center;
+
+  @media only screen and (max-width: 768px) {
+    flex-flow: column;
+  }
+
   ${({ index }) =>
     !isEven(index) &&
     css`
-      flex-flow: row-reverse;
+      // flex-flow: row-reverse;
     `}
 `;
 
@@ -30,19 +40,35 @@ const StyledImageWrapper = styled.div<StyledProjectItemInterface>`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-y: hidden;
+  border-radius: 8px;
+  height: 358px;
+  overflow: hidden;
+  flex: 1 358px;
+  .gatsby-image-wrapper {
+    width: 100%;
+  }
   img {
     border-radius: 8px;
-    width: 358px;
     height: auto;
+    width: 100%;
   }
-  ${({ index }) =>
+  margin-right: 64px;
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 32px;
+  }
+
+  /* ${({ index }) =>
     !isEven(index)
       ? css`
           margin-left: 64px;
         `
       : css`
           margin-right: 64px;
-        `}
+        `} */
 `;
 
 interface StyledButtonProps {
@@ -53,6 +79,13 @@ const StyledButton = styled(Button)<StyledButtonProps>`
   height: 40px;
   padding: 8px 32px;
   border-radius: 40px;
+`;
+
+const StyledProjectContent = styled.div`
+  flex: 0 60%;
+  @media only screen and (max-width: 768px) {
+    flex: 1 1;
+  }
 `;
 
 const StyledProjectDescription = styled.div`
@@ -78,29 +111,40 @@ const ProjectItem = ({ project, index }: Props) => {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
+    if (projectItemWrapper.current) {
+      if (
+        projectItemWrapper?.current?.offsetTop <
+        window.pageYOffset + projectItemWrapper?.current?.offsetHeight * 2
+      ) {
+        setShow(true);
+      }
+    }
   }, [projectItemWrapper]);
   return (
     <StyledFullWidthWrapper
       show={show}
       ref={projectItemWrapper}
       bgColor={project.bgColor}
-      bgImage={project.bgImage}
+      bgImage={project.bgImage && project.bgImage.childImageSharp.fluid.base64}
     >
       <StyledProjectItem index={index}>
         <StyledImageWrapper index={index}>
-          <img src="https://adamwebster.me/static/1636c8ef247f3cee9f35b7f2900e97cc/f422e/NorthernCaravan.jpg" />
+          <GatsbyImage fluid={project.featuredImage.childImageSharp.fluid} />
         </StyledImageWrapper>
-        <div>
-          <h3>{project.name}</h3>
+        <StyledProjectContent>
+          <h3>{project.title}</h3>
           {project.client && <div>Client: {project.client}</div>}
           {project.software && <div>Software: {project.software}</div>}
-          <div>
-            <StyledProjectDescription>
-              {project.description}
-            </StyledProjectDescription>
-            <StyledButton primary>View</StyledButton>
-          </div>
-        </div>
+          {project.technologyUsed && (
+            <div>Technology Used: {project.technologyUsed}</div>
+          )}
+          <StyledProjectDescription>
+            <ReactMarkdown>{project.description}</ReactMarkdown>
+          </StyledProjectDescription>
+          <StyledButton onClick={() => navigate(project.path)} primary>
+            View
+          </StyledButton>
+        </StyledProjectContent>
       </StyledProjectItem>
     </StyledFullWidthWrapper>
   );

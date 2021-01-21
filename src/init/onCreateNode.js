@@ -66,6 +66,10 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
         category: node.frontmatter.category,
         draft: node.frontmatter.draft,
         featuredImageWidth: node.frontmatter.featuredImageWidth,
+        technologyUsed: node.frontmatter.technologyUsed,
+        software: node.frontmatter.software,
+        description: node.frontmatter.description,
+        bgImage: node.frontmatter.bgImage,
       };
 
       createNode({
@@ -148,6 +152,10 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
         category: node.frontmatter.category,
         draft: node.frontmatter.draft,
         featuredImageWidth: node.frontmatter.featuredImageWidth,
+        technologyUsed: node.frontmatter.technologyUsed,
+        software: node.frontmatter.software,
+        description: node.frontmatter.description,
+        bgImage: node.frontmatter.bgImage,
       };
 
       createNode({

@@ -26,6 +26,7 @@ const StyledSiteHeader = styled.header`
   box-sizing: border-box;
   display: flex;
   z-index: 2;
+  top: 0;
 `;
 
 const StyledNav = styled.nav`

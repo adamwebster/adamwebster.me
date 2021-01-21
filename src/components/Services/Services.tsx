@@ -4,7 +4,7 @@ import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion';
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { StyledContentWrapper } from '../../styles';
-import { SectionHeader } from '../SectionHeader';
+import { SectionHeaderFront } from '../SectionHeader';
 
 const StyledServicesGrid = styled.div`
   max-width: 1200px;
@@ -15,6 +15,15 @@ const StyledServicesGrid = styled.div`
   padding: 0 16px;
   > div {
     flex: 1 1;
+  }
+
+  @media only screen and (max-width: 900px) {
+    gap: 32px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 `;
 
@@ -134,7 +143,7 @@ const Services = () => {
   return (
     <>
       <StyledContentWrapper>
-        <SectionHeader>Services</SectionHeader>
+        <SectionHeaderFront>Services</SectionHeaderFront>
       </StyledContentWrapper>
       <AnimateSharedLayout type="crossfade">
         <StyledServicesGrid>

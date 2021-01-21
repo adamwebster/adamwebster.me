@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { Card, Colors, FCTheme } from '@adamwebster/fused-components';
 import { useContext } from 'react';
 import { StyledContentWrapper } from '../../styles';
-import { SectionHeader } from '../SectionHeader';
+import { SectionHeaderFront } from '../SectionHeader';
+import { graphql, Link, StaticQuery } from 'gatsby';
+import GatsbyImage from 'gatsby-image';
 
 const StyledBlogPostGrid = styled.div`
   max-width: 1200px;
@@ -14,6 +16,15 @@ const StyledBlogPostGrid = styled.div`
   padding: 0 16px;
   > div {
     flex: 1 1;
+  }
+
+  @media only screen and (max-width: 900px) {
+    gap: 32px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 `;
 
@@ -80,22 +91,53 @@ const LatestBlogPosts = () => {
   return (
     <>
       <StyledContentWrapper>
-        <SectionHeader>Latest Blog Posts</SectionHeader>
+        <SectionHeaderFront>Latest Blog Posts</SectionHeaderFront>
       </StyledContentWrapper>
-      <StyledBlogPostGrid>
-        {blogPosts.map(post => (
-          <StyledBlogPostCard theme={theme}>
-            <StyledBlogPostFeaturedImageWrapper>
-              <img src={post.featuredImage} />
-            </StyledBlogPostFeaturedImageWrapper>
-            <StyledBlogPostContent>
-              {' '}
-              <h2> {post.title}</h2>
-              <p> {post.content}</p>
-            </StyledBlogPostContent>
-          </StyledBlogPostCard>
-        ))}
-      </StyledBlogPostGrid>
+      <StaticQuery
+        query={graphql`
+          query {
+            allBlogPost(limit: 3, sort: { order: DESC, fields: date }) {
+              nodes {
+                id
+                title
+                date
+                category
+                path
+                featuredImage {
+                  childImageSharp {
+                    fluid(maxWidth: 500) {
+                      ...GatsbyImageSharpFluid
+                    }
+                  }
+                }
+                excerpt
+              }
+            }
+          }
+        `}
+        render={({ allBlogPost: { nodes } }) => {
+          return (
+            <StyledBlogPostGrid>
+              {nodes.map((post: any) => (
+                <StyledBlogPostCard theme={theme}>
+                  <StyledBlogPostFeaturedImageWrapper>
+                    <Link to={post.path}>
+                      <GatsbyImage
+                        fluid={post.featuredImage.childImageSharp.fluid}
+                      />
+                    </Link>
+                  </StyledBlogPostFeaturedImageWrapper>
+                  <StyledBlogPostContent>
+                    {' '}
+                    <h2> {post.title}</h2>
+                    <p> {post.excerpt}</p>
+                  </StyledBlogPostContent>
+                </StyledBlogPostCard>
+              ))}
+            </StyledBlogPostGrid>
+          );
+        }}
+      />
     </>
   );
 };

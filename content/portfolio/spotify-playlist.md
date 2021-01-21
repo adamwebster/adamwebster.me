@@ -5,8 +5,10 @@ title: 'Spotify Playlist Editor'
 category: 'Front-end Development'
 featuredImage: 'images/SpotifyPlaylist.jpg'
 featuredImageWidth: 600px
-
+technologyUsed: 'React, Javascript, HTML, CSS, Axios, Styled Components'
 draft: false
+description: 'I created this project to learn how to work with the **Spotify API**, specifically the playlist part of the API.'
+bgImage: 'images/mohammad-alizade-XgeZu2jBaVI-unsplash.jpg'
 ---
 
 import SetHeaderColor from '../../src/components/SetHeaderColor/SetHeaderColor';
