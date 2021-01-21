@@ -3,7 +3,6 @@ import { Layout } from '../../components/Layout';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 import { PageHeader } from '../../components/PageHeader';
-import LatestPortfolioItem from '../../components/LatestPortfolioItems/LatestPortfolioItem';
 import { BlogCategoryList } from '../../components/BlogCategoryList';
 import SEO from '../../components/seo';
 
@@ -87,11 +86,7 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
           <StyledCategoryList>
             <BlogCategoryList />
           </StyledCategoryList>
-          <StyledPortfolioGrid>
-            {nodes.map((node: any) => {
-              return <LatestPortfolioItem key={node.id} node={node} />;
-            })}
-          </StyledPortfolioGrid>
+          <StyledPortfolioGrid></StyledPortfolioGrid>
         </StyledPortfolioWrapper>
       </section>
       {pageContext.numPagesPort > 1 && (

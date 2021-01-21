@@ -1,104 +1,102 @@
 import React from 'react';
-import { graphql, StaticQuery, Link } from 'gatsby';
 import styled from 'styled-components';
-import LatestBlogPost from './LatestBlogPost';
-import { LinkButton } from '../LinkButton';
+import { Card, Colors, FCTheme } from '@adamwebster/fused-components';
+import { useContext } from 'react';
+import { StyledContentWrapper } from '../../styles';
 import { SectionHeader } from '../SectionHeader';
 
-const StyledLatestBlogPostsSection = styled.section`
-  display: flex;
-  width: 100%;
-  margin-bottom: 60px;
-  box-sizing: border-box;
-  flex-flow: column;
-  padding-bottom: 30px;
-  @media only screen and (max-width: 768px) {
-  }
-`;
-
-const StyledLatestBlogPostsSectionInner = styled.div`
-  flex-flow: row;
-  display: flex;
-  h1 {
-    font-size: 40px;
-    line-height: 1;
-    margin: 0;
-    font-weight: 300;
-    text-transform: uppercase;
-  }
-  @media only screen and (max-width: 600px) {
-    flex-flow: column-reverse;
-  }
-`;
-
-const StyledLatestBlogItems = styled.div`
-  flex: 1 1;
+const StyledBlogPostGrid = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
   display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 16px;
-  @media only screen and (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-  @media only screen and (max-width: 600px) {
-    margin-top: 20px;
-    margin-left: 0;
-    margin-right: 0;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 64px;
+  padding: 0 16px;
+  > div {
+    flex: 1 1;
   }
 `;
 
-const StyledListMore = styled.div`
+const StyledBlogPostCard = styled(Card)`
+  border: none;
   display: flex;
-  align-content: center;
-  justify-content: center;
-  padding: 20px;
+  position: relative;
+  flex-flow: column;
+  flex: 1 1;
+  overflow: hidden;
+  padding-bottom: 30px;
+  box-shadow: 0 0 10px ${({ theme }) => (theme === 'dark' ? '#000' : '#ccc')};
+  z-index: 1;
 `;
+
+const StyledBlogPostFeaturedImageWrapper = styled.div`
+  height: 150px;
+  width: 100%;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: auto;
+  }
+`;
+
+const StyledBlogPostContent = styled.div`
+  padding: 16px;
+`;
+
+const blogPosts = [
+  {
+    id: 1,
+    title: 'Norther Caravan Logo',
+    featuredImage:
+      'https://images.unsplash.com/photo-1523821741446-edb2b68bb7a0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=3750&q=80',
+    content: `This logo was designed for a Photographer that take photos in Ontario, Canada. He mainly takes photos of landscapes and animals. The circle and arrow part of the logo represents a compass with its needle pointing north and the tree represents the main subjects of his photos.
+
+            You can take a look at his photos on his instagram @NorthernCaravan.`,
+  },
+  {
+    id: 2,
+    title: 'Project 2',
+    bgColor: Colors.primary,
+    featuredImage:
+      'https://images.unsplash.com/photo-1551503766-ac63dfa6401c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2700&q=80',
+    content: `This logo was designed for a Photographer that take photos in Ontario, Canada. He mainly takes photos of landscapes and animals. The circle and arrow part of the logo represents a compass with its needle pointing north and the tree represents the main subjects of his photos.
+
+            You can take a look at his photos on his instagram @NorthernCaravan.`,
+  },
+  {
+    id: 3,
+    title: 'Project 3',
+    bgColor: 'purple',
+    featuredImage:
+      'https://images.unsplash.com/photo-1523821741446-edb2b68bb7a0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=3750&q=80',
+    content: `This logo was designed for a Photographer that take photos in Ontario, Canada. He mainly takes photos of landscapes and animals. The circle and arrow part of the logo represents a compass with its needle pointing north and the tree represents the main subjects of his photos.
+
+            You can take a look at his photos on his instagram @NorthernCaravan.`,
+  },
+];
 
 const LatestBlogPosts = () => {
+  const { theme } = useContext(FCTheme);
   return (
-    <StaticQuery
-      query={graphql`
-        query {
-          allBlogPost(limit: 3, sort: { order: DESC, fields: date }) {
-            nodes {
-              id
-              title
-              date
-              category
-              path
-              featuredImage {
-                childImageSharp {
-                  fluid(maxWidth: 500) {
-                    ...GatsbyImageSharpFluid
-                  }
-                }
-              }
-              excerpt
-            }
-          }
-        }
-      `}
-      render={({ allBlogPost: { nodes } }) => {
-        return (
-          <>
-            <SectionHeader>Latest Blog Posts</SectionHeader>
-            <StyledLatestBlogPostsSection id="LatestBlogPosts">
-              <StyledLatestBlogPostsSectionInner>
-                <StyledLatestBlogItems>
-                  {nodes.map((node: any) => {
-                    return <LatestBlogPost key={node.id} node={node} />;
-                  })}
-                </StyledLatestBlogItems>
-              </StyledLatestBlogPostsSectionInner>
-              <StyledListMore>
-                <LinkButton to="/blog">Read More Blog Posts</LinkButton>
-              </StyledListMore>
-            </StyledLatestBlogPostsSection>
-          </>
-        );
-      }}
-    />
+    <>
+      <StyledContentWrapper>
+        <SectionHeader>Latest Blog Posts</SectionHeader>
+      </StyledContentWrapper>
+      <StyledBlogPostGrid>
+        {blogPosts.map(post => (
+          <StyledBlogPostCard theme={theme}>
+            <StyledBlogPostFeaturedImageWrapper>
+              <img src={post.featuredImage} />
+            </StyledBlogPostFeaturedImageWrapper>
+            <StyledBlogPostContent>
+              {' '}
+              <h2> {post.title}</h2>
+              <p> {post.content}</p>
+            </StyledBlogPostContent>
+          </StyledBlogPostCard>
+        ))}
+      </StyledBlogPostGrid>
+    </>
   );
 };
-
 export default LatestBlogPosts;

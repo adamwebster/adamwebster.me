@@ -1,12 +1,13 @@
 import React, { useEffect, useContext } from 'react';
 import { Layout } from '../components/Layout';
 import { Hero } from '../components/Hero';
-import { LatestBlogPosts } from '../components/LatestBlogPosts';
-import { SkillsGrid } from '../components/SkillsGrid';
+import { Services } from '../components/Services';
+import { FeaturedProjects } from '../components/FeaturedProjects';
 
 import SEO from '../components/seo';
 
 import { SiteContext } from '../state';
+import { LatestBlogPosts } from '../components/LatestBlogPosts';
 
 const Index = () => {
   const { dispatch } = useContext(SiteContext);
@@ -22,8 +23,8 @@ const Index = () => {
   return (
     <Layout hero={<Hero />}>
       <SEO />
-      <LatestPortfolioItems />
-      <SkillsGrid />
+      <Services />
+      <FeaturedProjects />
       <LatestBlogPosts />
     </Layout>
   );
