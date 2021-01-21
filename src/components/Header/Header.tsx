@@ -14,67 +14,34 @@ interface SHProps {
 }
 
 const StyledButton = styled(Button)`
-  color: ${Colors.primary};
+  color: ${Colors.lightest};
   cursor: pointer;
-  padding: 12px 0;
 `;
-const StyledHeader = styled.header<SHProps>`
-  position: fixed;
+const StyledSiteHeader = styled.header`
   width: 100%;
-  top: 0;
-  z-index: 1;
-  padding: 10px 0;
+  position: fixed;
+  background-color: ${Colors.primary};
+  color: #fff;
+  padding: 16px;
   box-sizing: border-box;
-  background-color: ${({ theme }) =>
-    theme === 'dark' ? Colors.darkModeDarkest : Colors.light};
-  @media only screen and (max-width: 600px) {
-    height: 100px;
-  }
-`;
-
-const StyledHeaderInner = styled.div`
-  width: 1160px;
-  margin: 0 auto;
   display: flex;
-  align-items: center;
+  z-index: 2;
+`;
+
+const StyledNav = styled.nav`
+  display: flex;
   flex: 1 1;
-  height: 50px;
-  @media only screen and (max-width: 1080px) {
-    width: 100%;
+  justify-content: flex-end;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    li {
+      padding: 0 8px;
+    }
   }
 `;
-
-interface SSBProps {
-  hasHero: boolean;
-}
-
-const StyledSearchBox = styled.div<SSBProps>`
-  flex: 1 1;
-  padding: 0 10px;
-  margin-left: 200px;
-  @media only screen and (max-width: 600px) {
-    width: 100%;
-    margin-left: 0;
-    position: absolute;
-    top: 47px;
-    box-sizing: border-box;
-    ${({ hasHero }) =>
-      !hasHero &&
-      css`
-        background-color: ${({ theme }) =>
-          theme === 'dark' ? Colors.darkModeDarker : Colors.medium};
-      `}
-    padding: 10px;
-  }
-`;
-
-const StyledSearchBoxWrapper = styled.div`
-  margin: 0 auto;
-  @media only screen and (max-width: 600px) {
-    max-width: 100%;
-  }
-`;
-
 interface LWProps {
   headerColor: string;
 }
@@ -84,49 +51,25 @@ const LogoWrapper = styled.div<LWProps>`
   padding-top: 5px;
 `;
 
-const StyledNavigationWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  flex: 1 1;
-  width: 300px;
-  height: 100%;
-
-  @media only screen and (max-width: 1080px) {
-    margin-right: 10px;
-  }
-  @media only screen and (max-width: 1080px) {
-    justify-content: flex-end;
-  }
-`;
-
 const Header = () => {
   const { dispatch, globalState } = useContext(SiteContext);
 
   const setThemeFunc = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
-    // const themeToSet = globalState.theme === 'dark' ? 'light' : 'dark';
     dispatch({ type: 'SET_DARK_MODE', payload: !globalState.darkMode });
     dispatch({ type: 'SET_DARK_MODE_SET', payload: true });
-    // localStorage.setItem('theme', themeToSet);
   };
 
   return (
-    <StyledHeader theme={globalState.darkMode ? 'dark' : 'light'}>
-      <StyledHeaderInner>
-        <Link title="Homepage" to="/">
-          <LogoWrapper headerColor={globalState.headerColor}>
-            <Logo />
-          </LogoWrapper>
-        </Link>
-        <StyledNavigationWrapper>
-          <Navigation />
-          <StyledButton as="a" onClick={(e: any) => setThemeFunc(e)}>
-            <FontAwesomeIcon icon={globalState.darkMode ? faSun : faMoon} />
-          </StyledButton>
-        </StyledNavigationWrapper>
-      </StyledHeaderInner>
-    </StyledHeader>
+    <StyledSiteHeader>
+      <StyledNav>
+        <Navigation />
+      </StyledNav>
+      <StyledButton as="a" onClick={(e: any) => setThemeFunc(e)}>
+        <FontAwesomeIcon icon={globalState.darkMode ? faSun : faMoon} />
+      </StyledButton>
+    </StyledSiteHeader>
   );
 };
 
