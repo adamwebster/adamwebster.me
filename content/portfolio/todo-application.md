@@ -4,6 +4,8 @@ date: '2020-01-09'
 title: 'To-do Application'
 category: 'Front-end Development'
 featuredImage: 'images/TodoApplication.png'
+technologyUsed: 'React, Javascript, HTML, CSS, Styled Components'
+description: "Besides Hello World one of the first projects people usually create when learning a new language or framework is a to-do application. I wanted to take this one step further buy including a dashboard and a calendar that sorts the to-do's by date."
 draft: false
 ---
 import SectionHeader from '../../src/components/SectionHeader/SectionHeader';

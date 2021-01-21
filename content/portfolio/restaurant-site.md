@@ -5,7 +5,11 @@ title: 'Restaurant Website'
 featuredImage: 'images/RestaurantSite-HomePage.jpg'
 featuredImageWidth: 500px
 category: Front-end Development
+software: 'Affinity Designer'
+technologyUsed: 'HTML, CSS, Gatsby, ReactJS'
 draft: false
+description: 'This project is currently a work in progress and is bound to have some changes. If you would like to see the HTML prototype visit http://restaurant.adamwebster.me.'
+bgImage: 'images/mohammad-alizade-XgeZu2jBaVI-unsplash.jpg'
 ---
 import SectionHeader from '../../src/components/SectionHeader/SectionHeader';
 

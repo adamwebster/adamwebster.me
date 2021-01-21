@@ -4,7 +4,9 @@ date: '2020-01-08'
 title: 'Login Card'
 category: 'Front-end Development'
 featuredImage: 'images/loginCard.png'
+technologyUsed: 'React, Javascript, HTML, CSS, Styled Components'
 draft: false
+description: 'This project was created to design and develop a login card that could be used for a web application.'
 ---
 
 import SetHeaderColor from '../../src/components/SetHeaderColor/SetHeaderColor';

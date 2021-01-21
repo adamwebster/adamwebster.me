@@ -11,12 +11,13 @@ import SEO from '../../../components/seo';
 import styled from 'styled-components';
 import { AWMVariables } from '../../../styles/StyledVariables';
 import { Colors } from '@adamwebster/fused-components';
+import { StyledContentWrapper } from '../../../styles';
 
 interface StyledImageWrapperProps {
   imageWidth: string;
 }
 const StyledImageWrapper = styled.div<StyledImageWrapperProps>`
-  width: ${({ imageWidth }) => imageWidth};
+  max-width: ${({ imageWidth }) => imageWidth};
   margin: 80px auto;
   border: solid 1px ${Colors.border};
   border-radius: ${AWMVariables.borderRadius};
@@ -59,11 +60,13 @@ const PortfolioPost = ({ data }: Props) => {
     <Layout>
       <SEO title={`${title} | Portfolio`} />
 
-      <StyledImageWrapper
-        imageWidth={featuredImageWidth ? featuredImageWidth : '100%'}
-      >
-        <Img fluid={featuredImage.childImageSharp.fluid} />
-      </StyledImageWrapper>
+      <StyledContentWrapper>
+        <StyledImageWrapper
+          imageWidth={featuredImageWidth ? featuredImageWidth : '1000px'}
+        >
+          <Img fluid={featuredImage.childImageSharp.fluid} />
+        </StyledImageWrapper>
+      </StyledContentWrapper>
       <StyledPortfolioContent>
         <StyledPageHeader>{title}</StyledPageHeader>
         <StyledCategoryTag to={`/portfolio/${_.kebabCase(category)}`}>
