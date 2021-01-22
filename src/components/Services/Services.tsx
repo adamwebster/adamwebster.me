@@ -127,6 +127,7 @@ const StyledFrontEndGrid = styled.div`
 const StyledOverlayMotion = motion.custom(StyledOverlay);
 const StyledCardModalMotion = motion.custom(StyledCardModal);
 const StyledImageWrapperMotion = motion.custom(StyledImageWrapper);
+const SectionHeaderFrontMotion = motion.custom(SectionHeaderFront);
 const Services = () => {
   const [selectedId, setSelectedID] = useState<number | null>(null);
   const [selectedService, setSelectedService] = useState<any | null>(null);
@@ -134,7 +135,15 @@ const Services = () => {
   return (
     <>
       <StyledContentWrapper>
-        <SectionHeaderFront>Services</SectionHeaderFront>
+        <SectionHeaderFrontMotion
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            duration: 1,
+          }}
+        >
+          Services
+        </SectionHeaderFrontMotion>
       </StyledContentWrapper>
       <AnimateSharedLayout type="crossfade">
         <StyledServicesGrid>
