@@ -5,7 +5,11 @@ import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { StyledContentWrapper } from '../../styles';
 import { SectionHeaderFront } from '../SectionHeader';
-
+import { graphql, StaticQuery } from 'gatsby';
+import Img from 'gatsby-image';
+import { MDXProvider } from '@mdx-js/react';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const StyledServicesGrid = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -96,46 +100,33 @@ const StyledImageWrapper = styled.div`
   justify-content: center;
   align-items: flex-start;
   overflow: hidden;
-  img {
+  > div {
     width: 100%;
   }
 `;
 
 const StyledCardContent = styled.div`
   padding: 16px 32px 32px;
+  h1 {
+    margin: 16px 0 48px 0;
+  }
 `;
 
-const ServicesItems = [
-  {
-    id: 1,
-    name: ' Front-end Development',
-    description:
-      'This logo was designed for a Photographer that take photos in Ontario, Canada. He mainly takes photos of landscapes and animals. The circle and arrow part of the logo represents a compass with its needle pointing north and the tree represents the main subjects of his photos. You can take a look at his photos on his instagram @NorthernCaravan.',
-    img:
-      'https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80',
-  },
-  {
-    id: 2,
-    name: ' Web & Mobile Design',
-    description:
-      'This logo was designed for a Photographer that take photos in Ontario, Canada. He mainly takes photos of landscapes and animals. The circle and arrow part of the logo represents a compass with its needle pointing north and the tree represents the main subjects of his photos. You can take a look at his photos on his instagram @NorthernCaravan.',
-    img:
-      'https://adamwebster.me/static/1636c8ef247f3cee9f35b7f2900e97cc/f422e/NorthernCaravan.jpg',
-  },
-  {
-    id: 3,
-    name: 'Logo Design & Branding',
-    description:
-      'This logo was designed for a Photographer that take photos in Ontario, Canada. He mainly takes photos of landscapes and animals. The circle and arrow part of the logo represents a compass with its needle pointing north and the tree represents the main subjects of his photos. You can take a look at his photos on his instagram @NorthernCaravan.',
-    img:
-      'https://adamwebster.me/static/1636c8ef247f3cee9f35b7f2900e97cc/f422e/NorthernCaravan.jpg',
-  },
-];
+const StyledFrontEndGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 32px 0;
+  opacity: 0.5;
+  > div {
+    display: flex;
+    flex: 1 1;
+    justify-content: center;
+  }
+`;
 
 const StyledOverlayMotion = motion.custom(StyledOverlay);
 const StyledCardModalMotion = motion.custom(StyledCardModal);
 const StyledImageWrapperMotion = motion.custom(StyledImageWrapper);
-
 const Services = () => {
   const [selectedId, setSelectedID] = useState<number | null>(null);
   const [selectedService, setSelectedService] = useState<any | null>(null);
@@ -147,66 +138,101 @@ const Services = () => {
       </StyledContentWrapper>
       <AnimateSharedLayout type="crossfade">
         <StyledServicesGrid>
-          {ServicesItems.map((service, index) => {
-            return (
-              <motion.div
-                key={service.id}
-                style={{ position: 'relative' }}
-                initial={{ opacity: 0, top: '-30px' }}
-                animate={{ opacity: 1, top: '0px' }}
-                transition={{
-                  default: {
-                    duration: 0.5,
-                    delay: index / 2,
-                  },
-                  top: {
-                    duration: 0.5,
-                    ease: 'easeInOut',
-                  },
-                }}
-              >
-                <motion.div
-                  layoutId={`card-container-${service.id}`}
-                  exit={{ opacity: 0 }}
-                >
-                  <StyledServicesCard
-                    theme={theme}
-                    tabIndex={0}
-                    onKeyDown={e => {
-                      const { key } = e;
-                      console.log(key);
-                      switch (key) {
-                        case 'Enter':
-                          e.preventDefault();
-                          setSelectedID(service.id);
-                          setSelectedService(service);
-                          break;
-                        default:
+          <StaticQuery
+            query={graphql`
+              query {
+                allServiceItemMdx(
+                  limit: 3
+                  sort: { order: ASC, fields: order }
+                ) {
+                  nodes {
+                    id
+                    title
+                    body
+                    featuredImage {
+                      childImageSharp {
+                        fluid(maxWidth: 800) {
+                          ...GatsbyImageSharpFluid
+                        }
                       }
-                    }}
-                    onClick={() => {
-                      setSelectedID(service.id);
-                      setSelectedService(service);
-                    }}
-                  >
-                    <StyledServicesCardImageWrapper>
-                      <motion.img
-                        src={service.img}
-                        alt={service.name}
-                        layoutId={`card-container-${service.id}-img`}
-                      />
-                    </StyledServicesCardImageWrapper>
-                    <span>{service.name}</span>
-                  </StyledServicesCard>
-                </motion.div>
-              </motion.div>
-            );
-          })}
+                    }
+                  }
+                }
+              }
+            `}
+            render={({ allServiceItemMdx: { nodes } }) => {
+              return (
+                <>
+                  {nodes.map((service: any, index: number) => {
+                    return (
+                      <motion.div
+                        key={service.id}
+                        style={{ position: 'relative' }}
+                        initial={{ opacity: 0, top: '-30px' }}
+                        animate={{ opacity: 1, top: '0px' }}
+                        transition={{
+                          default: {
+                            duration: 0.5,
+                            delay: index / 2,
+                          },
+                          top: {
+                            duration: 0.5,
+                            ease: 'easeInOut',
+                          },
+                        }}
+                      >
+                        <motion.div
+                          layoutId={`card-container-${service.id}`}
+                          exit={{ opacity: 0 }}
+                        >
+                          <StyledServicesCard
+                            theme={theme}
+                            tabIndex={0}
+                            onKeyDown={e => {
+                              const { key } = e;
+                              console.log(key);
+                              switch (key) {
+                                case 'Enter':
+                                  e.preventDefault();
+                                  setSelectedID(service.id);
+                                  setSelectedService(service);
+                                  break;
+                                default:
+                              }
+                            }}
+                            onClick={() => {
+                              setSelectedID(service.id);
+                              setSelectedService(service);
+                            }}
+                          >
+                            <StyledServicesCardImageWrapper>
+                              <motion.div
+                                layoutId={`card-container-${service.id}-img`}
+                              >
+                                <Img
+                                  fluid={
+                                    service.featuredImage.childImageSharp.fluid
+                                  }
+                                  alt={service.title}
+                                />
+                              </motion.div>
+                            </StyledServicesCardImageWrapper>
+                            <span>{service.title}</span>
+                          </StyledServicesCard>
+                        </motion.div>
+                      </motion.div>
+                    );
+                  })}
+                </>
+              );
+            }}
+          />
         </StyledServicesGrid>
 
         <AnimatePresence>
           {selectedId && (
             <>
+              {console.log(selectedService)}
               <StyledOverlayMotion
                 theme={theme}
                 onClick={() => setSelectedID(null)}
@@ -225,16 +251,25 @@ const Services = () => {
                   layoutId={`card-container-${selectedId}`}
                 >
                   <StyledImageWrapperMotion>
-                    <motion.img
-                      src={selectedService.img}
-                      alt={selectedService.name}
+                    <motion.div
                       layoutId={`card-container-${selectedService.id}-img`}
-                    />
+                    >
+                      <Img
+                        fluid={
+                          selectedService.featuredImage.childImageSharp.fluid
+                        }
+                        alt={selectedService.title}
+                      />
+                    </motion.div>
                   </StyledImageWrapperMotion>
                   <StyledCardContent>
-                    <motion.h1 animate>{selectedService.name}</motion.h1>
+                    <motion.h1 animate>{selectedService.title}</motion.h1>
                     <motion.div animate>
-                      {selectedService.description}
+                      <MDXProvider
+                        components={{ FontAwesomeIcon, StyledFrontEndGrid }}
+                      >
+                        <MDXRenderer>{selectedService.body}</MDXRenderer>
+                      </MDXProvider>
                     </motion.div>
                   </StyledCardContent>
                 </StyledCardModalMotion>

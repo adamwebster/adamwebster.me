@@ -120,6 +120,44 @@ module.exports = ({ createResolvers }, themeOptions) => {
 
   createResolvers(resolversPortfolioItem);
 
+  const resolversServiceItem = {
+    ServiceItem: {
+      html: {
+        type: 'String',
+        resolve: markdownResolverPassthrough(`html`),
+      },
+      timeToRead: {
+        type: 'Int',
+        resolve: markdownResolverPassthrough(`timeToRead`),
+      },
+      excerpt: {
+        type: 'String',
+        resolve: async (source, args, context, info) => {
+          results = await context.nodeModel.runQuery({
+            query: {
+              filter: { id: { eq: source.parent } },
+            },
+            type: 'MarkdownRemark',
+            firstOnly: true,
+          });
+          const text = remark()
+            .use(stripMarkdown)
+            .use(mdx)
+            .use(strip)
+            .processSync(results.rawMarkdownBody);
+          const excerptLength = 140; // Hard coded excerpt length
+          return (
+            String(text)
+              .replace(new RegExp('<[^>]*>', 'g'), '')
+              .substring(0, excerptLength) + '...'
+          );
+        },
+      },
+    },
+  };
+
+  createResolvers(resolversServiceItem);
+
   const resolversFusedArticleMDX = {
     BlogPostMdx: {
       body: {
@@ -189,4 +227,39 @@ module.exports = ({ createResolvers }, themeOptions) => {
   };
 
   createResolvers(portfolioItemMDX);
+
+  const serviceItemMdx = {
+    ServiceItemMdx: {
+      body: {
+        type: 'String',
+        resolve: mdxResolverPassthrough(`body`),
+      },
+      timeToRead: {
+        type: 'Int',
+        resolve: mdxResolverPassthrough(`timeToRead`),
+      },
+      excerpt: {
+        type: 'String',
+        resolve: async (source, args, context, info) => {
+          results = await context.nodeModel.runQuery({
+            query: {
+              filter: { id: { eq: source.parent } },
+            },
+            type: 'Mdx',
+            firstOnly: true,
+          });
+          const text = remark()
+            .use(stripMarkdown)
+            .use(mdx)
+            .use(frontmatter)
+            .use(strip)
+            .processSync(results.rawBody);
+          const excerptLength = 40; // Hard coded excerpt length
+          return String(text).substring(0, excerptLength) + '...';
+        },
+      },
+    },
+  };
+
+  createResolvers(serviceItemMdx);
 };

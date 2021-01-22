@@ -59,6 +59,7 @@ const StyledArticle = styled.article<SAProps>`
 
 interface SIProps {
   layout?: string;
+  fluid?: any;
 }
 const StyledImage = styled(Img)<SIProps>`
   height: ${({ layout }) => (layout === 'full' ? '500px' : '300px')};

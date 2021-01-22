@@ -17,10 +17,15 @@ const StyledButton = styled(Button)`
   color: ${Colors.lightest};
   cursor: pointer;
 `;
-const StyledSiteHeader = styled.header`
+
+interface StyledSiteHeaderProps {
+  headerColor: string;
+}
+const StyledSiteHeader = styled.header<StyledSiteHeaderProps>`
   width: 100%;
   position: fixed;
-  background-color: ${Colors.primary};
+  background-color: ${({ headerColor }) =>
+    headerColor ? headerColor : Colors.primary};
   color: #fff;
   padding: 16px;
   box-sizing: border-box;
@@ -63,7 +68,7 @@ const Header = () => {
   };
 
   return (
-    <StyledSiteHeader>
+    <StyledSiteHeader headerColor={globalState.headerColor}>
       <StyledNav>
         <Navigation />
       </StyledNav>
