@@ -24,16 +24,18 @@ const StyledSectionHeaderFront = styled.h2`
   }
 `;
 
-interface Props {
-  children: ReactNode;
+interface Props extends React.AllHTMLAttributes<HTMLHeadingElement> {
+  children?: ReactNode;
 }
-const SectionHeaderFront = ({ children }: Props) => {
-  const { theme } = useContext(FCTheme);
-  return (
-    <StyledSectionHeaderFront theme={theme}>
-      {children}
-    </StyledSectionHeaderFront>
-  );
-};
+const SectionHeaderFront = React.forwardRef<HTMLHeadingElement, Props>(
+  ({ children, as, ...rest }, ref) => {
+    const { theme } = useContext(FCTheme);
+    return (
+      <StyledSectionHeaderFront ref={ref} theme={theme} {...rest}>
+        {children}
+      </StyledSectionHeaderFront>
+    );
+  }
+);
 
 export default SectionHeaderFront;
