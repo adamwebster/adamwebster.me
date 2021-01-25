@@ -12,6 +12,9 @@ import { SiteContext } from '../../state';
 import { BuyMeACoffeeWidget } from '../BuyMeACoffee';
 
 const GlobalStyle = createGlobalStyle`
+html{
+  scroll-behavior: smooth;
+}
   body{
     background-color:${({ theme }) =>
       theme === 'dark' ? Colors.darkModeDarkest : Colors.light};    

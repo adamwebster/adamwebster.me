@@ -6,6 +6,9 @@ import { StyledContentWrapper } from '../../styles';
 import { SectionHeaderFront } from '../SectionHeader';
 import { graphql, Link, StaticQuery } from 'gatsby';
 import GatsbyImage from 'gatsby-image';
+import { useInView } from 'react-intersection-observer';
+import { motion } from 'framer-motion';
+import { relative } from 'path';
 
 const StyledBlogPostGrid = styled.div`
   max-width: 1200px;
@@ -35,6 +38,7 @@ const StyledBlogPostCard = styled(Card)`
   flex-flow: column;
   flex: 1 1;
   overflow: hidden;
+  height: 100%;
   padding-bottom: 30px;
   box-shadow: 0 0 10px ${({ theme }) => (theme === 'dark' ? '#000' : '#ccc')};
   z-index: 1;
@@ -54,42 +58,23 @@ const StyledBlogPostContent = styled.div`
   padding: 16px;
 `;
 
-const blogPosts = [
-  {
-    id: 1,
-    title: 'Norther Caravan Logo',
-    featuredImage:
-      'https://images.unsplash.com/photo-1523821741446-edb2b68bb7a0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=3750&q=80',
-    content: `This logo was designed for a Photographer that take photos in Ontario, Canada. He mainly takes photos of landscapes and animals. The circle and arrow part of the logo represents a compass with its needle pointing north and the tree represents the main subjects of his photos.
-
-            You can take a look at his photos on his instagram @NorthernCaravan.`,
-  },
-  {
-    id: 2,
-    title: 'Project 2',
-    bgColor: Colors.primary,
-    featuredImage:
-      'https://images.unsplash.com/photo-1551503766-ac63dfa6401c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2700&q=80',
-    content: `This logo was designed for a Photographer that take photos in Ontario, Canada. He mainly takes photos of landscapes and animals. The circle and arrow part of the logo represents a compass with its needle pointing north and the tree represents the main subjects of his photos.
-
-            You can take a look at his photos on his instagram @NorthernCaravan.`,
-  },
-  {
-    id: 3,
-    title: 'Project 3',
-    bgColor: 'purple',
-    featuredImage:
-      'https://images.unsplash.com/photo-1523821741446-edb2b68bb7a0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=3750&q=80',
-    content: `This logo was designed for a Photographer that take photos in Ontario, Canada. He mainly takes photos of landscapes and animals. The circle and arrow part of the logo represents a compass with its needle pointing north and the tree represents the main subjects of his photos.
-
-            You can take a look at his photos on his instagram @NorthernCaravan.`,
-  },
-];
-
 const LatestBlogPosts = () => {
   const { theme } = useContext(FCTheme);
+  const [LBP, LBPInView, LBPEntry] = useInView({
+    triggerOnce: true,
+    rootMargin: '-150px 0px',
+  });
   return (
-    <>
+    <motion.div
+      ref={LBP}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: LBPInView ? 1 : 0 }}
+      transition={{
+        default: {
+          duration: 0.5,
+        },
+      }}
+    >
       <StyledContentWrapper>
         <SectionHeaderFront>Latest Blog Posts</SectionHeaderFront>
       </StyledContentWrapper>
@@ -118,27 +103,39 @@ const LatestBlogPosts = () => {
         render={({ allBlogPost: { nodes } }) => {
           return (
             <StyledBlogPostGrid>
-              {nodes.map((post: any) => (
-                <StyledBlogPostCard theme={theme}>
-                  <StyledBlogPostFeaturedImageWrapper>
-                    <Link to={post.path}>
-                      <GatsbyImage
-                        fluid={post.featuredImage.childImageSharp.fluid}
-                      />
-                    </Link>
-                  </StyledBlogPostFeaturedImageWrapper>
-                  <StyledBlogPostContent>
-                    {' '}
-                    <h2> {post.title}</h2>
-                    <p> {post.excerpt}</p>
-                  </StyledBlogPostContent>
-                </StyledBlogPostCard>
+              {nodes.map((post: any, index: number) => (
+                <motion.div
+                  style={{ position: 'relative' }}
+                  initial={{ top: '-40px' }}
+                  animate={{ top: LBPInView ? '0px' : '-40px' }}
+                  transition={{
+                    default: {
+                      duration: 0.5,
+                      delay: index / 10,
+                    },
+                  }}
+                >
+                  <StyledBlogPostCard theme={theme}>
+                    <StyledBlogPostFeaturedImageWrapper>
+                      <Link to={post.path}>
+                        <GatsbyImage
+                          fluid={post.featuredImage.childImageSharp.fluid}
+                        />
+                      </Link>
+                    </StyledBlogPostFeaturedImageWrapper>
+                    <StyledBlogPostContent>
+                      {' '}
+                      <h2> {post.title}</h2>
+                      <p> {post.excerpt}</p>
+                    </StyledBlogPostContent>
+                  </StyledBlogPostCard>
+                </motion.div>
               ))}
             </StyledBlogPostGrid>
           );
         }}
       />
-    </>
+    </motion.div>
   );
 };
 export default LatestBlogPosts;
