@@ -15,7 +15,7 @@ const icon = {
 };
 
 const StyledContainer = styled.div`
-  width: 500px;
+  width: 300px;
   height: 500px;
   display: flex;
   place-content: center;

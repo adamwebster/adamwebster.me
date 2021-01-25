@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Colors } from '@adamwebster/fused-components';
 import { motion } from 'framer-motion';
 import { AnimatedLogo } from '../AnimatedLogo';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
 
 const StyledHeaderContainer = styled.div`
   width: 100%;
@@ -11,6 +13,11 @@ const StyledHeaderContainer = styled.div`
   margin-bottom: 32px;
   border-bottom: solid 1px #ccc;
   background-position: center;
+  height: 100vh;
+  justify-content: center;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
 `;
 
 const StyledHeaderContainerInner = styled.div`
@@ -33,9 +40,15 @@ const StyledHeaderContainerInner = styled.div`
   }
 `;
 
+const StyledDownArrows = styled(FontAwesomeIcon)`
+  color: #fff;
+  opacity: 0.6;
+`;
+
 const Hero = () => {
+  const heroContainer = useRef<HTMLDivElement>(null);
   return (
-    <StyledHeaderContainer>
+    <StyledHeaderContainer ref={heroContainer}>
       <StyledHeaderContainerInner>
         <AnimatedLogo />
         <div>
@@ -61,6 +74,16 @@ const Hero = () => {
           </motion.h2>
         </div>
       </StyledHeaderContainerInner>
+      <StyledDownArrows
+        onClick={() =>
+          window.scrollTo(
+            0,
+            heroContainer.current ? heroContainer.current.offsetHeight - 50 : 0
+          )
+        }
+        size="5x"
+        icon={faArrowCircleDown}
+      />
     </StyledHeaderContainer>
   );
 };

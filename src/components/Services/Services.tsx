@@ -1,6 +1,12 @@
 import React from 'react';
 import { Card, Colors, FCTheme } from '@adamwebster/fused-components';
-import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion';
+import {
+  motion,
+  AnimateSharedLayout,
+  AnimatePresence,
+  useViewportScroll,
+  useTransform,
+} from 'framer-motion';
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { StyledContentWrapper } from '../../styles';
@@ -10,6 +16,8 @@ import Img from 'gatsby-image';
 import { MDXProvider } from '@mdx-js/react';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useInView } from 'react-intersection-observer';
+
 const StyledServicesGrid = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -132,112 +140,132 @@ const Services = () => {
   const [selectedId, setSelectedID] = useState<number | null>(null);
   const [selectedService, setSelectedService] = useState<any | null>(null);
   const { theme } = useContext(FCTheme);
+  const { scrollYProgress } = useViewportScroll();
+  const y = useTransform(scrollYProgress, value => value * 10);
+  const [servicesRef, servicesInView, servicesEntry] = useInView({
+    triggerOnce: true,
+    rootMargin: '-150px 0px',
+  });
   return (
     <>
       <StyledContentWrapper>
-        <SectionHeaderFrontMotion
+        <motion.div
+          ref={servicesRef}
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          animate={{ opacity: servicesInView ? 1 : 0 }}
           transition={{
-            duration: 1,
+            default: {
+              duration: 0.5,
+            },
           }}
         >
-          Services
-        </SectionHeaderFrontMotion>
+          <SectionHeaderFrontMotion>Services</SectionHeaderFrontMotion>
+        </motion.div>
       </StyledContentWrapper>
       <AnimateSharedLayout type="crossfade">
-        <StyledServicesGrid>
-          <StaticQuery
-            query={graphql`
-              query {
-                allServiceItemMdx(
-                  limit: 3
-                  sort: { order: ASC, fields: order }
-                ) {
-                  nodes {
-                    id
-                    title
-                    body
-                    featuredImage {
-                      childImageSharp {
-                        fluid(maxWidth: 800) {
-                          ...GatsbyImageSharpFluid
+        <motion.div style={{ opacity: y }}>
+          <motion.div
+            style={{
+              opacity: y,
+            }}
+          >
+            <StyledServicesGrid>
+              <StaticQuery
+                query={graphql`
+                  query {
+                    allServiceItemMdx(
+                      limit: 3
+                      sort: { order: ASC, fields: order }
+                    ) {
+                      nodes {
+                        id
+                        title
+                        body
+                        featuredImage {
+                          childImageSharp {
+                            fluid(maxWidth: 800) {
+                              ...GatsbyImageSharpFluid
+                            }
+                          }
                         }
                       }
                     }
                   }
-                }
-              }
-            `}
-            render={({ allServiceItemMdx: { nodes } }) => {
-              return (
-                <>
-                  {nodes.map((service: any, index: number) => {
-                    return (
-                      <motion.div
-                        key={service.id}
-                        style={{ position: 'relative' }}
-                        initial={{ opacity: 0, top: '-30px' }}
-                        animate={{ opacity: 1, top: '0px' }}
-                        transition={{
-                          default: {
-                            duration: 0.5,
-                            delay: index / 2,
-                          },
-                          top: {
-                            duration: 0.5,
-                            ease: 'easeInOut',
-                          },
-                        }}
-                      >
-                        <motion.div
-                          layoutId={`card-container-${service.id}`}
-                          exit={{ opacity: 0 }}
-                        >
-                          <StyledServicesCard
-                            theme={theme}
-                            tabIndex={0}
-                            onKeyDown={e => {
-                              const { key } = e;
-                              console.log(key);
-                              switch (key) {
-                                case 'Enter':
-                                  e.preventDefault();
-                                  setSelectedID(service.id);
-                                  setSelectedService(service);
-                                  break;
-                                default:
-                              }
+                `}
+                render={({ allServiceItemMdx: { nodes } }) => {
+                  return (
+                    <>
+                      {nodes.map((service: any, index: number) => {
+                        return (
+                          <motion.div
+                            key={service.id}
+                            style={{ position: 'relative' }}
+                            initial={{ opacity: 0, top: '-30px' }}
+                            animate={{
+                              opacity: servicesInView ? 1 : 0,
+                              top: servicesInView ? '0px' : '-30px',
                             }}
-                            onClick={() => {
-                              setSelectedID(service.id);
-                              setSelectedService(service);
+                            transition={{
+                              default: {
+                                duration: 0.5,
+                                delay: index / 2,
+                              },
+                              top: {
+                                duration: 0.5,
+                                ease: 'easeInOut',
+                              },
                             }}
                           >
-                            <StyledServicesCardImageWrapper>
-                              <motion.div
-                                layoutId={`card-container-${service.id}-img`}
-                              >
-                                <Img
-                                  fluid={
-                                    service.featuredImage.childImageSharp.fluid
+                            <motion.div
+                              layoutId={`card-container-${service.id}`}
+                              exit={{ opacity: 0 }}
+                            >
+                              <StyledServicesCard
+                                theme={theme}
+                                tabIndex={0}
+                                onKeyDown={e => {
+                                  const { key } = e;
+                                  console.log(key);
+                                  switch (key) {
+                                    case 'Enter':
+                                      e.preventDefault();
+                                      setSelectedID(service.id);
+                                      setSelectedService(service);
+                                      break;
+                                    default:
                                   }
-                                  alt={service.title}
-                                />
-                              </motion.div>
-                            </StyledServicesCardImageWrapper>
-                            <span>{service.title}</span>
-                          </StyledServicesCard>
-                        </motion.div>
-                      </motion.div>
-                    );
-                  })}
-                </>
-              );
-            }}
-          />
-        </StyledServicesGrid>
-
+                                }}
+                                onClick={() => {
+                                  setSelectedID(service.id);
+                                  setSelectedService(service);
+                                }}
+                              >
+                                <StyledServicesCardImageWrapper>
+                                  <motion.div
+                                    layoutId={`card-container-${service.id}-img`}
+                                  >
+                                    <Img
+                                      fluid={
+                                        service.featuredImage.childImageSharp
+                                          .fluid
+                                      }
+                                      alt={service.title}
+                                    />
+                                  </motion.div>
+                                </StyledServicesCardImageWrapper>
+                                <span>{service.title}</span>
+                              </StyledServicesCard>
+                            </motion.div>
+                          </motion.div>
+                        );
+                      })}
+                    </>
+                  );
+                }}
+              />
+            </StyledServicesGrid>
+          </motion.div>
+        </motion.div>{' '}
         <AnimatePresence>
           {selectedId && (
             <>
