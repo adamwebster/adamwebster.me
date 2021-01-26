@@ -70,7 +70,7 @@ const Header = () => {
   return (
     <StyledSiteHeader headerColor={globalState.headerColor}>
       <LogoWrapper>
-        <Link to="/">
+        <Link title="Visit the homepage" to="/">
           <Logo />
         </Link>
       </LogoWrapper>
