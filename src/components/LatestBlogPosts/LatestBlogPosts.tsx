@@ -119,7 +119,7 @@ const LatestBlogPosts = () => {
                 >
                   <StyledBlogPostCard theme={theme}>
                     <StyledBlogPostFeaturedImageWrapper>
-                      <Link to={post.path}>
+                      <Link title={post.title} to={post.path}>
                         <GatsbyImage
                           fluid={post.featuredImage.childImageSharp.fluid}
                         />

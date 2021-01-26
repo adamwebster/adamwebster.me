@@ -27,7 +27,15 @@ const StyledPortfolioGrid = styled.div`
       'grid7 grid7 grid8 grid8';
   }
   @media only screen and (max-width: 600px) {
-    grid-template-columns: 1fr;
+    grid-template-areas:
+      'grid1'
+      'grid2'
+      'grid3'
+      'grid4'
+      'grid5'
+      'grid6'
+      'grid7'
+      'grid8';
   }
 `;
 
@@ -116,7 +124,7 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
                       opacity: { duration: 2 },
                     }}
                   >
-                    <Link to={node.path}>
+                    <Link title={node.title} to={node.path}>
                       <GatsbyImage
                         fluid={node.featuredImage.childImageSharp.fluid}
                       />
