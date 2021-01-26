@@ -5,4 +5,4 @@ featuredImage: 'images/StoriLogo.png'
 ---
 
 
-Description
+Your businesses identity is one of the most import thing to help people learn about what you do and who you are.  From business cards, letterheads, and business cards, these are items that I specialize in.

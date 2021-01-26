@@ -16,6 +16,7 @@ interface SHProps {
 const StyledButton = styled(Button)`
   color: ${Colors.lightest};
   cursor: pointer;
+  padding: 16px 16px 0 0;
 `;
 
 interface StyledSiteHeaderProps {
@@ -27,7 +28,6 @@ const StyledSiteHeader = styled.header<StyledSiteHeaderProps>`
   background-color: ${({ headerColor }) =>
     headerColor ? headerColor : Colors.primary};
   color: #fff;
-  padding: 16px;
   box-sizing: border-box;
   display: flex;
   z-index: 2;
@@ -37,6 +37,7 @@ const StyledSiteHeader = styled.header<StyledSiteHeaderProps>`
 const StyledNav = styled.nav`
   display: flex;
   flex: 1 1;
+  padding: 16px;
   justify-content: flex-end;
   ul {
     list-style: none;
@@ -49,12 +50,16 @@ const StyledNav = styled.nav`
   }
 `;
 interface LWProps {
-  headerColor: string;
+  headerColor?: string;
 }
 
 const LogoWrapper = styled.div<LWProps>`
   width: 40px;
-  padding-top: 5px;
+  padding-top: 8px;
+  height: 40px;
+  a {
+    color: #fff;
+  }
 `;
 
 const Header = () => {
@@ -69,6 +74,11 @@ const Header = () => {
 
   return (
     <StyledSiteHeader headerColor={globalState.headerColor}>
+      <LogoWrapper>
+        <Link to="/">
+          <Logo />
+        </Link>
+      </LogoWrapper>
       <StyledNav>
         <Navigation />
       </StyledNav>

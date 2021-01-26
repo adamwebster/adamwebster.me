@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { HTMLAttributes } from 'react';
-import { Colors } from '@adamwebster/fused-components';
+import { Button, Colors } from '@adamwebster/fused-components';
+import { AWMVariables } from './StyledVariables';
 
 export const StyledContentWrapper = styled.div`
     max-width: 1200px;
@@ -41,4 +42,9 @@ export const StyledFullWidthWrapper = styled.div<StyledFullWidthWrapperProps>`
                 z-index: 0;
             }
         `}
+`;
+
+export const StyledButton = styled(Button)`
+  border-radius: ${AWMVariables.borderRadius};
+  padding: 0 25px;
 `;

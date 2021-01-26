@@ -11,6 +11,7 @@ import {
 } from '@adamwebster/fused-components';
 import styled from 'styled-components';
 import { AWMVariables } from '../styles/StyledVariables';
+import { StyledContentWrapper, StyledButton } from '../styles';
 
 const StyledInput = styled(Input)`
   border-radius: ${AWMVariables.borderRadius};
@@ -18,11 +19,6 @@ const StyledInput = styled(Input)`
 
 const StyledTextarea = styled(Textarea)`
   border-radius: ${AWMVariables.borderRadius};
-`;
-
-const StyledButton = styled(Button)`
-  border-radius: ${AWMVariables.borderRadius};
-  padding: 0 25px;
 `;
 
 const StyledFormWrapper = styled.div`
@@ -191,7 +187,6 @@ const ContactForm = () => {
             }}
           />
         </FormField>
-
         <StyledButton type="submit" primary>
           Send
         </StyledButton>
@@ -203,17 +198,19 @@ const ContactForm = () => {
 const Contact = () => {
   return (
     <Layout>
-      <SEO title="Contact" />
-      <PageHeader>Contact</PageHeader>
-      <p>
-        The best way to currently to get in contact with me is through twitter
-        by following me{' '}
-        <a href="https://twitter.com/adamwebster" target="_blank">
-          @adamwebster
-        </a>
-        .
-      </p>
-      <ContactForm />
+      <StyledContentWrapper>
+        <SEO title="Contact" />
+        <PageHeader>Contact</PageHeader>
+        <p>
+          The best way to currently to get in contact with me is through twitter
+          by following me{' '}
+          <a href="https://twitter.com/adamwebster" target="_blank">
+            @adamwebster
+          </a>
+          .
+        </p>
+        <ContactForm />
+      </StyledContentWrapper>
     </Layout>
   );
 };

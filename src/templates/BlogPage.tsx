@@ -7,9 +7,13 @@ import SEO from '../components/seo';
 import { LinkButton } from '../components/LinkButton';
 import { BlogArticle } from '../components/BlogArticle';
 import { StyledContentWrapper } from '../styles';
-const StyledBlogGrid = styled.div`
+
+interface StyledBlogGridProps {
+  numberOfItems: number;
+}
+const StyledBlogGrid = styled.div<StyledBlogGridProps>`
   display: grid;
-  grid-template-rows: minmax(500px, 500px);
+  grid-template-rows: repeat(3, minmax(1fr, 75px));
   gap: 1px;
   grid-template-areas:
     'grid1 grid1 grid1 grid1'
@@ -18,7 +22,7 @@ const StyledBlogGrid = styled.div`
     'grid8 grid8 grid9 grid10';
   margin-top: 50px;
   @media only screen and (max-width: 768px) {
-    grid-template-rows: minmax(500px, 100px);
+    /* grid-template-rows: minmax(500px, 100px); */
     grid-template-areas:
       'grid1 grid1 grid2 grid2'
       'grid3 grid3 grid4 grid4'
@@ -27,7 +31,7 @@ const StyledBlogGrid = styled.div`
       'grid9 grid9 grid10 grid10';
   }
   @media only screen and (max-width: 500px) {
-    grid-template-rows: minmax(500px, 500px);
+    /* grid-template-rows: minmax(500px, 500px); */
     grid-template-areas:
       'grid1'
       'grid2'
@@ -83,7 +87,7 @@ const Blog = ({ pageContext, data }: Props) => {
           <StyledBlogWrapper>
             <PageHeader>Blog</PageHeader>
 
-            <StyledBlogGrid>
+            <StyledBlogGrid numberOfItems={nodes.length}>
               {nodes.map((node: any, index: number) => {
                 return (
                   <BlogArticle
