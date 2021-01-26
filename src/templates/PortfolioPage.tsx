@@ -121,13 +121,15 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
                       <GatsbyImage
                         fluid={node.featuredImage.childImageSharp.fluid}
                       />
+
+                      <StyledPortfolioItemInfo>
+                        <h3>{node.title}</h3>
+                        <p>
+                          {node.description.replaceAll('**', '').slice(0, 75)}
+                          ...
+                        </p>
+                      </StyledPortfolioItemInfo>
                     </Link>
-                    <StyledPortfolioItemInfo>
-                      <h3>{node.title}</h3>
-                      <p>
-                        {node.description.replaceAll('**', '').slice(0, 75)}...
-                      </p>
-                    </StyledPortfolioItemInfo>
                   </StyledPortfolioItemMotion>
                 );
               })}

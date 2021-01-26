@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, Colors, FCTheme } from '@adamwebster/fused-components';
+import { Button, Card, Colors, FCTheme } from '@adamwebster/fused-components';
 import { useContext } from 'react';
-import { StyledContentWrapper } from '../../styles';
+import { StyledButton, StyledContentWrapper } from '../../styles';
 import { SectionHeaderFront } from '../SectionHeader';
 import { graphql, Link, StaticQuery } from 'gatsby';
 import GatsbyImage from 'gatsby-image';
@@ -56,6 +56,9 @@ const StyledBlogPostFeaturedImageWrapper = styled.div`
 
 const StyledBlogPostContent = styled.div`
   padding: 16px;
+  a {
+    text-decoration: none;
+  }
 `;
 
 const LatestBlogPosts = () => {
@@ -124,9 +127,11 @@ const LatestBlogPosts = () => {
                       </Link>
                     </StyledBlogPostFeaturedImageWrapper>
                     <StyledBlogPostContent>
-                      {' '}
-                      <h2> {post.title}</h2>
+                      <Link to={post.path}>
+                        <h2> {post.title}</h2>
+                      </Link>
                       <p> {post.excerpt}</p>
+                      <StyledButton primary>Read more</StyledButton>
                     </StyledBlogPostContent>
                   </StyledBlogPostCard>
                 </motion.div>

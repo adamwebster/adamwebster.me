@@ -23,10 +23,18 @@ const StyledArticle = styled.article<StyledArticleProps>`
   grid-area: ${({ gridArea }) => gridArea};
   position: relative;
   overflow: hidden;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 const StyledImage = styled(Img)<SIProps>`
   min-height: 300px;
+  height: 100%;
+  max-height: 600px;
   background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
+  img {
+    height: 100%;
+  }
 `;
 
 const PostTitle = styled.h1`
@@ -82,21 +90,21 @@ const BlogArticle = ({ postData, gridArea, index }: Props) => {
           bgColor={postData.heroColor}
           fluid={postData.featuredImage.childImageSharp.fluid}
         />
-      </Link>
 
-      <PostContent>
-        <header>
-          <CategoryTag to={`/blog/${_.kebabCase(postData.category)}`}>
-            {postData.category}
-          </CategoryTag>
-          <PostTitle>
-            <Link to={postData.path}>{postData.title}</Link>
-          </PostTitle>
-          <PostTagline theme={darkMode ? 'dark' : 'light'}>
-            {postData.tagline}
-          </PostTagline>
-        </header>
-      </PostContent>
+        <PostContent>
+          <header>
+            <CategoryTag to={`/blog/${_.kebabCase(postData.category)}`}>
+              {postData.category}
+            </CategoryTag>
+            <PostTitle>
+              <Link to={postData.path}>{postData.title}</Link>
+            </PostTitle>
+            <PostTagline theme={darkMode ? 'dark' : 'light'}>
+              {postData.tagline}
+            </PostTagline>
+          </header>
+        </PostContent>
+      </Link>
     </StyledArticleMotion>
   );
 };

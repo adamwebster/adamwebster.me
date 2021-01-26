@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { StyledFullWidthWrapper } from '../../styles';
+import { StyledFullWidthWrapper, StyledButton } from '../../styles';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@adamwebster/fused-components';
 import GatsbyImage from 'gatsby-image';
@@ -69,16 +69,6 @@ const StyledImageWrapper = styled.div<StyledProjectItemInterface>`
       : css`
           margin-right: 64px;
         `} */
-`;
-
-interface StyledButtonProps {
-  bgColor?: string;
-}
-
-const StyledButton = styled(Button)<StyledButtonProps>`
-  height: 40px;
-  padding: 8px 32px;
-  border-radius: 40px;
 `;
 
 const StyledProjectContent = styled.div`
