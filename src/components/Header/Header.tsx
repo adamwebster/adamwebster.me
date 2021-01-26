@@ -1,17 +1,12 @@
 import React, { useContext } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Logo from '../../assets/svgs/logo.svg';
 import { Button, Colors } from '@adamwebster/fused-components';
 import { Navigation } from '../Navigation';
-import { Link, StaticQuery, graphql } from 'gatsby';
-import { Index } from 'elasticlunr';
-import { SearchBox } from '../SearchBox';
+import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { SiteContext } from '../../state';
-interface SHProps {
-  headerColor?: string;
-}
 
 const StyledButton = styled(Button)`
   color: ${Colors.lightest};

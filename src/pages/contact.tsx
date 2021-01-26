@@ -1,11 +1,10 @@
-import React, { useState, useRef, RefObject } from 'react';
+import React, { useState, useRef } from 'react';
 import { Layout } from '../components/Layout';
 import { PageHeader } from '../components/PageHeader';
 import SEO from '../components/seo';
 import {
   Input,
   Textarea,
-  Button,
   useToast,
   FormField,
 } from '@adamwebster/fused-components';
@@ -26,15 +25,9 @@ const StyledFormWrapper = styled.div`
 `;
 const ContactForm = () => {
   const toast = useToast();
-  const nameInputRef: RefObject<HTMLInputElement> = useRef(
-    ('' as unknown) as HTMLInputElement
-  );
-  const emailInputRef: RefObject<HTMLInputElement> = useRef(
-    ('' as unknown) as HTMLInputElement
-  );
-  const messageInputRef: RefObject<HTMLTextAreaElement> = useRef(
-    ('' as unknown) as HTMLTextAreaElement
-  );
+  const nameInputRef = useRef<HTMLInputElement | null>(null);
+  const emailInputRef = useRef<HTMLInputElement | null>(null);
+  const messageInputRef = useRef<HTMLTextAreaElement | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',

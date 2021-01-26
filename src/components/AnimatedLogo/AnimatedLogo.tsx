@@ -20,6 +20,11 @@ const StyledContainer = styled.div`
   display: flex;
   place-content: center;
   overflow: hidden;
+  @media only screen and (max-width: 600px) {
+    width: 100px;
+    height: 500px;
+    margin-right: 32px;
+  }
   .item {
     overflow: visible;
     stroke: rgba(0, 110, 245, 1);

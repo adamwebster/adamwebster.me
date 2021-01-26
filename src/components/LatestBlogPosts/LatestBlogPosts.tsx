@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Card, Colors, FCTheme } from '@adamwebster/fused-components';
+import { Card, FCTheme } from '@adamwebster/fused-components';
 import { useContext } from 'react';
 import { StyledButton, StyledContentWrapper } from '../../styles';
 import { SectionHeaderFront } from '../SectionHeader';
@@ -8,7 +8,6 @@ import { graphql, Link, StaticQuery } from 'gatsby';
 import GatsbyImage from 'gatsby-image';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
-import { relative } from 'path';
 
 const StyledBlogPostGrid = styled.div`
   max-width: 1200px;
@@ -63,7 +62,7 @@ const StyledBlogPostContent = styled.div`
 
 const LatestBlogPosts = () => {
   const { theme } = useContext(FCTheme);
-  const [LBP, LBPInView, LBPEntry] = useInView({
+  const [LBP, LBPInView] = useInView({
     triggerOnce: true,
     rootMargin: '-150px 0px',
   });

@@ -99,7 +99,6 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
       : '/portfolio/' + (pageContext.currentPage - 1);
   return (
     <Layout>
-      {console.log(nodes)}
       <SEO title="Portfolio" />
       <StyledContentWrapper>
         <section id="awm-portfolio">
@@ -125,7 +124,7 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
                       <StyledPortfolioItemInfo>
                         <h3>{node.title}</h3>
                         <p>
-                          {node.description.replaceAll('**', '').slice(0, 75)}
+                          {node.description.replace(/\**/g, '').slice(0, 75)}
                           ...
                         </p>
                       </StyledPortfolioItemInfo>
