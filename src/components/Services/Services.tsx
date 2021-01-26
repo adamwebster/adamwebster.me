@@ -142,7 +142,7 @@ const Services = () => {
   const { theme } = useContext(FCTheme);
   const { scrollYProgress } = useViewportScroll();
   const y = useTransform(scrollYProgress, value => value * 10);
-  const [servicesRef, servicesInView, servicesEntry] = useInView({
+  const [servicesRef, servicesInView] = useInView({
     triggerOnce: true,
     rootMargin: '-150px 0px',
   });
@@ -225,7 +225,6 @@ const Services = () => {
                                 tabIndex={0}
                                 onKeyDown={e => {
                                   const { key } = e;
-                                  console.log(key);
                                   switch (key) {
                                     case 'Enter':
                                       e.preventDefault();
@@ -269,7 +268,6 @@ const Services = () => {
         <AnimatePresence>
           {selectedId && (
             <>
-              {console.log(selectedService)}
               <StyledOverlayMotion
                 theme={theme}
                 onClick={() => setSelectedID(null)}

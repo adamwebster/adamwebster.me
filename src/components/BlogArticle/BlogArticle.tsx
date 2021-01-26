@@ -13,6 +13,7 @@ import { motion } from 'framer-motion';
 dayjs.extend(advancedFormat);
 interface SIProps {
   bgColor: string;
+  fluid: any;
 }
 
 interface StyledArticleProps {

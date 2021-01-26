@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { StyledFullWidthWrapper, StyledButton } from '../../styles';
 import { useEffect, useRef, useState } from 'react';
-import { Button } from '@adamwebster/fused-components';
 import GatsbyImage from 'gatsby-image';
 import { navigate } from 'gatsby';
 import ReactMarkdown from 'react-markdown';

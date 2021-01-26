@@ -38,6 +38,14 @@ const StyledHeaderContainerInner = styled.div`
     position: relative;
     color: ${Colors.dark};
   }
+  @media only screen and (max-width: 600px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+    h2 {
+      font-size: 1rem;
+    }
+  }
 `;
 
 const StyledDownArrows = styled(FontAwesomeIcon)`
