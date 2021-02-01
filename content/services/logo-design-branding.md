@@ -5,4 +5,4 @@ featuredImage: 'images/StoriLogo.png'
 ---
 
 
-Your businesses identity is one of the most import thing to help people learn about what you do and who you are.  From business cards, letterheads, and business cards, these are items that I specialize in.
+Branding is  all about creating a unify identity for your business or your project. Logos, business cards, and letterheads are just a few parts of your companies brand and these are all things that I can help you to design. 
