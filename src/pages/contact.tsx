@@ -9,20 +9,20 @@ import {
   FormField,
 } from '@adamwebster/fused-components';
 import styled from 'styled-components';
-import { AWMVariables } from '../styles/StyledVariables';
 import { StyledContentWrapper, StyledButton } from '../styles';
 
 const StyledInput = styled(Input)`
-  border-radius: ${AWMVariables.borderRadius};
+  border-radius: 4px;
 `;
 
 const StyledTextarea = styled(Textarea)`
-  border-radius: ${AWMVariables.borderRadius};
+  border-radius: 4px;
 `;
 
 const StyledFormWrapper = styled.div`
   max-width: 700px;
 `;
+
 const ContactForm = () => {
   const toast = useToast();
   const nameInputRef = useRef<HTMLInputElement | null>(null);
@@ -33,6 +33,8 @@ const ContactForm = () => {
     email: '',
     message: '',
   });
+
+  const [status, setStatus] = useState('');
 
   const [nameValidation, setNameValidation] = useState({
     inError: false,
@@ -47,14 +49,10 @@ const ContactForm = () => {
     errorMessage: '',
   });
 
-  const encode = (data: any) => {
-    return Object.keys(data)
-      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-      .join('&');
-  };
-  const handleSubmit = (e: any) => {
+  const submitForm = (ev: any) => {
+    ev.preventDefault();
+
     let valid = true;
-    e.preventDefault();
     if (!nameInputRef?.current?.value) {
       setNameValidation({
         ...nameValidation,
@@ -83,29 +81,32 @@ const ContactForm = () => {
     }
 
     if (valid) {
-      fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode({ 'form-name': 'contact', ...formData }),
-      })
-        .then(() =>
-          toast.addInfo('Email sent', 'I will get back to your soon.')
-        )
-        .catch(error => alert(error));
-      e.preventDefault();
+      const form = ev.target;
+      const data = new FormData(form);
+      const xhr = new XMLHttpRequest();
+      xhr.open(form.method, form.action);
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState !== XMLHttpRequest.DONE) return;
+        if (xhr.status === 200) {
+          form.reset();
+          setStatus('SUCCESS');
+          toast.addInfo('Email sent', 'I will get back to your soon.');
+        } else {
+          setStatus('ERROR');
+        }
+      };
+      xhr.send(data);
     }
   };
 
   return (
     <StyledFormWrapper>
       <form
-        name="contact"
-        onSubmit={e => handleSubmit(e)}
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
+        onSubmit={e => submitForm(e)}
+        action="https://formspree.io/f/mgepdlqn"
+        method="POST"
       >
-        <input type="hidden" name="form-name" value="contact" />
-
         <FormField
           validationMessage={nameValidation.errorMessage}
           htmlFor="name"
@@ -130,7 +131,6 @@ const ContactForm = () => {
             }}
           />
         </FormField>
-
         <FormField
           htmlFor="email"
           validationMessage={emailValidation.errorMessage}
@@ -180,9 +180,14 @@ const ContactForm = () => {
             }}
           />
         </FormField>
-        <StyledButton type="submit" primary>
-          Send
-        </StyledButton>
+        {status === 'SUCCESS' ? (
+          <p>Thanks!</p>
+        ) : (
+          <StyledButton type="submit" primary>
+            Send
+          </StyledButton>
+        )}
+        {status === 'ERROR' && <p>Ooops! There was an error.</p>}
       </form>
     </StyledFormWrapper>
   );
