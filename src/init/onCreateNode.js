@@ -66,6 +66,10 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
         category: node.frontmatter.category,
         draft: node.frontmatter.draft,
         featuredImageWidth: node.frontmatter.featuredImageWidth,
+        technologyUsed: node.frontmatter.technologyUsed,
+        software: node.frontmatter.software,
+        description: node.frontmatter.description,
+        bgImage: node.frontmatter.bgImage,
       };
 
       createNode({
@@ -82,6 +86,31 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
             .digest(`hex`),
           content: JSON.stringify(data),
           description: `Portfolio Item MDX`,
+        },
+      });
+    }
+    // Service Item MDX
+    if (fileNode.sourceInstanceName === 'service-item') {
+      const data = {
+        title: node.frontmatter.title,
+        order: node.frontmatter.order,
+        featuredImage: node.frontmatter.featuredImage,
+      };
+
+      createNode({
+        ...data,
+        // Required fields.
+        id: createNodeId(`${node.id} >>> ServiceItemMDX`),
+        parent: node.id,
+        children: [],
+        internal: {
+          type: `ServiceItemMdx`,
+          contentDigest: crypto
+            .createHash(`md5`)
+            .update(JSON.stringify(data))
+            .digest(`hex`),
+          content: JSON.stringify(data),
+          description: `Service Item MDX`,
         },
       });
     }
@@ -148,6 +177,10 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
         category: node.frontmatter.category,
         draft: node.frontmatter.draft,
         featuredImageWidth: node.frontmatter.featuredImageWidth,
+        technologyUsed: node.frontmatter.technologyUsed,
+        software: node.frontmatter.software,
+        description: node.frontmatter.description,
+        bgImage: node.frontmatter.bgImage,
       };
 
       createNode({
@@ -164,6 +197,32 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
             .digest(`hex`),
           content: JSON.stringify(data),
           description: `Portfolio Item`,
+        },
+      });
+    }
+
+    // Service Item
+    if (fileNode.sourceInstanceName === 'service-item') {
+      const data = {
+        title: node.frontmatter.title,
+        order: node.frontmatter.order,
+        featuredImage: node.frontmatter.featuredImage,
+      };
+
+      createNode({
+        ...data,
+        // Required fields.
+        id: createNodeId(`${node.id} >>> ServiceItem`),
+        parent: node.id,
+        children: [],
+        internal: {
+          type: `ServiceItem`,
+          contentDigest: crypto
+            .createHash(`md5`)
+            .update(JSON.stringify(data))
+            .digest(`hex`),
+          content: JSON.stringify(data),
+          description: `Service Item`,
         },
       });
     }

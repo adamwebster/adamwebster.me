@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { BlogPostLayout } from '../../../components/BlogPostLayout';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
 import Img from 'gatsby-image';
@@ -59,6 +59,7 @@ const StyledArticle = styled.article<SAProps>`
 
 interface SIProps {
   layout?: string;
+  fluid?: any;
 }
 const StyledImage = styled(Img)<SIProps>`
   height: ${({ layout }) => (layout === 'full' ? '500px' : '300px')};
@@ -137,15 +138,6 @@ interface SIWProps {
 const StyledImageWrapper = styled.div<SIWProps>`
   width: 100%;
   margin-top: ${({ layout }) => (layout === 'full' ? '50px' : '40px')};
-
-  @media only screen and (max-width: 600px) {
-    ${({ layout }) =>
-      layout === 'full' &&
-      css`
-        margin-top: 100px;
-      `}
-  }
-
   background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
 `;
 

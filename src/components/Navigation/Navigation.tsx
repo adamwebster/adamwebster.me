@@ -11,27 +11,21 @@ interface SNProps {
 const StyledNavigation = styled.nav<SNProps>`
   display: flex;
   justify-content: flex-end;
-
   ul {
     display: flex;
     list-style: none;
     margin: 0;
-    padding: 8px 0 0 0;
+    padding: 0;
     li {
       box-sizing: border-box;
-      padding: 4px 16px;
+      padding: 0px 16px;
       display: flex;
-      height: 40px;
-
       &:last-child {
         margin-right: 10px;
       }
       a {
         text-decoration: none;
         color: inherit;
-        &[aria-current='page'] {
-          border-bottom: solid 4px ${Colors.primary};
-        }
         &:focus {
           outline: dotted 1px #fff;
           outline-offset: 5px;

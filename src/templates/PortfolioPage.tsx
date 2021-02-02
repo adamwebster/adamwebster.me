@@ -1,49 +1,41 @@
 import React from 'react';
 import { Layout } from '../components/Layout';
 import { graphql, Link } from 'gatsby';
-import LatestPortfolioItem from '../components/LatestPortfolioItems/LatestPortfolioItem';
 import styled from 'styled-components';
 import { PageHeader } from '../components/PageHeader';
-import { BlogCategoryList } from '../components/BlogCategoryList';
 import SEO from '../components/seo';
+import { StyledContentWrapper } from '../styles';
+import GatsbyImage from 'gatsby-image';
+import { motion } from 'framer-motion';
 
-const StyledCategoryList = styled.div`
-  width: 300px;
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-
-    a {
-      margin-right: 10px;
-    }
-  }
-`;
 const StyledPortfolioGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-gap: 20px;
+  /* grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr; */
+  gap: 1px;
+  grid-template-rows: 300px 300px 300px;
+  grid-template-areas:
+    'grid1 grid1 grid2 grid3'
+    'grid1 grid1 grid4 grid4'
+    'grid5 grid6 grid7 grid8';
   width: 100%;
   @media only screen and (max-width: 1080px) {
-    grid-template-rows: repeat(2, calc(25vw - 20px));
-    grid-template-columns: repeat(3, calc(25vw - 40px));
-  }
-  @media only screen and (max-width: 768px) {
-    grid-template-rows: repeat(4, calc(38vw - 20px));
-    grid-template-columns: repeat(3, calc(33vw - 20px));
+    grid-template-areas:
+      'grid1 grid1 grid2 grid2'
+      'grid3 grid3 grid4 grid4'
+      'grid5 grid5 grid6 grid6'
+      'grid7 grid7 grid8 grid8';
   }
   @media only screen and (max-width: 600px) {
-    margin-top: 20px;
-    margin-left: 0;
-    width: 100%;
-    grid-template-rows: repeat(2, calc(50vw - 20px));
-    grid-template-columns: repeat(3, calc(33vw - 20px));
-  }
-  @media only screen and (max-width: 400px) {
-    margin-top: 20px;
-    margin-left: 0;
-    width: 100%;
-    grid-template-rows: repeat(3, calc(70vw - 20px));
-    grid-template-columns: repeat(2, calc(50vw - 20px));
+    grid-template-areas:
+      'grid1'
+      'grid2'
+      'grid3'
+      'grid4'
+      'grid5'
+      'grid6'
+      'grid7'
+      'grid8';
   }
 `;
 
@@ -65,10 +57,46 @@ const StyledPortfolioWrapper = styled.div`
   }
 `;
 
+interface StyledPortfolioItemProps {
+  gridArea: string;
+}
+
+const StyledPortfolioItem = styled.div<StyledPortfolioItemProps>`
+  height: 100%;
+  overflow: hidden;
+  grid-area: ${({ gridArea }) => gridArea};
+  position: relative;
+  .gatsby-image-wrapper {
+    height: 100%;
+    overflow: hidden;
+  }
+  a {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const StyledPortfolioItemInfo = styled.div`
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: #fff !important;
+  padding: 16px;
+  box-sizing: border-box;
+  p {
+    font-size: 0.8rem;
+  }
+`;
 interface Props {
   pageContext: any;
   data: any;
 }
+
+const StyledPortfolioItemMotion = motion.custom(StyledPortfolioItem);
 const PortfolioPage = ({ pageContext, data }: Props) => {
   const {
     allPortfolioItem: { nodes },
@@ -80,31 +108,54 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
   return (
     <Layout>
       <SEO title="Portfolio" />
-      <section id="awm-portfolio">
-        <PageHeader>Portfolio</PageHeader>
-        <StyledPortfolioWrapper>
-          <StyledCategoryList>
-            <BlogCategoryList />
-          </StyledCategoryList>
-          <StyledPortfolioGrid>
-            {nodes.map((node: any) => {
-              return <LatestPortfolioItem key={node.id} node={node} />;
-            })}
-          </StyledPortfolioGrid>
-        </StyledPortfolioWrapper>
-      </section>
-      {pageContext.numPagesPort > 1 && (
-        <StyledPaging>
-          {pageContext.currentPage > 1 && (
-            <Link to={previousPageUrl}>Previous Page</Link>
-          )}{' '}
-          {pageContext.currentPage !== pageContext.numPagesPort && (
-            <Link to={'/portfolio/' + (pageContext.currentPage + 1)}>
-              Next Page
-            </Link>
-          )}
-        </StyledPaging>
-      )}
+      <StyledContentWrapper>
+        <section id="awm-portfolio">
+          <PageHeader>Portfolio</PageHeader>
+          <StyledPortfolioWrapper>
+            <StyledPortfolioGrid>
+              {nodes.map((node: any, index: number) => {
+                return (
+                  <StyledPortfolioItemMotion
+                    initial={{ opacity: 0, transform: 'scale(0)' }}
+                    animate={{ opacity: 1, transform: 'scale(1)' }}
+                    gridArea={`grid${index + 1}`}
+                    transition={{
+                      default: { duration: 1, delay: index / 10 },
+                      opacity: { duration: 2 },
+                    }}
+                  >
+                    <Link title={node.title} to={node.path}>
+                      <GatsbyImage
+                        fluid={node.featuredImage.childImageSharp.fluid}
+                      />
+
+                      <StyledPortfolioItemInfo>
+                        <h3>{node.title}</h3>
+                        <p>
+                          {node.description.replace(/\**/g, '').slice(0, 75)}
+                          ...
+                        </p>
+                      </StyledPortfolioItemInfo>
+                    </Link>
+                  </StyledPortfolioItemMotion>
+                );
+              })}
+            </StyledPortfolioGrid>
+          </StyledPortfolioWrapper>
+        </section>
+        {pageContext.numPagesPort > 1 && (
+          <StyledPaging>
+            {pageContext.currentPage > 1 && (
+              <Link to={previousPageUrl}>Previous Page</Link>
+            )}{' '}
+            {pageContext.currentPage !== pageContext.numPagesPort && (
+              <Link to={'/portfolio/' + (pageContext.currentPage + 1)}>
+                Next Page
+              </Link>
+            )}
+          </StyledPaging>
+        )}
+      </StyledContentWrapper>
     </Layout>
   );
 };
@@ -123,6 +174,7 @@ export const pageQuery = graphql`
         path
         date
         category
+        description
         featuredImage {
           childImageSharp {
             fluid(maxWidth: 800) {
