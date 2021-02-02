@@ -1,73 +1,98 @@
-import React from 'react';
-import { graphql, StaticQuery } from 'gatsby';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { LatestPortfolioItems } from '../LatestPortfolioItems';
-import { LinkButton } from '../LinkButton';
+import { Colors } from '@adamwebster/fused-components';
+import { motion } from 'framer-motion';
+import { AnimatedLogo } from '../AnimatedLogo';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
 
-const StyledHeroInner = styled.div`
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 80px 10px 50px 10px;
-  @media only screen and (max-width: 768px) {
-    padding: 120px 10px 80px 10px;
-  }
-`;
-const StyledHero = styled.section`
+const StyledHeaderContainer = styled.div`
   width: 100%;
-  margin-bottom: 40px;
+  background-image: url('https://images.unsplash.com/photo-1551503766-ac63dfa6401c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2700&q=80');
+  background-size: cover;
+  margin-bottom: 32px;
+  border-bottom: solid 1px #ccc;
+  background-position: center;
+  height: 100vh;
+  justify-content: center;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+`;
+
+const StyledHeaderContainerInner = styled.div`
+  max-width: 1200px;
+  padding: 16px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
   h1 {
-    font-size: 40px;
-    line-height: 1;
-    margin: 0;
-    font-family: 'HelveticaNeue-CondensedBold', sans-serif;
-    text-transform: uppercase;
+    color: ${Colors.primary};
+    font-size: 3rem;
+    margin-bottom: 0;
+    font-weight: 200;
+    position: relative;
   }
-  h3 {
-    text-transform: uppercase;
-    font-size: 28px;
-    font-family: 'HelveticaNeue-CondensedBold', sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1;
+  h2 {
+    margin-top: 0;
+    position: relative;
+    color: ${Colors.dark};
   }
-  @media only screen and (max-width: 768px) {
-    background-image: none;
-    height: auto;
+  @media only screen and (max-width: 600px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+    h2 {
+      font-size: 1rem;
+    }
   }
 `;
 
-const StyledLinkButton = styled(LinkButton)`
-  margin-top: 30px;
+const StyledDownArrows = styled(FontAwesomeIcon)`
+  color: #fff;
+  opacity: 0.6;
 `;
+
 const Hero = () => {
+  const heroContainer = useRef<HTMLDivElement>(null);
   return (
-    <StaticQuery
-      query={graphql`
-        query {
-          fileName: file(relativePath: { eq: "heroGraphic@2x.png" }) {
-            childImageSharp {
-              fluid(maxWidth: 800) {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
+    <StyledHeaderContainer ref={heroContainer}>
+      <StyledHeaderContainerInner>
+        <AnimatedLogo />
+        <div>
+          <motion.h1
+            initial={{ opacity: 0, right: '-300px' }}
+            animate={{ opacity: 1, right: '0px' }}
+            transition={{
+              default: { duration: 2 },
+              right: { duration: 1.5, ease: 'easeInOut' },
+            }}
+          >
+            Adam Webster
+          </motion.h1>
+          <motion.h2
+            initial={{ opacity: 0, right: '-300px' }}
+            animate={{ opacity: 1, right: '0px' }}
+            transition={{
+              default: { duration: 2 },
+              right: { duration: 1.5, ease: 'easeInOut' },
+            }}
+          >
+            Designer and Front-end Developer
+          </motion.h2>
+        </div>
+      </StyledHeaderContainerInner>
+      <StyledDownArrows
+        onClick={() =>
+          window.scrollTo(
+            0,
+            heroContainer.current ? heroContainer.current.offsetHeight - 50 : 0
+          )
         }
-      `}
-      render={data => {
-        return (
-          <StyledHero id="Hero">
-            <StyledHeroInner>
-              <div>
-                <LatestPortfolioItems />
-              </div>
-              <StyledLinkButton to="/portfolio">
-                See More of My Work
-              </StyledLinkButton>
-            </StyledHeroInner>
-          </StyledHero>
-        );
-      }}
-    />
+        size="5x"
+        icon={faArrowCircleDown}
+      />
+    </StyledHeaderContainer>
   );
 };
 

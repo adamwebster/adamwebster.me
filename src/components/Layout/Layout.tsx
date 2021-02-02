@@ -12,6 +12,9 @@ import { SiteContext } from '../../state';
 import { BuyMeACoffeeWidget } from '../BuyMeACoffee';
 
 const GlobalStyle = createGlobalStyle`
+html{
+  scroll-behavior: smooth;
+}
   body{
     background-color:${({ theme }) =>
       theme === 'dark' ? Colors.darkModeDarkest : Colors.light};    
@@ -45,16 +48,6 @@ figcaption{
 
 `;
 
-const StyledContent = styled.div`
-  width: 1160px;
-  margin: 0 auto;
-  @media only screen and (max-width: 1080px) {
-    width: 100%;
-    padding: 0 10px;
-    box-sizing: border-box;
-  }
-`;
-
 interface Props {
   children: ReactNode;
   hero?: ReactNode;
@@ -85,7 +78,7 @@ const Layout = ({ children, hero }: Props) => {
           <GlobalStyle theme={globalState.darkMode ? 'dark' : 'light'} />
           <Header />
           {hero && hero}
-          <StyledContent>{children}</StyledContent>
+          {children}
           <Footer />
         </ToastProvider>
       </FCThemeProvider>

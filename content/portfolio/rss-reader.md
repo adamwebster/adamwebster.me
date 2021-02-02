@@ -5,6 +5,9 @@ title: 'RSS Reader'
 category: 'Front-end Development'
 featuredImage: 'images/RSSReader.png'
 draft: false
+technologyUsed: 'React, Javascript, HTML, CSS, Styled Components'
+description: 'I read a lot of RSS feeds and wanted to try and created a web version of an **RSS Reader** using **React**.'
+bgImage: 'images/krisztian-tabori-nZGNVOvEYio-unsplash.jpg'
 ---
 import SectionHeader from '../../src/components/SectionHeader/SectionHeader';
 

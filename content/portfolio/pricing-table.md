@@ -4,7 +4,9 @@ date: '2020-01-08'
 title: 'Pricing Table'
 category: 'Front-end Development'
 featuredImage: 'images/PricingTable.png'
+technologyUsed: 'React, Javascript, HTML, CSS'
 draft: false
+description: 'This pricing table shows three different tiers of purchase levels. The one that should be purchased most of the time is shown larger.'
 ---
 
 import SectionHeader from '../../src/components/SectionHeader/SectionHeader';

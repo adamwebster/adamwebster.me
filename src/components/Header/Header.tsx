@@ -1,101 +1,59 @@
 import React, { useContext } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Logo from '../../assets/svgs/logo.svg';
 import { Button, Colors } from '@adamwebster/fused-components';
 import { Navigation } from '../Navigation';
-import { Link, StaticQuery, graphql } from 'gatsby';
-import { Index } from 'elasticlunr';
-import { SearchBox } from '../SearchBox';
+import { Link } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { SiteContext } from '../../state';
-interface SHProps {
-  headerColor?: string;
-}
 
 const StyledButton = styled(Button)`
-  color: ${Colors.primary};
+  color: ${Colors.lightest};
   cursor: pointer;
-  padding: 12px 0;
-`;
-const StyledHeader = styled.header<SHProps>`
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1;
-  padding: 10px 0;
-  box-sizing: border-box;
-  background-color: ${({ theme }) =>
-    theme === 'dark' ? Colors.darkModeDarkest : Colors.light};
-  @media only screen and (max-width: 600px) {
-    height: 100px;
-  }
+  padding: 16px 16px 0 0;
 `;
 
-const StyledHeaderInner = styled.div`
-  width: 1160px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  flex: 1 1;
-  height: 50px;
-  @media only screen and (max-width: 1080px) {
-    width: 100%;
-  }
-`;
-
-interface SSBProps {
-  hasHero: boolean;
-}
-
-const StyledSearchBox = styled.div<SSBProps>`
-  flex: 1 1;
-  padding: 0 10px;
-  margin-left: 200px;
-  @media only screen and (max-width: 600px) {
-    width: 100%;
-    margin-left: 0;
-    position: absolute;
-    top: 47px;
-    box-sizing: border-box;
-    ${({ hasHero }) =>
-      !hasHero &&
-      css`
-        background-color: ${({ theme }) =>
-          theme === 'dark' ? Colors.darkModeDarker : Colors.medium};
-      `}
-    padding: 10px;
-  }
-`;
-
-const StyledSearchBoxWrapper = styled.div`
-  margin: 0 auto;
-  @media only screen and (max-width: 600px) {
-    max-width: 100%;
-  }
-`;
-
-interface LWProps {
+interface StyledSiteHeaderProps {
   headerColor: string;
+}
+const StyledSiteHeader = styled.header<StyledSiteHeaderProps>`
+  width: 100%;
+  position: fixed;
+  background-color: ${({ headerColor }) =>
+    headerColor ? headerColor : Colors.primary};
+  color: #fff;
+  box-sizing: border-box;
+  display: flex;
+  z-index: 2;
+  top: 0;
+`;
+
+const StyledNav = styled.nav`
+  display: flex;
+  flex: 1 1;
+  padding: 16px;
+  justify-content: flex-end;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    li {
+      padding: 0 8px;
+    }
+  }
+`;
+interface LWProps {
+  headerColor?: string;
 }
 
 const LogoWrapper = styled.div<LWProps>`
   width: 40px;
-  padding-top: 5px;
-`;
-
-const StyledNavigationWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  flex: 1 1;
-  width: 300px;
-  height: 100%;
-
-  @media only screen and (max-width: 1080px) {
-    margin-right: 10px;
-  }
-  @media only screen and (max-width: 1080px) {
-    justify-content: flex-end;
+  padding-top: 8px;
+  height: 40px;
+  a {
+    color: #fff;
   }
 `;
 
@@ -105,28 +63,24 @@ const Header = () => {
   const setThemeFunc = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
-    // const themeToSet = globalState.theme === 'dark' ? 'light' : 'dark';
     dispatch({ type: 'SET_DARK_MODE', payload: !globalState.darkMode });
     dispatch({ type: 'SET_DARK_MODE_SET', payload: true });
-    // localStorage.setItem('theme', themeToSet);
   };
 
   return (
-    <StyledHeader theme={globalState.darkMode ? 'dark' : 'light'}>
-      <StyledHeaderInner>
-        <Link title="Homepage" to="/">
-          <LogoWrapper headerColor={globalState.headerColor}>
-            <Logo />
-          </LogoWrapper>
+    <StyledSiteHeader headerColor={globalState.headerColor}>
+      <LogoWrapper>
+        <Link title="Visit the homepage" to="/">
+          <Logo />
         </Link>
-        <StyledNavigationWrapper>
-          <Navigation />
-          <StyledButton as="a" onClick={(e: any) => setThemeFunc(e)}>
-            <FontAwesomeIcon icon={globalState.darkMode ? faSun : faMoon} />
-          </StyledButton>
-        </StyledNavigationWrapper>
-      </StyledHeaderInner>
-    </StyledHeader>
+      </LogoWrapper>
+      <StyledNav>
+        <Navigation />
+      </StyledNav>
+      <StyledButton as="a" onClick={(e: any) => setThemeFunc(e)}>
+        <FontAwesomeIcon icon={globalState.darkMode ? faSun : faMoon} />
+      </StyledButton>
+    </StyledSiteHeader>
   );
 };
 

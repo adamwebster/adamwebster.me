@@ -3,9 +3,10 @@ import { Layout } from '../../components/Layout';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 import { PageHeader } from '../../components/PageHeader';
-import LatestPortfolioItem from '../../components/LatestPortfolioItems/LatestPortfolioItem';
 import { BlogCategoryList } from '../../components/BlogCategoryList';
 import SEO from '../../components/seo';
+import GatsbyImage from 'gatsby-image';
+import { StyledContentWrapper } from '../../styles';
 
 const StyledCategoryList = styled.div`
   width: 300px;
@@ -66,6 +67,16 @@ const StyledPortfolioWrapper = styled.div`
   }
 `;
 
+const StyledPortfolioItem = styled.div`
+  height: 100%;
+  overflow: hidden;
+  .gatsby-image-wrapper {
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+`;
+
 interface Props {
   pageContext: any;
   data: any;
@@ -81,31 +92,42 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
   return (
     <Layout>
       <SEO title={`${pageContext.category} | Portfolio`} />
-      <section id="awm-portfolio">
-        <PageHeader>Portfolio</PageHeader>
-        <StyledPortfolioWrapper>
-          <StyledCategoryList>
-            <BlogCategoryList />
-          </StyledCategoryList>
-          <StyledPortfolioGrid>
-            {nodes.map((node: any) => {
-              return <LatestPortfolioItem key={node.id} node={node} />;
-            })}
-          </StyledPortfolioGrid>
-        </StyledPortfolioWrapper>
-      </section>
-      {pageContext.numPagesPort > 1 && (
-        <StyledPaging>
-          {pageContext.currentPage > 1 && (
-            <Link to={previousPageUrl}>Previous Page</Link>
-          )}{' '}
-          {pageContext.currentPage !== pageContext.numPagesPort && (
-            <Link to={'/portfolio/' + (pageContext.currentPage + 1)}>
-              Next Page
-            </Link>
-          )}
-        </StyledPaging>
-      )}
+      <StyledContentWrapper>
+        <section id="awm-portfolio">
+          <PageHeader>Portfolio</PageHeader>
+          <StyledPortfolioWrapper>
+            <StyledCategoryList>
+              <BlogCategoryList />
+            </StyledCategoryList>
+            <StyledPortfolioGrid>
+              {nodes.map((node: any) => {
+                return (
+                  <StyledPortfolioItem>
+                    <Link to={node.path}>
+                      <GatsbyImage
+                        fluid={node.featuredImage.childImageSharp.fluid}
+                      />
+                    </Link>
+                    {/* {node.title} */}
+                  </StyledPortfolioItem>
+                );
+              })}
+            </StyledPortfolioGrid>
+          </StyledPortfolioWrapper>
+        </section>
+        {pageContext.numPagesPort > 1 && (
+          <StyledPaging>
+            {pageContext.currentPage > 1 && (
+              <Link to={previousPageUrl}>Previous Page</Link>
+            )}{' '}
+            {pageContext.currentPage !== pageContext.numPagesPort && (
+              <Link to={'/portfolio/' + (pageContext.currentPage + 1)}>
+                Next Page
+              </Link>
+            )}
+          </StyledPaging>
+        )}
+      </StyledContentWrapper>
     </Layout>
   );
 };
