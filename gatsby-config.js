@@ -55,6 +55,14 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        name: `service-item`,
+        path: `${__dirname}/content/services`,
+        ignore: process.env.NODE_ENV === `production` ? [`**/draft-*`] : [],
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         name: `page`,
         path: `${__dirname}/content/pages`,
         ignore: process.env.NODE_ENV === `production` ? [`**/draft-*`] : [],

@@ -6,10 +6,7 @@ exports.createResolvers = require('./src/init/createResolvers');
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions;
-  const blogPostTemplate = path.resolve(`src/templates/BlogPost.tsx`);
-  const portfolioItemTemplate = path.resolve(`src/templates/PortfolioPost.tsx`);
   const categoryTemplate = path.resolve(`src/templates/blog/Category.tsx`);
-  const pageTemplate = path.resolve(`src/templates/PageTemplate.tsx`);
 
   const portfolioCategoryTemplate = path.resolve(
     `src/templates/portfolio/Category.tsx`

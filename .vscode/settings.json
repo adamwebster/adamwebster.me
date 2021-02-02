@@ -13,5 +13,8 @@
   "search.exclude": {
     "**/.cache": true,
     "**/public": true
-  }
+  },
+  "cSpell.words": [
+    "adamwebster"
+  ]
 }
