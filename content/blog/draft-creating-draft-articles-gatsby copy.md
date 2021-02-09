@@ -8,6 +8,7 @@ category: 'Front-end development'
 featuredImage: images/gatsby.jpg
 tags: ['Gatsby', 'React', 'Javascript']
 heroColor: '#663399'
+draft: true
 ---
 
 There are many methods in **Gatsby** of setting articles to be a draft. I thought I would share a few of the ways that I have done it and why I settled on the one I am currently using.
