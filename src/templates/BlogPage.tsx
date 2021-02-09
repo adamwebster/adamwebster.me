@@ -70,10 +70,7 @@ interface Props {
 }
 
 const Blog = ({ pageContext, data }: Props) => {
-  const {
-    allBlogPost: { nodes },
-  } = data;
-
+  const { articles } = pageContext;
   const previousPageUrl =
     pageContext.currentPage === 2
       ? '/blog'
@@ -87,8 +84,8 @@ const Blog = ({ pageContext, data }: Props) => {
           <StyledBlogWrapper>
             <PageHeader>Blog</PageHeader>
 
-            <StyledBlogGrid numberOfItems={nodes.length}>
-              {nodes.map((node: any, index: number) => {
+            <StyledBlogGrid numberOfItems={articles.length}>
+              {articles.map((node: any, index: number) => {
                 return (
                   <BlogArticle
                     index={index}
@@ -99,6 +96,7 @@ const Blog = ({ pageContext, data }: Props) => {
                 );
                 // return <LatestBlogPost node={node} key={node.id} />;
               })}
+            
             </StyledBlogGrid>
           </StyledBlogWrapper>
         </section>
@@ -119,33 +117,5 @@ const Blog = ({ pageContext, data }: Props) => {
   );
 };
 
-export const pageQuery = graphql`
-  query($skip: Int!, $limit: Int!) {
-    allBlogPost(
-      sort: { order: DESC, fields: date }
-      limit: $limit
-      skip: $skip
-    ) {
-      nodes {
-        id
-        excerpt
-        title
-        path
-        date
-        category
-        tagline
-        heroColor
-        featuredImage {
-          childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-        category
-      }
-    }
-  }
-`;
 
 export default Blog;

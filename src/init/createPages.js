@@ -1,51 +1,36 @@
 const _ = require('lodash');
 const path = require(`path`);
+const query = require('./queries/query');
 
 module.exports = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions;
   const categoryTemplate = path.resolve(`src/templates/blog/Category.tsx`);
-
   const portfolioCategoryTemplate = path.resolve(
     `src/templates/portfolio/Category.tsx`
   );
 
-  // const tagTemplate = path.resolve(`src/pages/Blog/tag.js`)
+  const dataSources = {
+    local: {
+      allArticles: [],
+    },
+  };
 
-  const resultArticles = await graphql(`
-    {
-      allBlogPost(sort: { order: DESC, fields: date }, limit: 1000) {
-        nodes {
-          path
-          category
-        }
-      }
-    }
-  `);
+  let allArticlesQuery = await graphql(query.local.articles);
+  dataSources.local.allArticles = allArticlesQuery.data.allBlogPost.nodes;
+  allArticles =
+    process.env.NODE_ENV === 'production'
+      ? dataSources.local.allArticles.filter(article => !article.draft)
+      : dataSources.local.allArticles;
 
-  const resultsPortfolio = await graphql(`
-    {
-      allPortfolioItem(sort: { order: DESC, fields: date }, limit: 1000) {
-        nodes {
-          path
-          category
-        }
-      }
-    }
-  `);
-  // Handle errors
-  if (resultArticles.errors) {
-    reporter.panicOnBuild(`Error while running GraphQL query.`);
-    return;
-  }
-
-  const posts = resultArticles.data.allBlogPost.nodes;
+  const posts = allArticles;
   const postsPerPage = 10;
   const numPages = Math.ceil(posts.length / postsPerPage);
   Array.from({ length: numPages }).forEach((_, i) => {
     createPage({
       path: i === 0 ? `/blog` : `/blog/${i + 1}`,
-      component: path.resolve('./src/templates/BlogPage.tsx'),
+      component: require.resolve('../templates/BlogPage.tsx'),
       context: {
+        articles: allArticles.slice(i * postsPerPage, postsPerPage * (i + 1)),
         limit: postsPerPage,
         skip: i * postsPerPage,
         numPages,
@@ -65,6 +50,17 @@ module.exports = async ({ actions, graphql, reporter }) => {
       });
     }
   });
+
+  const resultsPortfolio = await graphql(`
+    {
+      allPortfolioItem(sort: { order: DESC, fields: date }, limit: 1000) {
+        nodes {
+          path
+          category
+        }
+      }
+    }
+  `);
 
   const portfolioPosts = resultsPortfolio.data.allPortfolioItem.nodes;
   const portfolioPostsPerPage = 9;

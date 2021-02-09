@@ -1,5 +1,5 @@
 module.exports.local = {
-  articlesStandard: `
+  articles: `
     {
     allBlogPost( sort: { order: DESC, fields: date } ) 
         {
@@ -11,12 +11,23 @@ module.exports.local = {
                 date
                 category
                 tagline
+                draft
                 heroColor
                 featuredImage {
                     childImageSharp {
-                        fluid(maxWidth: 800) {
-                        ...GatsbyImageSharpFluid
-                        }
+                      fluid {
+                        aspectRatio
+                        base64
+                        originalImg
+                        originalName
+                        presentationHeight
+                        presentationWidth
+                        sizes
+                        src
+                        srcSet
+                        srcSetWebp
+                        srcWebp
+                      }
                     }
                 }
                 category

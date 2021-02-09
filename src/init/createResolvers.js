@@ -43,7 +43,6 @@ const mdxResolverPassthrough = fieldName => async (
 
 module.exports = ({ createResolvers }, themeOptions) => {
   let contentPath = 'content/blog';
-
   const resolversFusedArticle = {
     BlogPost: {
       html: {

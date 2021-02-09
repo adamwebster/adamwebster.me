@@ -83,11 +83,16 @@ const LatestBlogPosts = () => {
       <StaticQuery
         query={graphql`
           query {
-            allBlogPost(limit: 3, sort: { order: DESC, fields: date }) {
+            allBlogPost(
+              limit: 3
+              sort: { order: DESC, fields: date }
+              filter: { draft: { eq: false } }
+            ) {
               nodes {
                 id
                 title
                 date
+                draft
                 category
                 path
                 featuredImage {
