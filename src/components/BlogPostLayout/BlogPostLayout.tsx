@@ -28,9 +28,6 @@ const GlobalStyle = createGlobalStyle<GSProps>`
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 0.5em 0;
 	line-height: 1;
-  border-left: solid 5px ${({ headerColor, defaultHeaderBorderColor }) =>
-    defaultHeaderBorderColor ? Colors.primary : headerColor};
-  padding-left: 10px;
 }
 
 
