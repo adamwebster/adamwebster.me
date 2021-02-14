@@ -10,6 +10,7 @@ tags: ['Apple', 'macOS', 'Big Sur']
 heroColor: '#1C1C1C'
 layout: full
 defaultHeaderBorderColor: true
+draft: false
 ---
 
 Before I start let me point to a great article I found while looking into this topic from *Andrew Denty* <ExternalLink url="https://www.andrewdenty.com/blog/2020/07/01/a-visual-comparison-of-macos-catalina-and-big-sur.html">A visual comparison of macOS Catalina and Big Sur</ExternalLink>.
