@@ -7,6 +7,7 @@ slug: 'light-icon-pack'
 category: 'Web Design'
 featuredImage: images/lighticons.png
 tags: ['icons', 'icon pack']
+draft: false
 ---
 
 As some of you may have noticed there is an option to [buy me a hot chocolate](https://www.buymeacoffee.com/adamwebster) on every blog post. 
