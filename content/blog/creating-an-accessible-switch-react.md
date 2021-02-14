@@ -2,7 +2,7 @@
 title: 'Creating a Accessible Switch Component with React'
 date: '2020-10-15'
 featured: true
-draft: true
+draft: false
 path: '/blog/post/creating-a-accessible-switch-react'
 category: 'Front-end Development'
 featuredImage: images/switch-component.jpg
