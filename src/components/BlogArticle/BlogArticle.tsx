@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { CategoryTag } from '../CategoryTag';
@@ -75,9 +75,7 @@ interface Props {
 const StyledArticleMotion = motion.custom(StyledArticle);
 const BlogArticle = ({ postData, gridArea, index }: Props) => {
   const { globalState } = useContext(SiteContext);
-  console.log(postData)
-  const image = getImage(postData.featuredImage)
-  console.log(image, 'image')
+  const image = getImage(postData.featuredImage);
   const { darkMode } = globalState;
   return (
     <StyledArticleMotion
@@ -90,12 +88,16 @@ const BlogArticle = ({ postData, gridArea, index }: Props) => {
       }}
     >
       <Link to={postData.path}>
-        <StyledImage>
-              <GatsbyImage
+        {image && (
+          <StyledImage>
+            <GatsbyImage
               loading="eager"
               objectFit="fill"
- image={image} alt={`${postData.title} featured image`} />
- </StyledImage>
+              image={image}
+              alt={`${postData.title} featured image`}
+            />
+          </StyledImage>
+        )}
         <PostContent>
           <header>
             <CategoryTag to={`/blog/${_.kebabCase(postData.category)}`}>

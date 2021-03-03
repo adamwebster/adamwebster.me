@@ -54,16 +54,18 @@ const FeaturedProjects = () => {
                   description
                   bgImage {
                     childImageSharp {
-                      fluid(maxWidth: 800) {
-                        ...GatsbyImageSharpFluid
+                      resize(base64: true) {
+                        src
                       }
                     }
                   }
                   featuredImage {
                     childImageSharp {
-                      fluid(maxWidth: 800) {
-                        ...GatsbyImageSharpFluid
-                      }
+                      gatsbyImageData(
+                        layout: FULL_WIDTH
+                        placeholder: BLURRED
+                        formats: [AUTO, WEBP, AVIF]
+                      )
                     }
                   }
                 }
