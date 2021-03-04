@@ -136,9 +136,11 @@ const StyledOverlayMotion = motion.custom(StyledOverlay);
 const StyledCardModalMotion = motion.custom(StyledCardModal);
 const StyledImageWrapperMotion = motion.custom(StyledImageWrapper);
 const SectionHeaderFrontMotion = motion.custom(SectionHeaderFront);
+
 const Services = () => {
   const [selectedId, setSelectedID] = useState<number | null>(null);
   const [selectedService, setSelectedService] = useState<any | null>(null);
+  const [indexOfServiceClicked, setIndexOfServiceClicked] = useState(-1);
   const { theme } = useContext(FCTheme);
   const { scrollYProgress } = useViewportScroll();
   const y = useTransform(scrollYProgress, value => value * 10);
@@ -199,11 +201,17 @@ const Services = () => {
                     <>
                       {nodes.map((service: any, index: number) => {
                         const image = getImage(service.featuredImage);
+                        console.log(indexOfServiceClicked, index);
                         return (
                           <motion.div
                             key={service.id}
-                            style={{ position: 'relative' }}
-                            initial={{ opacity: 0, top: '-30px' }}
+                            style={{
+                              zIndex: indexOfServiceClicked === index ? 99 : 0,
+                            }}
+                            initial={{
+                              opacity: 0,
+                              top: '-30px',
+                            }}
                             animate={{
                               opacity: servicesInView ? 1 : 0,
                               top: servicesInView ? '0px' : '-30px',
@@ -220,7 +228,7 @@ const Services = () => {
                             }}
                           >
                             <motion.div
-                              layoutId={`card-container-${service.id}`}                             
+                              layoutId={`card-container-${service.id}`}
                               exit={{ opacity: 0 }}
                             >
                               <StyledServicesCard
@@ -231,6 +239,7 @@ const Services = () => {
                                   switch (key) {
                                     case 'Enter':
                                       e.preventDefault();
+                                      setIndexOfServiceClicked(index);
                                       setSelectedID(service.id);
                                       setSelectedService(service);
                                       break;
@@ -238,6 +247,7 @@ const Services = () => {
                                   }
                                 }}
                                 onClick={() => {
+                                  setIndexOfServiceClicked(index);
                                   setSelectedID(service.id);
                                   setSelectedService(service);
                                 }}
