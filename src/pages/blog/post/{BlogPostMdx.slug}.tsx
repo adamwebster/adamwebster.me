@@ -3,7 +3,7 @@ import { BlogPostLayout } from '../../../components/BlogPostLayout';
 import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import styled, { css } from 'styled-components';
 import { Colors, Button } from '@adamwebster/fused-components';
 import _ from 'lodash';
@@ -61,7 +61,7 @@ interface SIProps {
   layout?: string;
   fluid?: any;
 }
-const StyledImage = styled(Img)<SIProps>`
+const StyledImage = styled.div<SIProps>`
   height: ${({ layout }) => (layout === 'full' ? '500px' : '300px')};
   border: ${({ layout }) =>
     layout === 'full' ? 'none' : `solid 1px ${Colors.border}`};
@@ -179,6 +179,7 @@ const BlogPost = ({ data }: Props) => {
       dispatch({ type: 'SET_HAS_HERO', payload: false });
     };
   }, []);
+  const image = getImage(featuredImage);
 
   return (
     <BlogPostLayout
@@ -190,7 +191,7 @@ const BlogPost = ({ data }: Props) => {
       {heroColor && <SetHeaderColor color={heroColor} />}
       <SEO
         title={`${title} | Blog`}
-        ogImage={featuredImage.childImageSharp.fluid.src}
+        //    ogImage={featuredImage.childImageSharp.fluid.src}
       ></SEO>
       <StyledArticle layout={layout}>
         <MDXProvider
@@ -204,15 +205,21 @@ const BlogPost = ({ data }: Props) => {
             FloatingImage,
           }}
         >
-          <StyledImageWrapper
-            layout={layout}
-            bgColor={layout === 'full' ? heroColor : 'transparent'}
-          >
-            <StyledImage
+          {image && (
+            <StyledImageWrapper
               layout={layout}
-              fluid={featuredImage.childImageSharp.fluid}
-            />
-          </StyledImageWrapper>
+              bgColor={layout === 'full' ? heroColor : 'transparent'}
+            >
+              <StyledImage layout={layout}>
+                <GatsbyImage
+                  loading="eager"
+                  objectFit="fill"
+                  image={image}
+                  alt={`${title} featured image`}
+                />
+              </StyledImage>
+            </StyledImageWrapper>
+          )}
           <PostContent layout={layout}>
             <PostHeader>
               <CategoryTag to={`/blog/${_.kebabCase(category)}`}>
@@ -270,9 +277,11 @@ export const pageQuery = graphql`
       title
       featuredImage {
         childImageSharp {
-          fluid(maxWidth: 800) {
-            ...GatsbyImageSharpFluid
-          }
+          gatsbyImageData(
+            layout: FULL_WIDTH
+            placeholder: BLURRED
+            formats: [AUTO, WEBP, AVIF]
+          )
         }
       }
       category
