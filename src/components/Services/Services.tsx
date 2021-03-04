@@ -12,7 +12,7 @@ import styled from 'styled-components';
 import { StyledContentWrapper } from '../../styles';
 import { SectionHeaderFront } from '../SectionHeader';
 import { graphql, StaticQuery } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import { MDXProvider } from '@mdx-js/react';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -183,9 +183,11 @@ const Services = () => {
                         body
                         featuredImage {
                           childImageSharp {
-                            fluid(maxWidth: 800) {
-                              ...GatsbyImageSharpFluid
-                            }
+                            gatsbyImageData(
+                              layout: FULL_WIDTH
+                              placeholder: BLURRED
+                              formats: [AUTO, WEBP, AVIF]
+                            )
                           }
                         }
                       }
@@ -196,6 +198,7 @@ const Services = () => {
                   return (
                     <>
                       {nodes.map((service: any, index: number) => {
+                        const image = getImage(service.featuredImage);
                         return (
                           <motion.div
                             key={service.id}
@@ -217,7 +220,7 @@ const Services = () => {
                             }}
                           >
                             <motion.div
-                              layoutId={`card-container-${service.id}`}
+                              layoutId={`card-container-${service.id}`}                             
                               exit={{ opacity: 0 }}
                             >
                               <StyledServicesCard
@@ -243,12 +246,11 @@ const Services = () => {
                                   <motion.div
                                     layoutId={`card-container-${service.id}-img`}
                                   >
-                                    <Img
-                                      fluid={
-                                        service.featuredImage.childImageSharp
-                                          .fluid
-                                      }
-                                      alt={service.title}
+                                    <GatsbyImage
+                                      loading="eager"
+                                      objectFit="fill"
+                                      image={image}
+                                      alt={`${service.title} featured image`}
                                     />
                                   </motion.div>
                                 </StyledServicesCardImageWrapper>
@@ -285,18 +287,21 @@ const Services = () => {
                   theme={theme}
                   layoutId={`card-container-${selectedId}`}
                 >
-                  <StyledImageWrapperMotion>
-                    <motion.div
-                      layoutId={`card-container-${selectedService.id}-img`}
-                    >
-                      <Img
-                        fluid={
-                          selectedService.featuredImage.childImageSharp.fluid
-                        }
-                        alt={selectedService.title}
-                      />
-                    </motion.div>
-                  </StyledImageWrapperMotion>
+                  {selectedService.featuredImage && (
+                    <StyledImageWrapperMotion>
+                      <motion.div
+                        layoutId={`card-container-${selectedService.id}-img`}
+                      >
+                        {console.log(selectedService.featuredImage)}
+                        <GatsbyImage
+                          loading="eager"
+                          objectFit="fill"
+                          image={getImage(selectedService.featuredImage)}
+                          alt={`${selectedService.title} featured image`}
+                        />
+                      </motion.div>
+                    </StyledImageWrapperMotion>
+                  )}
                   <StyledCardContent>
                     <motion.h1 animate>{selectedService.title}</motion.h1>
                     <motion.div animate>
