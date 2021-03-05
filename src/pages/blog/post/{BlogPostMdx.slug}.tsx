@@ -139,6 +139,16 @@ const StyledImageWrapper = styled.div<SIWProps>`
   width: 100%;
   margin-top: ${({ layout }) => (layout === 'full' ? '50px' : '40px')};
   background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
+  ${({ layout }) =>
+    layout !== 'full'
+      ? css`
+          height: 600px;
+          overflow: hidden;
+        `
+      : css`
+          height: 600px;
+          overflow: hidden;
+        `}
 `;
 
 const StyledShareRow = styled.div`
