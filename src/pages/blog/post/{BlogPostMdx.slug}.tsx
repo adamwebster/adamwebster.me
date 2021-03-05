@@ -189,7 +189,6 @@ const BlogPost = ({ data }: Props) => {
   }, []);
   const image = getImage(featuredImage);
   const imgSrc = getSrc(featuredImage);
-  console.log(imgSrc);
   return (
     <BlogPostLayout
       defaultHeaderBorderColor={

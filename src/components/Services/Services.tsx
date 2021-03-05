@@ -201,7 +201,6 @@ const Services = () => {
                     <>
                       {nodes.map((service: any, index: number) => {
                         const image = getImage(service.featuredImage);
-                        console.log(indexOfServiceClicked, index);
                         return (
                           <motion.div
                             key={service.id}
@@ -302,7 +301,6 @@ const Services = () => {
                       <motion.div
                         layoutId={`card-container-${selectedService.id}-img`}
                       >
-                        {console.log(selectedService.featuredImage)}
                         <GatsbyImage
                           loading="eager"
                           objectFit="fill"
