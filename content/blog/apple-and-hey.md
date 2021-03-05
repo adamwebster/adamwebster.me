@@ -3,6 +3,7 @@ title: Apple and Hey
 tagline: 'My thoughts on the situation'
 date: '2020-06-20'
 featured: true
+draft: false
 slug: 'my-thoughts-on-hey-and-apple'
 category: 'Technology'
 featuredImage: images/apple.png

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Layout } from '../components/Layout';
-import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { PageHeader } from '../components/PageHeader';
 import SEO from '../components/seo';
@@ -70,10 +69,7 @@ interface Props {
 }
 
 const Blog = ({ pageContext, data }: Props) => {
-  const {
-    allBlogPost: { nodes },
-  } = data;
-
+  const { articles } = pageContext;
   const previousPageUrl =
     pageContext.currentPage === 2
       ? '/blog'
@@ -87,8 +83,8 @@ const Blog = ({ pageContext, data }: Props) => {
           <StyledBlogWrapper>
             <PageHeader>Blog</PageHeader>
 
-            <StyledBlogGrid numberOfItems={nodes.length}>
-              {nodes.map((node: any, index: number) => {
+            <StyledBlogGrid numberOfItems={articles.length}>
+              {articles.map((node: any, index: number) => {
                 return (
                   <BlogArticle
                     index={index}
@@ -118,34 +114,5 @@ const Blog = ({ pageContext, data }: Props) => {
     </Layout>
   );
 };
-
-export const pageQuery = graphql`
-  query($skip: Int!, $limit: Int!) {
-    allBlogPost(
-      sort: { order: DESC, fields: date }
-      limit: $limit
-      skip: $skip
-    ) {
-      nodes {
-        id
-        excerpt
-        title
-        path
-        date
-        category
-        tagline
-        heroColor
-        featuredImage {
-          childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
-            }
-          }
-        }
-        category
-      }
-    }
-  }
-`;
 
 export default Blog;

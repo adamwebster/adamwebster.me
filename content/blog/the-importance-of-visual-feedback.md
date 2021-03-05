@@ -9,6 +9,7 @@ featuredImage: images/visual-feedback.jpg
 tags: [UX Design, Users, Feedback, Front-end Development]
 layout: full
 heroColor: '#b70002'
+draft: false
 ---
 
 import SectionHeader from '../../src/components/SectionHeader/SectionHeader';

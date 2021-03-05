@@ -9,6 +9,7 @@ featuredImage: images/tabini.jpg
 tags: ['Gatsby', 'React', 'Javascript', 'Theme', 'Store']
 heroColor: '#195594'
 layout: full
+draft: false
 ---
 
  <figure>

@@ -6,15 +6,40 @@ import { BlogArticle } from '../../components/BlogArticle';
 import { PageHeader } from '../../components/PageHeader';
 import SEO from '../../components/seo';
 import { LinkButton } from '../../components/LinkButton';
+import { StyledContentWrapper } from '../../styles';
+
 const StyledBlogGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  grid-gap: 20px;
-
+  grid-template-rows: repeat(3, minmax(1fr, 75px));
+  gap: 1px;
+  grid-template-areas:
+    'grid1 grid1 grid1 grid1'
+    'grid2 grid2 grid3 grid3'
+    'grid4 grid5 grid6 grid7'
+    'grid8 grid8 grid9 grid10';
+  margin-top: 50px;
   @media only screen and (max-width: 768px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    /* grid-template-rows: minmax(500px, 100px); */
+    grid-template-areas:
+      'grid1 grid1 grid2 grid2'
+      'grid3 grid3 grid4 grid4'
+      'grid5 grid5 grid6 grid6'
+      'grid7 grid7 grid8 grid8'
+      'grid9 grid9 grid10 grid10';
+  }
+  @media only screen and (max-width: 500px) {
+    /* grid-template-rows: minmax(500px, 500px); */
+    grid-template-areas:
+      'grid1'
+      'grid2'
+      'grid3'
+      'grid4'
+      'grid5'
+      'grid6'
+      'grid7'
+      'grid8'
+      'grid9'
+      'grid10';
   }
 `;
 
@@ -53,16 +78,23 @@ const BlogPage = ({ pageContext, data }: Props) => {
     <Layout>
       <SEO title={`${pageContext.category} | Blog`} />
       <section id="awm-blog">
-        <StyledBlogWrapper>
-          <PageHeader>Blog</PageHeader>
+        <StyledContentWrapper>
+          <PageHeader>{pageContext.category}</PageHeader>
 
           <StyledBlogGrid>
-            {nodes.map((node: any) => {
-              return <BlogArticle postData={node} />;
+            {nodes.map((node: any, index: number) => {
+              return (
+                <BlogArticle
+                  index={index}
+                  key={node.id}
+                  gridArea={`grid${index + 1}`}
+                  postData={node}
+                />
+              );
               // return <LatestBlogPost node={node} key={node.id} />;
             })}
           </StyledBlogGrid>
-        </StyledBlogWrapper>
+        </StyledContentWrapper>
       </section>
       {pageContext.numPages > 1 && (
         <StyledPaging>
@@ -97,9 +129,11 @@ export const pageQuery = graphql`
         heroColor
         featuredImage {
           childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
-            }
+            gatsbyImageData(
+              width: 1200
+              height: 600
+              transformOptions: { cropFocus: CENTER, trim: 0 }
+            )
           }
         }
         category

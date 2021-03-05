@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { PageHeader } from '../../components/PageHeader';
 import { BlogCategoryList } from '../../components/BlogCategoryList';
 import SEO from '../../components/seo';
-import GatsbyImage from 'gatsby-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { StyledContentWrapper } from '../../styles';
 
 const StyledCategoryList = styled.div`
@@ -101,12 +101,18 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
             </StyledCategoryList>
             <StyledPortfolioGrid>
               {nodes.map((node: any) => {
+                const image = getImage(node.featuredImage);
                 return (
                   <StyledPortfolioItem>
                     <Link to={node.path}>
-                      <GatsbyImage
-                        fluid={node.featuredImage.childImageSharp.fluid}
-                      />
+                      {image && (
+                        <GatsbyImage
+                          loading="eager"
+                          objectFit="fill"
+                          image={image}
+                          alt={`${node.title} featured image`}
+                        />
+                      )}
                     </Link>
                     {/* {node.title} */}
                   </StyledPortfolioItem>
@@ -147,9 +153,7 @@ export const pageQuery = graphql`
         category
         featuredImage {
           childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
-            }
+            gatsbyImageData(width: 1200, height: 1200)
           }
         }
         category

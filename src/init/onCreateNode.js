@@ -22,7 +22,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
             : _.kebabCase(node.frontmatter.title)
         }`,
         category: node.frontmatter.category,
-        draft: node.frontmatter.draft,
+        draft: node.frontmatter.draft ? node.frontmatter.draft : false,
         layout: node.frontmatter.layout,
         defaultHeaderBorderColor: node.frontmatter.defaultHeaderBorderColor,
         heroColor: node.frontmatter.heroColor,
@@ -64,7 +64,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
             : _.kebabCase(node.frontmatter.title)
         }`,
         category: node.frontmatter.category,
-        draft: node.frontmatter.draft,
+        draft: node.frontmatter.draft ? node.frontmatter.draft : false,
         featuredImageWidth: node.frontmatter.featuredImageWidth,
         technologyUsed: node.frontmatter.technologyUsed,
         software: node.frontmatter.software,
@@ -133,7 +133,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
             : _.kebabCase(node.frontmatter.title)
         }`,
         category: node.frontmatter.category,
-        draft: node.frontmatter.draft,
+        draft: node.frontmatter.draft ? node.frontmatter.draft : false,
         layout: node.frontmatter.layout,
         defaultHeaderBorderColor: node.frontmatter.defaultHeaderBorderColor,
         heroColor: node.frontmatter.heroColor,
@@ -175,7 +175,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
             : _.kebabCase(node.frontmatter.title)
         }`,
         category: node.frontmatter.category,
-        draft: node.frontmatter.draft,
+        draft: node.frontmatter.draft ? node.frontmatter.draft : false,
         featuredImageWidth: node.frontmatter.featuredImageWidth,
         technologyUsed: node.frontmatter.technologyUsed,
         software: node.frontmatter.software,

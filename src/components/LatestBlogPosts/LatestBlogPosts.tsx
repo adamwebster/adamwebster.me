@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { StyledButton, StyledContentWrapper } from '../../styles';
 import { SectionHeaderFront } from '../SectionHeader';
 import { graphql, Link, StaticQuery } from 'gatsby';
-import GatsbyImage from 'gatsby-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 
@@ -83,18 +83,25 @@ const LatestBlogPosts = () => {
       <StaticQuery
         query={graphql`
           query {
-            allBlogPost(limit: 3, sort: { order: DESC, fields: date }) {
+            allBlogPost(
+              limit: 3
+              sort: { order: DESC, fields: date }
+              filter: { draft: { eq: false } }
+            ) {
               nodes {
                 id
                 title
                 date
+                draft
                 category
                 path
                 featuredImage {
                   childImageSharp {
-                    fluid(maxWidth: 500) {
-                      ...GatsbyImageSharpFluid
-                    }
+                    gatsbyImageData(
+                      layout: FULL_WIDTH
+                      placeholder: BLURRED
+                      formats: [AUTO, WEBP, AVIF]
+                    )
                   }
                 }
                 excerpt
@@ -105,36 +112,54 @@ const LatestBlogPosts = () => {
         render={({ allBlogPost: { nodes } }) => {
           return (
             <StyledBlogPostGrid>
-              {nodes.map((post: any, index: number) => (
-                <motion.div
-                  style={{ position: 'relative' }}
-                  initial={{ top: '-40px' }}
-                  animate={{ top: LBPInView ? '0px' : '-40px' }}
-                  transition={{
-                    default: {
-                      duration: 0.5,
-                      delay: index / 10,
-                    },
-                  }}
-                >
-                  <StyledBlogPostCard theme={theme}>
-                    <StyledBlogPostFeaturedImageWrapper>
-                      <Link title={post.title} to={post.path}>
-                        <GatsbyImage
-                          fluid={post.featuredImage.childImageSharp.fluid}
-                        />
-                      </Link>
-                    </StyledBlogPostFeaturedImageWrapper>
-                    <StyledBlogPostContent>
-                      <Link to={post.path}>
-                        <h2> {post.title}</h2>
-                      </Link>
-                      <p> {post.excerpt}</p>
-                      <StyledButton primary>Read more</StyledButton>
-                    </StyledBlogPostContent>
-                  </StyledBlogPostCard>
-                </motion.div>
-              ))}
+              {nodes.map(
+                (
+                  post: {
+                    title: string;
+                    featuredImage: any;
+                    path: string;
+                    excerpt: string;
+                  },
+                  index: number
+                ) => {
+                  const image = getImage(post.featuredImage);
+                  return (
+                    <motion.div
+                      style={{ position: 'relative' }}
+                      initial={{ top: '-40px' }}
+                      animate={{ top: LBPInView ? '0px' : '-40px' }}
+                      transition={{
+                        default: {
+                          duration: 0.5,
+                          delay: index / 10,
+                        },
+                      }}
+                    >
+                      <StyledBlogPostCard theme={theme}>
+                        {image && (
+                          <StyledBlogPostFeaturedImageWrapper>
+                            <Link title={post.title} to={post.path}>
+                              <GatsbyImage
+                                loading="eager"
+                                objectFit="fill"
+                                image={image}
+                                alt={`${post.title} featured image`}
+                              />
+                            </Link>
+                          </StyledBlogPostFeaturedImageWrapper>
+                        )}
+                        <StyledBlogPostContent>
+                          <Link to={post.path}>
+                            <h2> {post.title}</h2>
+                          </Link>
+                          <p> {post.excerpt}</p>
+                          <StyledButton primary>Read more</StyledButton>
+                        </StyledBlogPostContent>
+                      </StyledBlogPostCard>
+                    </motion.div>
+                  );
+                }
+              )}
             </StyledBlogPostGrid>
           );
         }}

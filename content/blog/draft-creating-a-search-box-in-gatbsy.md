@@ -8,6 +8,7 @@ category: 'Front-end development'
 featuredImage: images/gatsby.jpg
 tags: ['Gatsby', 'React', 'Javascript']
 heroColor: '#663399'
+draft: true
 ---
 
 <BuyMeACoffeeWidget />

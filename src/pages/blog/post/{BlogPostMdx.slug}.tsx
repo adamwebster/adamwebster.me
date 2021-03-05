@@ -3,7 +3,7 @@ import { BlogPostLayout } from '../../../components/BlogPostLayout';
 import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage, getSrc } from 'gatsby-plugin-image';
 import styled, { css } from 'styled-components';
 import { Colors, Button } from '@adamwebster/fused-components';
 import _ from 'lodash';
@@ -61,21 +61,19 @@ interface SIProps {
   layout?: string;
   fluid?: any;
 }
-const StyledImage = styled(Img)<SIProps>`
-  height: ${({ layout }) => (layout === 'full' ? '500px' : '300px')};
-  border: ${({ layout }) =>
-    layout === 'full' ? 'none' : `solid 1px ${Colors.border}`};
-  max-width: 800px;
-  margin: 0 auto;
-  border-radius: ${AWMVariables.borderRadius};
+const StyledImage = styled.div<SIProps>`
   ${({ layout }) =>
-    layout !== 'full' &&
-    css`
-      margin-top: 80px;
-      @media only screen and (max-width: 600px) {
-        margin-top: 120px;
-      }
-    `}
+    layout !== 'full'
+      ? css`
+          margin-top: 80px;
+          @media only screen and (max-width: 600px) {
+            margin-top: 120px;
+          }
+        `
+      : css`
+          display: flex;
+          justify-content: center;
+        `}
 `;
 
 const PostTitle = styled.h1`
@@ -139,6 +137,16 @@ const StyledImageWrapper = styled.div<SIWProps>`
   width: 100%;
   margin-top: ${({ layout }) => (layout === 'full' ? '50px' : '40px')};
   background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
+  ${({ layout }) =>
+    layout !== 'full'
+      ? css`
+          height: 600px;
+          overflow: hidden;
+        `
+      : css`
+          max-height: 600px;
+          overflow: hidden;
+        `}
 `;
 
 const StyledShareRow = styled.div`
@@ -179,7 +187,9 @@ const BlogPost = ({ data }: Props) => {
       dispatch({ type: 'SET_HAS_HERO', payload: false });
     };
   }, []);
-
+  const image = getImage(featuredImage);
+  const imgSrc = getSrc(featuredImage);
+  console.log(imgSrc);
   return (
     <BlogPostLayout
       defaultHeaderBorderColor={
@@ -188,10 +198,7 @@ const BlogPost = ({ data }: Props) => {
       layout={layout}
     >
       {heroColor && <SetHeaderColor color={heroColor} />}
-      <SEO
-        title={`${title} | Blog`}
-        ogImage={featuredImage.childImageSharp.fluid.src}
-      ></SEO>
+      <SEO title={`${title} | Blog`} ogImage={imgSrc}></SEO>
       <StyledArticle layout={layout}>
         <MDXProvider
           components={{
@@ -204,15 +211,21 @@ const BlogPost = ({ data }: Props) => {
             FloatingImage,
           }}
         >
-          <StyledImageWrapper
-            layout={layout}
-            bgColor={layout === 'full' ? heroColor : 'transparent'}
-          >
-            <StyledImage
+          {image && (
+            <StyledImageWrapper
               layout={layout}
-              fluid={featuredImage.childImageSharp.fluid}
-            />
-          </StyledImageWrapper>
+              bgColor={layout === 'full' ? heroColor : 'transparent'}
+            >
+              <StyledImage layout={layout}>
+                <GatsbyImage
+                  loading="eager"
+                  objectFit="fill"
+                  image={image}
+                  alt={`${title} featured image`}
+                />
+              </StyledImage>
+            </StyledImageWrapper>
+          )}
           <PostContent layout={layout}>
             <PostHeader>
               <CategoryTag to={`/blog/${_.kebabCase(category)}`}>
@@ -270,9 +283,12 @@ export const pageQuery = graphql`
       title
       featuredImage {
         childImageSharp {
-          fluid(maxWidth: 800) {
-            ...GatsbyImageSharpFluid
-          }
+          gatsbyImageData(
+            width: 1200
+            height: 600
+            placeholder: BLURRED
+            formats: [AUTO, WEBP, AVIF]
+          )
         }
       }
       category
