@@ -129,7 +129,11 @@ export const pageQuery = graphql`
         heroColor
         featuredImage {
           childImageSharp {
-            gatsbyImageData(width: 1200, height: 1200)
+            gatsbyImageData(
+              width: 1200
+              height: 600
+              transformOptions: { cropFocus: CENTER, trim: 0 }
+            )
           }
         }
         category

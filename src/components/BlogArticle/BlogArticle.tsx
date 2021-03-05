@@ -33,7 +33,7 @@ const StyledImage = styled.div<SIProps>`
   height: 100%;
   max-height: 600px;
   background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
-  img {
+  .gatsby-image-wrapper {
     height: 100%;
   }
 `;

@@ -3,7 +3,7 @@ import { BlogPostLayout } from '../../../components/BlogPostLayout';
 import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { GatsbyImage, getImage, getSrc } from 'gatsby-plugin-image';
 import styled, { css } from 'styled-components';
 import { Colors, Button } from '@adamwebster/fused-components';
 import _ from 'lodash';
@@ -71,10 +71,8 @@ const StyledImage = styled.div<SIProps>`
           }
         `
       : css`
-          .gatsby-image-wrapper {
-            object-fit: cover;
-            object-position: center center;
-          }
+          display: flex;
+          justify-content: center;
         `}
 `;
 
@@ -146,7 +144,7 @@ const StyledImageWrapper = styled.div<SIWProps>`
           overflow: hidden;
         `
       : css`
-          height: 600px;
+          max-height: 600px;
           overflow: hidden;
         `}
 `;
@@ -190,7 +188,8 @@ const BlogPost = ({ data }: Props) => {
     };
   }, []);
   const image = getImage(featuredImage);
-
+  const imgSrc = getSrc(featuredImage);
+  console.log(imgSrc);
   return (
     <BlogPostLayout
       defaultHeaderBorderColor={
@@ -199,10 +198,7 @@ const BlogPost = ({ data }: Props) => {
       layout={layout}
     >
       {heroColor && <SetHeaderColor color={heroColor} />}
-      <SEO
-        title={`${title} | Blog`}
-        //    ogImage={featuredImage.childImageSharp.fluid.src}
-      ></SEO>
+      <SEO title={`${title} | Blog`} ogImage={imgSrc}></SEO>
       <StyledArticle layout={layout}>
         <MDXProvider
           components={{
@@ -288,7 +284,8 @@ export const pageQuery = graphql`
       featuredImage {
         childImageSharp {
           gatsbyImageData(
-            layout: FULL_WIDTH
+            width: 1200
+            height: 600
             placeholder: BLURRED
             formats: [AUTO, WEBP, AVIF]
           )

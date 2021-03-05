@@ -6,7 +6,7 @@ import { MDXProvider } from '@mdx-js/react';
 import { PageHeader } from '../../../components/PageHeader';
 import { CategoryTag } from '../../../components/CategoryTag';
 import _ from 'lodash';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { GatsbyImage, getImage, getSrc } from 'gatsby-plugin-image';
 import SEO from '../../../components/seo';
 import styled from 'styled-components';
 import { AWMVariables } from '../../../styles/StyledVariables';
@@ -56,11 +56,10 @@ const PortfolioPost = ({ data }: Props) => {
   } = data;
 
   const image = getImage(featuredImage);
-
+  const imgSrc = getSrc(featuredImage);
   return (
     <Layout>
-      <SEO title={`${title} | Portfolio`} />
-
+      <SEO title={`${title} | Portfolio`} ogImage={imgSrc} />
       <StyledContentWrapper>
         {image && (
           <StyledImageWrapper
