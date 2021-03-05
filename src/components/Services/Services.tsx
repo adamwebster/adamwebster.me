@@ -12,7 +12,7 @@ import styled from 'styled-components';
 import { StyledContentWrapper } from '../../styles';
 import { SectionHeaderFront } from '../SectionHeader';
 import { graphql, StaticQuery } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import { MDXProvider } from '@mdx-js/react';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -136,9 +136,11 @@ const StyledOverlayMotion = motion.custom(StyledOverlay);
 const StyledCardModalMotion = motion.custom(StyledCardModal);
 const StyledImageWrapperMotion = motion.custom(StyledImageWrapper);
 const SectionHeaderFrontMotion = motion.custom(SectionHeaderFront);
+
 const Services = () => {
   const [selectedId, setSelectedID] = useState<number | null>(null);
   const [selectedService, setSelectedService] = useState<any | null>(null);
+  const [indexOfServiceClicked, setIndexOfServiceClicked] = useState(-1);
   const { theme } = useContext(FCTheme);
   const { scrollYProgress } = useViewportScroll();
   const y = useTransform(scrollYProgress, value => value * 10);
@@ -183,9 +185,11 @@ const Services = () => {
                         body
                         featuredImage {
                           childImageSharp {
-                            fluid(maxWidth: 800) {
-                              ...GatsbyImageSharpFluid
-                            }
+                            gatsbyImageData(
+                              layout: FULL_WIDTH
+                              placeholder: BLURRED
+                              formats: [AUTO, WEBP, AVIF]
+                            )
                           }
                         }
                       }
@@ -196,11 +200,18 @@ const Services = () => {
                   return (
                     <>
                       {nodes.map((service: any, index: number) => {
+                        const image = getImage(service.featuredImage);
+                        console.log(indexOfServiceClicked, index);
                         return (
                           <motion.div
                             key={service.id}
-                            style={{ position: 'relative' }}
-                            initial={{ opacity: 0, top: '-30px' }}
+                            style={{
+                              zIndex: indexOfServiceClicked === index ? 99 : 0,
+                            }}
+                            initial={{
+                              opacity: 0,
+                              top: '-30px',
+                            }}
                             animate={{
                               opacity: servicesInView ? 1 : 0,
                               top: servicesInView ? '0px' : '-30px',
@@ -228,6 +239,7 @@ const Services = () => {
                                   switch (key) {
                                     case 'Enter':
                                       e.preventDefault();
+                                      setIndexOfServiceClicked(index);
                                       setSelectedID(service.id);
                                       setSelectedService(service);
                                       break;
@@ -235,6 +247,7 @@ const Services = () => {
                                   }
                                 }}
                                 onClick={() => {
+                                  setIndexOfServiceClicked(index);
                                   setSelectedID(service.id);
                                   setSelectedService(service);
                                 }}
@@ -243,12 +256,11 @@ const Services = () => {
                                   <motion.div
                                     layoutId={`card-container-${service.id}-img`}
                                   >
-                                    <Img
-                                      fluid={
-                                        service.featuredImage.childImageSharp
-                                          .fluid
-                                      }
-                                      alt={service.title}
+                                    <GatsbyImage
+                                      loading="eager"
+                                      objectFit="fill"
+                                      image={image}
+                                      alt={`${service.title} featured image`}
                                     />
                                   </motion.div>
                                 </StyledServicesCardImageWrapper>
@@ -285,18 +297,21 @@ const Services = () => {
                   theme={theme}
                   layoutId={`card-container-${selectedId}`}
                 >
-                  <StyledImageWrapperMotion>
-                    <motion.div
-                      layoutId={`card-container-${selectedService.id}-img`}
-                    >
-                      <Img
-                        fluid={
-                          selectedService.featuredImage.childImageSharp.fluid
-                        }
-                        alt={selectedService.title}
-                      />
-                    </motion.div>
-                  </StyledImageWrapperMotion>
+                  {selectedService.featuredImage && (
+                    <StyledImageWrapperMotion>
+                      <motion.div
+                        layoutId={`card-container-${selectedService.id}-img`}
+                      >
+                        {console.log(selectedService.featuredImage)}
+                        <GatsbyImage
+                          loading="eager"
+                          objectFit="fill"
+                          image={getImage(selectedService.featuredImage)}
+                          alt={`${selectedService.title} featured image`}
+                        />
+                      </motion.div>
+                    </StyledImageWrapperMotion>
+                  )}
                   <StyledCardContent>
                     <motion.h1 animate>{selectedService.title}</motion.h1>
                     <motion.div animate>

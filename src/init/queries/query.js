@@ -14,21 +14,9 @@ module.exports.local = {
                 draft
                 heroColor
                 featuredImage {
-                    childImageSharp {
-                      fluid {
-                        aspectRatio
-                        base64
-                        originalImg
-                        originalName
-                        presentationHeight
-                        presentationWidth
-                        sizes
-                        src
-                        srcSet
-                        srcSetWebp
-                        srcWebp
-                      }
-                    }
+                  childImageSharp {
+                    gatsbyImageData(width: 1200, height: 600, transformOptions: {cropFocus: CENTER, trim: 0})            
+                  }
                 }
                 category
             }

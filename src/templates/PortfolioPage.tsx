@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { PageHeader } from '../components/PageHeader';
 import SEO from '../components/seo';
 import { StyledContentWrapper } from '../styles';
-import GatsbyImage from 'gatsby-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { motion } from 'framer-motion';
 
 const StyledPortfolioGrid = styled.div`
@@ -61,15 +61,21 @@ interface StyledPortfolioItemProps {
   gridArea: string;
 }
 
+interface SIProps {
+  bgColor?: string;
+  fluid?: any;
+}
+
+const StyledImage = styled.div<SIProps>`
+  width: auto;
+  background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
+`;
+
 const StyledPortfolioItem = styled.div<StyledPortfolioItemProps>`
   height: 100%;
   overflow: hidden;
   grid-area: ${({ gridArea }) => gridArea};
   position: relative;
-  .gatsby-image-wrapper {
-    height: 100%;
-    overflow: hidden;
-  }
   a {
     position: relative;
     display: block;
@@ -114,6 +120,7 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
           <StyledPortfolioWrapper>
             <StyledPortfolioGrid>
               {nodes.map((node: any, index: number) => {
+                const image = getImage(node.featuredImage);
                 return (
                   <StyledPortfolioItemMotion
                     initial={{ opacity: 0, transform: 'scale(0)' }}
@@ -125,10 +132,16 @@ const PortfolioPage = ({ pageContext, data }: Props) => {
                     }}
                   >
                     <Link title={node.title} to={node.path}>
-                      <GatsbyImage
-                        fluid={node.featuredImage.childImageSharp.fluid}
-                      />
-
+                      {image && (
+                        <StyledImage>
+                          <GatsbyImage
+                            loading="eager"
+                            image={image}
+                            objectFit="cover"
+                            alt={`${node.title} featured image`}
+                          />
+                        </StyledImage>
+                      )}
                       <StyledPortfolioItemInfo>
                         <h3>{node.title}</h3>
                         <p>
@@ -177,9 +190,7 @@ export const pageQuery = graphql`
         description
         featuredImage {
           childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
-            }
+            gatsbyImageData(width: 1200, height: 1200)
           }
         }
         category

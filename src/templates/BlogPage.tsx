@@ -1,6 +1,5 @@
 import React from 'react';
 import { Layout } from '../components/Layout';
-import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { PageHeader } from '../components/PageHeader';
 import SEO from '../components/seo';
@@ -96,7 +95,6 @@ const Blog = ({ pageContext, data }: Props) => {
                 );
                 // return <LatestBlogPost node={node} key={node.id} />;
               })}
-            
             </StyledBlogGrid>
           </StyledBlogWrapper>
         </section>
@@ -116,6 +114,5 @@ const Blog = ({ pageContext, data }: Props) => {
     </Layout>
   );
 };
-
 
 export default Blog;
