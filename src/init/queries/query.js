@@ -15,7 +15,7 @@ module.exports.local = {
                 heroColor
                 featuredImage {
                   childImageSharp {
-                    gatsbyImageData(layout: FULL_WIDTH)            
+                    gatsbyImageData(width: 1200, height: 1200, transformOptions: {cropFocus: CENTER, trim: 0})            
                   }
                 }
                 category
