@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { StyledButton, StyledContentWrapper } from '../../styles';
 import { SectionHeaderFront } from '../SectionHeader';
 import { graphql, Link, StaticQuery } from 'gatsby';
-import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 
@@ -116,7 +116,7 @@ const LatestBlogPosts = () => {
                 (
                   post: {
                     title: string;
-                    featuredImage: IGatsbyImageData;
+                    featuredImage: any;
                     path: string;
                     excerpt: string;
                   },

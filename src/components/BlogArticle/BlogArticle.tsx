@@ -92,7 +92,7 @@ const BlogArticle = ({ postData, gridArea, index }: Props) => {
           <StyledImage>
             <GatsbyImage
               loading="eager"
-              objectFit="fill"
+              objectFit="cover"
               image={image}
               alt={`${postData.title} featured image`}
             />

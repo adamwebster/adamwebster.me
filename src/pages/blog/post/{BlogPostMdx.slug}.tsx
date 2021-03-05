@@ -3,7 +3,7 @@ import { BlogPostLayout } from '../../../components/BlogPostLayout';
 import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
-import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled, { css } from 'styled-components';
 import { Colors, Button } from '@adamwebster/fused-components';
 import _ from 'lodash';
@@ -62,20 +62,20 @@ interface SIProps {
   fluid?: any;
 }
 const StyledImage = styled.div<SIProps>`
-  height: ${({ layout }) => (layout === 'full' ? '500px' : '300px')};
-  border: ${({ layout }) =>
-    layout === 'full' ? 'none' : `solid 1px ${Colors.border}`};
-  max-width: 800px;
-  margin: 0 auto;
-  border-radius: ${AWMVariables.borderRadius};
   ${({ layout }) =>
-    layout !== 'full' &&
-    css`
-      margin-top: 80px;
-      @media only screen and (max-width: 600px) {
-        margin-top: 120px;
-      }
-    `}
+    layout !== 'full'
+      ? css`
+          margin-top: 80px;
+          @media only screen and (max-width: 600px) {
+            margin-top: 120px;
+          }
+        `
+      : css`
+          .gatsby-image-wrapper {
+            object-fit: cover;
+            object-position: center center;
+          }
+        `}
 `;
 
 const PostTitle = styled.h1`
