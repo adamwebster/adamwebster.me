@@ -12,7 +12,7 @@ interface StyledBlogGridProps {
 }
 const StyledBlogGrid = styled.div<StyledBlogGridProps>`
   display: grid;
-  grid-template-rows: 600px 400px 300px 300px;
+  grid-template-rows: repeat(3, minmax(1fr, 75px));
   gap: 1px;
   grid-template-areas:
     'grid1 grid1 grid1 grid1'
