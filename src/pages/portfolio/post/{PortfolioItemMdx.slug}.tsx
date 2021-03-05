@@ -6,7 +6,7 @@ import { MDXProvider } from '@mdx-js/react';
 import { PageHeader } from '../../../components/PageHeader';
 import { CategoryTag } from '../../../components/CategoryTag';
 import _ from 'lodash';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import SEO from '../../../components/seo';
 import styled from 'styled-components';
 import { AWMVariables } from '../../../styles/StyledVariables';
@@ -19,8 +19,6 @@ interface StyledImageWrapperProps {
 const StyledImageWrapper = styled.div<StyledImageWrapperProps>`
   max-width: ${({ imageWidth }) => imageWidth};
   margin: 80px auto;
-  border: solid 1px ${Colors.border};
-  border-radius: ${AWMVariables.borderRadius};
   overflow: hidden;
 `;
 
@@ -56,16 +54,26 @@ const PortfolioPost = ({ data }: Props) => {
       body,
     },
   } = data;
+
+  const image = getImage(featuredImage);
+
   return (
     <Layout>
       <SEO title={`${title} | Portfolio`} />
 
       <StyledContentWrapper>
-        <StyledImageWrapper
-          imageWidth={featuredImageWidth ? featuredImageWidth : '1000px'}
-        >
-          <Img fluid={featuredImage.childImageSharp.fluid} />
-        </StyledImageWrapper>
+        {image && (
+          <StyledImageWrapper
+            imageWidth={featuredImageWidth ? featuredImageWidth : '1000px'}
+          >
+            <GatsbyImage
+              loading="eager"
+              objectFit="fill"
+              image={image}
+              alt={`${title} featured image`}
+            />
+          </StyledImageWrapper>
+        )}
       </StyledContentWrapper>
       <StyledPortfolioContent>
         <StyledPageHeader>{title}</StyledPageHeader>
@@ -90,9 +98,11 @@ export const pageQuery = graphql`
       featuredImageWidth
       featuredImage {
         childImageSharp {
-          fluid(maxWidth: 800) {
-            ...GatsbyImageSharpFluid
-          }
+          gatsbyImageData(
+            layout: FULL_WIDTH
+            placeholder: BLURRED
+            formats: [AUTO, WEBP, AVIF]
+          )
         }
       }
       category

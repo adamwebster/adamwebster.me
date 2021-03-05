@@ -15,11 +15,7 @@ module.exports.local = {
                 heroColor
                 featuredImage {
                   childImageSharp {
-                    gatsbyImageData(
-                      layout: FULL_WIDTH
-                      placeholder: BLURRED
-                      formats: [AUTO, WEBP, AVIF]
-                    )
+                    gatsbyImageData(layout: FULL_WIDTH)            
                   }
                 }
                 category
