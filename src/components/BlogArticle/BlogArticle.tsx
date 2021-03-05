@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { CategoryTag } from '../CategoryTag';
@@ -12,8 +12,8 @@ import { motion } from 'framer-motion';
 
 dayjs.extend(advancedFormat);
 interface SIProps {
-  bgColor: string;
-  fluid: any;
+  bgColor?: string;
+  fluid?: any;
 }
 
 interface StyledArticleProps {
@@ -28,12 +28,12 @@ const StyledArticle = styled.article<StyledArticleProps>`
     opacity: 0.8;
   }
 `;
-const StyledImage = styled(Img)<SIProps>`
+const StyledImage = styled.div<SIProps>`
   min-height: 300px;
   height: 100%;
   max-height: 600px;
   background-color: ${({ bgColor }) => (bgColor ? bgColor : 'transparent')};
-  img {
+  .gatsby-image-wrapper {
     height: 100%;
   }
 `;
@@ -75,6 +75,7 @@ interface Props {
 const StyledArticleMotion = motion.custom(StyledArticle);
 const BlogArticle = ({ postData, gridArea, index }: Props) => {
   const { globalState } = useContext(SiteContext);
+  const image = getImage(postData.featuredImage);
   const { darkMode } = globalState;
   return (
     <StyledArticleMotion
@@ -87,11 +88,16 @@ const BlogArticle = ({ postData, gridArea, index }: Props) => {
       }}
     >
       <Link to={postData.path}>
-        <StyledImage
-          bgColor={postData.heroColor}
-          fluid={postData.featuredImage.childImageSharp.fluid}
-        />
-
+        {image && (
+          <StyledImage>
+            <GatsbyImage
+              loading="eager"
+              objectFit="cover"
+              image={image}
+              alt={`${postData.title} featured image`}
+            />
+          </StyledImage>
+        )}
         <PostContent>
           <header>
             <CategoryTag to={`/blog/${_.kebabCase(postData.category)}`}>

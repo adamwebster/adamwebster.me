@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage, getImage, StaticImage } from 'gatsby-plugin-image';
 import { AWMVariables } from '../../styles/StyledVariables';
 import { Colors } from '@adamwebster/fused-components';
 
@@ -49,22 +49,31 @@ const FloatingImage = ({
       allImageSharp {
         edges {
           node {
-            fluid(maxWidth: 500) {
-              ...GatsbyImageSharpFluid
+            resize {
               originalName
             }
+            gatsbyImageData(width: 400)
           }
         }
       }
     }
   `);
-  const image = ImageQuery.allImageSharp.edges.filter(
-    (img: any) => img.node.fluid.originalName === imageFilename
-  );
+  const imageItem = ImageQuery.allImageSharp.edges.filter(
+    (img: any) => img.node.resize.originalName === imageFilename
+  )[0];
+  const image = getImage(imageItem.node.gatsbyImageData);
+  console.log(image, imageItem.node.gatsbyImageData);
   return (
     <StyledFloatingImage float={float} width={width} height={height}>
       <figure>
-        <Img alt={caption} fluid={image[0].node.fluid} />
+        {image && (
+          <GatsbyImage
+            loading="eager"
+            image={image}
+            objectFit="cover"
+            alt={`${caption}`}
+          />
+        )}
         {caption && <figcaption>{caption}</figcaption>}
       </figure>
     </StyledFloatingImage>

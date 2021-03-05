@@ -2,9 +2,9 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { StyledFullWidthWrapper, StyledButton } from '../../styles';
 import { useEffect, useRef, useState } from 'react';
-import GatsbyImage from 'gatsby-image';
 import { navigate } from 'gatsby';
 import ReactMarkdown from 'react-markdown';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 function isEven(n: number) {
   return n % 2 == 0;
@@ -109,17 +109,25 @@ const ProjectItem = ({ project, index }: Props) => {
       }
     }
   }, [projectItemWrapper]);
+  const image = getImage(project.featuredImage);
   return (
     <StyledFullWidthWrapper
       show={show}
       ref={projectItemWrapper}
       bgColor={project.bgColor}
-      bgImage={project.bgImage && project.bgImage.childImageSharp.fluid.base64}
+      bgImage={project.bgImage && project.bgImage.childImageSharp.resize.src}
     >
       <StyledProjectItem index={index}>
-        <StyledImageWrapper index={index}>
-          <GatsbyImage fluid={project.featuredImage.childImageSharp.fluid} />
-        </StyledImageWrapper>
+        {image && (
+          <StyledImageWrapper index={index}>
+            <GatsbyImage
+              loading="eager"
+              objectFit="fill"
+              image={image}
+              alt={`${project.title} featured image`}
+            />
+          </StyledImageWrapper>
+        )}
         <StyledProjectContent>
           <h3>{project.title}</h3>
           {project.client && <div>Client: {project.client}</div>}

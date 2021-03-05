@@ -22,8 +22,9 @@ module.exports = {
         path: `${__dirname}/src/assets/svgs`,
       },
     },
-    `gatsby-transformer-sharp`,
+    `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`, // Needed for dynamic images
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
