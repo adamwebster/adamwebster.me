@@ -102,7 +102,7 @@ interface Props {
   data: any;
 }
 
-const StyledPortfolioItemMotion = motion.custom(StyledPortfolioItem);
+const StyledPortfolioItemMotion = motion(StyledPortfolioItem);
 const PortfolioPage = ({ pageContext, data }: Props) => {
   const {
     allPortfolioItem: { nodes },

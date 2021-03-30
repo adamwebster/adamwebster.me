@@ -72,7 +72,7 @@ interface Props {
   index: number;
 }
 
-const StyledArticleMotion = motion.custom(StyledArticle);
+const StyledArticleMotion = motion(StyledArticle);
 const BlogArticle = ({ postData, gridArea, index }: Props) => {
   const { globalState } = useContext(SiteContext);
   const image = getImage(postData.featuredImage);
