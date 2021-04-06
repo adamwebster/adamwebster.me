@@ -62,6 +62,7 @@ const FloatingImage = ({
     (img: any) => img.node.resize.originalName === imageFilename
   )[0];
   const image = getImage(imageItem.node.gatsbyImageData);
+  console.log(image, imageItem.node.gatsbyImageData);
   return (
     <StyledFloatingImage float={float} width={width} height={height}>
       <figure>

@@ -17,7 +17,7 @@ const StyledProjectsGrid = styled.div`
   }
 `;
 
-const SectionHeaderFrontMotion = motion.custom(SectionHeaderFront);
+const SectionHeaderFrontMotion = motion(SectionHeaderFront);
 
 const FeaturedProjects = () => {
   const [FP, FPInView] = useInView({
