@@ -1,12 +1,11 @@
 import styled, { css } from 'styled-components';
 import { HTMLAttributes } from 'react';
 import { Button, Colors } from '@adamwebster/fused-components';
-import { AWMVariables } from './StyledVariables';
+import { AWMColors, AWMVariables } from './StyledVariables';
 
 export const StyledContentWrapper = styled.div`
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 16px;
+    max-width: 1120px;
+    margin: 64px auto;
 `;
 
 
@@ -44,6 +43,14 @@ export const StyledFullWidthWrapper = styled.div<StyledFullWidthWrapperProps>`
         `}
 `;
 
+
+export const StyledSectionHeader = styled.h2`
+  font-family: 'Dosis', sans-serif;
+  color: ${AWMColors.primaryColor};
+  font-weight: 800;
+  font-size: 2rem;
+
+`
 export const StyledButton = styled(Button)`
   border-radius: ${AWMVariables.borderRadius};
   padding: 0 25px;
