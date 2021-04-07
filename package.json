@@ -45,6 +45,7 @@
     "core-js": "^3.9.1",
     "framer-motion": "^4.0.3",
     "gatsby-plugin-google-analytics": "^3.0.0",
+    "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-image": "^1.0.0",
     "gatsby-plugin-mdx": "^2.0.0",
     "gatsby-plugin-react-svg": "^3.0.0",

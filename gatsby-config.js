@@ -132,6 +132,15 @@ module.exports = {
         trackingId: `UA-28069657-1`,
       },
     },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `dosis\:200, 400, 700, 800` // you can also specify font weights and styles
+        ],
+        display: 'swap'
+      }
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

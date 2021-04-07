@@ -1,15 +1,6 @@
-import React, { ReactNode, useContext, useEffect } from 'react';
+import React, { ReactNode } from "react";
 import styled, { createGlobalStyle } from 'styled-components';
 
-import {
-  Colors,
-  ToastProvider,
-  FCThemeProvider,
-} from '@adamwebster/fused-components';
-import { Header } from '../Header';
-import { Footer } from '../Footer';
-import { SiteContext } from '../../state';
-import { BuyMeACoffeeWidget } from '../BuyMeACoffee';
 
 const GlobalStyle = createGlobalStyle`
 html{
@@ -17,12 +8,12 @@ html{
 }
   body{
     background-color:${({ theme }) =>
-      theme === 'dark' ? Colors.darkModeDarkest : Colors.light};    
+      theme === 'dark' ? '#fff' : 'fff'};    
     font-family:'Helvetica Neue', sans-serif;
     font-size: 100%;
     line-height: 1.5;
     color: ${({ theme }) =>
-      theme === 'dark' ? Colors.darkModeLight : Colors.dark};
+      theme === 'dark' ? '#fff' : 'fff'};
     padding: 0;
     margin: 0;  
   }
@@ -48,42 +39,16 @@ figcaption{
 
 `;
 
+
 interface Props {
-  children: ReactNode;
-  hero?: ReactNode;
+    children: ReactNode;
 }
 
-const Layout = ({ children, hero }: Props) => {
-  const { globalState, dispatch } = useContext(SiteContext);
-
-  useEffect(() => {
-    if (
-      window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches
-    ) {
-      if (!globalState.darkModeSet)
-        dispatch({ type: 'SET_DARK_MODE', payload: true });
-    }
-    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
-      const toSet = e.matches ? true : false;
-      dispatch({ type: 'SET_DARK_MODE', payload: toSet });
-    });
-  }, []);
-  return (
-    <>
-      <FCThemeProvider
-        value={{ theme: globalState.darkMode ? 'dark' : 'light' }}
-      >
-        <ToastProvider>
-          <GlobalStyle theme={globalState.darkMode ? 'dark' : 'light'} />
-          <Header />
-          {hero && hero}
-          {children}
-          <Footer />
-        </ToastProvider>
-      </FCThemeProvider>
-    </>
-  );
-};
-
+const Layout = ({children}:Props) => {
+    return(
+        <>
+        <GlobalStyle />
+        {children}</>
+    )
+}
 export default Layout;

@@ -1,98 +1,81 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Colors } from '@adamwebster/fused-components';
+import { AWMColors } from '../../styles/StyledVariables';
 import { motion } from 'framer-motion';
-import { AnimatedLogo } from '../AnimatedLogo';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowCircleDown } from '@fortawesome/free-solid-svg-icons';
-
-const StyledHeaderContainer = styled.div`
-  width: 100%;
-  background-image: url('https://images.unsplash.com/photo-1551503766-ac63dfa6401c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2700&q=80');
-  background-size: cover;
-  margin-bottom: 32px;
-  border-bottom: solid 1px #ccc;
-  background-position: center;
-  height: 100vh;
-  justify-content: center;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
+import profile from '../../assets/images/profile.jpg';
+const StyledHero = styled.div`
+  width: 100vw;
+  height: 600px;
+  background-color: ${AWMColors.heroBGColor};
 `;
-
-const StyledHeaderContainerInner = styled.div`
-  max-width: 1200px;
-  padding: 16px;
+const StyledHeroInner = styled.div`
+  max-width: 1120px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  h1 {
-    color: ${Colors.primary};
+  height: 600px;
+`;
+const StyledWelcomeMessage = styled.h1`
+  color: ${AWMColors.primaryColor};
+  width: 540px;
+  font-weight: 100;
+  font-family: 'Dosis', sans-serif;
+  .intro-text {
+    font-weight: 800;
     font-size: 3rem;
-    margin-bottom: 0;
-    font-weight: 200;
-    position: relative;
-  }
-  h2 {
-    margin-top: 0;
-    position: relative;
-    color: ${Colors.dark};
-  }
-  @media only screen and (max-width: 600px) {
-    h1 {
-      font-size: 1.5rem;
-    }
-    h2 {
-      font-size: 1rem;
-    }
   }
 `;
 
-const StyledDownArrows = styled(FontAwesomeIcon)`
-  color: #fff;
-  opacity: 0.6;
+const StyledMotionWave = styled(motion.span)`
+  display: inline-block;
+  padding: 0 16px 0 0;
+  font-size: 3rem;
 `;
 
+const StyledProfileImage = styled.div`
+  width: 195px;
+  height: 195px;
+  border-radius: 50%;
+  border: solid 8px #006e90;
+  display: flex;
+  object-fit: cover;
+  overflow: hidden;
+  box-sizing: border-box;
+`;
+const StyledHeroContent = styled.div`
+  display: grid;
+  grid-template-columns: 195px auto;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+`;
 const Hero = () => {
-  const heroContainer = useRef<HTMLDivElement>(null);
   return (
-    <StyledHeaderContainer ref={heroContainer}>
-      <StyledHeaderContainerInner>
-        <AnimatedLogo />
-        <div>
-          <motion.h1
-            initial={{ opacity: 0, right: '-300px' }}
-            animate={{ opacity: 1, right: '0px' }}
-            transition={{
-              default: { duration: 2 },
-              right: { duration: 1.5, ease: 'easeInOut' },
-            }}
-          >
-            Adam Webster
-          </motion.h1>
-          <motion.h2
-            initial={{ opacity: 0, right: '-300px' }}
-            animate={{ opacity: 1, right: '0px' }}
-            transition={{
-              default: { duration: 2 },
-              right: { duration: 1.5, ease: 'easeInOut' },
-            }}
-          >
-            Designer and Front-end Developer
-          </motion.h2>
-        </div>
-      </StyledHeaderContainerInner>
-      <StyledDownArrows
-        onClick={() =>
-          window.scrollTo(
-            0,
-            heroContainer.current ? heroContainer.current.offsetHeight - 50 : 0
-          )
-        }
-        size="5x"
-        icon={faArrowCircleDown}
-      />
-    </StyledHeaderContainer>
+    <StyledHero>
+      <StyledHeroInner>
+        <StyledHeroContent>
+          <StyledProfileImage>
+            <img src={profile} />
+          </StyledProfileImage>
+
+          <StyledWelcomeMessage>
+            <span className="intro-text">
+              <StyledMotionWave
+                transition={{ repeat: 10, duration: 1 }}
+                animate={{ rotateZ: ['0deg', '25deg', '0deg'] }}
+              >
+                👋{' '}
+              </StyledMotionWave>
+              Hi, I’m Adam Webster
+            </span>
+            <br />
+            <span>
+              I enjoy creating websites using new and exciting technologies!
+            </span>
+          </StyledWelcomeMessage>
+        </StyledHeroContent>
+      </StyledHeroInner>
+    </StyledHero>
   );
 };
 
