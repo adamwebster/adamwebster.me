@@ -2,6 +2,8 @@ import { Button } from '../Button/';
 import React from 'react';
 import styled from 'styled-components';
 import { StyledSectionHeader } from '../../styles';
+import { graphql, useStaticQuery } from 'gatsby';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 const StyledFeaturedWorkGrid = styled.div`
   display: grid;
@@ -20,7 +22,30 @@ const FeaturedWorkGrid = styled.div`
     background-color: #ccc;
   }
 `;
+
 const FeaturedWork = () => {
+  const {
+    allPortfolioItem: { nodes: featuredWorkItems },
+  } = useStaticQuery(graphql`
+    {
+      allPortfolioItem(limit: 4) {
+        nodes {
+          id
+          title
+          featuredImage {
+            childrenImageSharp {
+              gatsbyImageData(
+                width: 200
+                placeholder: BLURRED
+                formats: [AUTO, WEBP, AVIF]
+              )
+            }
+          }
+        }
+      }
+    }
+  `);
+  console.log(featuredWorkItems);
   return (
     <>
       <StyledFeaturedWorkGrid>
@@ -40,10 +65,19 @@ const FeaturedWork = () => {
           <Button>See more of my work</Button>
         </div>
         <FeaturedWorkGrid>
-          <div />
-          <div />
-          <div />
-          <div />
+          {featuredWorkItems.map(
+            (item: { id: string; title: string; featuredImage: any }) => {
+              const { id, title, featuredImage } = item;
+              const image = getImage(featuredImage);
+              console.log(image, featuredImage);
+              return (
+                <div key={id}>
+                  {title}
+                  {image && <GatsbyImage image={image} alt="test" />}
+                </div>
+              );
+            }
+          )}
         </FeaturedWorkGrid>
       </StyledFeaturedWorkGrid>
     </>
