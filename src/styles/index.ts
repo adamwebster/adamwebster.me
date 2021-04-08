@@ -6,6 +6,9 @@ import { AWMColors, AWMVariables } from './StyledVariables';
 export const StyledContentWrapper = styled.div`
     max-width: 1120px;
     margin: 64px auto;
+    @media (max-width: 1120px) {
+        padding: 0 16px;
+    }
 `;
 
 

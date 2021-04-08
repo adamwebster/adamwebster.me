@@ -14,10 +14,13 @@ const StyledHeroInner = styled.div`
   display: flex;
   align-items: center;
   height: 600px;
+  @media (max-width: 1120px) {
+    padding: 0 16px;
+  }
 `;
 const StyledWelcomeMessage = styled.h1`
   color: ${AWMColors.primaryColor};
-  width: 540px;
+  max-width: 540px;
   font-weight: 100;
   font-family: 'Dosis', sans-serif;
   .intro-text {

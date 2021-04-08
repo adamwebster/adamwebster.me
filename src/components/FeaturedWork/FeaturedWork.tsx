@@ -13,14 +13,9 @@ const StyledFeaturedWorkGrid = styled.div`
 
 const FeaturedWorkGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(8rem, 1fr));
+  grid-template-rows: repeat(2, minmax(4rem, 1fr));
   gap: 32px;
-  height: 704px;
-
-  > div {
-    background-color: #ccc;
-  }
 `;
 
 const FeaturedWork = () => {
@@ -28,16 +23,18 @@ const FeaturedWork = () => {
     allPortfolioItem: { nodes: featuredWorkItems },
   } = useStaticQuery(graphql`
     {
-      allPortfolioItem(limit: 4) {
+      allPortfolioItem(sort: { order: DESC, fields: date }, limit: 4) {
         nodes {
           id
           title
           featuredImage {
-            childrenImageSharp {
+            childImageSharp {
               gatsbyImageData(
-                width: 200
+                width: 700
+                height: 700
                 placeholder: BLURRED
                 formats: [AUTO, WEBP, AVIF]
+                transformOptions: { fit: COVER, grayscale: false }
               )
             }
           }
@@ -45,7 +42,6 @@ const FeaturedWork = () => {
       }
     }
   `);
-  console.log(featuredWorkItems);
   return (
     <>
       <StyledFeaturedWorkGrid>
@@ -69,11 +65,15 @@ const FeaturedWork = () => {
             (item: { id: string; title: string; featuredImage: any }) => {
               const { id, title, featuredImage } = item;
               const image = getImage(featuredImage);
-              console.log(image, featuredImage);
               return (
                 <div key={id}>
-                  {title}
-                  {image && <GatsbyImage image={image} alt="test" />}
+                  {image && (
+                    <GatsbyImage
+                      objectFit="fill"
+                      image={image}
+                      alt={`${title} featured image`}
+                    />
+                  )}
                 </div>
               );
             }
