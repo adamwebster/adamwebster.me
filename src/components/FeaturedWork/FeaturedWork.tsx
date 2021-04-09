@@ -1,9 +1,9 @@
 import { Button } from '../Button/';
 import React from 'react';
 import styled from 'styled-components';
-import { StyledSectionHeader } from '../../styles';
 import { graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { SectionHeader } from '../SectionHeader';
 
 const StyledFeaturedWorkGrid = styled.div`
   display: grid;
@@ -46,7 +46,7 @@ const FeaturedWork = () => {
     <>
       <StyledFeaturedWorkGrid>
         <div>
-          <StyledSectionHeader>Featured Work</StyledSectionHeader>
+          <SectionHeader>Featured Work</SectionHeader>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tellus
             fames pellentesque cursus donec. Ornare ac sem porttitor urna. Id

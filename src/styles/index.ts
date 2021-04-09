@@ -8,7 +8,7 @@ export const StyledContentWrapper = styled.div`
     margin: 64px auto;
     @media (max-width: 1120px) {
         padding: 0 16px;
-    }
+    }   
 `;
 
 
@@ -48,10 +48,7 @@ export const StyledFullWidthWrapper = styled.div<StyledFullWidthWrapperProps>`
 
 
 export const StyledSectionHeader = styled.h2`
-  font-family: 'Dosis', sans-serif;
-  color: ${AWMColors.primaryColor};
-  font-weight: 800;
-  font-size: 2rem;
+
 
 `
 export const StyledButton = styled(Button)`

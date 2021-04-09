@@ -4,6 +4,8 @@ import { Hero } from '../components/Hero';
 import { Layout } from '../components/Layout';
 import SEO from '../components/seo';
 import { FeaturedWork } from '../components/FeaturedWork';
+import { LatestArticles } from '../components/LatestArticles';
+
 import { StyledContentWrapper } from '../styles';
 
 const Index = () => {
@@ -14,6 +16,7 @@ const Index = () => {
       <StyledContentWrapper>
         <FeaturedWork />
       </StyledContentWrapper>
+      <LatestArticles />
     </Layout>
   );
 };

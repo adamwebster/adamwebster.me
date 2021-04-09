@@ -1,17 +1,32 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
+import { AWMColors } from '../../styles/StyledVariables';
 
-const SectionHeaderStyled = styled.h2`
-  text-transform: uppercase;
-  margin-top: 50px;
-  font-size: 24px;
-  margin-bottom: 20px;
-`;
-interface Props {
-  children: ReactNode;
+interface SHSProps extends React.HtmlHTMLAttributes<HTMLHeadingElement> {
+  textColor?: string;
 }
-const SectionHeader = ({ children }: Props) => {
-  return <SectionHeaderStyled>{children}</SectionHeaderStyled>;
+
+const SectionHeaderStyled = styled.h2<SHSProps>`
+  font-family: 'Dosis', sans-serif;
+  color: ${({ textColor }) => textColor};
+  font-weight: 800;
+  font-size: 2rem;
+`;
+
+interface Props extends React.HtmlHTMLAttributes<HTMLHeadingElement>  {
+  children: ReactNode;
+  textColor?: string;
+}
+const SectionHeader = ({
+  children,
+  textColor = AWMColors.primaryColor,
+  ...rest
+}: Props) => {
+  return (
+    <SectionHeaderStyled textColor={textColor} {...rest}>
+      {children}
+    </SectionHeaderStyled>
+  );
 };
 
 export default SectionHeader;

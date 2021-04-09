@@ -3,25 +3,30 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 import { AWMColors } from '../../styles/StyledVariables';
 
-const StyledButton = styled.button`
+interface ButtonProps {
+  buttonColor?: string;
+}
+const StyledButton = styled.button<ButtonProps>`
   border-radius: 4px;
   height: 44px;
   padding: 0 16px;
-  background-color: ${AWMColors.primaryColor};
+  background-color: ${({ buttonColor }) => buttonColor};
   color: #fff;
   border: none;
   font-weight: bold;
   cursor: pointer;
   &:hover {
-    background-color: ${darken(0.3, AWMColors.primaryColor)};
+    background-color: ${({ buttonColor }) =>
+      darken(0.1, buttonColor as string)};
   }
 `;
 
 interface Props {
   children: ReactNode;
+  buttonColor?: string;
 }
-const Button = ({ children }: Props) => {
-  return <StyledButton>{children}</StyledButton>;
+const Button = ({ children, buttonColor = AWMColors.primaryColor }: Props) => {
+  return <StyledButton buttonColor={buttonColor}>{children}</StyledButton>;
 };
 
 export default Button;

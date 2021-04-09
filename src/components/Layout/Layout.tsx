@@ -1,19 +1,19 @@
 import React, { ReactNode } from "react";
 import styled, { createGlobalStyle } from 'styled-components';
-
+import { AWMColors } from '../../styles/StyledVariables';
+import { Footer } from '../Footer';
+import { Header } from '../Header';
 
 const GlobalStyle = createGlobalStyle`
 html{
   scroll-behavior: smooth;
 }
   body{
-    background-color:${({ theme }) =>
-      theme === 'dark' ? '#fff' : 'fff'};    
+    background-color:${({ theme }) => (theme === 'dark' ? '#fff' : 'fff')};    
     font-family:'Helvetica Neue', sans-serif;
     font-size: 100%;
     line-height: 1.5;
-    color: ${({ theme }) =>
-      theme === 'dark' ? '#fff' : 'fff'};
+    color: ${({ theme }) => (theme === 'dark' ? '#fff' : 'fff')};
     padding: 0;
     margin: 0;  
   }
@@ -36,7 +36,9 @@ figcaption{
   font-weight: 300;
 }
 
-
+a{
+  color: ${AWMColors.primaryColor};
+}
 `;
 
 
@@ -45,10 +47,14 @@ interface Props {
 }
 
 const Layout = ({children}:Props) => {
-    return(
-        <>
+    return (
+      <>
         <GlobalStyle />
-        {children}</>
-    )
+        <Header />
+
+        {children}
+        <Footer />
+      </>
+    );
 }
 export default Layout;
