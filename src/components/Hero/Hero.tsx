@@ -3,10 +3,22 @@ import styled from 'styled-components';
 import { AWMColors } from '../../styles/StyledVariables';
 import { motion } from 'framer-motion';
 import profile from '../../assets/images/profile.jpg';
+import HeroLight from '../../assets/images/hero-light.jpg';
+
 const StyledHero = styled.div`
   width: 100vw;
   height: 600px;
   background-color: ${AWMColors.heroBGColor};
+  &:before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 600px;
+    opacity: 0.1;
+    background-image: url(${HeroLight});
+    background-size: cover;
+    background-position: center center;
+  }
 `;
 const StyledHeroInner = styled.div`
   max-width: 1120px;
@@ -14,6 +26,8 @@ const StyledHeroInner = styled.div`
   display: flex;
   align-items: center;
   height: 600px;
+  z-index: 99;
+  position: relative;
   @media (max-width: 1120px) {
     padding: 0 16px;
   }
@@ -42,6 +56,7 @@ const StyledProfileImage = styled.div`
   border: solid 8px #006e90;
   display: flex;
   object-fit: cover;
+  object-position: center center;
   overflow: hidden;
   box-sizing: border-box;
 `;
@@ -51,7 +66,10 @@ const StyledHeroContent = styled.div`
   justify-content: center;
   align-items: center;
   gap: 32px;
+  margin: 0 auto;
 `;
+
+
 const Hero = () => {
   return (
     <StyledHero>

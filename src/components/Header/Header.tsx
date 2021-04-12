@@ -5,7 +5,8 @@ import Logo from '../../assets/svgs/logo.svg';
 
 const StyledHeader = styled.header`
   width: 100%;
-  background-color: ${AWMColors.heroBGColor};
+  position: absolute;
+  z-index: 99;
 `;
 
 const StyledHeaderInner = styled.div`
