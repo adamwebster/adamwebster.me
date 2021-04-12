@@ -1,6 +1,5 @@
-import React, { ReactNode } from "react";
-import styled, { createGlobalStyle } from 'styled-components';
-import { AWMColors } from '../../styles/StyledVariables';
+import React, { ReactNode } from 'react';
+import { createGlobalStyle } from 'styled-components';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
 
@@ -13,13 +12,10 @@ html{
     font-family:'Helvetica Neue', sans-serif;
     font-size: 100%;
     line-height: 1.5;
-    color: ${({ theme }) => (theme === 'dark' ? '#fff' : 'fff')};
+    color: ${({ theme }) => theme.colors.text};
     padding: 0;
     margin: 0;  
   }
-  a {
-    color: ${({ theme }) => (theme === 'dark' ? '#8bbdfb' : '#0067E6')};
-    }
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 0.5em 0;
 	font-weight: 400;
@@ -37,24 +33,23 @@ figcaption{
 }
 
 a{
-  color: ${({  theme  }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary};
 }
 `;
 
-
 interface Props {
-    children: ReactNode;
+  children: ReactNode;
 }
 
-const Layout = ({children}:Props) => {
-    return (
-      <>
-        <GlobalStyle />
-        <Header />
+const Layout = ({ children }: Props) => {
+  return (
+    <>
+      <GlobalStyle />
+      <Header />
 
-        {children}
-        <Footer />
-      </>
-    );
-}
+      {children}
+      <Footer />
+    </>
+  );
+};
 export default Layout;

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import profile from '../../assets/images/profile.jpg';
 import HeroLight from '../../assets/images/hero-light.jpg';
+import HeroDark from '../../assets/images/hero-dark.jpg';
 
 const StyledHero = styled.div`
   width: 100vw;
@@ -14,7 +15,8 @@ const StyledHero = styled.div`
     width: 100%;
     height: 600px;
     opacity: 0.1;
-    background-image: url(${HeroLight});
+    background-image: url(${({ theme }) =>
+      theme.name === 'dark' ? HeroDark : HeroLight});
     background-size: cover;
     background-position: center center;
   }
@@ -67,7 +69,6 @@ const StyledHeroContent = styled.div`
   gap: 32px;
   margin: 0 auto;
 `;
-
 
 const Hero = () => {
   return (
