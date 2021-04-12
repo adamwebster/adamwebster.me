@@ -3,7 +3,8 @@ import { Provider } from 'react-redux';
 import { createStore as reduxCreateStore } from 'redux';
 import rootReducer from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import FCThemeWrapper from './FCThemeWrapper';
+import { LightMode } from '../themes/LightMode';
+import { ThemeProvider } from 'styled-components';
 
 const createStore = () => reduxCreateStore(rootReducer, composeWithDevTools());
 
@@ -14,7 +15,7 @@ interface Props {
 export default ({ element }: Props) => {
   return (
     <Provider store={createStore()}>
-      <FCThemeWrapper>{element}</FCThemeWrapper>
+      <ThemeProvider theme={LightMode}>{element}</ThemeProvider>
     </Provider>
   );
 };

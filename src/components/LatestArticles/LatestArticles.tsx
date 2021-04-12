@@ -1,15 +1,14 @@
 import { Button } from '../Button/';
 import React from 'react';
 import styled from 'styled-components';
-import { StyledContentWrapper } from '../../styles';
+import { StyledContentWrapper } from '../../styles/';
 import { graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import { AWMColors } from '../../styles/StyledVariables';
 import { SectionHeader } from '../SectionHeader';
 import { darken } from 'polished';
 const StyledLatestArticles = styled.div`
   position: relative;
-  background-color: ${AWMColors.lightPurpleBG};
+  background-color: ${({ theme }) => theme.colors.lightPurpleBG};
   float: left;
   width: 100%;
 `;
@@ -54,7 +53,7 @@ const StyledArticleItem = styled.article`
     padding: 8px 16px;
     border-radius: 30px;
     display: inline-block;
-    background-color: ${darken(0.1, AWMColors.lightPurpleBG)};
+    background-color: ${({ theme }) => darken(0.1, theme.colors.lightPurpleBG)};
     color: #77448f;
     margin-top: 8px;
   }
@@ -121,7 +120,6 @@ const LatestArticles = () => {
                 timeToRead,
                 excerpt,
               } = item;
-              console.log(item);
               const image = getImage(featuredImage);
               return (
                 <StyledArticleItem key={id}>

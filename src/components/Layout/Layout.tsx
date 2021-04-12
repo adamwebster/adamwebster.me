@@ -9,7 +9,7 @@ html{
   scroll-behavior: smooth;
 }
   body{
-    background-color:${({ theme }) => (theme === 'dark' ? '#fff' : 'fff')};    
+    background-color:${({ theme }) => theme.colors.backgroundColor};    
     font-family:'Helvetica Neue', sans-serif;
     font-size: 100%;
     line-height: 1.5;
@@ -37,7 +37,7 @@ figcaption{
 }
 
 a{
-  color: ${AWMColors.primaryColor};
+  color: ${({  theme  }) => theme.colors.primary};
 }
 `;
 

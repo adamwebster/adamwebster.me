@@ -1,8 +1,9 @@
 import React, { createContext, ReactElement } from 'react';
 import { Colors } from '@adamwebster/fused-components';
+import { DarkMode } from '../themes/DarkMode';
 
 const initialState = {
-  darkMode: false,
+  theme: DarkMode,
   headerColor: Colors.primary,
   hideLogo: false,
   hasHero: true,
@@ -18,10 +19,10 @@ export const SiteContextConsumer = SiteContext.Consumer;
 const reducer = (state: any, action: { payload: any; type: any }) => {
   const { payload, type } = action;
   switch (type) {
-    case 'SET_DARK_MODE':
+    case 'SET_THEME':
       return {
         ...state,
-        darkMode: payload,
+        theme: payload,
       };
     case 'SET_HEADER_COLOR':
       return {

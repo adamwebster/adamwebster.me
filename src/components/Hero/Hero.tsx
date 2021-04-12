@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AWMColors } from '../../styles/StyledVariables';
 import { motion } from 'framer-motion';
 import profile from '../../assets/images/profile.jpg';
 import HeroLight from '../../assets/images/hero-light.jpg';
@@ -8,7 +7,7 @@ import HeroLight from '../../assets/images/hero-light.jpg';
 const StyledHero = styled.div`
   width: 100vw;
   height: 600px;
-  background-color: ${AWMColors.heroBGColor};
+  background-color: ${({ theme }) => theme.colors.heroBGColor};
   &:before {
     position: absolute;
     content: '';
@@ -33,7 +32,7 @@ const StyledHeroInner = styled.div`
   }
 `;
 const StyledWelcomeMessage = styled.h1`
-  color: ${AWMColors.primaryColor};
+  color: ${({ theme }) => theme.colors.primary};
   max-width: 540px;
   font-weight: 100;
   font-family: 'Dosis', sans-serif;

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AWMColors } from '../../styles/StyledVariables';
 import Logo from '../../assets/svgs/logo.svg';
 
 const StyledHeader = styled.header`
@@ -21,7 +20,7 @@ const StyledLogo = styled.div`
   height: 50px;
   display: inline-block;
   width: 50px;
-  color: ${AWMColors.primaryColor};
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 const StyledNavigation = styled.nav`

@@ -15,9 +15,9 @@ export const StyledContentWrapper = styled.div`
 interface StyledFullWidthWrapperProps extends HTMLAttributes<HTMLDivElement> {
     bgColor?: string;
     bgImage?: string;
-
     show?: boolean;
 }
+
 export const StyledFullWidthWrapper = styled.div<StyledFullWidthWrapperProps>`
     position: relative;
     background-color: ${({ bgColor }) => (bgColor ? bgColor : Colors.primary)};

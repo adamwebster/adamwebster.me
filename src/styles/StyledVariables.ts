@@ -4,6 +4,12 @@ export const AWMColors = {
   lightPurpleBG: '#FAEFFF',
 };
 
+export const colors = {
+  grey: {
+    50: '#f7f7f7'
+  }
+}
+
 export const AWMVariables = {
   borderRadius: '15px',
 };
