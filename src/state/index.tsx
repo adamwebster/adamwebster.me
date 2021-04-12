@@ -1,13 +1,9 @@
 import React, { createContext, ReactElement } from 'react';
-import { Colors } from '@adamwebster/fused-components';
 import { DarkMode } from '../themes/DarkMode';
+import { LightMode } from '../themes/LightMode';
 
 const initialState = {
-  theme: DarkMode,
-  headerColor: Colors.primary,
-  hideLogo: false,
-  hasHero: true,
-  darkModeSet: false,
+  theme: LightMode,
 };
 
 export const SiteContext = createContext({
@@ -16,33 +12,21 @@ export const SiteContext = createContext({
 });
 export const SiteContextConsumer = SiteContext.Consumer;
 
-const reducer = (state: any, action: { payload: any; type: any }) => {
+type contextTypes = 'SET_THEME' | 'TOGGLE_THEME';
+
+const reducer = (state: any, action: { payload: any; type: contextTypes }) => {
   const { payload, type } = action;
+  console.log('theme', state.theme.name);
   switch (type) {
     case 'SET_THEME':
       return {
         ...state,
         theme: payload,
       };
-    case 'SET_HEADER_COLOR':
+    case 'TOGGLE_THEME':
       return {
         ...state,
-        headerColor: payload,
-      };
-    case 'SET_LOGO_HIDDEN':
-      return {
-        ...state,
-        hideLogo: payload,
-      };
-    case 'SET_HAS_HERO':
-      return {
-        ...state,
-        hasHero: payload,
-      };
-    case 'SET_DARK_MODE_SET':
-      return {
-        ...state,
-        darkModeSet: payload,
+        theme: state.theme.name === 'dark' ? LightMode : DarkMode,
       };
     default:
       return state;

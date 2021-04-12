@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 import { AWMColors } from '../../styles/StyledVariables';
 
-interface ButtonProps {
+interface ButtonProps extends React.HtmlHTMLAttributes<HTMLButtonElement> {
   buttonColor?: string;
 }
 const StyledButton = styled.button<ButtonProps>`
@@ -21,12 +21,20 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-interface Props {
+interface Props extends React.HtmlHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   buttonColor?: string;
 }
-const Button = ({ children, buttonColor = AWMColors.primaryColor }: Props) => {
-  return <StyledButton buttonColor={buttonColor}>{children}</StyledButton>;
+const Button = ({
+  children,
+  buttonColor = AWMColors.primaryColor,
+  ...rest
+}: Props) => {
+  return (
+    <StyledButton buttonColor={buttonColor} {...rest}>
+      {children}
+    </StyledButton>
+  );
 };
 
 export default Button;

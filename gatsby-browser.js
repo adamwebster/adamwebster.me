@@ -11,16 +11,14 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { SiteContextProvider, SiteContext } from './src/state';
 
 import React, { useContext } from 'react';
-import { ThemeProvider } from 'styled-components';
-import { LightMode } from './src/themes/LightMode';
-import { DarkMode } from './src/themes/DarkMode';
+import SiteThemeWrapper from './src/state/SiteThemeWrapper';
 
 config.autoAddCss = false;
 
 export const wrapRootElement = ({ element }) => {
   return (
     <SiteContextProvider>
-      <ThemeProvider theme={LightMode}>{element}</ThemeProvider>
+      <SiteThemeWrapper>{element}</SiteThemeWrapper>
     </SiteContextProvider>
   );
 };

@@ -1,11 +1,14 @@
-import React from 'react';
+import { Button } from '../Button';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Logo from '../../assets/svgs/logo.svg';
+import { SiteContext } from '../../state';
+import { LightMode } from '../../themes/LightMode';
 
 const StyledHeader = styled.header`
   width: 100%;
   position: absolute;
-  z-index: 99;
+  z-index: 100;
 `;
 
 const StyledHeaderInner = styled.div`
@@ -32,19 +35,29 @@ const StyledNavigation = styled.nav`
     text-decoration: none;
   }
 `;
-const Header = () => (
-  <StyledHeader>
-    <StyledHeaderInner>
-      <StyledLogo>
-        <Logo />
-      </StyledLogo>
-      <StyledNavigation>
-        <a href="/">Home</a> <a href="/">Portfolio</a>
-        <a href="/">Articles </a>
-        <a href="/">Contact</a>
-      </StyledNavigation>
-    </StyledHeaderInner>
-  </StyledHeader>
-);
+const Header = () => {
+  const { dispatch } = useContext(SiteContext);
+  const setTheme = () => {
+    console.log('set');
+    dispatch({ type: 'TOGGLE_THEME' });
+  };
+  return (
+    <StyledHeader>
+      <StyledHeaderInner>
+        <StyledLogo>
+          <Logo />
+        </StyledLogo>
+        <StyledNavigation>
+          <a href="/">Home</a> <a href="/">Portfolio</a>
+          <a href="/">Articles </a>
+          <a onClick={() => setTheme()}>Contact</a>
+          <Button title="test" onClick={() => setTheme()}>
+            Set Theme
+          </Button>
+        </StyledNavigation>
+      </StyledHeaderInner>
+    </StyledHeader>
+  );
+};
 
 export default Header;

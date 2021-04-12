@@ -2,7 +2,7 @@ import { colors } from "../styles/StyledVariables";
 import { DefaultTheme } from 'styled-components';
 
 export const DarkMode: DefaultTheme = {
-    name: 'light',
+    name: 'dark',
     colors: {
         backgroundColor: 'black',
         primary: '#006E90',
