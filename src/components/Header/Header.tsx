@@ -3,12 +3,13 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Logo from '../../assets/svgs/logo.svg';
 import { SiteContext } from '../../state';
-import { LightMode } from '../../themes/LightMode';
 
 const StyledHeader = styled.header`
   width: 100%;
   position: absolute;
   z-index: 100;
+  color: ${({ theme }) =>
+    theme.name === 'dark' ? '#fff' : theme.colors.primary};
 `;
 
 const StyledHeaderInner = styled.div`
@@ -23,16 +24,18 @@ const StyledLogo = styled.div`
   height: 50px;
   display: inline-block;
   width: 50px;
-  color: ${({ theme }) => theme.colors.primary};
 `;
 
 const StyledNavigation = styled.nav`
   flex: 1 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   a {
     padding: 0 16px;
     text-decoration: none;
+    color: ${({ theme }) =>
+      theme.name === 'dark' ? '#fff' : theme.colors.primary};
   }
 `;
 const Header = () => {

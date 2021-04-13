@@ -10,6 +10,7 @@ declare module 'styled-components' {
             text: string;
             primary: string;
             heroBGColor: string;
+            heroText: string;
             lightPurpleBG: string;
         };
     }

@@ -1,9 +1,11 @@
 import { Button } from '../Button/';
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { SectionHeader } from '../SectionHeader';
+import { SiteContext } from '../../state';
+import { LightMode } from '../../themes/LightMode';
 
 const StyledFeaturedWorkGrid = styled.div`
   display: grid;
@@ -16,9 +18,13 @@ const FeaturedWorkGrid = styled.div`
   grid-template-columns: repeat(2, minmax(8rem, 1fr));
   grid-template-rows: repeat(2, minmax(4rem, 1fr));
   gap: 32px;
+  .gatsby-image-wrapper {
+    border-radius: 4px;
+  }
 `;
 
 const FeaturedWork = () => {
+  const { globalState } = useContext(SiteContext);
   const {
     allPortfolioItem: { nodes: featuredWorkItems },
   } = useStaticQuery(graphql`
@@ -46,7 +52,15 @@ const FeaturedWork = () => {
     <>
       <StyledFeaturedWorkGrid>
         <div>
-          <SectionHeader>Featured Work</SectionHeader>
+          <SectionHeader
+            textColor={
+              globalState.theme.name === 'dark'
+                ? '#fff'
+                : LightMode.colors.primary
+            }
+          >
+            Featured Work
+          </SectionHeader>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tellus
             fames pellentesque cursus donec. Ornare ac sem porttitor urna. Id

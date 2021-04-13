@@ -1,11 +1,12 @@
 import { Button } from '../Button/';
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { StyledContentWrapper } from '../../styles/';
 import { graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { SectionHeader } from '../SectionHeader';
 import { darken } from 'polished';
+import { SiteContext } from '../../state';
 const StyledLatestArticles = styled.div`
   position: relative;
   background-color: ${({ theme }) => theme.colors.lightPurpleBG};
@@ -21,7 +22,7 @@ const StyledLatestWorkGrid = styled.div`
 
 const StyledArticleItem = styled.article`
   a {
-    color: #77448f;
+    color: ${({ theme }) => (theme.name === 'dark' ? '#eabcff' : '#77448f')};
     text-decoration: none;
     font-weight: bold;
     &:hover {
@@ -65,7 +66,9 @@ const StyledContentHeader = styled.div`
     flex: 1 1;
   }
 `;
+
 const LatestArticles = () => {
+  const { globalState } = useContext(SiteContext);
   const {
     allBlogPost: { nodes: latestArticleItems },
   } = useStaticQuery(graphql`
@@ -95,7 +98,10 @@ const LatestArticles = () => {
     <StyledLatestArticles>
       <StyledContentWrapper>
         <StyledContentHeader>
-          <SectionHeader className="section-header" textColor="#77448F">
+          <SectionHeader
+            className="section-header"
+            textColor={globalState.theme.name === 'dark' ? '#fff' : '#77448F'}
+          >
             Latest Articles
           </SectionHeader>
           <Button buttonColor="#77448F">Read more of my articles </Button>

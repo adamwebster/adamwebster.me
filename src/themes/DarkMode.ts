@@ -1,12 +1,13 @@
 import { DefaultTheme } from 'styled-components';
 
-export const DarkMode = {
+export const DarkMode: DefaultTheme = {
     name: 'dark',
     colors: {
-        backgroundColor: '#000',
+        backgroundColor: '#031C2F',
         text: '#fff',
         primary: '#006E90',
-        heroBGColor: '#CAE0E7',
-        lightPurpleBG: '#FAEFFF',
+        heroBGColor: '#1E425B',
+        heroText: "#fff",
+        lightPurpleBG: '#40294A',
     }
 }

@@ -8,6 +8,7 @@ export const LightMode: DefaultTheme = {
         text: '#000',
         primary: '#006E90',
         heroBGColor: '#CAE0E7',
+        heroText: '#006E90',
         lightPurpleBG: '#FAEFFF',
     }
 }

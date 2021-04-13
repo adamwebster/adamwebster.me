@@ -15,8 +15,8 @@ const StyledHero = styled.div`
     width: 100%;
     height: 600px;
     opacity: 0.1;
-    background-image: url(${({ theme }) =>
-      theme.name === 'dark' ? HeroDark : HeroLight});
+    background-image: ${({ theme }) => `url(
+      ${theme.name === 'dark' ? HeroDark : HeroLight})`};
     background-size: cover;
     background-position: center center;
   }
@@ -34,7 +34,7 @@ const StyledHeroInner = styled.div`
   }
 `;
 const StyledWelcomeMessage = styled.h1`
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.heroText};
   max-width: 540px;
   font-weight: 100;
   font-family: 'Dosis', sans-serif;
