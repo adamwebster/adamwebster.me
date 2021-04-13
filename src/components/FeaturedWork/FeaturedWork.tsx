@@ -2,7 +2,12 @@ import { Button } from '../Button/';
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import {
+  GatsbyImage,
+  getImage,
+  IGatsbyImageData,
+  withArtDirection,
+} from 'gatsby-plugin-image';
 import { SectionHeader } from '../SectionHeader';
 import { SiteContext } from '../../state';
 import { LightMode } from '../../themes/LightMode';
@@ -18,6 +23,23 @@ const FeaturedWorkGrid = styled.div`
   grid-template-columns: repeat(2, minmax(8rem, 1fr));
   grid-template-rows: repeat(2, minmax(4rem, 1fr));
   gap: 32px;
+  > div {
+    max-height: 200px;
+    .gatsby-image-wrapper {
+      border-radius: 4px;
+      width: 100% !important;
+      height: 100% !important;
+      picture {
+        display: flex;
+        justify-content: center;
+      }
+      img {
+        width: 200%;
+        position: relative;
+        height: auto;
+      }
+    }
+  }
 `;
 
 const StyledSelectedImage = styled.div`
@@ -38,7 +60,7 @@ const FeaturedWork = () => {
           featuredImage {
             childImageSharp {
               gatsbyImageData(
-                layout: FULL_WIDTH
+                layout: FIXED
                 placeholder: BLURRED
                 formats: [AUTO, WEBP, AVIF]
                 transformOptions: { fit: COVER, grayscale: false }
@@ -102,16 +124,16 @@ const FeaturedWork = () => {
           <AnimatePresence>
             {selectedImage && (
               <StyledSelectedImage>
-                  <motion.div
-                    onClick={() => setSelectedImage(null)}
-                    layoutId={selectedImage.id}
-                  >
-                    <GatsbyImage
-                      objectFit="fill"
-                      image={selectedImage.image}
-                      alt="image"
-                    />
-                  </motion.div>
+                <motion.div
+                  onClick={() => setSelectedImage(null)}
+                  layoutId={selectedImage.id}
+                >
+                  <GatsbyImage
+                    objectFit="fill"
+                    image={selectedImage.image}
+                    alt="image"
+                  />
+                </motion.div>
               </StyledSelectedImage>
             )}
           </AnimatePresence>
