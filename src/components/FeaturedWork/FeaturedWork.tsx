@@ -1,12 +1,12 @@
 import { Button } from '../Button/';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { SectionHeader } from '../SectionHeader';
 import { SiteContext } from '../../state';
 import { LightMode } from '../../themes/LightMode';
-
+import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion';
 const StyledFeaturedWorkGrid = styled.div`
   display: grid;
   grid-template-columns: 352px auto;
@@ -18,13 +18,15 @@ const FeaturedWorkGrid = styled.div`
   grid-template-columns: repeat(2, minmax(8rem, 1fr));
   grid-template-rows: repeat(2, minmax(4rem, 1fr));
   gap: 32px;
-  .gatsby-image-wrapper {
-    border-radius: 4px;
-  }
+`;
+
+const StyledSelectedImage = styled.div`
+  position: absolute;
 `;
 
 const FeaturedWork = () => {
   const { globalState } = useContext(SiteContext);
+  const [selectedImage, setSelectedImage] = useState<any | null>(null);
   const {
     allPortfolioItem: { nodes: featuredWorkItems },
   } = useStaticQuery(graphql`
@@ -36,8 +38,7 @@ const FeaturedWork = () => {
           featuredImage {
             childImageSharp {
               gatsbyImageData(
-                width: 700
-                height: 700
+                layout: FULL_WIDTH
                 placeholder: BLURRED
                 formats: [AUTO, WEBP, AVIF]
                 transformOptions: { fit: COVER, grayscale: false }
@@ -74,25 +75,47 @@ const FeaturedWork = () => {
           </p>
           <Button>See more of my work</Button>
         </div>
-        <FeaturedWorkGrid>
-          {featuredWorkItems.map(
-            (item: { id: string; title: string; featuredImage: any }) => {
-              const { id, title, featuredImage } = item;
-              const image = getImage(featuredImage);
-              return (
-                <div key={id}>
-                  {image && (
+        <AnimateSharedLayout>
+          <FeaturedWorkGrid>
+            {featuredWorkItems.map(
+              (item: { id: string; title: string; featuredImage: any }) => {
+                const { id, title, featuredImage } = item;
+                const image = getImage(featuredImage);
+                return (
+                  <motion.div
+                    onClick={() => setSelectedImage({ image, title, id })}
+                    key={id}
+                    layoutId={id}
+                  >
+                    {image && (
+                      <GatsbyImage
+                        objectFit="fill"
+                        image={image}
+                        alt={`${title} featured image`}
+                      />
+                    )}
+                  </motion.div>
+                );
+              }
+            )}
+          </FeaturedWorkGrid>
+          <AnimatePresence>
+            {selectedImage && (
+              <StyledSelectedImage>
+                  <motion.div
+                    onClick={() => setSelectedImage(null)}
+                    layoutId={selectedImage.id}
+                  >
                     <GatsbyImage
                       objectFit="fill"
-                      image={image}
-                      alt={`${title} featured image`}
+                      image={selectedImage.image}
+                      alt="image"
                     />
-                  )}
-                </div>
-              );
-            }
-          )}
-        </FeaturedWorkGrid>
+                  </motion.div>
+              </StyledSelectedImage>
+            )}
+          </AnimatePresence>
+        </AnimateSharedLayout>
       </StyledFeaturedWorkGrid>
     </>
   );
