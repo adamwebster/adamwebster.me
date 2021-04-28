@@ -6,10 +6,10 @@ export const AWMColors = {
 
 export const colors = {
   grey: {
-    50: '#f7f7f7'
-  }
-}
+    50: '#FBFBFB',
+  },
+};
 
 export const AWMVariables = {
-  borderRadius: '15px',
+  borderRadius: '8px',
 };

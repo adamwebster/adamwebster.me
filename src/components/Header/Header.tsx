@@ -6,38 +6,27 @@ import { SiteContext } from '../../state';
 
 const StyledHeader = styled.header`
   width: 100%;
-  position: absolute;
   z-index: 100;
+  height: 50px;
+  background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) =>
     theme.name === 'dark' ? '#fff' : theme.colors.primary};
+  border-bottom: solid 1px ${({ theme }) => theme.colors.borderColor};
 `;
 
 const StyledHeaderInner = styled.div`
-  max-width: 1120px;
+  max-width: 1248px;
   margin: 0 auto;
-  padding: 16px;
   display: flex;
   align-items: center;
+  height: 50px;
 `;
 
 const StyledLogo = styled.div`
-  height: 50px;
-  display: inline-block;
-  width: 50px;
+  height: 40px;
+  width: 40px;
 `;
 
-const StyledNavigation = styled.nav`
-  flex: 1 1;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  a {
-    padding: 0 16px;
-    text-decoration: none;
-    color: ${({ theme }) =>
-      theme.name === 'dark' ? '#fff' : theme.colors.primary};
-  }
-`;
 const Header = () => {
   const { dispatch } = useContext(SiteContext);
   const setTheme = () => {
@@ -50,14 +39,6 @@ const Header = () => {
         <StyledLogo>
           <Logo />
         </StyledLogo>
-        <StyledNavigation>
-          <a href="/">Home</a> <a href="/">Portfolio</a>
-          <a href="/">Articles </a>
-          <a onClick={() => setTheme()}>Contact</a>
-          <Button title="test" onClick={() => setTheme()}>
-            Set Theme
-          </Button>
-        </StyledNavigation>
       </StyledHeaderInner>
     </StyledHeader>
   );

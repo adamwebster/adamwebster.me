@@ -2,31 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import profile from '../../assets/images/profile.jpg';
-import HeroLight from '../../assets/images/hero-light.jpg';
-import HeroDark from '../../assets/images/hero-dark.jpg';
 
 const StyledHero = styled.div`
   width: 100vw;
-  height: 600px;
-  background-color: ${({ theme }) => theme.colors.heroBGColor};
-  &:before {
-    position: absolute;
-    content: '';
-    width: 100%;
-    height: 600px;
-    opacity: 0.1;
-    background-image: ${({ theme }) => `url(
-      ${theme.name === 'dark' ? HeroDark : HeroLight})`};
-    background-size: cover;
-    background-position: center center;
-  }
+  height: 300px;
 `;
 const StyledHeroInner = styled.div`
   max-width: 1120px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  height: 600px;
+  height: 300px;
   z-index: 99;
   position: relative;
   @media (max-width: 1120px) {
@@ -34,13 +20,20 @@ const StyledHeroInner = styled.div`
   }
 `;
 const StyledWelcomeMessage = styled.h1`
-  color: ${({ theme }) => theme.colors.heroText};
   max-width: 540px;
+  display: grid;
+  grid-template-columns: 80px 1fr;
   font-weight: 100;
   font-family: 'Dosis', sans-serif;
+  align-items: center;
   .intro-text {
+    color: ${({ theme }) => theme.colors.primary};
     font-weight: 800;
     font-size: 3rem;
+  }
+  .sub-message {
+    font-size: 2rem;
+    font-weight: 300;
   }
 `;
 
@@ -51,10 +44,10 @@ const StyledMotionWave = styled(motion.span)`
 `;
 
 const StyledProfileImage = styled.div`
-  width: 195px;
-  height: 195px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  border: solid 8px #006e90;
+  border: solid 4px ${({ theme }) => theme.colors.primary};
   display: flex;
   object-fit: cover;
   object-position: center center;
@@ -63,7 +56,7 @@ const StyledProfileImage = styled.div`
 `;
 const StyledHeroContent = styled.div`
   display: grid;
-  grid-template-columns: 195px auto;
+  grid-template-columns: 100px auto;
   justify-content: center;
   align-items: center;
   gap: 32px;
@@ -80,19 +73,17 @@ const Hero = () => {
           </StyledProfileImage>
 
           <StyledWelcomeMessage>
-            <span className="intro-text">
-              <StyledMotionWave
-                transition={{ repeat: 10, duration: 1 }}
-                animate={{ rotateZ: ['0deg', '25deg', '0deg'] }}
-              >
-                👋{' '}
-              </StyledMotionWave>
-              Hi, I’m Adam Webster
-            </span>
-            <br />
-            <span>
-              I enjoy creating websites using new and exciting technologies!
-            </span>
+            <StyledMotionWave
+              transition={{ repeat: 10, duration: 1 }}
+              animate={{ rotateZ: ['0deg', '25deg', '0deg'] }}
+            >
+              👋{' '}
+            </StyledMotionWave>
+            <div>
+              <span className="intro-text">Hi, I’m Adam Webster</span>
+              <br />
+              <span className="sub-message">UI Designer & Developer</span>
+            </div>
           </StyledWelcomeMessage>
         </StyledHeroContent>
       </StyledHeroInner>

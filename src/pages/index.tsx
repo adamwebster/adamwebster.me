@@ -2,10 +2,31 @@ import React from 'react';
 import { Hero } from '../components/Hero';
 import { Layout } from '../components/Layout';
 import SEO from '../components/seo';
-import { FeaturedWork } from '../components/FeaturedWork';
+import { ProjectsGrid } from '../components/ProjectsGrid';
 import { LatestArticles } from '../components/LatestArticles';
 
+import { SkillsCard, HobbiesCard, GuestbookCard } from '../components/Cards';
+
 import { StyledContentWrapper } from '../styles/';
+import styled from 'styled-components';
+
+const StyledSkillsCard = styled(SkillsCard)`
+  margin-bottom: 32px;
+`;
+
+const StyledGuestbookCard = styled(GuestbookCard)`
+  margin-bottom: 32px;
+`;
+
+const StyledHobbiesCard = styled(HobbiesCard)`
+  margin-bottom: 32px;
+`;
+
+const StyledIndexGrid = styled.div`
+  display: grid;
+  grid-template-columns: 288px auto;
+  gap: 32px;
+`;
 
 const Index = () => {
   return (
@@ -13,9 +34,18 @@ const Index = () => {
       <SEO />
       <Hero />
       <StyledContentWrapper>
-        <FeaturedWork />
+        <StyledIndexGrid>
+          <div>
+            <StyledSkillsCard />
+            <StyledHobbiesCard />
+            <StyledGuestbookCard />
+          </div>
+          <div>
+            <ProjectsGrid />
+            <LatestArticles />
+          </div>
+        </StyledIndexGrid>
       </StyledContentWrapper>
-      <LatestArticles />
     </Layout>
   );
 };

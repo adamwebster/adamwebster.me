@@ -8,25 +8,16 @@ interface SHSProps extends React.HtmlHTMLAttributes<HTMLHeadingElement> {
 
 const SectionHeaderStyled = styled.h2<SHSProps>`
   font-family: 'Dosis', sans-serif;
-  color: ${({ textColor }) => textColor};
-  font-weight: 800;
-  font-size: 2rem;
+  font-weight: 400;
+  font-size: 1.5rem;
 `;
 
-interface Props extends React.HtmlHTMLAttributes<HTMLHeadingElement>  {
+interface Props extends React.HtmlHTMLAttributes<HTMLHeadingElement> {
   children: ReactNode;
   textColor?: string;
 }
-const SectionHeader = ({
-  children,
-  textColor = AWMColors.primaryColor,
-  ...rest
-}: Props) => {
-  return (
-    <SectionHeaderStyled textColor={textColor} {...rest}>
-      {children}
-    </SectionHeaderStyled>
-  );
+const SectionHeader = ({ children, ...rest }: Props) => {
+  return <SectionHeaderStyled {...rest}>{children}</SectionHeaderStyled>;
 };
 
 export default SectionHeader;

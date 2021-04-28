@@ -5,24 +5,26 @@ import { StyledContentWrapper } from '../../styles/';
 import { graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { SectionHeader } from '../SectionHeader';
-import { darken } from 'polished';
+import { darken, lighten } from 'polished';
 import { SiteContext } from '../../state';
+import { Card } from '../Card';
 const StyledLatestArticles = styled.div`
   position: relative;
-  background-color: ${({ theme }) => theme.colors.lightPurpleBG};
   float: left;
   width: 100%;
 `;
-const StyledLatestWorkGrid = styled.div`
+const StyledArticlesGrid = styled.div`
   display: grid;
   margin-top: 16px;
-  grid-auto-flow: column;
   gap: 32px;
 `;
 
-const StyledArticleItem = styled.article`
+const StyledArticleItem = styled(Card)`
+  display: grid;
+  grid-template-columns: 289px 1fr;
+  gap: 32px;
+  padding: 0;
   a {
-    color: ${({ theme }) => (theme.name === 'dark' ? '#eabcff' : '#77448f')};
     text-decoration: none;
     font-weight: bold;
     &:hover {
@@ -30,10 +32,25 @@ const StyledArticleItem = styled.article`
     }
   }
   .featured-image {
-    margin-bottom: 16px;
-    border-radius: 4px;
     overflow: hidden;
-    height: 150px;
+    max-height: 300px;
+    .gatsby-image-wrapper {
+      border-radius: 4px 0 0 4px;
+      width: 100% !important;
+      height: 100% !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .gatsby-image-wrapper img {
+      max-height: 270px;
+      position: relative;
+      width: auto;
+    }
+  }
+
+  .article-body {
+    padding: 32px;
   }
 
   .article-title {
@@ -54,8 +71,8 @@ const StyledArticleItem = styled.article`
     padding: 8px 16px;
     border-radius: 30px;
     display: inline-block;
-    background-color: ${({ theme }) => darken(0.1, theme.colors.lightPurpleBG)};
-    color: #77448f;
+    background-color: ${({ theme }) => lighten(0.35, theme.colors.primary)};
+    color: ${({ theme }) => theme.colors.primary};
     margin-top: 8px;
   }
 `;
@@ -73,7 +90,7 @@ const LatestArticles = () => {
     allBlogPost: { nodes: latestArticleItems },
   } = useStaticQuery(graphql`
     {
-      allBlogPost(limit: 3, sort: { order: DESC, fields: date }) {
+      allBlogPost(limit: 4, sort: { order: DESC, fields: date }) {
         nodes {
           timeToRead
           excerpt
@@ -84,9 +101,10 @@ const LatestArticles = () => {
           featuredImage {
             childImageSharp {
               gatsbyImageData(
-                layout: FULL_WIDTH
+                layout: FIXED
                 placeholder: BLURRED
                 formats: [AUTO, WEBP, AVIF]
+                transformOptions: { fit: COVER, grayscale: false }
               )
             }
           }
@@ -98,15 +116,11 @@ const LatestArticles = () => {
     <StyledLatestArticles>
       <StyledContentWrapper>
         <StyledContentHeader>
-          <SectionHeader
-            className="section-header"
-            textColor={globalState.theme.name === 'dark' ? '#fff' : '#77448F'}
-          >
+          <SectionHeader className="section-header">
             Latest Articles
           </SectionHeader>
-          <Button buttonColor="#77448F">Read more of my articles </Button>
         </StyledContentHeader>
-        <StyledLatestWorkGrid>
+        <StyledArticlesGrid>
           {latestArticleItems.map(
             (item: {
               id: string;
@@ -140,24 +154,26 @@ const LatestArticles = () => {
                       </a>
                     )}
                   </div>
-                  <div className="meta">
-                    <div className="article-category">{category}</div>
-                    <h3 className="article-title">
-                      <a href="">{title}</a>
-                    </h3>
-                    <div className="article-date">{date}</div>
-                  </div>
-                  <div className="excerpt">
-                    <p>{excerpt}</p>
-                  </div>
-                  <div className="time-to-read">
-                    Time to read: {timeToRead.toString()} min
+                  <div className="article-body">
+                    <div className="meta">
+                      <div className="article-category">{category}</div>
+                      <h3 className="article-title">
+                        <a href="">{title}</a>
+                      </h3>
+                      <div className="article-date">{date}</div>
+                    </div>
+                    <div className="excerpt">
+                      <p>{excerpt}</p>
+                    </div>
+                    <div className="time-to-read">
+                      Time to read: {timeToRead.toString()} min
+                    </div>
                   </div>
                 </StyledArticleItem>
               );
             }
           )}
-        </StyledLatestWorkGrid>
+        </StyledArticlesGrid>
       </StyledContentWrapper>
     </StyledLatestArticles>
   );
