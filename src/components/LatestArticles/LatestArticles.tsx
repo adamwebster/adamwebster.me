@@ -15,7 +15,6 @@ const StyledLatestArticles = styled.div`
 `;
 const StyledArticlesGrid = styled.div`
   display: grid;
-  margin-top: 16px;
   gap: 32px;
 `;
 

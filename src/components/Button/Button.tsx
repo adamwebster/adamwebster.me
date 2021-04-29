@@ -10,14 +10,14 @@ const StyledButton = styled.button<ButtonProps>`
   border-radius: 4px;
   height: 44px;
   padding: 0 16px;
-  background-color: ${({ buttonColor }) => buttonColor};
+  background-color: ${({ theme }) => theme.colors.primary};
   color: #fff;
   border: none;
   font-weight: bold;
   cursor: pointer;
   &:hover {
-    background-color: ${({ buttonColor }) =>
-      darken(0.1, buttonColor as string)};
+    background-color: ${({ theme }) =>
+      darken(0.1, theme.colors.primary as string)};
   }
 `;
 
@@ -25,16 +25,8 @@ interface Props extends React.HtmlHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   buttonColor?: string;
 }
-const Button = ({
-  children,
-  buttonColor = AWMColors.primaryColor,
-  ...rest
-}: Props) => {
-  return (
-    <StyledButton buttonColor={buttonColor} {...rest}>
-      {children}
-    </StyledButton>
-  );
+const Button = ({ children, ...rest }: Props) => {
+  return <StyledButton {...rest}>{children}</StyledButton>;
 };
 
 export default Button;

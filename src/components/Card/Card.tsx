@@ -5,7 +5,6 @@ import { AWMVariables } from '../../styles/StyledVariables';
 const StyledCard = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   padding: 32px;
-  display: flex;
   border: solid 1px ${({ theme }) => theme.colors.borderColor};
   border-radius: ${AWMVariables.borderRadius};
 `;
