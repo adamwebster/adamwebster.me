@@ -130,7 +130,6 @@ const GuestbookCard = ({ ...rest }) => {
       .where('approved', '==', true)
       .orderBy('dateCreated', 'desc')
       .onSnapshot(snapshot => {
-        console.log(snapshot.docs);
         const listItems = snapshot.docs.map(doc => ({
           /*
           Map each document into snapshot
@@ -150,7 +149,7 @@ const GuestbookCard = ({ ...rest }) => {
         <StyledGuestbookGrid>
           {guestbookEntries?.map((entry: GuestbookItem) => {
             return (
-              <StyledEntry>
+              <StyledEntry key={entry.id}>
                 <StyledAvatar>
                   {entry.name.split(' ')[0].slice(0, 1)}
                   {entry.name.split(' ')[1] &&
