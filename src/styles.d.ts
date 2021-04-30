@@ -14,6 +14,11 @@ declare module 'styled-components' {
       heroBGColor: string;
       heroText: string;
       lightPurpleBG: string;
+      error: {
+        text: string;
+        background: string;
+        border: string;
+      };
     };
   }
 }

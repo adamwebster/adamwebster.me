@@ -12,5 +12,10 @@ export const LightMode: DefaultTheme = {
     heroBGColor: '#CAE0E7',
     heroText: '#006E90',
     lightPurpleBG: '#FAEFFF',
+    error: {
+      text: '#FF3131',
+      background: '#ffd4d4',
+      border: '#FF3131',
+    },
   },
 };

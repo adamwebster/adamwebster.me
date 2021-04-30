@@ -23,6 +23,8 @@ const StyledArticleItem = styled(Card)`
   grid-template-columns: 289px 1fr;
   gap: 32px;
   padding: 0;
+  overflow: hidden;
+  height: 300px;
   a {
     text-decoration: none;
     font-weight: bold;
@@ -31,8 +33,8 @@ const StyledArticleItem = styled(Card)`
     }
   }
   .featured-image {
+    height: 100%;
     overflow: hidden;
-    max-height: 300px;
     .gatsby-image-wrapper {
       border-radius: 4px 0 0 4px;
       width: 100% !important;
@@ -40,9 +42,11 @@ const StyledArticleItem = styled(Card)`
       display: flex;
       justify-content: center;
       align-items: center;
+      picture {
+        height: 100%;
+      }
     }
     .gatsby-image-wrapper img {
-      max-height: 270px;
       position: relative;
       width: auto;
     }
@@ -144,13 +148,11 @@ const LatestArticles = () => {
                 <StyledArticleItem key={id}>
                   <div className="featured-image">
                     {image && (
-                      <a href="">
-                        <GatsbyImage
-                          objectFit="fill"
-                          image={image}
-                          alt={`${title} featured image`}
-                        />
-                      </a>
+                      <GatsbyImage
+                        objectFit="fill"
+                        image={image}
+                        alt={`${title} featured image`}
+                      />
                     )}
                   </div>
                   <div className="article-body">

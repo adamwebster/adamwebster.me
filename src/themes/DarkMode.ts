@@ -11,5 +11,10 @@ export const DarkMode: DefaultTheme = {
     heroBGColor: '#1E425B',
     heroText: '#fff',
     lightPurpleBG: '#40294A',
+    error: {
+      text: '#FF3131',
+      background: '#ffd4d4',
+      border: '#FF3131',
+    },
   },
 };

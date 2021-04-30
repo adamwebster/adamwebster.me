@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { animate, AnimatePresence, motion } from 'framer-motion';
+import { usePopper } from 'react-popper';
 import profile from '../../assets/images/profile.jpg';
+import { AWMVariables } from '../../styles/StyledVariables';
+import { name } from 'dayjs/locale/*';
 
 const StyledHero = styled.div`
   width: 100vw;
@@ -63,14 +66,88 @@ const StyledHeroContent = styled.div`
   margin: 0 auto;
 `;
 
+const StyledPopper = styled.div`
+  .poke-message {
+    border-radius: ${AWMVariables.borderRadius};
+    background-color: ${({ theme }) => theme.colors.white};
+    padding: 16px;
+    border: solid 1px ${({ theme }) => theme.colors.borderColor};
+    box-shadow: 0 0 10px #ccc;
+  }
+`;
+
 const Hero = () => {
+  const [
+    referenceElement,
+    setReferenceElement,
+  ] = useState<HTMLDivElement | null>(null);
+  const [pokeCount, setPokeCount] = useState(0);
+  const [showPoke, setShowPoke] = useState(false);
+  const [pokeMessage, setPokeMessage] = useState('Did you just poke me?');
+  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
+    null
+  );
+  const { styles, attributes, update } = usePopper(
+    referenceElement,
+    popperElement,
+    {
+      placement: 'top',
+      modifiers: [
+        {
+          name: 'offset',
+          enabled: true,
+          options: {
+            offset: [0, 10],
+          },
+        },
+      ],
+    }
+  );
+
+  const handlePoke = () => {
+    const newPokeCount = pokeCount + 1;
+    setPokeCount(newPokeCount);
+    setShowPoke(true);
+    if (pokeCount >= 10)
+      setPokeMessage("You just couldn't stop poking me could you?");
+    if (update) update();
+  };
+
+  useEffect(() => {
+    if (showPoke) {
+      setTimeout(() => {
+        setShowPoke(false);
+      }, 5000);
+    }
+  }, [showPoke]);
   return (
     <StyledHero>
       <StyledHeroInner>
         <StyledHeroContent>
-          <StyledProfileImage>
+          <StyledProfileImage
+            onClick={() => handlePoke()}
+            ref={setReferenceElement}
+          >
             <img src={profile} />
           </StyledProfileImage>
+          <AnimatePresence>
+            {showPoke && (
+              <StyledPopper
+                ref={setPopperElement}
+                style={styles.popper}
+                {...attributes.popper}
+              >
+                <motion.div
+                  className="poke-message"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  {pokeMessage}
+                </motion.div>
+              </StyledPopper>
+            )}
+          </AnimatePresence>
 
           <StyledWelcomeMessage>
             <StyledMotionWave
