@@ -1,5 +1,5 @@
 import { Button } from '../Button';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import {
@@ -12,49 +12,20 @@ import { SectionHeader } from '../SectionHeader';
 import { SiteContext } from '../../state';
 import { LightMode } from '../../themes/LightMode';
 import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion';
+import { AWMVariables } from '../../styles/StyledVariables';
+import ReactMarkdown from 'react-markdown';
+import { StyledTag } from '../../styles';
 
 const StyledProjectsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, minmax(8rem, 1fr));
-  grid-template-rows: repeat(2, minmax(4rem, 1fr));
+  grid-template-rows: repeat(2, auto);
   gap: 32px;
   > div {
-    max-height: 200px;
-    .gatsby-image-wrapper {
-      border-radius: 4px;
-      width: 100% !important;
-      height: 100% !important;
-      picture {
-        display: flex;
-        justify-content: center;
-      }
-      img {
-        width: 200%;
-        position: relative;
-        height: auto;
-      }
-    }
-  }
-`;
-
-const StyledSelectedImage = styled.div`
-  > div {
-    height: 100vh;
-    width: 100vw;
-  }
-
-  .gatsby-image-wrapper {
-    border-radius: 4px;
-    width: 100% !important;
-    height: 100% !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .gatsby-image-wrapper img {
-    max-height: 80vh;
-    position: relative;
-    width: auto;
+    max-height: 250px;
+    border-radius: ${AWMVariables.borderRadius};
+    border: solid 1px ${({ theme }) => theme.colors.borderColor};
+    overflow: hidden;
   }
 `;
 
@@ -66,34 +37,97 @@ const StyledOverlay = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledSelectedModal = styled(motion.div)`
+  grid-template-columns: 1fr 1fr;
+  display: grid;
+  gap: 32px;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 500px;
+  max-height: 90vh;
+  max-width: 90vw;
+  background-color: ${({ theme }) => theme.colors.backgroundColor};
+  border-radius: 8px;
+  overflow: hidden;
+  .selected-modal-content {
+    padding: 32px 32px 32px 0;
+    .meta-header {
+      font-size: 1.2rem;
+    }
+    .technologies-used {
+      margin-top: 32px;
+      margin-bottom: 32px;
+      div {
+        margin-left: 8px;
+      }
+    }
+  }
+`;
+
+const StyledSelectedImage = styled.div`
+  height: 100%;
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
 `;
 
 const StyledOverlayMotion = motion(StyledOverlay);
 const FeaturedWork = () => {
   const { globalState } = useContext(SiteContext);
+  const overlayRef = useRef<HTMLDivElement | any>();
   const [selectedImage, setSelectedImage] = useState<any | null>(null);
   const {
-    allPortfolioItem: { nodes: featuredWorkItems },
+    allPortfolioItemMdx: { nodes: featuredWorkItems },
   } = useStaticQuery(graphql`
     {
-      allPortfolioItem(sort: { order: DESC, fields: date }, limit: 6) {
+      allPortfolioItemMdx(sort: { order: DESC, fields: date }, limit: 6) {
         nodes {
           id
           title
+          description
+          technologyUsed
+          software
+          category
           featuredImage {
             childImageSharp {
               gatsbyImageData(
-                layout: FIXED
-                placeholder: BLURRED
+                layout: FULL_WIDTH
+                aspectRatio: 1.5
                 formats: [AUTO, WEBP, AVIF]
-                transformOptions: { fit: COVER, grayscale: false }
               )
+              original {
+                src
+              }
             }
           }
         }
       }
     }
   `);
+
+  const handleModalKeyDown = (e: any) => {
+    if (selectedImage) {
+      if (e.key === 'Escape') {
+        setSelectedImage(null);
+      }
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('keydown', handleModalKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleModalKeyDown);
+    };
+  });
   return (
     <>
       <div>
@@ -102,21 +136,67 @@ const FeaturedWork = () => {
       <AnimateSharedLayout type="crossfade">
         <StyledProjectsGrid>
           {featuredWorkItems.map(
-            (item: { id: string; title: string; featuredImage: any }) => {
-              const { id, title, featuredImage } = item;
+            (item: {
+              id: string;
+              title: string;
+              featuredImage: any;
+              description: string;
+              technologyUsed: string;
+              software: string;
+              category: string;
+            }) => {
+              const {
+                id,
+                title,
+                featuredImage,
+                description,
+                technologyUsed,
+                software,
+                category,
+              } = item;
               const image = getImage(featuredImage);
+              const originalSource = featuredImage.childImageSharp.original.src;
               return (
                 <motion.div
-                  onClick={() => setSelectedImage({ image, title, id })}
+                  tabIndex={0}
+                  role="button"
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                      setSelectedImage({
+                        image,
+                        title,
+                        id,
+                        technologyUsed,
+                        description,
+                        originalSrc: originalSource,
+                        software,
+                        category,
+                      });
+                    }
+                  }}
+                  onClick={() =>
+                    setSelectedImage({
+                      image,
+                      title,
+                      id,
+                      technologyUsed,
+                      description,
+                      originalSrc: originalSource,
+                      software,
+                      category,
+                    })
+                  }
                   key={id}
-                  layoutId={id}
+                  layoutId={`${id}`}
                 >
                   {image && (
-                    <GatsbyImage
-                      objectFit="fill"
-                      image={image}
-                      alt={`${title} featured image`}
-                    />
+                    <motion.div layoutId={`${id}_image`}>
+                      <GatsbyImage
+                        objectFit="fill"
+                        image={image}
+                        alt={`${title} featured image`}
+                      />
+                    </motion.div>
                   )}
                 </motion.div>
               );
@@ -126,6 +206,12 @@ const FeaturedWork = () => {
         <AnimatePresence>
           {selectedImage && (
             <StyledOverlayMotion
+              ref={overlayRef}
+              onClick={e => {
+                if (e.target === overlayRef.current) {
+                  setSelectedImage(null);
+                }
+              }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{
@@ -135,18 +221,35 @@ const FeaturedWork = () => {
               transition={{ duration: 0.2, delay: 0.15 }}
               style={{ pointerEvents: 'auto' }}
             >
-              <StyledSelectedImage>
-                <motion.div
-                  onClick={() => setSelectedImage(null)}
-                  layoutId={selectedImage.id}
-                >
-                  <GatsbyImage
-                    objectFit="fill"
-                    image={selectedImage.image}
-                    alt="image"
+              <StyledSelectedModal layoutId={selectedImage.id}>
+                <StyledSelectedImage>
+                  <motion.img
+                    layoutId={`${selectedImage.id}_image`}
+                    src={selectedImage.originalSrc}
                   />
-                </motion.div>
-              </StyledSelectedImage>
+                </StyledSelectedImage>
+                <div className="selected-modal-content">
+                  <h1>{selectedImage.title}</h1>
+                  <StyledTag>{selectedImage.category}</StyledTag>
+                  <ReactMarkdown>{selectedImage.description}</ReactMarkdown>
+                  {selectedImage.technologyUsed && (
+                    <div className="technologies-used">
+                      <h2 className="meta-header"> Technologies used</h2>
+                      {selectedImage.technologyUsed
+                        .split(',')
+                        .map((tech: string) => (
+                          <StyledTag>{tech}</StyledTag>
+                        ))}
+                    </div>
+                  )}
+                  {selectedImage.software && (
+                    <div>
+                      <h2 className="meta-header">Software</h2>{' '}
+                      <StyledTag>{selectedImage.software}</StyledTag>
+                    </div>
+                  )}
+                </div>
+              </StyledSelectedModal>
             </StyledOverlayMotion>
           )}
         </AnimatePresence>

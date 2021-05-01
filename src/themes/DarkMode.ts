@@ -4,10 +4,11 @@ export const DarkMode: DefaultTheme = {
   name: 'dark',
   colors: {
     white: '#fff',
-    backgroundColor: '#031C2F',
+    backgroundColor: '#3A3C61',
+    cardColor: '#565886',
     borderColor: '#141646',
     text: '#fff',
-    primary: '#006E90',
+    primary: '#FFB1B1',
     heroBGColor: '#1E425B',
     heroText: '#fff',
     lightPurpleBG: '#40294A',

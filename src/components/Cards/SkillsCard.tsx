@@ -1,7 +1,17 @@
-import React from 'react';
+import {
+  faCss3,
+  faFigma,
+  faHtml5,
+  faJsSquare,
+  faReact,
+  faSketch,
+} from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { Card } from '../Card';
 import { SectionHeader } from '../SectionHeader';
+import { StyledAvatar } from '../../styles';
 
 const StyledSkillsGrid = styled.div`
   display: grid;
@@ -10,27 +20,44 @@ const StyledSkillsGrid = styled.div`
   align-items: center;
 `;
 
-const StyledAvatar = styled.div`
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-color: #efefef;
-`;
-
 const SkillsCard = ({ ...rest }) => {
+  const skills = [
+    {
+      label: 'Sketch',
+      icon: <FontAwesomeIcon icon={faSketch} />,
+    },
+    {
+      label: 'Figma',
+      icon: <FontAwesomeIcon icon={faFigma} />,
+    },
+    {
+      label: 'HTML',
+      icon: <FontAwesomeIcon icon={faHtml5} />,
+    },
+    {
+      label: 'CSS',
+      icon: <FontAwesomeIcon icon={faCss3} />,
+    },
+    {
+      label: 'React',
+      icon: <FontAwesomeIcon icon={faReact} />,
+    },
+    {
+      label: 'JavaScript',
+      icon: <FontAwesomeIcon icon={faJsSquare} />,
+    },
+  ];
   return (
     <>
       <SectionHeader>Skills / Applications</SectionHeader>
       <Card {...rest}>
         <StyledSkillsGrid>
-          <StyledAvatar />
-          <span>Test</span>
-          <StyledAvatar />
-          <span>Test</span>
-          <StyledAvatar />
-          <span>Test</span>
-          <StyledAvatar />
-          <span>Test</span>
+          {skills.map((hobby: { label: string; icon: ReactNode }) => (
+            <>
+              <StyledAvatar>{hobby.icon}</StyledAvatar>
+              <span>{hobby.label}</span>
+            </>
+          ))}
         </StyledSkillsGrid>
       </Card>
     </>

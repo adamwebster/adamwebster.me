@@ -5,6 +5,7 @@ import { usePopper } from 'react-popper';
 import profile from '../../assets/images/profile.jpg';
 import { AWMVariables } from '../../styles/StyledVariables';
 import { name } from 'dayjs/locale/*';
+import { darken } from 'polished';
 
 const StyledHero = styled.div`
   width: 100vw;
@@ -69,10 +70,11 @@ const StyledHeroContent = styled.div`
 const StyledPopper = styled.div`
   .poke-message {
     border-radius: ${AWMVariables.borderRadius};
-    background-color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.cardColor};
     padding: 16px;
     border: solid 1px ${({ theme }) => theme.colors.borderColor};
-    box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 0 10px
+      ${({ theme }) => darken(0.2, theme.colors.backgroundColor)};
   }
 `;
 

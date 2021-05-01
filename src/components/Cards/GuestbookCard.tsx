@@ -4,19 +4,9 @@ import { Button } from '../Button';
 import { Card } from '../Card';
 import { SectionHeader } from '../SectionHeader';
 import firebase from '../../firebase/firebase';
-const StyledGuestbookGrid = styled.div``;
+import { StyledAvatar } from '../../styles';
 
-const StyledAvatar = styled.div`
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const StyledGuestbookGrid = styled.div``;
 
 const StyledInput = styled.input`
   width: 100%;

@@ -8,7 +8,7 @@ const StyledHeader = styled.header`
   width: 100%;
   z-index: 100;
   height: 50px;
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.cardColor};
   color: ${({ theme }) =>
     theme.name === 'dark' ? '#fff' : theme.colors.primary};
   border-bottom: solid 1px ${({ theme }) => theme.colors.borderColor};
@@ -27,6 +27,11 @@ const StyledLogo = styled.div`
   width: 40px;
 `;
 
+const StyledControlSection = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+`;
 const Header = () => {
   const { dispatch } = useContext(SiteContext);
   const setTheme = () => {
@@ -39,6 +44,9 @@ const Header = () => {
         <StyledLogo>
           <Logo />
         </StyledLogo>
+        <StyledControlSection>
+          <Button onClick={() => setTheme()}>Toggle Theme</Button>
+        </StyledControlSection>
       </StyledHeaderInner>
     </StyledHeader>
   );

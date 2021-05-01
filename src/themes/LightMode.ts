@@ -5,6 +5,7 @@ export const LightMode: DefaultTheme = {
   name: 'light',
   colors: {
     backgroundColor: colors.grey[50],
+    cardColor: '#fff',
     borderColor: '#E8E8E8',
     white: '#fff',
     text: '#525252',

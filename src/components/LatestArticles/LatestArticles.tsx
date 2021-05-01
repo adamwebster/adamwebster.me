@@ -1,7 +1,7 @@
 import { Button } from '../Button/';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { StyledContentWrapper } from '../../styles/';
+import { StyledContentWrapper, StyledTag } from '../../styles/';
 import { graphql, useStaticQuery } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { SectionHeader } from '../SectionHeader';
@@ -12,6 +12,7 @@ const StyledLatestArticles = styled.div`
   position: relative;
   float: left;
   width: 100%;
+  margin-top: 32px;
 `;
 const StyledArticlesGrid = styled.div`
   display: grid;
@@ -21,10 +22,15 @@ const StyledArticlesGrid = styled.div`
 const StyledArticleItem = styled(Card)`
   display: grid;
   grid-template-columns: 289px 1fr;
-  gap: 32px;
+  gap: 16px;
   padding: 0;
   overflow: hidden;
-  height: 300px;
+  @media (max-width: 960px) {
+    grid-template-rows: 300px 1fr;
+    gap: 16px;
+    grid-template-columns: 1fr;
+    height: auto;
+  }
   a {
     text-decoration: none;
     font-weight: bold;
@@ -33,22 +39,12 @@ const StyledArticleItem = styled(Card)`
     }
   }
   .featured-image {
-    height: 100%;
     overflow: hidden;
     .gatsby-image-wrapper {
-      border-radius: 4px 0 0 4px;
-      width: 100% !important;
-      height: 100% !important;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      picture {
-        height: 100%;
+      height: 100%;
+      img {
+        object-fit: cover !important;
       }
-    }
-    .gatsby-image-wrapper img {
-      position: relative;
-      width: auto;
     }
   }
 
@@ -67,16 +63,6 @@ const StyledArticleItem = styled(Card)`
   }
   .article-date {
     font-size: 0.8rem;
-  }
-  .time-to-read {
-    font-size: 0.8rem;
-    background-color: #ccc;
-    padding: 8px 16px;
-    border-radius: 30px;
-    display: inline-block;
-    background-color: ${({ theme }) => lighten(0.35, theme.colors.primary)};
-    color: ${({ theme }) => theme.colors.primary};
-    margin-top: 8px;
   }
 `;
 
@@ -104,10 +90,9 @@ const LatestArticles = () => {
           featuredImage {
             childImageSharp {
               gatsbyImageData(
-                layout: FIXED
-                placeholder: BLURRED
+                layout: CONSTRAINED
                 formats: [AUTO, WEBP, AVIF]
-                transformOptions: { fit: COVER, grayscale: false }
+                aspectRatio: 1
               )
             }
           }
@@ -117,65 +102,63 @@ const LatestArticles = () => {
   `);
   return (
     <StyledLatestArticles>
-      <StyledContentWrapper>
-        <StyledContentHeader>
-          <SectionHeader className="section-header">
-            Latest Articles
-          </SectionHeader>
-        </StyledContentHeader>
-        <StyledArticlesGrid>
-          {latestArticleItems.map(
-            (item: {
-              id: string;
-              title: string;
-              featuredImage: any;
-              category: string;
-              date: string;
-              timeToRead: number;
-              excerpt: string;
-            }) => {
-              const {
-                id,
-                title,
-                featuredImage,
-                category,
-                date,
-                timeToRead,
-                excerpt,
-              } = item;
-              const image = getImage(featuredImage);
-              return (
-                <StyledArticleItem key={id}>
-                  <div className="featured-image">
-                    {image && (
-                      <GatsbyImage
-                        objectFit="fill"
-                        image={image}
-                        alt={`${title} featured image`}
-                      />
-                    )}
+      <StyledContentHeader>
+        <SectionHeader className="section-header">
+          Latest Articles
+        </SectionHeader>
+      </StyledContentHeader>
+      <StyledArticlesGrid>
+        {latestArticleItems.map(
+          (item: {
+            id: string;
+            title: string;
+            featuredImage: any;
+            category: string;
+            date: string;
+            timeToRead: number;
+            excerpt: string;
+          }) => {
+            const {
+              id,
+              title,
+              featuredImage,
+              category,
+              date,
+              timeToRead,
+              excerpt,
+            } = item;
+            const image = getImage(featuredImage);
+            return (
+              <StyledArticleItem key={id}>
+                <div className="featured-image">
+                  {image && (
+                    <GatsbyImage
+                      objectFit="fill"
+                      image={image}
+                      alt={`${title} featured image`}
+                    />
+                  )}
+                </div>
+                <div className="article-body">
+                  <div className="meta">
+                    <div className="article-category">{category}</div>
+                    <h3 className="article-title">
+                      <a href="">{title}</a>
+                    </h3>
+                    <div className="article-date">{date}</div>
                   </div>
-                  <div className="article-body">
-                    <div className="meta">
-                      <div className="article-category">{category}</div>
-                      <h3 className="article-title">
-                        <a href="">{title}</a>
-                      </h3>
-                      <div className="article-date">{date}</div>
-                    </div>
-                    <div className="excerpt">
-                      <p>{excerpt}</p>
-                    </div>
-                    <div className="time-to-read">
-                      Time to read: {timeToRead.toString()} min
-                    </div>
+                  <div className="excerpt">
+                    <p>{excerpt}</p>
                   </div>
-                </StyledArticleItem>
-              );
-            }
-          )}
-        </StyledArticlesGrid>
-      </StyledContentWrapper>
+                  <StyledTag className="time-to-read">
+                    Time to read: {timeToRead.toString()} min
+                  </StyledTag>
+                </div>
+              </StyledArticleItem>
+            );
+          }
+        )}
+      </StyledArticlesGrid>
     </StyledLatestArticles>
   );
 };

@@ -8,7 +8,7 @@ category: Front-end Development
 software: 'Affinity Designer'
 technologyUsed: 'HTML, CSS, Gatsby, ReactJS'
 draft: false
-description: 'This project is currently a work in progress and is bound to have some changes. If you would like to see the HTML prototype visit http://restaurant.adamwebster.me.'
+description: 'This project is currently a work in progress and is bound to have some changes. If you would like to see the HTML prototype visit [http://restaurant.adamwebster.me](http://restaurant.adamwebster.me).'
 bgImage: 'images/mohammad-alizade-XgeZu2jBaVI-unsplash.jpg'
 ---
 import SectionHeader from '../../src/components/SectionHeader/SectionHeader';

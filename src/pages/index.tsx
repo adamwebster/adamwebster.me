@@ -24,7 +24,7 @@ const StyledHobbiesCard = styled(HobbiesCard)`
 
 const StyledIndexGrid = styled.div`
   display: grid;
-  grid-template-columns: 288px auto;
+  grid-template-columns: auto 288px;
   gap: 32px;
 `;
 
@@ -36,13 +36,13 @@ const Index = () => {
       <StyledContentWrapper>
         <StyledIndexGrid>
           <div>
+            <ProjectsGrid />
+            <LatestArticles />
+          </div>
+          <div>
             <StyledSkillsCard />
             <StyledHobbiesCard />
             <StyledGuestbookCard />
-          </div>
-          <div>
-            <ProjectsGrid />
-            <LatestArticles />
           </div>
         </StyledIndexGrid>
       </StyledContentWrapper>

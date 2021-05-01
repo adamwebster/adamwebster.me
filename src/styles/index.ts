@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { HTMLAttributes } from 'react';
 import { Button, Colors } from '@adamwebster/fused-components';
 import { AWMVariables } from './StyledVariables';
+import { darken, lighten } from 'polished';
 
 export const StyledContentWrapper = styled.div`
   max-width: 1248px;
@@ -49,4 +50,37 @@ export const StyledSectionHeader = styled.h2``;
 export const StyledButton = styled(Button)`
   border-radius: ${AWMVariables.borderRadius};
   padding: 0 25px;
+`;
+
+export const StyledTag = styled.div`
+  font-size: 0.8rem;
+  background-color: #ccc;
+  padding: 8px 16px;
+  border-radius: 30px;
+  display: inline-block;
+  background-color: ${({ theme }) =>
+    theme.name === 'dark'
+      ? theme.colors.primary
+      : lighten(0.35, theme.colors.primary)};
+
+  color: ${({ theme }) =>
+    theme.name === 'dark'
+      ? darken(0.5, theme.colors.primary)
+      : theme.colors.primary};
+  margin-top: 8px;
+`;
+
+export const StyledAvatar = styled.div`
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) =>
+    theme.name === 'dark'
+      ? darken(0.5, theme.colors.primary)
+      : theme.colors.white};
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

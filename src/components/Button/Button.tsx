@@ -11,7 +11,8 @@ const StyledButton = styled.button<ButtonProps>`
   height: 44px;
   padding: 0 16px;
   background-color: ${({ theme }) => theme.colors.primary};
-  color: #fff;
+  color: ${({ theme }) =>
+    theme.name === 'dark' ? darken(0.5, theme.colors.primary) : '#fff'};
   border: none;
   font-weight: bold;
   cursor: pointer;

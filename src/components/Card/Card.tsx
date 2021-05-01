@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { AWMVariables } from '../../styles/StyledVariables';
 
 const StyledCard = styled.div`
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.cardColor};
   padding: 32px;
   border: solid 1px ${({ theme }) => theme.colors.borderColor};
   border-radius: ${AWMVariables.borderRadius};
