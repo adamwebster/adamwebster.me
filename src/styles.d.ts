@@ -7,7 +7,7 @@ declare module 'styled-components' {
     name: string;
     colors: {
       backgroundColor: string;
-      cardColor: string;
+      cardBGColor: string;
       white: string;
       borderColor: string;
       text: string;
@@ -15,6 +15,11 @@ declare module 'styled-components' {
       heroBGColor: string;
       heroText: string;
       lightPurpleBG: string;
+      button: {
+        backgroundColor: string;
+        textColor: string;
+        hoverColor: string;
+      };
       error: {
         text: string;
         background: string;

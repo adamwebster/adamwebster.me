@@ -1,17 +1,20 @@
 import { Button } from '../Button';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import Logo from '../../assets/svgs/logo.svg';
 import { SiteContext } from '../../state';
+import { DarkMode } from '../../themes/DarkMode';
+import { LightMode } from '../../themes/LightMode';
 
 const StyledHeader = styled.header`
   width: 100%;
   z-index: 100;
   height: 50px;
-  background-color: ${({ theme }) => theme.colors.cardColor};
-  color: ${({ theme }) =>
-    theme.name === 'dark' ? '#fff' : theme.colors.primary};
-  border-bottom: solid 1px ${({ theme }) => theme.colors.borderColor};
+  background-color: ${({ theme }) =>
+    `var(--color-cardBGColor, ${theme.colors.cardBGColor})`};
+  color: ${({ theme }) => `var(--color-primary, ${theme.colors.primary})`};
+  border-bottom: solid 1px
+    ${({ theme }) => `var(--color-borderColor, ${theme.colors.borderColor})`};
 `;
 
 const StyledHeaderInner = styled.div`
@@ -33,11 +36,62 @@ const StyledControlSection = styled.div`
   justify-content: flex-end;
 `;
 const Header = () => {
-  const { dispatch } = useContext(SiteContext);
+  const { dispatch, globalState } = useContext(SiteContext);
   const setTheme = () => {
-    console.log('set');
     dispatch({ type: 'TOGGLE_THEME' });
+    window.localStorage.setItem(
+      'awm_theme_mode',
+      globalState.theme.name === 'dark' ? 'light' : 'dark'
+    );
   };
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+
+    root.style.setProperty(
+      '--color-text',
+      globalState.theme.name === 'light'
+        ? LightMode.colors.text
+        : DarkMode.colors.text
+    );
+    root.style.setProperty(
+      '--color-background',
+      globalState.theme.name === 'light'
+        ? LightMode.colors.backgroundColor
+        : DarkMode.colors.backgroundColor
+    );
+    root.style.setProperty(
+      '--color-cardBGColor',
+      globalState.theme.name === 'light'
+        ? LightMode.colors.cardBGColor
+        : DarkMode.colors.cardBGColor
+    );
+    root.style.setProperty(
+      '--color-borderColor',
+      globalState.theme.name === 'light'
+        ? LightMode.colors.borderColor
+        : DarkMode.colors.borderColor
+    );
+    root.style.setProperty(
+      '--color-primary',
+      globalState.theme.name === 'light'
+        ? LightMode.colors.primary
+        : DarkMode.colors.primary
+    );
+    root.style.setProperty(
+      '--color-buttonText',
+      globalState.theme.name === 'light'
+        ? LightMode.colors.button.textColor
+        : DarkMode.colors.button.textColor
+    );
+
+    root.style.setProperty(
+      '--color-buttonHover',
+      globalState.theme.name === 'light'
+        ? LightMode.colors.button.hoverColor
+        : DarkMode.colors.button.hoverColor
+    );
+  }, [globalState.theme]);
   return (
     <StyledHeader>
       <StyledHeaderInner>

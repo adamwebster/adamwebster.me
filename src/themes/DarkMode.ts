@@ -5,13 +5,18 @@ export const DarkMode: DefaultTheme = {
   colors: {
     white: '#fff',
     backgroundColor: '#3A3C61',
-    cardColor: '#565886',
+    cardBGColor: '#565886',
     borderColor: '#141646',
     text: '#fff',
     primary: '#FFB1B1',
     heroBGColor: '#1E425B',
     heroText: '#fff',
     lightPurpleBG: '#40294A',
+    button: {
+      backgroundColor: '#FFB1B1',
+      textColor: '#b10000',
+      hoverColor: '#d67b7b',
+    },
     error: {
       text: '#FF3131',
       background: '#ffd4d4',

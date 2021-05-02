@@ -13,8 +13,12 @@ import { StyledAvatar } from '../../styles';
 const StyledHobbiesGrid = styled.div`
   display: grid;
   gap: 16px;
-  grid-template-columns: 48px 1fr;
-  align-items: center;
+  > div {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 48px 1fr;
+    align-items: center;
+  }
 `;
 const HobbiesCard = ({ ...rest }) => {
   const hobbies = [
@@ -40,12 +44,14 @@ const HobbiesCard = ({ ...rest }) => {
       <SectionHeader>Hobbies</SectionHeader>
       <Card {...rest}>
         <StyledHobbiesGrid>
-          {hobbies.map((hobby: { label: string; icon: ReactNode }) => (
-            <>
-              <StyledAvatar>{hobby.icon}</StyledAvatar>
-              <span>{hobby.label}</span>
-            </>
-          ))}
+          {hobbies.map(
+            (hobby: { label: string; icon: ReactNode }, index: number) => (
+              <div key={`${hobby.label}_${index}`}>
+                <StyledAvatar>{hobby.icon}</StyledAvatar>
+                <span>{hobby.label}</span>
+              </div>
+            )
+          )}
         </StyledHobbiesGrid>
       </Card>
     </>

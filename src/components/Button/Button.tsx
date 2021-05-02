@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import { darken } from 'polished';
+import { darken, cssVar } from 'polished';
 import { AWMColors } from '../../styles/StyledVariables';
 
 interface ButtonProps extends React.HtmlHTMLAttributes<HTMLButtonElement> {
@@ -10,15 +10,16 @@ const StyledButton = styled.button<ButtonProps>`
   border-radius: 4px;
   height: 44px;
   padding: 0 16px;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) =>
+    `var(--color-primary, ${theme.colors.primary})`};
   color: ${({ theme }) =>
-    theme.name === 'dark' ? darken(0.5, theme.colors.primary) : '#fff'};
+    `var(--color-buttonText, ${theme.colors.button.textColor})`};
   border: none;
   font-weight: bold;
   cursor: pointer;
   &:hover {
     background-color: ${({ theme }) =>
-      darken(0.1, theme.colors.primary as string)};
+      `var(--color-buttonHover, ${theme.colors.button.hoverColor})`};
   }
 `;
 

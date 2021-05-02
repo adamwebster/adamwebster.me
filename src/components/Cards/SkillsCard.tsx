@@ -16,8 +16,12 @@ import { StyledAvatar } from '../../styles';
 const StyledSkillsGrid = styled.div`
   display: grid;
   gap: 16px;
-  grid-template-columns: 48px 1fr;
-  align-items: center;
+  > div {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 48px 1fr;
+    align-items: center;
+  }
 `;
 
 const SkillsCard = ({ ...rest }) => {
@@ -52,12 +56,14 @@ const SkillsCard = ({ ...rest }) => {
       <SectionHeader>Skills / Applications</SectionHeader>
       <Card {...rest}>
         <StyledSkillsGrid>
-          {skills.map((hobby: { label: string; icon: ReactNode }) => (
-            <>
-              <StyledAvatar>{hobby.icon}</StyledAvatar>
-              <span>{hobby.label}</span>
-            </>
-          ))}
+          {skills.map(
+            (hobby: { label: string; icon: ReactNode }, index: number) => (
+              <div key={`${hobby.label}_${index}`}>
+                <StyledAvatar>{hobby.icon}</StyledAvatar>
+                <span>{hobby.label}</span>
+              </div>
+            )
+          )}
         </StyledSkillsGrid>
       </Card>
     </>

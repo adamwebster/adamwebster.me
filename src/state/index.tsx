@@ -3,7 +3,7 @@ import { DarkMode } from '../themes/DarkMode';
 import { LightMode } from '../themes/LightMode';
 
 const initialState = {
-  theme: DarkMode,
+  theme: LightMode,
 };
 
 export const SiteContext = createContext({

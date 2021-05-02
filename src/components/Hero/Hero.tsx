@@ -31,7 +31,7 @@ const StyledWelcomeMessage = styled.h1`
   font-family: 'Dosis', sans-serif;
   align-items: center;
   .intro-text {
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => `var(--color-primary, ${theme.colors.primary})`};
     font-weight: 800;
     font-size: 3rem;
   }
@@ -51,7 +51,8 @@ const StyledProfileImage = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: solid 4px ${({ theme }) => theme.colors.primary};
+  border: solid 4px
+    ${({ theme }) => `var(--color-primary, ${theme.colors.primary})`};
   display: flex;
   object-fit: cover;
   object-position: center center;
@@ -70,7 +71,8 @@ const StyledHeroContent = styled.div`
 const StyledPopper = styled.div`
   .poke-message {
     border-radius: ${AWMVariables.borderRadius};
-    background-color: ${({ theme }) => theme.colors.cardColor};
+    background-color: ${({ theme }) =>
+      `var(--color-cardBGColor, ${theme.colors.cardBGColor})`};
     padding: 16px;
     border: solid 1px ${({ theme }) => theme.colors.borderColor};
     box-shadow: 0 0 10px

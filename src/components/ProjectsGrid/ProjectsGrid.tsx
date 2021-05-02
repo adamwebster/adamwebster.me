@@ -24,7 +24,6 @@ const StyledProjectsGrid = styled.div`
   > div {
     max-height: 250px;
     border-radius: ${AWMVariables.borderRadius};
-    border: solid 1px ${({ theme }) => theme.colors.borderColor};
     overflow: hidden;
   }
 `;
@@ -51,7 +50,8 @@ const StyledSelectedModal = styled(motion.div)`
   min-height: 500px;
   max-height: 90vh;
   max-width: 90vw;
-  background-color: ${({ theme }) => theme.colors.backgroundColor};
+  background-color: ${({ theme }) =>
+    `var(--color-background, ${theme.colors.backgroundColor})`};
   border-radius: 8px;
   overflow: hidden;
   .selected-modal-content {

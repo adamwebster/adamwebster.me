@@ -74,11 +74,10 @@ export const StyledAvatar = styled.div`
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) =>
+    `var(--color-primary, ${theme.colors.primary})`};
   color: ${({ theme }) =>
-    theme.name === 'dark'
-      ? darken(0.5, theme.colors.primary)
-      : theme.colors.white};
+    `var(--color-buttonText, ${theme.colors.button.textColor})`};
   font-weight: bold;
   display: flex;
   justify-content: center;

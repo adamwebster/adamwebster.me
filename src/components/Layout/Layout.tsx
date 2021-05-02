@@ -1,5 +1,8 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useContext, useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components';
+import { SiteContext } from '../../state';
+import { DarkMode } from '../../themes/DarkMode';
+import { LightMode } from '../../themes/LightMode';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
 
@@ -8,11 +11,12 @@ html{
   scroll-behavior: smooth;
 }
   body{
-    background-color:${({ theme }) => theme.colors.backgroundColor};    
+    background-color:${({ theme }) =>
+      `var(--color-background, ${theme.colors.backgroundColor})`};    
     font-family:'Helvetica Neue', sans-serif;
     font-size: 100%;
     line-height: 1.5;
-    color: ${({ theme }) => theme.colors.text};
+    color: ${({ theme }) => `var(--color-text, ${theme.colors.text})`};
     padding: 0;
     margin: 0;  
   }
@@ -33,7 +37,7 @@ figcaption{
 }
 
 a{
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => `var(--color-primary, ${theme.colors.primary})`};
 }
 `;
 
@@ -42,11 +46,19 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => {
+  const { dispatch, globalState } = useContext(SiteContext);
+  useEffect(() => {
+    const localThemeMode = window.localStorage.getItem('awm_theme_mode');
+    console.log(localThemeMode);
+    dispatch({
+      type: 'SET_THEME',
+      payload: localThemeMode === 'dark' ? DarkMode : LightMode,
+    });
+  }, []);
   return (
     <>
       <GlobalStyle />
       <Header />
-
       {children}
       <Footer />
     </>
