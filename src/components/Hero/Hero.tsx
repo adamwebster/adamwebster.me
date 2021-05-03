@@ -64,6 +64,10 @@ const StyledProfileImage = styled.div`
   object-position: center center;
   overflow: hidden;
   box-sizing: border-box;
+  img {
+    width: 100px;
+    height: 100px;
+  }
   @media (max-width: 768px) {
     margin: 0 auto;
   }
@@ -144,7 +148,7 @@ const Hero = () => {
             onClick={() => handlePoke()}
             ref={setReferenceElement}
           >
-            <img src={profile} />
+            <img alt="Adam Webster Profile" src={profile} />
           </StyledProfileImage>
           <AnimatePresence>
             {showPoke && (

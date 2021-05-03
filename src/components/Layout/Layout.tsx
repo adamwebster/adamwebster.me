@@ -46,15 +46,6 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => {
-  const { dispatch, globalState } = useContext(SiteContext);
-  useEffect(() => {
-    const localThemeMode = window.localStorage.getItem('awm_theme_mode');
-    console.log(localThemeMode);
-    dispatch({
-      type: 'SET_THEME',
-      payload: localThemeMode === 'dark' ? DarkMode : LightMode,
-    });
-  }, []);
   return (
     <>
       <GlobalStyle />

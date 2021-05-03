@@ -133,11 +133,13 @@ const LatestArticles = () => {
               <StyledArticleItem key={id}>
                 <div className="featured-image">
                   {image && (
-                    <GatsbyImage
-                      objectFit="fill"
-                      image={image}
-                      alt={`${title} featured image`}
-                    />
+                    <Link to={`articles/post/${slug}`}>
+                      <GatsbyImage
+                        objectFit="fill"
+                        image={image}
+                        alt={`${title} featured image`}
+                      />
+                    </Link>
                   )}
                 </div>
                 <div className="article-body">

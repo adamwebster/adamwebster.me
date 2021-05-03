@@ -36,7 +36,7 @@ export const StyledLinkStandard = styled.a`
   box-sizing: border-box;
   text-decoration: none;
   background-color: ${({ theme }) =>
-    `var(--color-primary, ${theme.colors.primary})`};
+    `var(--color-buttonBackground, ${theme.colors.button.background})`};
   color: ${({ theme }) =>
     `var(--color-buttonText, ${theme.colors.button.textColor})`};
   border: none;

@@ -9,7 +9,7 @@ const StyledBMCButton = styled.a`
   text-decoration: none !important;
   display: inline-flex !important;
   background-color: ${({ theme }) =>
-    `var(--color-primary, ${theme.colors.primary})`};
+    `var(--color-buttonBackground, ${theme.colors.button.background})`};
   color: ${({ theme }) =>
     `var(--color-buttonText, ${theme.colors.button.textColor})`};
   border-radius: 4px;
@@ -53,8 +53,8 @@ const BuyMeACoffee = ({ ...rest }) => {
           src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg"
           alt="Buy me a Hot Chocolate"
         />
-        <span style={{ marginLeft: 5 + 'px', fontSize: 19 + 'px !important;' }}>
-          Buy me a Hot Chocolate
+        <span style={{ marginLeft: 5 + 'px', fontSize: 19 + 'px !important' }}>
+          Buy me a hot chocolate
         </span>
       </StyledBMCButton>
     </>

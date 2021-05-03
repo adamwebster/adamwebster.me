@@ -1,6 +1,5 @@
 import { colors } from '../styles/StyledVariables';
 import { DefaultTheme } from 'styled-components';
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 export const LightMode: DefaultTheme = {
   name: 'light',
@@ -10,16 +9,16 @@ export const LightMode: DefaultTheme = {
     borderColor: '#E8E8E8',
     white: '#fff',
     text: '#525252',
-    primary: '#FF3131',
+    primary: '#d03030',
     heroBGColor: '#CAE0E7',
     heroText: '#006E90',
     lightPurpleBG: '#FAEFFF',
     tag: {
       background: '#ffe3e3',
-      text: '#FF3131',
+      text: '#a23c3c',
     },
     button: {
-      backgroundColor: '#FF3131',
+      background: '#d03030',
       textColor: '#FFF',
       hoverColor: '#c72525',
     },
@@ -27,6 +26,11 @@ export const LightMode: DefaultTheme = {
       text: '#FF3131',
       background: '#ffd4d4',
       border: '#FF3131',
+    },
+    success: {
+      text: '#006324',
+      background: '#dbffd4',
+      border: '#006324',
     },
   },
 };

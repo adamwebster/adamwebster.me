@@ -1,4 +1,3 @@
-import { Button } from '../Button';
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import Logo from '../../assets/svgs/logo.svg';
@@ -119,7 +118,10 @@ const Header = () => {
     <StyledHeader>
       <StyledHeaderInner>
         <StyledLogo>
-          <Link to="/">
+          <Link
+            to="/"
+            title="Adam Webster | UI Designer and Front-end Developer"
+          >
             <Logo />
           </Link>
         </StyledLogo>

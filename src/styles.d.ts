@@ -20,11 +20,16 @@ declare module 'styled-components' {
         text: string;
       };
       button: {
-        backgroundColor: string;
+        background: string;
         textColor: string;
         hoverColor: string;
       };
       error: {
+        text: string;
+        background: string;
+        border: string;
+      };
+      success: {
         text: string;
         background: string;
         border: string;

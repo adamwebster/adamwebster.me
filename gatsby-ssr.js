@@ -75,6 +75,13 @@ const MagicScriptTag = ({ themeOptions }) => {
       );
 
       root.style.setProperty(
+        '--color-buttonBackground',
+        colorMode === 'light'
+          ? '${LightMode.colors.button.background}'
+          : '${DarkMode.colors.button.background}'
+      );
+
+      root.style.setProperty(
         '--color-buttonText',
         colorMode === 'light'
           ? '${LightMode.colors.button.textColor}'

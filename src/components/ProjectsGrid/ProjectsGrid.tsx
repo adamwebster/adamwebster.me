@@ -23,8 +23,13 @@ const StyledProjectsGrid = styled.div`
   gap: 32px;
   > div {
     max-height: 250px;
-    border-radius: ${AWMVariables.borderRadius};
-    overflow: hidden;
+  }
+
+  .gatsby-image-wrapper {
+    img {
+      border-radius: ${AWMVariables.borderRadius};
+      overflow: hidden;
+    }
   }
 `;
 
@@ -75,6 +80,7 @@ const StyledSelectedImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   img {
     max-width: 100%;
     max-height: 100%;
@@ -238,7 +244,7 @@ const FeaturedWork = () => {
                       {selectedImage.technologyUsed
                         .split(',')
                         .map((tech: string) => (
-                          <StyledTag>{tech}</StyledTag>
+                          <StyledTag key={tech}>{tech}</StyledTag>
                         ))}
                     </div>
                   )}

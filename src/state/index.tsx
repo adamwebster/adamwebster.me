@@ -3,7 +3,12 @@ import { DarkMode } from '../themes/DarkMode';
 import { LightMode } from '../themes/LightMode';
 
 const initialState = {
-  theme: LightMode,
+  theme:
+    typeof window !== 'undefined'
+      ? window.localStorage.getItem('awm_theme_mode') === 'light'
+        ? LightMode
+        : DarkMode
+      : LightMode,
 };
 
 export const SiteContext = createContext({

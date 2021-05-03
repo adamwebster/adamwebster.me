@@ -138,7 +138,7 @@ module.exports = {
         fonts: [
           `dosis\:200, 400, 700, 800`, // you can also specify font weights and styles
         ],
-        display: 'swap',
+        display: 'block',
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

@@ -11,7 +11,7 @@ const StyledButton = styled.button<ButtonProps>`
   height: 44px;
   padding: 0 16px;
   background-color: ${({ theme }) =>
-    `var(--color-primary, ${theme.colors.primary})`};
+    `var(--color-buttonBackground, ${theme.colors.button.background})`};
   color: ${({ theme }) =>
     `var(--color-buttonText, ${theme.colors.button.textColor})`};
   border: none;

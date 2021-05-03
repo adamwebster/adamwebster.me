@@ -69,6 +69,16 @@ const StyledErrorList = styled.ul`
   list-style: none;
   font-size: 0.8rem;
 `;
+
+const StyledSuccessMessage = styled.div`
+  background-color: ${({ theme }) => theme.colors.success.background};
+  color: ${({ theme }) => theme.colors.success.border};
+  padding: 8px;
+  box-sizing: border-box;
+  margin: 0;
+  list-style: none;
+  font-size: 0.8rem;
+`;
 interface GuestbookItem {
   id: string;
   name: string;
@@ -85,13 +95,18 @@ const GuestbookCard = ({ ...rest }) => {
     name: '',
     message: '',
   });
+  const [checkboxChecked, setCheckBoxedChecked] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [errorMessages, setErrorMessages] = useState<Array<any>>([]);
   const addItem = (e: FormEvent) => {
     e.preventDefault();
     let hasError = false;
     if (guestbookEntry.name === '' || guestbookEntry.message === '') {
       hasError = true;
+    }
+    if (checkboxChecked) {
+      return false;
     }
     if (hasError) {
       setShowError(true);
@@ -105,6 +120,7 @@ const GuestbookCard = ({ ...rest }) => {
       setErrorMessages(errorMessagesItems);
       return false;
     }
+    setShowSuccessMessage(true);
     firebase.firestore().collection('guestbook').add({
       name: guestbookEntry.name,
       message: guestbookEntry.message,
@@ -154,16 +170,18 @@ const GuestbookCard = ({ ...rest }) => {
           })}
         </StyledGuestbookGrid>
         <StyledForm onSubmit={e => addItem(e)}>
-          <label>Your name</label>
+          <label htmlFor="name">Your name</label>
           <StyledInput
+            id="name"
             value={guestbookEntry.name}
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
               setShowError(false);
               setGuestbookEntry({ ...guestbookEntry, name: e.target.value });
             }}
           />
-          <label>Your message</label>
+          <label htmlFor="message">Your message</label>
           <StyledTextArea
+            id="message"
             value={guestbookEntry.message}
             onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
               setShowError(false);
@@ -177,6 +195,20 @@ const GuestbookCard = ({ ...rest }) => {
               ))}
             </StyledErrorList>
           )}
+          {showSuccessMessage && (
+            <StyledSuccessMessage>
+              Thanks for signing my guestbook! Once I review it will be
+              displayed above.
+            </StyledSuccessMessage>
+          )}
+          <input
+            type="checkbox"
+            aria-hidden={true}
+            tabIndex={-1}
+            style={{ height: 0, width: 0, opacity: 0 }}
+            checked={checkboxChecked}
+            onChange={() => setCheckBoxedChecked(!checkboxChecked)}
+          />
           <Button>Add to Guestbook</Button>
         </StyledForm>
       </Card>

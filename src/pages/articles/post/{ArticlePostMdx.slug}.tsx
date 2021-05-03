@@ -3,7 +3,7 @@ import { graphql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { MDXProvider } from '@mdx-js/react';
 import { GatsbyImage, getImage, getSrc } from 'gatsby-plugin-image';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Colors, Button } from '@adamwebster/fused-components';
 import _ from 'lodash';
 import SEO from '../../../components/seo';
@@ -12,7 +12,6 @@ import {
   BuyMeACoffee,
   BuyMeACoffeeWidget,
 } from '../../../components/BuyMeACoffee';
-import { SetHeaderColor } from '../../../components/SetHeaderColor';
 import dayjs from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { AWMVariables } from '../../../styles/StyledVariables';
@@ -38,6 +37,9 @@ const StyledArticleWrapper = styled.div`
   display: grid;
   gap: 32px;
   grid-template-columns: 640px auto;
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+  }
 `;
 const StyledArticle = styled(Card)`
   padding: 0;
