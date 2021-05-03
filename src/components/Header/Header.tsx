@@ -5,6 +5,9 @@ import Logo from '../../assets/svgs/logo.svg';
 import { SiteContext } from '../../state';
 import { DarkMode } from '../../themes/DarkMode';
 import { LightMode } from '../../themes/LightMode';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'gatsby';
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -34,6 +37,12 @@ const StyledControlSection = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
+`;
+
+const StyledButton = styled.button`
+  background-color: transparent;
+  border: none;
+  color: inherit;
 `;
 const Header = () => {
   const { dispatch, globalState } = useContext(SiteContext);
@@ -91,15 +100,35 @@ const Header = () => {
         ? LightMode.colors.button.hoverColor
         : DarkMode.colors.button.hoverColor
     );
+
+    root.style.setProperty(
+      '--color-tagBackground',
+      globalState.theme.name === 'light'
+        ? LightMode.colors.tag.background
+        : DarkMode.colors.tag.background
+    );
+
+    root.style.setProperty(
+      '--color-tagText',
+      globalState.theme.name === 'light'
+        ? LightMode.colors.tag.text
+        : DarkMode.colors.tag.text
+    );
   }, [globalState.theme]);
   return (
     <StyledHeader>
       <StyledHeaderInner>
         <StyledLogo>
-          <Logo />
+          <Link to="/">
+            <Logo />
+          </Link>
         </StyledLogo>
         <StyledControlSection>
-          <Button onClick={() => setTheme()}>Toggle Theme</Button>
+          <StyledButton title="Toggle theme" onClick={() => setTheme()}>
+            <FontAwesomeIcon
+              icon={globalState.theme.name === 'dark' ? faSun : faMoon}
+            />{' '}
+          </StyledButton>
         </StyledControlSection>
       </StyledHeaderInner>
     </StyledHeader>

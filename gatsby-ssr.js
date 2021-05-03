@@ -87,6 +87,20 @@ const MagicScriptTag = ({ themeOptions }) => {
           ? '${LightMode.colors.button.hoverColor}'
           : '${DarkMode.colors.button.hoverColor}'
       );
+
+      root.style.setProperty(
+        '--color-tagBackground',
+        colorMode === 'light'
+          ? '${LightMode.colors.tag.background}'
+          : '${DarkMode.colors.tag.background}'
+      );
+
+      root.style.setProperty(
+        '--color-tagText',
+        colorMode === 'light'
+          ? '${LightMode.colors.tag.text}'
+          : '${DarkMode.colors.tag.text}'
+      );
       root.style.setProperty('--initial-color-mode', colorMode);
 
   })()`;

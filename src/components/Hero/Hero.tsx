@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { animate, AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { usePopper } from 'react-popper';
 import profile from '../../assets/images/profile.jpg';
 import { AWMVariables } from '../../styles/StyledVariables';
-import { name } from 'dayjs/locale/*';
 import { darken } from 'polished';
 
 const StyledHero = styled.div`
   width: 100vw;
-  height: 300px;
+  min-height: 300px;
 `;
 const StyledHeroInner = styled.div`
   max-width: 1120px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  height: 300px;
+  min-height: 300px;
   z-index: 99;
   position: relative;
   @media (max-width: 1120px) {
     padding: 0 16px;
+  }
+  @media (max-width: 768px) {
+    padding: 32px 16px;
   }
 `;
 const StyledWelcomeMessage = styled.h1`
@@ -30,6 +32,10 @@ const StyledWelcomeMessage = styled.h1`
   font-weight: 100;
   font-family: 'Dosis', sans-serif;
   align-items: center;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
   .intro-text {
     color: ${({ theme }) => `var(--color-primary, ${theme.colors.primary})`};
     font-weight: 800;
@@ -58,6 +64,9 @@ const StyledProfileImage = styled.div`
   object-position: center center;
   overflow: hidden;
   box-sizing: border-box;
+  @media (max-width: 768px) {
+    margin: 0 auto;
+  }
 `;
 const StyledHeroContent = styled.div`
   display: grid;
@@ -66,6 +75,9 @@ const StyledHeroContent = styled.div`
   align-items: center;
   gap: 32px;
   margin: 0 auto;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const StyledPopper = styled.div`
@@ -163,7 +175,9 @@ const Hero = () => {
             <div>
               <span className="intro-text">Hi, I’m Adam Webster</span>
               <br />
-              <span className="sub-message">UI Designer & Developer</span>
+              <span className="sub-message">
+                UI Designer & Front-end Developer
+              </span>
             </div>
           </StyledWelcomeMessage>
         </StyledHeroContent>

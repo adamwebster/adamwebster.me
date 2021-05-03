@@ -2,15 +2,13 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { AWMVariables } from '../../styles/StyledVariables';
 import { SiteContext } from '../../state';
-import { Colors } from '@adamwebster/fused-components';
 import { LinkButtonStandard } from '../LinkButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { Card } from '../Card';
 
-const StyledBuyMeACoffeeWidget = styled.div`
+const StyledBuyMeACoffeeWidget = styled(Card)`
   display: flex;
-  background-color: ${({ theme }) =>
-    theme === 'dark' ? Colors.darkModeDarker : Colors.lightest};
   padding: 20px 10px;
   border-radius: ${AWMVariables.borderRadius};
   margin: 30px 0;
@@ -37,10 +35,7 @@ const BuyMeACoffeeWidget = ({ ...rest }) => {
 
   return (
     <>
-      <StyledBuyMeACoffeeWidget
-        theme={globalState.darkMode ? 'dark' : 'light'}
-        {...rest}
-      >
+      <StyledBuyMeACoffeeWidget {...rest}>
         <StyledImageWrapper>
           <img
             src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg"
@@ -48,7 +43,7 @@ const BuyMeACoffeeWidget = ({ ...rest }) => {
           />
         </StyledImageWrapper>
         <div>
-          <h3 style={{ textTransform: 'uppercase' }}>Buy me a hot chocolate</h3>
+          <h3>Buy me a Hot Chocolate</h3>
           <p>
             Usually people would ask to buy them a coffee to help support their
             site and content they provide, but I do not drink coffee so instead
@@ -73,7 +68,6 @@ const BuyMeACoffeeWidget = ({ ...rest }) => {
             </a>
           </p>
           <LinkButtonStandard
-            style={{ textTransform: 'uppercase' }}
             href="https://www.buymeacoffee.com/adamwebster"
             target="_blank"
             rel="noopener"

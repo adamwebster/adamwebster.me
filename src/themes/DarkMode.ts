@@ -12,6 +12,10 @@ export const DarkMode: DefaultTheme = {
     heroBGColor: '#1E425B',
     heroText: '#fff',
     lightPurpleBG: '#40294A',
+    tag: {
+      background: '#FFB1B1',
+      text: '#b10000',
+    },
     button: {
       backgroundColor: '#FFB1B1',
       textColor: '#b10000',

@@ -1,5 +1,6 @@
 import { colors } from '../styles/StyledVariables';
 import { DefaultTheme } from 'styled-components';
+import { text } from '@fortawesome/fontawesome-svg-core';
 
 export const LightMode: DefaultTheme = {
   name: 'light',
@@ -13,6 +14,10 @@ export const LightMode: DefaultTheme = {
     heroBGColor: '#CAE0E7',
     heroText: '#006E90',
     lightPurpleBG: '#FAEFFF',
+    tag: {
+      background: '#ffe3e3',
+      text: '#FF3131',
+    },
     button: {
       backgroundColor: '#FF3131',
       textColor: '#FFF',

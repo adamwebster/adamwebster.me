@@ -59,14 +59,8 @@ export const StyledTag = styled.div`
   border-radius: 30px;
   display: inline-block;
   background-color: ${({ theme }) =>
-    theme.name === 'dark'
-      ? theme.colors.primary
-      : lighten(0.35, theme.colors.primary)};
-
-  color: ${({ theme }) =>
-    theme.name === 'dark'
-      ? darken(0.5, theme.colors.primary)
-      : theme.colors.primary};
+    `var(--color-tagBackground, ${theme.colors.tag.background})`};
+  color: ${({ theme }) => `var(--color-tagTxt, ${theme.colors.tag.text})`};
   margin-top: 8px;
 `;
 

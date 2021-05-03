@@ -15,6 +15,10 @@ declare module 'styled-components' {
       heroBGColor: string;
       heroText: string;
       lightPurpleBG: string;
+      tag: {
+        background: string;
+        text: string;
+      };
       button: {
         backgroundColor: string;
         textColor: string;

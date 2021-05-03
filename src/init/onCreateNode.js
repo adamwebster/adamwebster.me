@@ -7,7 +7,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
   const { createNode } = actions;
   if (node.internal.type === 'Mdx') {
     const fileNode = getNode(node.parent);
-    if (fileNode.sourceInstanceName === 'blog-post') {
+    if (fileNode.sourceInstanceName === 'article-post') {
       const data = {
         title: node.frontmatter.title,
         author: node.frontmatter.author,
@@ -16,7 +16,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
         slug: node.frontmatter.slug
           ? node.frontmatter.slug
           : _.kebabCase(node.frontmatter.title),
-        path: `/blog/post/${
+        path: `/article/post/${
           node.frontmatter.slug
             ? node.frontmatter.slug
             : _.kebabCase(node.frontmatter.title)
@@ -33,17 +33,17 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
       createNode({
         ...data,
         // Required fields.
-        id: createNodeId(`${node.id} >>> BlogPostMDX`),
+        id: createNodeId(`${node.id} >>> ArticlePostMdx`),
         parent: node.id,
         children: [],
         internal: {
-          type: `BlogPostMdx`,
+          type: `ArticlePostMdx`,
           contentDigest: crypto
             .createHash(`md5`)
             .update(JSON.stringify(data))
             .digest(`hex`),
           content: JSON.stringify(data),
-          description: `Blog Post Mdx`,
+          description: `Article Post Mdx`,
         },
       });
     }
@@ -118,7 +118,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
 
   if (node.internal.type === 'MarkdownRemark') {
     const fileNode = getNode(node.parent);
-    if (fileNode.sourceInstanceName === 'blog-post') {
+    if (fileNode.sourceInstanceName === 'article-post') {
       const data = {
         title: node.frontmatter.title,
         author: node.frontmatter.author,
@@ -127,7 +127,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
         slug: node.frontmatter.slug
           ? node.frontmatter.slug
           : _.kebabCase(node.frontmatter.title),
-        path: `/blog/post/${
+        path: `/article/post/${
           node.frontmatter.slug
             ? node.frontmatter.slug
             : _.kebabCase(node.frontmatter.title)
@@ -144,17 +144,17 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
       createNode({
         ...data,
         // Required fields.
-        id: createNodeId(`${node.id} >>> BlogPost`),
+        id: createNodeId(`${node.id} >>> ArticlePost`),
         parent: node.id,
         children: [],
         internal: {
-          type: `BlogPost`,
+          type: `ArticlePost`,
           contentDigest: crypto
             .createHash(`md5`)
             .update(JSON.stringify(data))
             .digest(`hex`),
           content: JSON.stringify(data),
-          description: `Blog Post`,
+          description: `Article Post`,
         },
       });
     }

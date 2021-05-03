@@ -1,13 +1,12 @@
-import { Button } from '../Button/';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { StyledContentWrapper, StyledTag } from '../../styles/';
-import { graphql, useStaticQuery } from 'gatsby';
+import { StyledTag } from '../../styles/';
+import { graphql, Link, useStaticQuery } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { SectionHeader } from '../SectionHeader';
-import { darken, lighten } from 'polished';
 import { SiteContext } from '../../state';
 import { Card } from '../Card';
+import _ from 'lodash';
 const StyledLatestArticles = styled.div`
   position: relative;
   float: left;
@@ -58,7 +57,6 @@ const StyledArticleItem = styled(Card)`
 
   .article-category {
     font-weight: 400;
-    text-transform: uppercase;
     font-size: 0.8rem;
   }
   .article-date {
@@ -76,16 +74,17 @@ const StyledContentHeader = styled.div`
 const LatestArticles = () => {
   const { globalState } = useContext(SiteContext);
   const {
-    allBlogPost: { nodes: latestArticleItems },
+    allArticlePost: { nodes: latestArticleItems },
   } = useStaticQuery(graphql`
     {
-      allBlogPost(limit: 4, sort: { order: DESC, fields: date }) {
+      allArticlePost(limit: 4, sort: { order: DESC, fields: date }) {
         nodes {
           timeToRead
           excerpt
           date(formatString: "MMMM Do YYYY")
           category
           id
+          slug
           title
           featuredImage {
             childImageSharp {
@@ -117,6 +116,7 @@ const LatestArticles = () => {
             date: string;
             timeToRead: number;
             excerpt: string;
+            slug: string;
           }) => {
             const {
               id,
@@ -126,6 +126,7 @@ const LatestArticles = () => {
               date,
               timeToRead,
               excerpt,
+              slug,
             } = item;
             const image = getImage(featuredImage);
             return (
@@ -143,7 +144,7 @@ const LatestArticles = () => {
                   <div className="meta">
                     <div className="article-category">{category}</div>
                     <h3 className="article-title">
-                      <a href="">{title}</a>
+                      <Link to={`articles/post/${slug}`}>{title}</Link>
                     </h3>
                     <div className="article-date">{date}</div>
                   </div>

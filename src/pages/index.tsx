@@ -26,6 +26,9 @@ const StyledIndexGrid = styled.div`
   display: grid;
   grid-template-columns: auto 288px;
   gap: 32px;
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Index = () => {
