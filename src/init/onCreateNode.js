@@ -16,7 +16,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
         slug: node.frontmatter.slug
           ? node.frontmatter.slug
           : _.kebabCase(node.frontmatter.title),
-        path: `/article/post/${
+        path: `/articles/post/${
           node.frontmatter.slug
             ? node.frontmatter.slug
             : _.kebabCase(node.frontmatter.title)
@@ -127,7 +127,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
         slug: node.frontmatter.slug
           ? node.frontmatter.slug
           : _.kebabCase(node.frontmatter.title),
-        path: `/article/post/${
+        path: `/articles/post/${
           node.frontmatter.slug
             ? node.frontmatter.slug
             : _.kebabCase(node.frontmatter.title)

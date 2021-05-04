@@ -34,10 +34,9 @@ const BioCard = ({ ...rest }) => {
           <img src={profile} />
         </StyledProfileImage>
         <div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius nunc
-          libero platea quis cras ultricies. Vitae quam vulputate cursus justo
-          eu posuere malesuada. Sed pharetra, lectus tempor cum imperdiet non,
-          nibh. Ultricies pharetra nec purus eget auctor orci hac. Consequat.
+          Adam Webster is a UI Designer & Front-end developer. He has been
+          coding and designing websites since he has 13 years old. His hobbies
+          include: photography, drawing, hiking, and video games.
         </div>
       </StyledBioCard>
     </>
