@@ -32,5 +32,8 @@ export const LightMode: DefaultTheme = {
       background: '#dbffd4',
       border: '#006324',
     },
+    input: {
+      background: '#f4f4f4',
+    },
   },
 };

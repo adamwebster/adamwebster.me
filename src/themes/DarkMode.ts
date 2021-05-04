@@ -31,5 +31,8 @@ export const DarkMode: DefaultTheme = {
       background: '#dbffd4',
       border: '#006324',
     },
+    input: {
+      background: '#3A3C61',
+    },
   },
 };

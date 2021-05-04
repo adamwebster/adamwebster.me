@@ -190,7 +190,7 @@ const BlogPost = ({ data }: Props) => {
 
 export const pageQuery = graphql`
   query($id: String!) {
-    articlePostMdx(id: { eq: $id }) {
+    articlePostMdx(id: { eq: $id }, draft: { eq: false }) {
       body
       date
       path

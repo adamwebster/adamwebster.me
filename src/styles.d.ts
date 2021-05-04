@@ -34,6 +34,9 @@ declare module 'styled-components' {
         background: string;
         border: string;
       };
+      input: {
+        background: string;
+      };
     };
   }
 }

@@ -77,7 +77,11 @@ const LatestArticles = () => {
     allArticlePost: { nodes: latestArticleItems },
   } = useStaticQuery(graphql`
     {
-      allArticlePost(limit: 4, sort: { order: DESC, fields: date }) {
+      allArticlePost(
+        limit: 4
+        filter: { draft: { eq: false } }
+        sort: { order: DESC, fields: date }
+      ) {
         nodes {
           timeToRead
           excerpt

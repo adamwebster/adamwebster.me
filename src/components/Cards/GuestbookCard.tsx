@@ -10,8 +10,10 @@ const StyledGuestbookGrid = styled.div``;
 
 const StyledInput = styled.input`
   width: 100%;
-  background-color: #f4f4f4;
+  background-color: ${({ theme }) =>
+    `var(--color-inputBackground, ${theme.colors.input.background})`};
   border: none;
+  color: inherit;
   -webkit-appearance: none;
   height: 32px;
   border-radius: 4px;
@@ -21,7 +23,9 @@ const StyledInput = styled.input`
 
 const StyledTextArea = styled.textarea`
   width: 100%;
-  background-color: #f4f4f4;
+  background-color: ${({ theme }) =>
+    `var(--color-inputBackground, ${theme.colors.input.background})`};
+  color: inherit;
   border-radius: 4px;
   resize: none;
   border: none;

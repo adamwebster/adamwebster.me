@@ -108,6 +108,14 @@ const MagicScriptTag = ({ themeOptions }) => {
           ? '${LightMode.colors.tag.text}'
           : '${DarkMode.colors.tag.text}'
       );
+
+      root.style.setProperty(
+        '--color-inputBackground',
+        colorMode === 'light'
+          ? '${LightMode.colors.input.background}'
+          : '${DarkMode.colors.input.background}'
+      );
+
       root.style.setProperty('--initial-color-mode', colorMode);
 
   })()`;
