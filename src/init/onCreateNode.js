@@ -70,6 +70,8 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
         software: node.frontmatter.software,
         description: node.frontmatter.description,
         bgImage: node.frontmatter.bgImage,
+        demo: node.frontmatter.demo ? node.frontmatter.demo : null,
+        repo: node.frontmatter.repo ? node.frontmatter.repo : null,
       };
 
       createNode({
@@ -181,6 +183,8 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
         software: node.frontmatter.software,
         description: node.frontmatter.description,
         bgImage: node.frontmatter.bgImage,
+        demo: node.frontmatter.demo ? node.frontmatter.demo : null,
+        repo: node.frontmatter.repo ? node.frontmatter.repo : null,
       };
 
       createNode({

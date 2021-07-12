@@ -1,12 +1,13 @@
 import React, { ReactNode, useContext, useEffect } from 'react';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 import { SiteContext } from '../../state';
-import { DarkMode } from '../../themes/DarkMode';
-import { LightMode } from '../../themes/LightMode';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
 
-const GlobalStyle = createGlobalStyle`
+interface GSProps {
+  scrollDisabled: boolean;
+}
+const GlobalStyle = createGlobalStyle<GSProps>`
 html{
   scroll-behavior: smooth;
 }
@@ -19,6 +20,11 @@ html{
     color: ${({ theme }) => `var(--color-text, ${theme.colors.text})`};
     padding: 0;
     margin: 0;  
+    ${({ scrollDisabled }) =>
+      scrollDisabled &&
+      css`
+        overflow: hidden;
+      `}
   }
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 0.5em 0;
@@ -46,9 +52,10 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => {
+  const { globalState } = useContext(SiteContext);
   return (
     <>
-      <GlobalStyle />
+      <GlobalStyle scrollDisabled={globalState.scrollDisabled} />
       <Header />
       {children}
       <Footer />

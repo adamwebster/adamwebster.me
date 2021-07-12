@@ -31,6 +31,11 @@ const StyledProjectsGrid = styled.div`
       overflow: hidden;
     }
   }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, minmax(8rem, 1fr));
+    grid-template-rows: repeat(3, auto);
+  }
 `;
 
 const StyledOverlay = styled.div`
@@ -63,13 +68,23 @@ const StyledSelectedModal = styled(motion.div)`
     padding: 32px 32px 32px 0;
     .meta-header {
       font-size: 1.2rem;
+      margin-top: 32px;
     }
     .technologies-used {
-      margin-top: 32px;
       margin-bottom: 32px;
       div {
         margin-left: 8px;
       }
+    }
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 50% 50%;
+    gap: 0;
+    .selected-modal-content {
+      padding: 24px;
+      overflow: auto;
     }
   }
 `;
@@ -89,7 +104,7 @@ const StyledSelectedImage = styled.div`
 
 const StyledOverlayMotion = motion(StyledOverlay);
 const FeaturedWork = () => {
-  const { globalState } = useContext(SiteContext);
+  const { globalState, dispatch } = useContext(SiteContext);
   const overlayRef = useRef<HTMLDivElement | any>();
   const [selectedImage, setSelectedImage] = useState<any | null>(null);
   const {
@@ -104,6 +119,8 @@ const FeaturedWork = () => {
           technologyUsed
           software
           category
+          demo
+          repo
           featuredImage {
             childImageSharp {
               gatsbyImageData(
@@ -125,6 +142,7 @@ const FeaturedWork = () => {
     if (selectedImage) {
       if (e.key === 'Escape') {
         setSelectedImage(null);
+        dispatch({ type: 'DISABLE_SCROLL', payload: false });
       }
     }
   };
@@ -150,6 +168,8 @@ const FeaturedWork = () => {
               technologyUsed: string;
               software: string;
               category: string;
+              demo: string;
+              repo: string;
             }) => {
               const {
                 id,
@@ -159,6 +179,8 @@ const FeaturedWork = () => {
                 technologyUsed,
                 software,
                 category,
+                demo,
+                repo,
               } = item;
               const image = getImage(featuredImage);
               const originalSource = featuredImage.childImageSharp.original.src;
@@ -168,6 +190,7 @@ const FeaturedWork = () => {
                   role="button"
                   onKeyDown={e => {
                     if (e.key === 'Enter') {
+                      dispatch({ type: 'DISABLE_SCROLL', payload: true });
                       setSelectedImage({
                         image,
                         title,
@@ -177,10 +200,13 @@ const FeaturedWork = () => {
                         originalSrc: originalSource,
                         software,
                         category,
+                        demo,
+                        repo,
                       });
                     }
                   }}
-                  onClick={() =>
+                  onClick={() => {
+                    dispatch({ type: 'DISABLE_SCROLL', payload: true });
                     setSelectedImage({
                       image,
                       title,
@@ -190,8 +216,10 @@ const FeaturedWork = () => {
                       originalSrc: originalSource,
                       software,
                       category,
-                    })
-                  }
+                      demo,
+                      repo,
+                    });
+                  }}
                   key={id}
                   layoutId={`${id}`}
                 >
@@ -216,6 +244,7 @@ const FeaturedWork = () => {
               onClick={e => {
                 if (e.target === overlayRef.current) {
                   setSelectedImage(null);
+                  dispatch({ type: 'DISABLE_SCROLL', payload: false });
                 }
               }}
               initial={{ opacity: 0 }}
@@ -240,7 +269,7 @@ const FeaturedWork = () => {
                   <ReactMarkdown>{selectedImage.description}</ReactMarkdown>
                   {selectedImage.technologyUsed && (
                     <div className="technologies-used">
-                      <h2 className="meta-header"> Technologies used</h2>
+                      <h2 className="meta-header"> Technologies Used</h2>
                       {selectedImage.technologyUsed
                         .split(',')
                         .map((tech: string) => (
@@ -253,6 +282,20 @@ const FeaturedWork = () => {
                       <h2 className="meta-header">Software</h2>{' '}
                       <StyledTag>{selectedImage.software}</StyledTag>
                     </div>
+                  )}
+
+                  {selectedImage.demo && (
+                    <>
+                      <h2 className="meta-header">Demo</h2>
+                      <ReactMarkdown>{selectedImage.demo}</ReactMarkdown>
+                    </>
+                  )}
+
+                  {selectedImage.repo && (
+                    <>
+                      <h2 className="meta-header">Git Repository</h2>
+                      <ReactMarkdown>{selectedImage.repo}</ReactMarkdown>
+                    </>
                   )}
                 </div>
               </StyledSelectedModal>

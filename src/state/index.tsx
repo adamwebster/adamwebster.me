@@ -9,6 +9,7 @@ const initialState = {
         ? LightMode
         : DarkMode
       : LightMode,
+  scrollDisabled: false,
 };
 
 export const SiteContext = createContext({
@@ -17,7 +18,7 @@ export const SiteContext = createContext({
 });
 export const SiteContextConsumer = SiteContext.Consumer;
 
-type contextTypes = 'SET_THEME' | 'TOGGLE_THEME';
+type contextTypes = 'SET_THEME' | 'TOGGLE_THEME' | 'DISABLE_SCROLL';
 
 const reducer = (state: any, action: { payload: any; type: contextTypes }) => {
   const { payload, type } = action;
@@ -32,6 +33,11 @@ const reducer = (state: any, action: { payload: any; type: contextTypes }) => {
       return {
         ...state,
         theme: state.theme.name === 'dark' ? LightMode : DarkMode,
+      };
+    case 'DISABLE_SCROLL':
+      return {
+        ...state,
+        scrollDisabled: payload,
       };
     default:
       return state;

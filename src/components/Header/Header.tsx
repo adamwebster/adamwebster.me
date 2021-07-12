@@ -86,6 +86,21 @@ const Header = () => {
         ? LightMode.colors.primary
         : DarkMode.colors.primary
     );
+
+    root.style.setProperty(
+      '--color-buttonBackground',
+      globalState.theme.name === 'light'
+        ? LightMode.colors.button.background
+        : DarkMode.colors.button.background
+    );
+
+    root.style.setProperty(
+      '--color-inputBackground',
+      globalState.theme.name === 'light'
+        ? LightMode.colors.input.background
+        : DarkMode.colors.input.background
+    );
+
     root.style.setProperty(
       '--color-buttonText',
       globalState.theme.name === 'light'

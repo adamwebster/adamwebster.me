@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import { HTMLAttributes } from 'react';
 import { Button, Colors } from '@adamwebster/fused-components';
 import { AWMVariables } from './StyledVariables';
-import { darken, lighten } from 'polished';
 
 export const StyledContentWrapper = styled.div`
   max-width: 1248px;

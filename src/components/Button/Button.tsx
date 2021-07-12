@@ -1,7 +1,5 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import { darken, cssVar } from 'polished';
-import { AWMColors } from '../../styles/StyledVariables';
 
 interface ButtonProps extends React.HtmlHTMLAttributes<HTMLButtonElement> {
   buttonColor?: string;
