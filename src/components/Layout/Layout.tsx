@@ -1,34 +1,31 @@
 import React, { ReactNode, useContext, useEffect } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
-
-import {
-  Colors,
-  ToastProvider,
-  FCThemeProvider,
-} from '@adamwebster/fused-components';
-import { Header } from '../Header';
-import { Footer } from '../Footer';
+import { createGlobalStyle, css } from 'styled-components';
 import { SiteContext } from '../../state';
-import { BuyMeACoffeeWidget } from '../BuyMeACoffee';
+import { Footer } from '../Footer';
+import { Header } from '../Header';
 
-const GlobalStyle = createGlobalStyle`
+interface GSProps {
+  scrollDisabled: boolean;
+}
+const GlobalStyle = createGlobalStyle<GSProps>`
 html{
   scroll-behavior: smooth;
 }
   body{
     background-color:${({ theme }) =>
-      theme === 'dark' ? Colors.darkModeDarkest : Colors.light};    
+      `var(--color-background, ${theme.colors.backgroundColor})`};    
     font-family:'Helvetica Neue', sans-serif;
     font-size: 100%;
     line-height: 1.5;
-    color: ${({ theme }) =>
-      theme === 'dark' ? Colors.darkModeLight : Colors.dark};
+    color: ${({ theme }) => `var(--color-text, ${theme.colors.text})`};
     padding: 0;
     margin: 0;  
+    ${({ scrollDisabled }) =>
+      scrollDisabled &&
+      css`
+        overflow: hidden;
+      `}
   }
-  a {
-    color: ${({ theme }) => (theme === 'dark' ? '#8bbdfb' : '#0067E6')};
-    }
 h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 0.5em 0;
 	font-weight: 400;
@@ -45,45 +42,24 @@ figcaption{
   font-weight: 300;
 }
 
-
+a{
+  color: ${({ theme }) => `var(--color-primary, ${theme.colors.primary})`};
+}
 `;
 
 interface Props {
   children: ReactNode;
-  hero?: ReactNode;
 }
 
-const Layout = ({ children, hero }: Props) => {
-  const { globalState, dispatch } = useContext(SiteContext);
-
-  useEffect(() => {
-    if (
-      window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches
-    ) {
-      if (!globalState.darkModeSet)
-        dispatch({ type: 'SET_DARK_MODE', payload: true });
-    }
-    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
-      const toSet = e.matches ? true : false;
-      dispatch({ type: 'SET_DARK_MODE', payload: toSet });
-    });
-  }, []);
+const Layout = ({ children }: Props) => {
+  const { globalState } = useContext(SiteContext);
   return (
     <>
-      <FCThemeProvider
-        value={{ theme: globalState.darkMode ? 'dark' : 'light' }}
-      >
-        <ToastProvider>
-          <GlobalStyle theme={globalState.darkMode ? 'dark' : 'light'} />
-          <Header />
-          {hero && hero}
-          {children}
-          <Footer />
-        </ToastProvider>
-      </FCThemeProvider>
+      <GlobalStyle scrollDisabled={globalState.scrollDisabled} />
+      <Header />
+      {children}
+      <Footer />
     </>
   );
 };
-
 export default Layout;

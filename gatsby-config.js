@@ -40,8 +40,8 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `blog-post`,
-        path: `${__dirname}/content/blog`,
+        name: `article-post`,
+        path: `${__dirname}/content/articles`,
       },
     },
     {
@@ -130,6 +130,15 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: `UA-28069657-1`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `dosis\:200, 400, 700, 800`, // you can also specify font weights and styles
+        ],
+        display: 'block',
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

@@ -9,42 +9,42 @@ interface SLProps {
   primary?: boolean;
 }
 const StyledLink = styled(Link)<SLProps>`
-  color: ${({ primary }) => (primary ? '#fff' : Colors.primary)};
-  background-color: ${({ primary }) =>
-    primary ? Colors.primary : 'transparent'};
-  border-radius: ${AWMVariables.borderRadius};
-  padding: 5px 25px;
+  border-radius: 4px;
+  height: 44px;
   box-sizing: border-box;
-  text-align: center;
+  padding: 8px 16px;
   text-decoration: none;
   display: inline-block;
-  transition: all 0.2s ease 0s;
-  text-transform: uppercase;
-  ${({ primary }) =>
-    !primary &&
-    css`
-      border: solid 2px ${Colors.primary};
-    `}
+  background-color: ${({ theme }) =>
+    `var(--color-primary, ${theme.colors.primary})`};
+  color: ${({ theme }) =>
+    `var(--color-buttonText, ${theme.colors.button.textColor})`};
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
   &:hover {
-    background-color: ${({ primary }) =>
-      primary ? darken(0.1, Colors.primary) : ''};
-    transform: scale(1.05);
+    background-color: ${({ theme }) =>
+      `var(--color-buttonHover, ${theme.colors.button.hoverColor})`};
   }
 `;
 
 export const StyledLinkStandard = styled.a`
-  color: #fff;
-  background-color: ${Colors.primary};
-  border-radius: ${AWMVariables.borderRadius};
-  padding: 5px 25px;
-  box-sizing: border-box;
-  text-align: center;
-  text-decoration: none;
+  border-radius: 4px;
+  height: 44px;
+  padding: 8px 16px;
   display: inline-block;
-  transition: all 0.2s ease 0s;
+  box-sizing: border-box;
+  text-decoration: none;
+  background-color: ${({ theme }) =>
+    `var(--color-buttonBackground, ${theme.colors.button.background})`};
+  color: ${({ theme }) =>
+    `var(--color-buttonText, ${theme.colors.button.textColor})`};
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
   &:hover {
-    background-color: ${darken(0.1, Colors.primary)};
-    transform: scale(1.05);
+    background-color: ${({ theme }) =>
+      `var(--color-buttonHover, ${theme.colors.button.hoverColor})`};
   }
 `;
 

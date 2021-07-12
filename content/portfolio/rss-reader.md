@@ -8,6 +8,8 @@ draft: false
 technologyUsed: 'React, Javascript, HTML, CSS, Styled Components'
 description: 'I read a lot of RSS feeds and wanted to try and created a web version of an **RSS Reader** using **React**.'
 bgImage: 'images/krisztian-tabori-nZGNVOvEYio-unsplash.jpg'
+demo: '[RSS Reader](https://examples.adamwebster.me/rss)'
+repo: '[RSS Reader](https://github.com/adamwebster/react-tests/tree/master/src/pages/RSSReader)'
 ---
 import SectionHeader from '../../src/components/SectionHeader/SectionHeader';
 

@@ -7,6 +7,8 @@ featuredImage: 'images/PricingTable.png'
 technologyUsed: 'React, Javascript, HTML, CSS'
 draft: false
 description: 'This pricing table shows three different tiers of purchase levels. The one that should be purchased most of the time is shown larger.'
+demo: '[Pricing Table](https://examples.adamwebster.me/pricingtable)'
+repo: '[Pricing Table](https://github.com/adamwebster/react-tests/tree/master/src/pages/PricingTable/)'
 ---
 
 import SectionHeader from '../../src/components/SectionHeader/SectionHeader';
@@ -15,7 +17,7 @@ import SectionHeader from '../../src/components/SectionHeader/SectionHeader';
 
 **Technologies Used**: React, Javascript, HTML, CSS<br />
 **Demo:** [Pricing Table Demo](https://examples.adamwebster.me/pricingtable)<br />
-**GitHub Repo**: [Pricing Table Gatsby](https://github.com/adamwebster/react-tests/tree/master/src/pages/PricingTable/)
+**GitHub Repo**: [Pricing Table Repo](https://github.com/adamwebster/react-tests/tree/master/src/pages/PricingTable/)
 
 <SectionHeader>Description</SectionHeader>
 

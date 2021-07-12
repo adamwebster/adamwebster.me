@@ -1,7 +1,7 @@
 module.exports.local = {
   articles: `
     {
-    allBlogPost( sort: { order: DESC, fields: date } ) 
+    allArticlePost( sort: { order: DESC, fields: date } ) 
         {
             nodes {
                 id

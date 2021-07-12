@@ -8,6 +8,8 @@ featuredImageWidth: 600px
 technologyUsed: 'React, Javascript, HTML, CSS, Axios, Styled Components'
 draft: false
 description: 'I created this project to learn how to work with the **Spotify API**, specifically the playlist part of the API.'
+demo: '[Spotify Playlist Editor](https://examples.adamwebster.me/spotifyplaylist)'
+repo: '[Spotify Playlist Editor](https://github.com/adamwebster/react-tests/tree/master/src/pages/SpotifyPlaylist)'
 bgImage: 'images/mohammad-alizade-XgeZu2jBaVI-unsplash.jpg'
 ---
 

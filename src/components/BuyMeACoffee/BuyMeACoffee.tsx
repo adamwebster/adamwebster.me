@@ -5,13 +5,14 @@ import { AWMVariables, AWMColors } from '../../styles/StyledVariables';
 const StyledBMCButton = styled.a`
   padding: 7px 15px 7px 10px !important;
   line-height: 21px !important;
-  text-transform: uppercase;
   height: 34px !important;
   text-decoration: none !important;
   display: inline-flex !important;
-  color: #ffffff !important;
-  background-color: ${AWMColors.primaryColor};
-  border-radius: ${AWMVariables.borderRadius};
+  background-color: ${({ theme }) =>
+    `var(--color-buttonBackground, ${theme.colors.button.background})`};
+  color: ${({ theme }) =>
+    `var(--color-buttonText, ${theme.colors.button.textColor})`};
+  border-radius: 4px;
   border: 1px solid transparent !important;
   padding: 7px 15px 7px 10px !important;
   font-size: 16px !important;
@@ -34,9 +35,8 @@ const StyledBMCButton = styled.a`
   :active,
   :focus {
     text-decoration: none !important;
-    opacity: 0.85 !important;
-    color: #ffffff !important;
-    transform: scale(1.05);
+    background-color: ${({ theme }) =>
+      `var(--color-buttonHover, ${theme.colors.button.hoverColor})`};
   }
 `;
 const BuyMeACoffee = ({ ...rest }) => {
@@ -53,8 +53,8 @@ const BuyMeACoffee = ({ ...rest }) => {
           src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg"
           alt="Buy me a Hot Chocolate"
         />
-        <span style={{ marginLeft: 5 + 'px', fontSize: 19 + 'px !important;' }}>
-          Buy me a Hot Chocolate
+        <span style={{ marginLeft: 5 + 'px', fontSize: 19 + 'px !important' }}>
+          Buy me a hot chocolate
         </span>
       </StyledBMCButton>
     </>

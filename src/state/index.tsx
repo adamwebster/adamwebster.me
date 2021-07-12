@@ -1,12 +1,15 @@
 import React, { createContext, ReactElement } from 'react';
-import { Colors } from '@adamwebster/fused-components';
+import { DarkMode } from '../themes/DarkMode';
+import { LightMode } from '../themes/LightMode';
 
 const initialState = {
-  darkMode: false,
-  headerColor: Colors.primary,
-  hideLogo: false,
-  hasHero: true,
-  darkModeSet: false,
+  theme:
+    typeof window !== 'undefined'
+      ? window.localStorage.getItem('awm_theme_mode') === 'light'
+        ? LightMode
+        : DarkMode
+      : LightMode,
+  scrollDisabled: false,
 };
 
 export const SiteContext = createContext({
@@ -15,33 +18,26 @@ export const SiteContext = createContext({
 });
 export const SiteContextConsumer = SiteContext.Consumer;
 
-const reducer = (state: any, action: { payload: any; type: any }) => {
+type contextTypes = 'SET_THEME' | 'TOGGLE_THEME' | 'DISABLE_SCROLL';
+
+const reducer = (state: any, action: { payload: any; type: contextTypes }) => {
   const { payload, type } = action;
+  console.log('theme', state.theme.name);
   switch (type) {
-    case 'SET_DARK_MODE':
+    case 'SET_THEME':
       return {
         ...state,
-        darkMode: payload,
+        theme: payload,
       };
-    case 'SET_HEADER_COLOR':
+    case 'TOGGLE_THEME':
       return {
         ...state,
-        headerColor: payload,
+        theme: state.theme.name === 'dark' ? LightMode : DarkMode,
       };
-    case 'SET_LOGO_HIDDEN':
+    case 'DISABLE_SCROLL':
       return {
         ...state,
-        hideLogo: payload,
-      };
-    case 'SET_HAS_HERO':
-      return {
-        ...state,
-        hasHero: payload,
-      };
-    case 'SET_DARK_MODE_SET':
-      return {
-        ...state,
-        darkModeSet: payload,
+        scrollDisabled: payload,
       };
     default:
       return state;
