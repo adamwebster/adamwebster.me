@@ -9,7 +9,7 @@ import {
   faMinusSquare,
   faPlusSquare,
 } from '@fortawesome/free-solid-svg-icons';
-import { Button } from '@adamwebster/fused-components';
+import { Button } from '../Button';
 interface Props {
   children: any;
   className: any;
@@ -25,12 +25,7 @@ export default ({ children, className }: Props) => {
   return (
     <>
       <StyledShowCode>
-        <Button
-          primary
-          onClick={() => setShowCode(!showCode)}
-          style={{ borderRadius: 25 + 'px' }}
-        >
-          {' '}
+        <Button onClick={() => setShowCode(!showCode)}>
           {showCode ? 'Hide' : 'Show'} Code{' '}
           <FontAwesomeIcon
             style={{ marginLeft: 5 + 'px' }}

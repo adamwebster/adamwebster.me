@@ -11,13 +11,14 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { SiteContextProvider, SiteContext } from './src/state';
 
 import React, { useContext } from 'react';
-import FCThemeWrapper from './src/state/FCThemeWrapper';
+import SiteThemeWrapper from './src/state/SiteThemeWrapper';
+
 config.autoAddCss = false;
 
 export const wrapRootElement = ({ element }) => {
   return (
     <SiteContextProvider>
-      <FCThemeWrapper>{element}</FCThemeWrapper>
+      <SiteThemeWrapper>{element}</SiteThemeWrapper>
     </SiteContextProvider>
   );
 };

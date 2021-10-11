@@ -42,9 +42,9 @@ const mdxResolverPassthrough = fieldName => async (
 };
 
 module.exports = ({ createResolvers }, themeOptions) => {
-  let contentPath = 'content/blog';
+  let contentPath = 'content/article';
   const resolversFusedArticle = {
-    BlogPost: {
+    ArticlePost: {
       html: {
         type: 'String',
         resolve: markdownResolverPassthrough(`html`),
@@ -158,7 +158,7 @@ module.exports = ({ createResolvers }, themeOptions) => {
   createResolvers(resolversServiceItem);
 
   const resolversFusedArticleMDX = {
-    BlogPostMdx: {
+    ArticlePostMdx: {
       body: {
         type: 'String',
         resolve: mdxResolverPassthrough(`body`),

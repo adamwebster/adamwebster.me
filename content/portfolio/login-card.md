@@ -7,6 +7,8 @@ featuredImage: 'images/loginCard.png'
 technologyUsed: 'React, Javascript, HTML, CSS, Styled Components'
 draft: false
 description: 'This project was created to design and develop a login card that could be used for a web application.'
+demo: '[Login Card](https://examples.adamwebster.me/login)'
+repo: '[Login Card](https://github.com/adamwebster/react-tests/blob/master/src/pages/LoginPage.js)'
 ---
 
 import SetHeaderColor from '../../src/components/SetHeaderColor/SetHeaderColor';
@@ -19,7 +21,7 @@ import SectionHeader from '../../src/components/SectionHeader/SectionHeader';
 
 **Technologies Used**: React, Javascript, HTML, CSS, Styled Components <br />
 **Demo:** [Login Card Demo](https://examples.adamwebster.me/login)  <br />
-**GitHub Repo**: [Login Card Repp](https://github.com/adamwebster/react-tests/blob/master/src/pages/LoginPage.js)
+**GitHub Repo**: [Login Card Repo](https://github.com/adamwebster/react-tests/blob/master/src/pages/LoginPage.js)
 
 <SectionHeader>Description</SectionHeader>
 

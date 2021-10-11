@@ -31,8 +31,8 @@ module.exports = {
         name: `gatsby-starter-default`,
         short_name: `starter`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#FBFBFB`,
+        theme_color: `#d03030`,
         display: `minimal-ui`,
         icon: `src/assets/images/aw-icon.png`, // This path is relative to the root of the site.
       },
@@ -40,8 +40,8 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `blog-post`,
-        path: `${__dirname}/content/blog`,
+        name: `article-post`,
+        path: `${__dirname}/content/articles`,
       },
     },
     {
@@ -130,6 +130,15 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: `UA-28069657-1`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `dosis\:200, 400, 700, 800`, // you can also specify font weights and styles
+        ],
+        display: 'block',
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
