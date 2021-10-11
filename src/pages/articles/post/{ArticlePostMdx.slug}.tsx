@@ -97,14 +97,13 @@ interface Props {
 }
 
 const BlogPost = ({ data }: Props) => {
+  if (!data.articlePostMdx) return <></>;
   const {
     articlePostMdx: {
       title,
       featuredImage,
-      category,
       showCoffeeButton,
       path,
-      tagline,
       date,
       body,
     },
