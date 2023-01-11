@@ -57,7 +57,7 @@
     "gatsby-plugin-styled-components": "^4.0.0",
     "gatsby-remark-images": "^4.0.0",
     "gatsby-remark-prismjs": "^4.0.0",
-    "gatsby-transformer-remark": "^3.0.0",
+    "gatsby-transformer-remark": "^5.25.1",
     "path": "^0.12.7",
     "prettier": "2.2.1",
     "react-intersection-observer": "^8.31.0",
